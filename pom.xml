@@ -16,7 +16,7 @@
 
 	<modules>
 		<module>articles</module>
-		<!-- <module>letters</module> -->
+		<module>letters</module>
 	</modules>
 
 	<build>
