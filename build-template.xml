@@ -16,7 +16,8 @@
 	<property name="exec.dvips" value="dvips"/>
 	<property name="exec.ps2pdf" value="ps2pdf"/>
 	<property name="exec.xhlatex" value="xhlatex"/>
-
+	<property name="exec.bibtex" value="bibtex"/>
+	
 	<property name="dir.project.root" value="${basedir}" />
 	<property name="dir.project.src" value="${dir.project.root}/src/" />
 	<property name="dir.project.target" value="${dir.project.root}/target" />
@@ -54,10 +55,12 @@
          ================================= -->
 	<target name="compile" depends="" description="">
 		<antcall target="-latex" />
+		<antcall target="-bibtex" />
 		<antcall target="-latex" />
 		<copy file="${dir.project.target}/${latex.main.file}.dvi"  tofile="${dir.project.target}/${project.finalName}.dvi" />
 	</target>
 
+	
 	<!-- ================================= 
           target: package              
          ================================= -->
@@ -150,6 +153,16 @@
 		</exec>
 	</target>
 
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: -bibtex                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="-bibtex">
+    	<exec executable="${exec.bibtex}">
+			<arg line="${dir.project.target}/${latex.main.file}.aux"/>
+		</exec>
+    </target>
+
+	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: -dvips                      
          - - - - - - - - - - - - - - - - - -->

@@ -17,6 +17,7 @@
 	<modules>
 		<module>articles</module>
 		<module>letters</module>
+		<module>thesis</module>
 	</modules>
 
 	<build>
