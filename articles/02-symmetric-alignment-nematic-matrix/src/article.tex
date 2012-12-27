@@ -1,0 +1,964 @@
+\documentclass[aps,pre,twocolumn,groupedaddress,showpacs]{revtex4}
+
+%============================================================================
+%		packages
+%============================================================================
+\usepackage[final]{graphics}	% for graphics
+\usepackage[final]{graphicx}	% for graphics
+\usepackage{subfigure}		% allow subfigure
+\usepackage{amssymb}		% font
+\usepackage{amstext}		% ams latex package
+\usepackage{amsmath}		% font
+\usepackage{amsfonts}		% font
+\usepackage{amsbsy}		% font
+\usepackage{hhline}		% nice lines is tables
+\usepackage{xspace}		% add space at the end of macros
+\usepackage{color}
+
+%============================================================================
+%		Macros - figures
+%============================================================================
+\newlength{\picH}	% picture height
+\newlength{\picW}	% picture width
+\newcommand{\picA}{270}	% picture angle
+
+\picW = 8cm
+\newcommand{\picB}[1]{\fbox{\includegraphics[width=\picW]{#1}}}
+\newcommand{\picLB}[1]{\fbox{\includegraphics[height=\picW, angle=\picA]{#1}}}
+
+\newcommand{\pic}[1]{\includegraphics[width=\picW]{#1}}
+\newcommand{\picL}[1]{\includegraphics[height=\picW, angle=\picA]{#1}}
+
+\newlength{\htab}
+\htab=1mm
+\newcommand{\hsp}{\hspace*{\htab}}
+
+\newlength{\vtab}
+\vtab=3mm
+\newcommand{\vsp}{\vspace*{\vtab}}
+
+\hyphenation {qua-dru-pole mol-e-cules thermal-ly}
+
+%============================================================================
+%============================================================================
+\begin{document}
+
+\graphicspath
+{
+{../imgs/}
+}
+
+
+%============================================================================
+%	Title infos
+%============================================================================
+\title{Symmetric alignment of the nematic matrix \\
+between close penetrable colloidal particles}
+
+
+\author{P.I.C. Teixeira}
+\affiliation{Faculdade de Engenharia, Universidade Cat\'{o}lica Portuguesa,
+Estrada de Tala\'{\i}de, P-2635-631 Rio de Mouro, Portugal}
+
+
+\author{F.Barmes and D.J. Cleaver}
+
+\affiliation{Materials Research Institute, Sheffield Hallam University \\
+Pond Street, Sheffield S1 1WB, United Kingdom}
+
+
+\date{25 November 2003}
+
+
+\pacs{61.30Gd, 61.30Cz}
+
+%============================================================================
+%	Abstract
+%============================================================================
+\begin{abstract}
+A simple model is proposed for the liquid crystal matrix surrounding 
+`soft' colloidal particles whose separation is much smaller than their 
+radii. We use our implementation of the Onsager approximation of 
+density-functional theory [A. Chrzanowska, P. I. C. Teixeira, 
+H. Ehrentraut and D. J. Cleaver, J. Phys.: Condens.\ Matter {\bf 13}, 
+4715 (2001)] to calculate the structure of a nanometrically thin film
+of hard Gaussian overlap particles of elongations $\kappa=3$  and
+$\kappa=5$, confined between two solid walls. The penetrability of 
+either substrate can be tuned independently to yield symmetric or 
+hybrid alignment. Comparison with Monte Carlo simulations of the same 
+system [D. J. Cleaver and P. I. C. Teixeira, Chem.\ Phys.\ Lett.\ 
+{\bf 338}, 1 (2001); F. Barmes and D. J. Cleaver (unpublished)] reveals 
+good agreement in the symmetric case.
+
+\vspace{1cm}
+\end{abstract}
+
+%============================================================================
+%	Make title
+%============================================================================
+\maketitle
+
+
+
+%============================================================================
+%============================================================================
+\section{Introduction}
+\label{sect-intro}
+
+
+A {\it nematic colloid}, sometimes called {\it inverted nematic emulsion}, 
+is a dispersion of isotropic particles, either rigid (grains) or deformable 
+(e.g., water droplets), in a nematic liquid crystal (LC) \cite{Stark:2001}.
+Because the nematic director is anchored on the surface of the (nearly always 
+quasi-spherical) inclusions, distortions of the director field are induced 
+which in turn give rise to effective interactions between the inclusions 
+themselves. These can be manipulated by treating the walls of the container, 
+applying fields, or coating the surfaces of the colloidal particles, in order
+to produce various states of aggregation, e.g., strings along the director
+lines \cite{Poulin:1997}. Nematic colloids are therefore ideal model systems 
+to study topological defects, and one important practical application appears
+to be the suspension of abrasive particles in lyotropic mesophases. 
+In a newer variant, inclusions of size exceeding the cholesteric pitch (radius
+$\sim 1$ $\mu$m) are dispersed in a well-aligned cholesteric sample. Here the 
+colloidal particles stabilise a network of defects by residing at its nodes, 
+thereby transforming the cholesteric liquid into a new type of material 
+exhibiting gel-like rheological properties \cite{Zapotocky:1999}. 
+This study was later extended to the simpler system consisting of smaller 
+(radii $150-200$ nm) particles in a nematic host: upon quenching the initial 
+homogeneously-mixed colloid from the isotropic (I) to the nematic (N) state, 
+the particles were seen to phase-separate and aggregate into thin walls, 
+bounding domains of practically pure nematic LC \cite{Val}. The 
+resulting metastable, but relatively long-lived, cellular structure exhibited 
+dramatically enhanced mechanical strength, with an elastic modulus $G^{\prime}
+\ge 10^5$ Pa and a well-defined yield stress, which are functions of particle
+concentration. 
+\par
+In all the above, the colloidal particles are much larger than the LC 
+molecules, which can then be regarded as a continuum background. Effective 
+interaction potentials between colloidal particles have been derived, 
+analytically in some limits, more generally numerically, using either 
+Frank theory (below the I--N transition) \cite{Poulin:1997,Terentjev} 
+or Landau-de Gennes (LdG) theory (above the I--N transition) \cite{Galatola}; 
+more recent work considered Van der Waals, steric, elctrostatic and 
+LC-mediated contributions \cite{Stark:2000}. However, continuum-based 
+approaches are expected to fail when the interparticle separation 
+becomes of the order of a few LC molecular sizes, as in fully-formed 
+aggregates. Furthermore, especially in the case of LdG theory, the solution 
+method is heavy, and affords little insight into the physics of the problem. 
+Finally, evaluation of the three- and more-particle contributions
+(these effective potentials being in general not pairwise additive) 
+becomes prohibitively complicated \cite{Galatola}: one would like to 
+be able to obtain the different terms as functions of the microscopic 
+potential parameters, and in a systematic, well-controlled manner. 
+\par
+The complexity of the task at hand requires that we start our attack from 
+the very beginning: take the simplest molecular model of a LC and squeeze 
+it to nanometric thickness; then find the free energy dependence on particle
+separation, and hence the effective interaction. Here we carry out only 
+the first part of this programme, leaving the second for future work.
+In a previous paper \cite{Chrzanowska:2001} we showed how the simple  
+Onsager approximation of density-functional theory could provide a 
+semi-quantitatively accurate description of the structure of a fluid
+of hard rods confined between two hard, impenetrable walls, provided 
+allowance was made, in a phenomenological way, for the incorrect  
+prediction of the location of the isotropic--nematic (I--N) transition. 
+In the present paper we apply the same strategy to symmetric films confined 
+between flat substrates of variable penetrability, in order to mimic different 
+anchoring conditions. This is not unreasonable as a first approach, 
+in view of the large disparity of the typical lengthscales of LC 
+molecules -- a few nm -- and inclusions -- hundereds of nm (but 
+see \cite{Groh} for an attempt to consider curved hard surfaces).
+\par
+This paper is organised as follows: in section \ref{sect-theory} we 
+recapitulate the theory of \cite{Chrzanowska:2001} and extend it to
+the case of unequal anchorings at the confining walls. Then in section 
+\ref{sect-results} we present results for the density and order parameter 
+profiles of LC films subject to symmetrical anchoring conditions, and 
+compare them with those obtained by Monte Carlo (MC) simulation 
+\cite{Cleaver:2001,Barmes:2003}. Finally in section \ref{sect-concl} 
+we discuss the potential and limitations of our approach, and outline some 
+directions for future research. 
+
+
+%============================================================================
+%============================================================================
+\section{Theory}
+\label{sect-theory}
+
+As before, we take as a representation of uniaxial rod-like particles
+the hard Gaussian overlap (HGO) potential used previously in 3d bulk 
+simulations and Onsager theory of lyotropic LC behaviour 
+\cite{Kike:1997,deMiguel:2001} (i.e., where the LC phase transitions 
+are driven by density, rather than temperature, changes): 
+
+\begin{equation}
+\label{eq:gbp}
+U_{12}({\bf r}_{12},\omega_1,\omega_2) = \left\{\begin{array}{ll}
+0 &\mbox{if $r_{12} \geq \sigma(\hat{\bf r}_{12},\omega_1,\omega_2)$} \\
+\infty & \mbox{if $r_{12} < \sigma(\hat{\bf r}_{12},\omega_1,\omega_2)$}
+\end{array} \right. ,
+\end{equation}
+
+where $\omega_i=(\theta_i,\phi_i)$ are the polar and azimuthal angles 
+describing the orientation of the long axis of particle $i$, and 
+$\hat{\bf r}_{12}={\bf r}_{12}/r_{12}$ is a unit vector along the line
+connecting the centres of the two particles. The range parameter function 
+is given by
+%%
+%%
+\begin{multline}
+\label{eq:closest}
+%
+\sigma(\hat{\bf r}_{12},\omega_1,\omega_2) = 
+\sigma_0  \left[ 1 - \frac{1}{2}\chi
+\left\{ { {(\hat{\bf r}_{12}\cdot \hat u_1 +\hat{\bf r}_{12}\cdot\hat u_2)^2} \over{1+\chi(\hat u_1\cdot\hat u_2)}}+
+\right. \right.\\
+\left. \left.
+{{(\hat{\bf r}_{12}\cdot\hat u_1 -\hat{\bf r}_{12}\cdot\hat u_2)^2} \over{1-\chi(\hat u_1\cdot\hat u_2)}} \right\} 
+\right]^{-{1\over 2}},
+\end{multline}
+%%
+%%
+where $\hat u_i = (\cos\phi_i\,\sin\theta_i,\sin\phi_i\,
+\sin\theta_i,\cos\theta_i)$ and $\chi = (\kappa^2 - 1)/(\kappa^2 + 1)$,
+$\kappa$ being the particle length to breadth ratio, $\sigma_L/ \sigma_0$.
+For moderate $\kappa$, the HGO model is a good approximation to the
+hard ellipsoid (HE) contact function \cite{Perram:19XX,Allen:1993}; 
+furthermore, their virial coefficients (and thus their equations of state,
+at least at low to moderate densities) are very similar \cite{Steele:1987}. 
+However, this is no longer true of highly non-spherical particles
+\cite{Rigby}, for which the behaviour of the two models differs appreciably
+\cite{deMiguel:2001}: here we restrict ourselves to $\kappa=3$ and $\kappa=5$.
+Finally, HGOs have the considerable computational advantage over HEs that 
+$\sigma(\hat{\bf r}_{12},\omega_1,\omega_2)$, the distance 
+of closest approach between two particles, is given in closed form.
+
+Particle--substrate interactions have been modelled, as in 
+\cite{Cleaver:2001,Barmes:2003}, by a hard needle--wall potential
+%%
+%%
+\begin{equation}
+\label{eq:surf}
+U_{wall}(z,\theta) = \left\{ \begin{array}{ll}
+0 & \mbox{if $\left|z-z_0 \right| \geq
+\frac{L}{2}\cos\theta$}\\
+\infty & \mbox{if $\left|z-z_0\right| < \frac{L}{2}\cos\theta$}      
+\end{array} \right.
+\end{equation}
+%%
+%%
+where the $z$-axis has been chosen to be perpendicular 
+to the substrate, located at $z_0$, and $0\le L\le \sigma_L$
+sets the length of the needle with which the substrate interacts. Here, $L$
+affords us a degree of control over the anchoring properties: physically, 
+$0< L< \sigma_L$ corresponds to a system where the molecules are able to 
+embed their side groups, but not the whole length of their cores, into the
+bounding walls. Varying $L$ between 0 and $\sigma_L$ is therefore equivalent 
+to changing the degree of penetrability of the substrates in an experimental
+situation, e.g., by manipulating the density or the orientation of an 
+adsorbed surface layer. This can be done independently at either substrate,
+whereby symmetric or hybrid anchoring conditions can be obtained. 
+\par
+The equilibrium density distribution of a HGO film is that which 
+minimises its grand-canonical functional \cite{Evans:1979}:
+%%
+%%
+%\begin{eqnarray}
+%\label{eq:grand}
+%\beta\Omega\left[\rho({\bf r},\omega)\right]&=&
+%\beta {\cal F}\left[\rho({\bf r},\omega)\right]
+%+\beta\int \left[\sum_{\alpha=1}^2 U_{wall}(\theta,|z-z_0^{\alpha}|)
+%-\mu\right]\rho({\bf r},\omega)\,d{\bf r}d\omega \nonumber \\
+%&=&\int \rho({\bf r},\omega)\left[\log \rho({\bf
+%r},\omega) -1\right]\,d{\bf r}d\omega\nonumber \\
+%& &\mbox{}-{1\over 2}\int\rho({\bf r}_1,\omega_1)
+%f_{12}({\bf r}_1,\omega_1,{\bf r}_2,\omega_2)
+%\rho({\bf r}_2,\omega_2)\,d{\bf r}_1 d\omega_1 d{\bf r}_2 d\omega_2
+%\nonumber \\
+%& &\mbox{}+\beta\int \left[\sum_{\alpha=1}^2
+%U_{wall}(|z-z_0^{\alpha}|,\theta)
+%-\mu\right]\rho({\bf r},\omega)\,d{\bf r}d\omega,
+%\end{eqnarray}
+%%
+%%
+\begin{widetext}
+\begin{eqnarray}
+\label{eq:grand}
+\beta\Omega\left[\rho({\bf r},\omega)\right]&=&
+\beta {\cal F}\left[\rho({\bf r},\omega)\right]
+%%
+%%
++\beta\int \left[\sum_{\alpha=1}^2 U_{wall}(\theta,|z-z_0^{\alpha}|)
+-\mu\right]\rho({\bf r},\omega)\,d{\bf r}d\omega\nonumber\\
+%%
+%%
+&=&\int \rho({\bf r},\omega)\left[\log \rho({\bf
+r},\omega) -1\right]\,d{\bf r}d\omega\nonumber
+-{1\over 2}\int\rho({\bf r}_1,\omega_1)
+f_{12}({\bf r}_1,\omega_1,{\bf r}_2,\omega_2)
+\rho({\bf r}_2,\omega_2)\,d{\bf r}_1 d\omega_1 d{\bf r}_2 d\omega_2\\
+%%
+&+&\beta\int \left[\sum_{\alpha=1}^2
+U_{wall}(|z-z_0^{\alpha}|,\theta)
+-\mu\right]\rho({\bf r},\omega)\,d{\bf r}d\omega,
+\end{eqnarray}
+\end{widetext}
+%%
+%%
+where ${\cal F}\left[\rho({\bf r},\omega)\right]$ is the intrinsic
+Helmholtz free energy of the inhomogeneous fluid, $f_{12}({\bf 
+r}_1,\omega_1,{\bf r}_2,\omega_2)=\exp\left[-\beta U_{12}({\bf
+r}_1,\omega_1,{\bf r}_2,\omega_2)\right]-1$ is its Mayer function, 
+$\mu$ is the chemical potential, $z_0^{\alpha}$ ($\alpha=1,2$) are the 
+positions of the two substrates, and, because we are dealing with hard-body
+interactions only, for which the temperature is an irrelevant variable, we
+can set $\beta=1/k_{\rm B}T=1$ in all practical calculations (we retain it
+in the formulae for generality). $\rho({\bf r},\omega)$ is the
+density-orientation profile in the presence of the external potential
+$U_{wall}(z,\theta)$; it is normalised 
+to the total number of particles $N$,
+%%
+%%
+\begin{equation}
+\label{eq:rhonorm}
+\int \rho({\bf r},\omega)\,d{\bf r}d\omega = N,
+\end{equation}
+%%
+%%
+and is related to the probability that a particle positioned at 
+${\bf r}$ has orientation between $\omega$ and $\omega+d\omega$
+From equation (\ref{eq:gbp}) it follows
+that the interaction term in equation (\ref{eq:grand}) is just the
+excluded volume of two HGO particles, weighted by the density-orientation
+distributions $\rho({\bf r},\omega)$. This equation constitutes the
+Onsager approximation to the free energy of the confined HGO fluid.
+\par
+Because the particle-substrate interaction, equation (\ref{eq:surf}), 
+only depends on $z$ and $\theta$, it is reasonable to assume that there 
+is no in-plane structure, so that all quantities are functions of $z$ only. 
+Then equation (\ref{eq:grand}) simplifies to 
+%%
+%%
+\begin{multline}
+\label{eq:grandz}
+%%
+{{\beta\Omega\left[\rho(z,\omega)\right]}\over{S_{xy}}}=
+\int \rho(z,\omega)\left[\log \rho(z,\omega) -1\right]\,dz 
+d\omega\\
+%%
+%%
+-{1\over 2}\int\rho(z_1,\omega_1)
+\Xi(z_1,\omega_1,z_2,\omega_2)\\
+%%
+%%
+\times\rho(z_2,\omega_2)\,dz_1 d\omega_1 dz_2 d\omega_2
+\\
+%%
+%%
+\mbox{}+\beta\int \left[\sum_{\alpha=1}^2
+U_{wall}(|z-z_0^{\alpha}|,\theta)
+-\mu\right]\rho(z,\omega)\,dz d\omega,
+\end{multline}
+%%
+%%
+where $S_{xy}$ is the interfacial area. 
+$\Xi(z_1,\omega_1,z_2,\omega_2)$ is now the area of a slice
+(cut parallel to the bounding plates) of the excluded volume of two HGO
+particles of orientations $\omega_1$ and $\omega_2$ and centres at $z_1$
+and $z_2$ \cite{Poniewierski:1993}, for which an analytical expression has 
+been derived \cite{Kike:1998}. Note that each surface particle experiences 
+an environment that has both polar {\it and} azimuthal anisotropy, as a 
+consequence of the excluded-volume interactions between the particles in 
+addition to the `bare' wall potential.
+\par
+Minimisation of the grand canonical functional, equation (\ref{eq:grandz}),
+\begin{equation}
+\label{eq:domegadrho}
+{{\delta \Omega\left[\rho(z,\omega)\right]}\over
+{\delta\rho(z,\omega)}}=0,
+\end{equation}
+yields the Euler-Lagrange equation for the density-orientation profile,
+\begin{equation}
+\label{eq:rhozomega}
+\log\rho(z,\omega)=\beta\mu - \int^{\prime} 
+\Xi(z,\omega,z^{\prime},\omega^{\prime})
+\rho(z^{\prime},\omega^{\prime})\,dz^{\prime}d\omega^{\prime},
+\end{equation}
+where the effect of the wall potentials, given by equation
+(\ref{eq:surf}), has been incorporated through restriction of the 
+range of integration over $\theta$:
+\begin{equation}
+\label{eq:angint}
+\int^{\prime}d\omega = \int_0^{2\pi}d\phi \int^{\theta_m}_{\pi-\theta_m} 
+\sin\theta\,d\theta = \int_0^{2\pi}d\phi
+\int^{\cos\theta_m}_{-\cos\theta_m}\,dx,
+\end{equation}
+with 
+\begin{equation}
+\cos\theta_{m}= \left\{ \begin{array}{ll}
+1 & \mbox{if $|z-z_0| \ge {L\over 2}$} \\
+{{|z-z_0|}\over{L/2}} & \mbox{if $|z-z_0| < {L\over 2}$} 
+\end{array} \right. ,
+\end{equation}
+$z_0$ being, we recall, the position of a substrate.
+\par
+It is clear from the structure of equation (\ref{eq:rhozomega}) that $\mu$
+is the Lagrange multiplier associated with requiring that the mean number
+of particles in the system be $N$. We are therefore at liberty to fix 
+either $\mu$ or $N$ (see also discussion in \cite{Allen:1999}): as in 
+earlier work we opt for the latter, since it allows closer contact with 
+(constant $NVT$) simulation.
+\par
+Once $\rho(\omega,z)$ has been found, we can integrate out the angular
+dependence to get the density profile,
+\begin{equation}
+\label{eq:rhoz}
+\rho(z)=\int \rho(z,\omega)\,d\omega,
+\end{equation}
+and use this result to define the orientational distribution function 
+(ODF) $\hat f(z,\omega)=\rho(z,\omega)/\rho(z)$, from which we can
+calculate the orientational order parameters in the laboratory-fixed
+frame \cite{MTG:1984}:
+\begin{eqnarray}
+\label{eq:eta}
+\eta(z)&=&\langle P_2(\cos\theta )\rangle = Q_{zz}, \\
+\label{eq:epsilon}
+\varepsilon(z)&=&\langle\sin 2\theta\,\sin \phi \rangle 
+={4\over 3}Q_{yz},\\
+\label{eq:nu}   
+\nu(z)&=&\langle \sin 2\theta\,\cos\phi \rangle = {4\over 3}Q_{xz}, \\
+\label{eq:sigma}
+\varsigma(z)&=&\langle \sin^2\theta\,\cos 2\phi \rangle =
+{2\over 3}(Q_{xx}-Q_{yy}), \\
+\label{eq:tau}
+\tau(z)&=&\langle \sin^2\theta\,\sin2\phi \rangle = {4\over 3}Q_{xy},
+\end{eqnarray}
+where $\langle {\cal A}\rangle =\int {\cal A}\hat f(z,\omega)\,d\omega$.
+These are the five independent components of the nematic order
+parameter tensor, $Q_{\alpha\beta}=\langle {1\over
+2}(3\hat\omega_\alpha\hat\omega_\beta-\delta_{\alpha\beta})\rangle$: they
+give the fraction of molecules oriented along the $z$-axis ($Q_{zz}$); along 
+the bisectors of the $yz$-, $xz$- and $xy$-quadrants ($Q_{yz}$, $Q_{xz}$ and
+$Q_{xy}$, respectively); and the difference between the fractions of molecules
+oriented along the $x$- and $y$-axes ($Q_{xx}-Q_{yy}$). 
+In the case under study there is no twist, i.e., the director is confined 
+to a plane that we can take as the $xz$ plane and $\varepsilon(z)=\tau(z)=0$. 
+The three remaining order parameters, $\eta(z)$, $\nu(z)$ and $\varsigma(z)$, 
+are in general all non-zero owing to surface-induced biaxiality, see our 
+earlier work for $L=\sigma_L$ \cite{Chrzanowska:2001}. This effect has not 
+been neglected in the present treatment, but in what follows we show results 
+for $\eta(z)=Q_{zz}$ only, as we wish to concentrate on the 
+planar-to-homeotropic transition.
+
+
+
+\section{Results}
+
+\label{sect-results}
+
+
+In earlier work \cite{Chrzanowska:2001} we found that that the second-virial 
+approximation does not give an accurate prediction for the location or the 
+width of the I--N transition of particles of moderate 
+elongation, as the contribution of higher virial coefficients is then
+substantial. Therefore it does not make much sense to perform comparisons 
+of theory and simulation at the same density. To circumvent this difficulty 
+we have, as in a previous paper, resorted to extending a phenomenological 
+scaling originally proposed by McDonald {\it et al.} \cite{Friederike:2000}
+in the context of the I--N interface: comparison is instead effected 
+between state points from theory and simulation characterised by the same 
+$d_{bulk}\equiv (\rho_{bulk}-\rho_I)/(\rho_N-\rho_I)$. Table \ref{table1}
+lists the I--N coexistence densities we have used, obtained from the theory 
+of \cite{Chrzanowska:2001}, and from thermodynamic integration of a 
+500-particle system \cite{deMiguel:2001}. The latter results are in reasonably 
+good agreement with those of two MC studies: the earlier constant-$NpT$ 
+simulation of a 256-particle system by Padilla and Velasco \cite{Kike:1997}, 
+and the later constant-$NVT/NpT$ simulations of a 1000-particle system by 
+two of us \cite{Barmes:2003}.\\
+
+\begin{table}
+\begin{center}
+\begin{tabular}{||ccccc||}
+	\hhline{|t:=====:t|}
+	$\kappa$	&$\rho^{*,th}_I$ & $\rho^{*,th}_N$ &$\rho^{*,sim}_I$   &$\rho^{*,sim}_N$\\
+	\hhline{||-----||}
+	\hsp$3$\hsp	&\hsp$0.830100$\hsp	&\hsp$0.864356$\hsp	&\hsp$0.2990$\hsp	&\hsp$0.3046$\hsp\\
+	\hhline{||-----||}
+	$5$		&$0.210731$		&$0.234746$		&$0.1192$		&$0.1275$ \\
+	\hhline{|b:=====:b|}
+	\end{tabular}
+\end{center}
+
+\caption{Bulk I--N coexistence densities of HGOs from theory ({\it th}) 
+\protect\cite{Chrzanowska:2001} and simulation ({\it sim}) 
+\protect\cite{deMiguel:2001}.}
+\label{table1} 
+\end{table}
+
+We emphasise that there is no fundamental 
+reason why such a scaling should work, and that a proper validation would
+require both a more sophisticated theoretical treatment (along the lines
+of, e.g., \cite{Somoza:1989} or \cite{Friederike:2002}) and a more reliable 
+location by MC of the I--N transition of the confined HGO fluid, to allow 
+for a possible shift relative to the bulk (`capillary nematisation') 
+\cite{Sluckin:1987,VanRoij:1999,Barmes:2003}. Still, we regard the procedure 
+adopted as the best working tool for comparison of these systems that is 
+available at the moment. The unscaled densities at which simulation runs and 
+theory calculations have been performed are collected in Table \ref{table2}.\\
+
+\begin{table}
+\begin{center}
+\begin{tabular}{||c|c|c|c||}
+	\hhline{|t:====:t|}
+	$\kappa$   &$d_{bulk}$   &$\rho^{*,th}$   &$\rho^{*,sim}$ \\
+	\hhline{||----||}
+	$3$   &$-3.39285298$   &$0.713874491$   &$0.28$ \\
+	$3$   &$7.32142242$   &$1.08090251$   &$0.34$ \\
+	$5$   &$-1.10843372$   &$0.18411197$   &$0.11$ \\
+	$5$   &$2.50602458$   &$0.270913166$   &$0.14$ \\
+	\hhline{|b:====:b|}
+\end{tabular}
+\end{center}
+\caption{Scaled densities $d_{bulk}$ used in figures 
+(\protect\ref{fig1})--(\protect\ref{fig4}) for comparison of theory
+({\it th}) and simulation ({\it sim}) results: $d_{bulk}$ is positive
+(negative) in the bulk nematic (isotropic) phase. $\rho^{*,th}$ and 
+$\rho^{*,sim}$ are the unscaled densities at which the theoretical 
+calculations and the simulations have been performed.} 
+\label{table2} 
+\end{table}
+
+Equation (\ref{eq:rhozomega}) was solved iteratively for $\rho(z,\omega)$ 
+by the Picard method, with an admixture parameter of 0.9 (i.e., 90\% of `old' 
+solution in each iteration), starting from a uniform and isotropic profile. 
+Following Chrzanowska \cite{Chrzanowska:unpub}, integrations were performed 
+by Gauss-Legendre quadrature, using 64 $z$-points (the minimum necessary to
+resolve the structure of profiles at the higher densities considered) and
+$16\times 16$ $\omega$-points (for consistence with the bulk calculation
+reported in \cite{Chrzanowska:2001}). Note that the range of $\omega^{\prime}$ 
+depends on $z^{\prime}$: the closer a particle is to a substrate, the fewer 
+orientations are accessible. In order to achieve good accuracy it is 
+nevertheless crucial to include the same number of points in the angular 
+integrations for all $z^{\prime}$ \cite{Chrzanowska:unpub}. Convergence 
+was deemed to have been achieved when the error, defined as sum of the 
+absolute values of differences between consecutive iterates at 
+$64\times 16\times 16= 16384$ points), was less than $10^{-1}$.
+The density and order parameter profiles were then calculated from 
+equations (\ref{eq:rhoz}) and (\ref{eq:eta})--(\ref{eq:tau}), respectively. 
+Details of the simulations have been published elsewhere 
+\cite{Cleaver:2001,Barmes:2003}.\\
+
+\picW=8cm
+\begin{figure}
+	\picB{bigbridfig1.eps}
+	%%
+	\caption{Scaled density $d(z)$ (top) and order parameter $Q_{zz}(z)$ (bottom)
+	profiles for a symmetrical film of HGO particles of elongation $\kappa=5$ and 
+	$L^*=3.0$ ($L/\sigma_L=0.6$), for $d_{bulk}=-1.10843372$ (solid line and 
+	circles) and $2.50602458$ (dashed line and squares). Lines are from theory, 
+	symbols are from simulation. At the higher density, which lies in the nematic 
+	region of the bulk phase diagram, alignment is planar throughout the film, 
+	as shown by the fact that $Q_{zz}(z)<0$ everywhere. See the text and table 
+	\protect\ref{table2} for details.}
+\label{fig1}
+\end{figure}
+
+
+In Figure \ref{fig1} we plot $d(z)$ and $Q_{zz}(z)$ profiles for a symmetrical 
+film of HGO particles of elongation $\kappa=5$ and $L^*=L/\sigma_0=3.0$, 
+which exhibits uniform planar alignment \cite{Cleaver:2001,Barmes:2003}. 
+Equilibrium density peak formation is captured reasonably well by theory, 
+which however underestimates the height of the peaks and the depth of the 
+troughs, especially at the higher density. For $d_{bulk}=-1.10843372$, 
+$Q_{zz}(z)$ is everywhere zero except in the surface layers (the high-density
+peaks at $|z-z_0^{\alpha}|\sim 0$, $\alpha=1,2$), by which we mean 
+the regions where the rotational freedom of a particle is restricted by the 
+presence of the walls. Because the walls are impenetrable to a `needle' of 
+length $L$, see equation (\ref{eq:surf}), the thickness of these layers is 
+$\sim L/2= 1.5\sigma_0$: in order to reside there a particle has to be 
+parallel to the wall, hence $Q_{zz}(z)<0$.
+We speculate that the $Q_{zz}(z)$ peaks at $|z-z_0^{\alpha}|\sim L/2$
+are due to excluded volume effects: particles are unable to minimise their 
+free energy by retaining full rotational freedom, and thus give rise to 
+a zero order parameter, by the presence of the adsorbed surface layers at 
+$|z-z_0^{\alpha}|\le L/2$. It is then advantageous for them to align 
+homeotropically so as to stick their ends through the wall and thereby
+decrease the total excluded volume inside the system.
+%Furthermore, note that the $Q_{zz}(z)$ peaks at 
+% $\sim L/2$  correspond to the nearest particles can get to a wall and still 
+%retain full rotational freedom, hence boost both their orientational and 
+%translational entropies by being weakly ordered in a fairly dense region.
+At the higher density $d_{bulk}=2.50602458$ there is again good agreement 
+between theory and simulation for $Q_{zz}(z)$, presumably because the degree 
+of order is now quite large and close to saturation.\\
+
+\picW=8cm
+\begin{figure}
+	\picB{bigbridfig2p.eps}
+	\caption{Same as figure \protect\ref{fig1}, but for $L^*=2.0$ 
+	($L/\sigma_L=0.4$). Now alignment at the higher density is homeotropic 
+	throughout most of the film, as can be seen from the fact that $Q_{zz}(z)>0$ 
+	except in regions of width $\sim L/2=1.25\sigma_0$ close to the walls.}
+	\label{fig2}
+\end{figure}
+
+
+Figure \ref{fig2} shows the same quantities but for $L^*=2.0$, for which 
+alignment is perpendicular to the walls \cite{Cleaver:2001,Barmes:2003}. 
+The density peaks, the highest of which now occur at 
+$|z-z_0^{\alpha}|\sim L/2=\sigma_0$, 
+are even more pronounced than for $L^*=3.0$, and likewise 
+underestimated by theory. In particular, simulation appears to show the 
+formation of some 5 layers, whereas theory bears out only 4. The $Q_{zz}(z)$ 
+profiles from both theory and simulation are very similar to those for 
+$L^*=3.0$ at the lower density, but theory overestimates the degree of 
+order at the higher density.\\
+
+\picW=8cm
+\begin{figure}
+	\picB{bigbridfig3.eps}
+	%%
+	\caption{Scaled density $d(z)$ (top) and order parameter $Q_{zz}(z)$ (bottom)
+	profiles for a symmetrical film of HGO particles of elongation $\kappa=3$ 
+	and $L^*=1.8$ ($L/\sigma_L=0.6$), for $d_{bulk}=-3.39285298$ (solid line and 
+	circles) and $7.32142242$ (dashed line and squares). Lines are from theory, 
+	symbols are from simulation. At the higher density, which lies in the nematic 
+	region of the bulk phase diagram, alignment is planar throughout the film,
+	as in figure \protect\ref{fig1}. Now the Onsager approximation severely 
+	underestimates the degree of structure of $d(z)$. See the text 
+	and table \protect\ref{table2} for details.}
+	\label{fig3}
+\end{figure}
+
+\picW=8cm
+\begin{figure}
+	\picB{bigbridfig4.eps}
+	%%
+	%%
+	\caption{Same as figure \protect\ref{fig3}, but for $L^*=1.2$ 
+	($L/\sigma_L=0.4$). Now alignment at the higher density is homeotropic 
+	throughout most of the film but planar in regions of width 
+	$\sim L/2=0.6\sigma_0$ close to the walls, as in figure \protect\ref{fig2}.}
+	\label{fig4}
+\end{figure}
+
+
+Figures \ref{fig3} and \ref{fig4} illustrate planar and homeotropic alignment 
+for the smaller elongation $\kappa=3$: now the Onsager approximation is 
+expected to fare worse, and indeed it underestimates the structure of the
+density profiles $d(z)$ rather severely: neither the heights nor the positions 
+of most peaks are predicted with even semi-quantitative accuracy. Still, the 
+mean values of $Q_{zz}(z)$ are reasonably faithfully reproduced, as well as
+the fact that the density peaks are farther apart for homeotropic than for
+planar anchoring, as expected.\\
+%%
+It is a nearly universal rule that the behaviour of $Q_{zz}(z)$ follows that
+of $d(z)$, i.e., regions of high density are also more highly ordered. The
+exceptions are the surface layers of homeotropically-anchored films, where 
+there are very few but very strongly aligned particles (see figures \ref{fig2}
+and \ref{fig4}).\\
+%%
+In table \ref{table3} we present the approximate $L/\sigma_L=L^*/\kappa$ at
+which there is a crossover from homeotropic to planar `bulk' alignment. 
+Unsurprisingly, the agreement between theory and simulation is better for
+the larger elongation, $\kappa=5$. 
+Insight can be gained into the anchoring transition by noting that, 
+in the limit of perfect orientational and positional order, the
+Helmholtz free energy of this system is minimised by the arrangement 
+that maximises the particle volume absorbed into the substrates. The
+homeotropic-to-planar transition is then given by equating the ratio 
+of the volume absorbed into the substrates to the area occupied by the
+particle on the substrates (i.e., the projection of the particles onto 
+the substrates) for the two key arrangements. In the limit of perfect
+order, symmetry details of the packing can be ignored in this calculation 
+since they must be the same for both anchorings; the two arrangements 
+will map onto each other via suitable affine transformations
+These two competing tendencies yield a crossover needle 
+length $L/\sigma_L=L^*/\kappa\sim 0.4817$ for $\kappa=3$ and 
+$L/\sigma_L=L^*/\kappa\sim 0.6084$ for $\kappa=5$, which are in line with 
+our results: in particular, it is an increasing function of $\kappa$. Such 
+quantitative discrepancies as there are likely follow from having assumed 
+(contrary to observation) that there is close packing at the walls: as we
+saw above, theory in particular systematically underestimates the contact 
+densities. See \cite{Barmes:2003} for details. As the bulk HGO fluid does
+not exhibit any smectic phases, we do not expect the crossover $L$ to depend
+on system size, provided the latter is greater than twice the distance to 
+which a single wall induces stratification.\\
+
+\begin{table}
+\begin{center}
+\begin{tabular}{||c|c|c|c||}
+	\hhline{|t:====:t|}
+	$\kappa$   &$(L/\sigma_L)^{th}$   &$(L/\sigma_L)^{sim}$   &$(L/\sigma_L)^{analyt}$ \\
+	\hhline{||----||}
+	$3$   &$(0.55,0.56)$   &$(0.45,0.46)$   &0.4817 \\
+	$5$   &$(0.56,0.58)$   &$(0.50,0.52)$   &0.6084 \\
+	\hhline{|b:====:b|}
+\end{tabular}
+\end{center}
+\caption{Film alignment crosses over from homeotropic to planar for 
+$L/\sigma_L=L^*/\kappa$ in each of the intervals shown. From theory 
+({\it th}) and simulation ({\it sim}) (this work), and the analytical 
+estimates of \protect\cite{Barmes:2003} ({\it analyt}).}
+\label{table3} 
+\end{table}
+\newpage
+
+
+Interestingly, on the homeotropic side just before (i.e., at $L$ marginally 
+below that of) the crossover, the density profiles exhibit very pronounced 
+peaks and troughs, which smooth out dramatically once the system has gone 
+planar, see figure \ref{fig5}. In particular, note the double-peaked structure
+close to the walls at the larger $L$, which suggests that the interface
+layers exhibit both planar and homeotropic features. As far as we can tell 
+the transition is fairly abrupt, occurring in an interval of $L^*$ of width 
+$0.1$ (alternatively, in an interval of $L/\sigma_L$ of width $0.02$ ).
+Simulation results suggest \cite{Barmes:2003} that there may be bistability 
+close to the transition, i.e., both homeotropic and planar anchoring states
+stable for the same $L$. We were able to get the theory to converge to the 
+`wrong' anchoring (homeotropic for $L^*=2.9$, with higher free energy than 
+planar) by strongly biassing the initial guess: more work is needed to 
+establish whether this is real or an artifact of the numerical method.\\
+%%
+\picW=8cm
+\begin{figure}
+	\picB{bigbridfig5.eps}
+	\caption{Scaled density $d(z)$ (top) and order parameter $Q_{zz}(z)$ (bottom)
+	profiles for a symmetrical film of HGO particles of elongation $\kappa=5$ and 
+	reduced density $d_{bulk}=2.50602458$ on either side of the crossover from 
+	homeotropic to planar anchoring. Theory: $L^*=2.8$ or $L/\sigma_L=0.56$ (solid 
+	line), $L^*=2.9$ or $L/\sigma_L=0.58$ (dashed line). Simulation: $L^*=2.5$ or
+	$L/\sigma_L=0.5$ (circles), $L^*=2.6$ or $L/\sigma_L=0.52$ (squares). Note the 
+	high degree of layering when the homeotropically aligned film is just about 
+	to go planar. See the text and table \protect\ref{table3} for details.}
+	\label{fig5}
+\end{figure}
+%%
+Finally, attention is drawn to the fact that all comparisons in this section 
+have been effected at constant density and varying $L$. This is the natural 
+thing to do, as $N$, the particle number, and $|z_0^1-z_0^2|$, the system 
+size, are fixed in the MC simulations. Note, however, that because particles
+can partially penetrate the substrates, the volume accessible to them is a 
+function not just of $|z_0^1-z_0^2|$, but also of $L$, the needle length: the 
+smaller $L$, the deeper a particle can sink, and thus effectively the larger
+the system. It then follows that the {\it imposed} total density (what we 
+referred to above as simply `the density'), found by dividing the number of 
+particles by the wall separation times the wall area, is not the {\it actual} 
+or {\it true} density. It is possible to estimate the system volume increase 
+as a function of the type of anchoring and ultimately of $L$, and thereby 
+get the `true' density \cite{Barmes:2003}. Yet here we have elected not to 
+do this and used instead the imposed, `uncorrected' density: though it
+may not be an absolutely unambiguous descriptor in the microscopic sense,
+it is what is set in simulations and measured in experiments. Furthermore,
+in order to keep the `true' density constant we would require knowledge of
+the actual system volume and therefore of what anchoring would come out of 
+a given calculation or simulation prior to running it -- a not impossible, 
+but rather unwieldy, iterative task.
+
+
+\section{Conclusions}
+
+\label{sect-concl}
+
+
+In this paper we have presented a density-functional treatment of a HGO
+fluid confined between parallel walls of tunable penetrability. 
+Despite its simplicity, the Onsager approximation can in some cases yield
+semi-quantitative results for the density and orientational distribution
+of particles of elongation as small as $\kappa=5$ (but not $\kappa=3$).
+This simple model for the structure of the nematic matrix squeezed
+between tight-packed colloidal particles captures effects missed by the 
+more current Frank and LdG theories, namely to do with layering. Moreover, 
+the solution procedure also yields the free energy, thus making it possible 
+to derive the effective interaction between walls/particles. This will 
+be the subject of future work.
+\par
+When comparing theory and simulation, account
+has to be taken of the fact that they yield rather different I--N 
+transition densities and widths. This is due to our neglect of 
+correlations of order higher than second-virial, which are relevant
+in the range of densities of interest. Greater predictive power would 
+require a far more sophisticated approach, such as a weighted-density 
+\cite{Somoza:1989} or fundamental-measure \cite{Friederike:2002} 
+approximation. The development 
+and implementation of such a scheme are, however, highly non-trivial.
+In keeping with our aim of assessing the validity and usefulness of 
+the Onsager approach, we instead adapted a phenomenological scaling of the 
+density first proposed by Allen and collaborators \cite{Friederike:2000}.
+Agreement for symmetric films is fairly good, in spite of the smallness
+of $\kappa$, but its quality is strongly dependent on the accuracy of 
+the isotropic and nematic coexistence densities as determined independently 
+by either theory or simulation. We have not addressed the fact that these 
+are (sometimes dramatically) shifted from their bulk values by both 
+confinement and wall penetrability \cite{Barmes:2003}.
+\par
+The theory can also be applied to hybrid films. It would be particularly 
+interesting to see whether it is able to describe: (i) the more common 
+uniform and bent-director structures already predicted \cite{Barbero:1983} 
+and observed \cite{BlinovMazulla}; (ii) the discontinuous transition between
+these two structures found by ourselves \cite{Cleaver:2001}; and (iii) the 
+more exotic biaxial structure in which two strata of film, each with a uniform 
+director orientation dictated by the nearest wall, are separated by a sharp 
+interface \cite{Palffy}. Both (ii) and (iii) depend crucially on the anchoring
+strengths at the two substrates being large and dissimilar or large and 
+similar, respectively. However, preliminary calculations
+suggest that our chosen mechanism of making the walls partially penetrable
+to particles produces much stronger homeotropic than parallel anchoring.
+This would need to be checked by a direct calculation of the anchoring 
+energy, similar to that performed in \cite{Allen:1999}. A more ambitious 
+aim would be to be able to shed some light on the observation by Vandenbrouck 
+{\it et al.} \cite{Vanden} of spinodal dewetting of the nematogen 5CB 
+spun-cast onto silicon wafers, where hybrid anchoring was enforced by 
+conflicting boundary conditions: orthogonal at the free surface, and planar 
+at the silicon substrate. Such behaviour was initially interpreted in terms 
+of a competition between elasticity and van der Waals forces \cite{Vanden},
+but subsequent arguments have related it to the fluctuation-induced 
+interactions that underlie the pseudo-Casimir effect \cite{Ziherl}.
+\par
+The present theory can be straightforwardly generalised to more
+sophisticated surface interactions, and also to mixtures of two or  
+more types of hard body. One can envisage a very rich behaviour of a 
+confined binary mixture where the two components have different easy
+axes at either substrate.
+
+
+\section*{Acknowledgements}
+
+We are grateful to C. M. Care, A. Chrzanowska, J. R. Henderson, Y. Mao, 
+A. Poniewierski, E. Velasco, P. Ziherl and S. \v{Z}umer for stimulating 
+discussions. F. Barmes acknowledges Sheffield Hallam University's Materials 
+Research Institute for a research student bursary.
+%P. I. C. Teixeira acknowledges partial funding from the
+%Funda\c{c}\~{a}o para a Ci\^{e}ncia e Tecnologia (Portugal). 
+
+
+
+
+\begin{thebibliography}{99}
+
+
+\bibitem{Stark:2001} H. Stark, Phys.\ Rep.\ {\bf 351}, 387 (2001).
+
+\bibitem{Poulin:1997} P. Poulin, V. A. Raghunathan, P. Richetti and D. Roux, 
+J. Phys.\ II {\bf 4}, 1557 (1994); P. Poulin, H. Stark, T. C. Lubensky and 
+D. A. Weitz, Science {\bf 275}, 1770 (1997).
+
+\bibitem{Zapotocky:1999} M. Zapotocky, L. Ramos, P. Poulin, T. C. Lubensky
+and D. A. Weitz, Science {\bf 283}, 209 (1999).
+
+\bibitem{Val} S. P. Meeker, W. C. K. Poon, J. Crain and E. M. Terentjev, 
+Phys.\ Rev.\ E {\bf 61}, R6083 (2000); 
+V. J. Anderson, E. M. Terentjev, S. P. Meeker, J. Crain and
+W. C. K. Poon, Eur.\ Phys.\ J. E {\bf 4}, 11 (2001); V. J. Anderson and 
+E. M. Terentjev, {\it ibid.} {\bf 4}, 21 (2001); P. G. Petrov and E. M. 
+Terentjev, Langmuir {\bf 17}, 2942 (2001).
+
+\bibitem{Terentjev} R. W. Ruhwandl and E. M. Terentjev, Phys.\ Rev.\ E
+{\bf 55}, 2958 (1997); {\it ibid.} {\bf 56}, 5561 (1997); 
+T. C. Lubensky, D. Pettey and N. Currier, Phys.\ Rev.\ E {\bf 57}, 610 (1998);
+P. Poulin and D. A. Weitz, Phys.\ Rev.\ E {\bf 57}, 626 (1998);
+E. M. Terentjev, in {\it Modern Aspects of Colloidal Dispersions}, ed.\ by
+R. H. Ottewill and A. R. Rennie (Kluwer, Dordrecht, 1998), p.\ 257.
+
+\bibitem{Galatola} P. Galatola and J.-B. Fournier, Molec.\ Cryst.\ Liq.\
+Cryst. {\bf 330}, 535 (1999); A. Bor\v{s}tnik, H. Stark and S. \v{Z}umer,
+Phys.\ Rev.\ E {\bf 60}, 4210 (1999);
+Phys.\ Rev.\ Lett.\ {\bf 86}, 3915 (2001);
+Phys.\ Rev.\ E {\bf 65}, 032702 (2002); P. Galatola, J.-B. Fournier and
+H. Stark, Phys.\ Rev.\ E {\bf 67}, 031404 (2003).
+
+\bibitem{Stark:2000} A. Bor\v{s}tnik, H. Stark and S. \v{Z}umer,
+Phys.\ Rev.\ E {\bf 61}, 2831 (2000).
+
+\bibitem{Chrzanowska:2001} A. Chrzanowska, P. I. C. Teixeira, H. Eherentraut
+and D. J. Cleaver, J. Phys.: Condens.\ Matter {\bf 13}, 4715 (2001).
+
+\bibitem{Groh} B. Groh and S. Dietrich, Phys.\ Rev.\ E {\bf 59}, 4216 (1999);
+B. Groh, {\it ibid.} {\bf 59}, 5606 (1999).
+
+\bibitem{Cleaver:2001} D. J. Cleaver and P. I. C. Teixeira, Chem.\ Phys.\
+Lett.\ {\bf 338}, 1 (2001).
+
+\bibitem{Barmes:2003} F. Barmes and D. J. Cleaver (unpublished).
+
+\bibitem{Kike:1997} P. Padilla and E. Velasco, J. Chem.\ Phys.\ {\bf 106},
+10299 (1997).
+
+\bibitem{deMiguel:2001} E. de Miguel and E. Mart\'{\i}n del Rio, 
+J. Chem.\ Phys.\ {\bf 115}, 9072 (2001).
+
+\bibitem{Perram:19XX} J. W. Perram and M. S. Wertheim,
+J. Comput.\ Phys.\ {\bf 58}, 409 (1985); J. W. Perram,
+J. Rasmussen, E. Praestgaard and J. L. Lebowitz, Phys.\ Rev.\ E {\bf 54},
+6565 (1996).
+
+\bibitem{Allen:1993} M. P. Allen, G. T. Evans, D. Frenkel and
+B. M. Mulder, Adv.\ Chem.\ Phys.\ {\bf 86}, 1 (1993).
+
+\bibitem{Steele:1987} V. R. Bhethanabotla and W. Steele, Molec.\ Phys.\
+{\bf 60}, 249 (1987).
+
+\bibitem{Rigby} M. Rigby, Molec.\ Phys.\ {\bf 68}, 687 (1989);
+S. L. Huang and V. R. Bhethanabotla, Int.\ J. Mod.\ Phys.\ C {\bf 10}, 
+361 (1999). 
+
+\bibitem{Evans:1979} R. Evans, Adv.\ Phys.\ {\bf 28}, 143 (1979).
+
+\bibitem{Poniewierski:1993} A. Poniewierski, Phys.\ Rev.\ E {\bf 47}, 3396
+(1993). 
+
+\bibitem{Kike:1998} E. Velasco and L. Mederos,
+J. Chem.\ Phys.\ {\bf 109}, 2361 (1998). 
+
+\bibitem{Chrzanowska:unpub} A. Chrzanowska, J. Comput.\ Phys.\ {\bf 191},
+265 (2003).
+
+\bibitem{Allen:1999} M. P. Allen, Molec.\ Phys.\ {\bf 96}, 1391 (1999);
+J. Chem.\ Phys.\ {\bf 112}, 5447 (2000).
+
+\bibitem{MTG:1984} M. M. Telo da Gama, Molec.\ Phys.\ {\bf 52}, 585
+(1984); {\it ibid.} {\bf 52}, 611 (1984).
+
+\bibitem{Friederike:2000} A. J. McDonald. M. P. Allen and F. Schmid,
+Phys.\ Rev.\ E {\bf 63}, 010701(R) (2001). 
+
+\bibitem{Somoza:1989} A. M. Somoza and P. Tarazona, J. Chem.\ Phys.\
+{\bf 91}, 517 (1989); E. Velasco, L. Mederos and D. E. Sullivan,
+Phys.\ Rev.\ E {\bf 62}, 3708 (2000).  
+
+\bibitem{Friederike:2002} G. Cinacchi and F. Schmid, J. Phys.: Condens.\
+Matter {\bf 14}, 12189 (2002).
+
+\bibitem{Sluckin:1987} A. Poniewierski and T. J. Sluckin Liq.\ Cryst.\
+{\bf 2}, 281 (1987).
+
+\bibitem{VanRoij:1999} R. van Roij, M. Dijkstra and R. Evans,
+Europhys.\ Lett.\ {\bf 49}, 350 (2000); J. Chem.\ Phys.\ {\bf 113}, 7689
+(2000); Phys.\ Rev.\ E {\bf 63}, 051703 (2001).
+
+\bibitem{Barbero:1983} G. Barbero and R. Barberi, J. Phys.\ (Paris)
+{\bf 44}, 609 (1983).
+
+\bibitem{BlinovMazulla} L. M. Blinov, D. B. Subachyus and S. V. Yablonsky,
+J. Phys.\ II (Paris) {\bf 1}, 459 (1991); A. Mazulla, F. Ciuchi and J. R. 
+Sambles, Phys.\ Rev.\ E {\bf 64}, 021708 (2001).
+
+\bibitem{Palffy} P. Palffy-Muhoray, E. C. Gartland and J. R. Kelly,
+Liq.\ Cryst.\ {\bf 16}, 713 (1994); H. G. Galabova, N. Kothekar and D. W.
+Allender, Liq.\ Cryst.\ {\bf 23}, 803 (1997); A. \v{S}arlah and S. \v{Z}umer,
+Phys.\ Rev.\ E {\bf 60}, 1821 (1999); I. Rodr\'{\i}guez-Ponce, J. M. 
+Romero-Enrique and L. F. Rull, Phys.\ Rev.\ E {\bf 64}, 051704 (2001);
+C. Chiccoli, P. Pasini, A. \v{S}arlah, C. Zannoni and S. \v{Z}umer, 
+Phys.\ Rev.\ E {\bf 67}, 050703 (2003).
+
+\bibitem{Vanden} F. Vandenbrouck, M. P. Valignat and A. M. Cazabat,
+Phys.\ Rev.\ Lett.\ {\bf 82}, 2693 (1999). 
+
+\bibitem{Ziherl} P. Ziherl, R. Podgornik and S. \v{Z}umer,
+Phys.\ Rev.\ Lett.\ {\bf 84}, 1228 (2000);
+P. Ziherl, F. K. P. Haddadan, R. Podgornik
+and S. \v{Z}umer, Phys.\ Rev.\ E {\bf 61}, 5361 (2000).
+
+\end{thebibliography}
+
+\end{document}

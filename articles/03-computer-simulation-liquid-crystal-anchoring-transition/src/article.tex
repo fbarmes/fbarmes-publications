@@ -1,0 +1,1258 @@
+
+
+%%\documentclass[a4paper,12pt,onecolumn]{article}
+\documentclass[aps,10pt,twocolumn]{revtex4}
+
+%===============================%
+%                               %
+%   packages                    %
+%                               %
+%===============================%
+\usepackage{graphics}		% for graphics
+\usepackage{graphicx}		% for graphics
+\usepackage{calc}			% allow calculations
+\usepackage{subfigure}      % allow subfigure
+\usepackage{amssymb}        % font
+\usepackage{amstext}        % ams latex package
+\usepackage{amsmath}        % font
+\usepackage{amsfonts}       % font
+\usepackage{amsbsy}			% font
+\usepackage{float}			% figure HERE
+\usepackage{color}			% allow use of color
+\usepackage{fancybox}       % nice boxes
+\usepackage{graphpap}       % to use graphpaper in pictures
+\usepackage{hhline}			% nice lines is tables
+\usepackage{xspace}			% add space at the end of macros
+%%\usepackage{cite}			%compress down long lists of refs
+
+%%\usepackage{ifthen}		% implementation of \ifthenelse{}{}
+%%\usepackage{caption2}     % to change the caption font
+
+%===============================%
+%                               %
+%   new commands                %
+%                               %
+%===============================%
+\newcommand{\remark}[1]{\textbf{\textcolor{red}{#1}}}
+\newcommand{\remove}[1]{}
+\newcommand{\linespacing}[1]{\renewcommand{\baselinestretch}{#1}\large\normalsize}
+\newcommand{\mrm}[1]{\mathrm{#1}}
+\newcommand{\eqn}[1]{\mbox{$#1$} }
+\newcommand{\vect}[1]{ \mathbf{#1} }
+\newcommand{\vecth}[1]{ \mathbf{\hat{#1} } }
+\newcommand{\gvect}[1]{\forcebold{#1}}
+\newcommand{\gvecth}[1]{\forcebold{\hat{#1}}}
+
+\newcommand{\dotproduct}[2]{\vect{#1} \cdot \vect{#2}   }
+
+\newlength{\tabul}
+\newcommand{\TAB}{\hspace*{\tabul}}
+
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+\newcommand{\lcurl}{\left\{}    %}
+\newcommand{\rcurl}{\right\}} %{
+
+
+%============================================================================
+%           Contact distance related macros
+%============================================================================
+
+\newcommand{\so}{\sigma_0}
+\newcommand{\sel}{\sigma_\ell}
+
+\newcommand{\rij}{\vecth{r}_{ij}}
+\newcommand{\ui}{\vecth{u}_i}
+\newcommand{\uj}{\vecth{u}_j}
+\newcommand{\sijr}{\sigma(\ui,\uj,\rij)}
+\newcommand{\dotProdP}[2]{ \left( #1 \cdot #2 \right) }
+\newcommand{\dotProd}[2]{ #1 \cdot #2 }
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\lc}{\left[}
+\newcommand{\rc}{\right]}
+
+\newcommand{\sir}{\sigma(\ui,\vect{r}_{ij})}
+\newcommand{\drui}{d_i\lc\dotProdP{\ui}{\rij}\rc}
+\newcommand{\lrui}{\ell_i\lc\dotProdP{\ui}{\rij}\rc}
+
+\newcommand{\druj}{d_j\lc\dotProdP{\uj}{\rij}\rc}
+\newcommand{\lruj}{\ell_j\lc\dotProdP{\uj}{\rij}\rc}
+
+\newcommand{\druiSq}{d_i^2\lc\dotProdP{\ui}{\rij}\rc}
+\newcommand{\lruiSq}{\ell_i^2\lc\dotProdP{\ui}{\rij}\rc}
+
+\newcommand{\drujSq}{d_j^2\lc\dotProdP{\uj}{\rij}\rc}
+\newcommand{\lrujSq}{\ell_j^2\lc\dotProdP{\uj}{\rij}\rc}
+
+\newcommand{\eijr}{\epsilon(\ui,\uj,\rij)}
+\newcommand{\eo}{\epsilon_0}
+\newcommand{\eOne}{\epsilon_1}
+\newcommand{\eTwo}{\epsilon_2}
+
+\newcommand{\ijr}{\ui,\uj,\rij}
+\newcommand{\uo}{\vecth{u}_o}
+\newcommand{\uof}{\vecth{u}_o^{f}}
+\newcommand{\uofp}{\vecth{u}_o^{f^\prime}}
+
+\newcommand{\un}{\vecth{u}_n}
+\newcommand{\unf}{\vecth{u}_n^{f}}
+\newcommand{\unfp}{\vecth{u}_n^{f^\prime}}
+
+\newcommand{\kSp}{k_S^{\prime}}
+
+\newcommand{\etal}{\emph{et al.}\@\xspace}
+\newcommand{\ie}{\emph{i.e.}\@\xspace}
+\newcommand{\eg}{\emph{e.g.}\@\xspace}
+\newcommand{\etc}{etc.\@\xspace}
+
+
+\parindent = 0pt    %no indentation
+
+%===============================%
+%                               %
+%   document parameter          %
+%                               %
+%===============================%
+
+
+%%\parskip 12pt
+
+%line spacing report requires double spacing
+%%\def\dsp{\def\baselinestretch{2.0}\large\normalsize}
+
+
+%===============================%
+%                               %
+%   page style and size         %
+%                               %
+%===============================%
+%%\oddsidemargin = 0.6in                 % 40mm left margin
+%%\textwidth = 5.75in                    % 20mm right margin
+%%\textheight = 9.1in                    % 20mm from page number to bottom
+%%\voffset = -0.5in                      % lift up
+
+
+
+
+%=======================================%
+%                                       %
+%   beginning of the document           %
+%                                       %
+%=======================================%
+
+\begin{document}
+
+\graphicspath
+{
+{../imgs/}
+}
+
+%=======================================================================================
+%           TITLE
+%=======================================================================================
+\title{Computer simulation of a liquid crystal anchoring transition.}
+
+\author{F. Barmes}
+\affiliation{Centre Europ\'een de Calcul Atomique et Mol\'eculaire, 46 All\'{e}e
+d'Italie, 69007 Lyon, France}
+
+
+\author{D.J. Cleaver}
+
+\affiliation{Materials Research Institute, Sheffield Hallam University,
+Sheffield S1 1WB, United Kingdom}
+
+
+
+\pacs{61.30.-v 64.70Md 61.30.Cz68.08.-p}
+
+\date{\today}
+
+
+
+%=======================================================================================
+%           ABSTRACT
+%=======================================================================================
+\begin{abstract}
+We present a study of the effects of confinement on a system of hard Gaussian overlap particles interacting with
+planar substrates through the hard-needle--wall potential. Using geometrical arguments to calculate the molecular
+volume absorbed at the substrates, we show that both planar and homeotropic arrangements can be obtained using
+this model. Monte Carlo simulations are then used to perform a systematic study of the model's behaviour as a
+function of the system density and the hard-needle--wall interaction parameter. As well as showing the homeotropic
+to planar anchoring transition, the anchoring phase diagrams computed from these simulations indicate regions of
+bistability. This bistable behaviour is examined further through the explicit simulation of field-induced two-way
+switching between the two arrangements.
+\end{abstract}
+\maketitle
+%=======================================================================================
+%           INTRODUCTION
+%=======================================================================================
+
+\section{Introduction}
+
+Confinement of a liquid crystal has a symmetry breaking effect; this induces both positional layering and
+orientational coupling which is transmitted to the bulk alignment through a mechanism called
+anchoring~\cite{Jerome91}. While the former effect is a universal consequence of
+confinement~\cite{Schoen96,Schoen96a}, the latter is specific to mesogenic systems. For these, three main
+arrangements for the particles close to the surface can be observed, namely homeotropic, planar and tilted. A
+range of azimuthal anchoring states are also possible. Upon change of experimental conditions, modification of the
+surface arrangement can be observed to lead to a change in the bulk alignment; such an event is called an
+anchoring transition~\cite{Jerome91}.
+
+Experimental studies of confined liquid crystals have reported that anchoring transitions can be achieved by
+various means such as change in temperature~\cite{PatelYokoyama93,JagemalmKomitov1997,BarberiGiocondo98} or the
+conformation of the aligning agent~\cite{ZhuLu94,ZhuWei94}. Incident radiation can also induce anchoring
+transitions by selectively switching the conformations of substrate molecules and, thus, modifying the interfacial
+interactions~\cite{BarberoPopaNita00}. Alternatively, the absorption behaviour of a liquid crystal at a solid
+substrate, either directly~\cite{AlkhairallaAllison99,AlkhairallaBoden02}, or through the introduction of a second
+species~\cite{Jerome93}, can lead to anchoring transitions if the density of absorbed particles or the nature of
+the absorption is changed. One last example is that in which a multistable anchored system which, preferentially
+adopts one of its possible conformation due to its treatment
+history~\cite{Jerome91,StoenescuMartinotLagarde99}, is switched into an alternative state by, e.g., an appropriate
+applied field.
+
+Although a number of mechanisms underlying anchoring transitions have been raised (see~\cite{Sluckin95} for a
+review) rather few theoretical analyses have been performed. Teixeira and
+Sluckin~\cite{TeixeiraSluckin92,TeixeiraSluckin92a} used a Landau-de Gennes free energy  functional to study the
+planar to homeotropic anchoring transition in liquid crystal systems confined by  different substrates. They found
+a rich anchoring behaviour which helped in the identification of mechanisms responsible for the anchoring
+transitions, specifically, the compositions of binary mixtures of liquid crystals and the amount of absorption at
+the surface. Subsequently Teixeira~\etal~\cite{TeixeiraSluckin93} used a Landau-de Gennes formalism to observe a
+temperature driven anchoring transition at the interface between a liquid crystal and smooth solid surface, thus
+confirming the experimental findings. The effect of non-uniform substrates (\ie microtexture) has also been
+studied using a Landau-de Gennes formalism~\cite{ZhengQianSheng96,ZhengQianSheng97}. This work found
+temperature-driven phase-transitions between states with different tilt angles.
+
+In the field of molecular simulations, the effects of confinement on liquid crystalline systems has been
+increasingly well studied, and all of the surface arrangements listed above have been obtained through appropriate
+choices of particle-surface interaction potential. Using various parameterizations of the Gay-Berne
+model~\cite{GayBerne81} and taking the particle-wall contact distance to be that between a rod and a sphere, both
+tilted and planar anchoring states have been observed~\cite{ZhangChakrabarti96, WallCleaver97, LathamCleaver00,
+WallCleaver03}. If, alternatively, the surface is represented using a monolayer of spheres, the particle-substrate
+interaction can be designed to induce either homeotropic or planar anchoring~\cite{GruhnSchoen97, GruhnSchoen98,
+GruhnSchoen98a}. Using hard ellipsoids confined so that their centres of mass interacted sterically with smooth
+substrates, Allen~\cite{Allen99} observed homeotropic surface arrangement. Subsequently van
+Roij~\etal\cite{VanRoijDijkstra00, VanRoijDijkstra00a, DijkstraVanRoij01} investigated the behaviour of hard
+spherocylinders at a hard smooth wall and observed surface-induced wetting and planar ordering. These studies also
+showed that the planar arrangement is the natural state of hard-rod nematic phase in contact with a flat surface.
+Chrzanowska~\etal and Cleaver~\etal\cite{Chrzanowska_Teixera_01, Cleaver_Teixeira_01} used the hard Gaussian
+overlap (HGO) model~\cite{BernePechukas72} (\ie a hard version of the Gay-Berne model) to investigate confined
+symmetric and hybrid anchored films using the hard-needle--wall (HNW) potential as a surface model. Here,
+simulations of symmetrically anchored systems showed that, with appropriate tuning, this surface model can induce
+either homeotropic or planar anchoring, a finding which we expand upon in the current article.
+
+Liquid crystal adsorption has also been studied using simulations of all-atom models, investigating, for
+example, the behaviour of 8CB on various substrates~\cite{CleaverTildesley94, YoneyaIwakabe95, CleaverCallaway95}.
+These studies gave results which were largely consistent with scanning tunneling microscopy investigations with
+respect to the structure of the observed planar arrangements. A more systematic series of simulation was performed
+subsequently by Binger and Hanna~\cite{BingerHanna99, BingerHanna00, BingerHanna01} who simulated the adsorption
+of several liquid crystals (\eg 5CB, 8CB, MBF). Systems ranging from single molecules up to two monolayers
+anchored on different polymeric substrates (\eg PE, PVE, Nylon 6) were investigated. From this, the authors found
+that, for most substrates, the liquid crystals adopted planar arrangements with some specific conformations being
+favoured; conversely, Doerr and Taylor~\cite{DoerrTaylor99, DoerrTaylor99a} reported preferential homeotropic
+anchoring from their simulations of 5CB on amorphous PE.
+
+Comparatively, the
+literature on computer simulations of anchoring transitions is extremely scarce. Using HGO and HNW potentials for,
+respectively, intermolecular and surface interactions, Cleaver and Teixeira~\cite{Cleaver_Teixeira_01} have found
+a density-driven homeotropic to planar anchoring transition at one wall of a model cell with hybridly-set
+boundaries. Also, more recently, Lange and Schmid~\cite{LangeSchmid02,LangeSchmid02a,LangeSchmid02c} have observed
+an anchoring transition in a system of ellipsoidal Gay-Berne particles confined by grafted polymer chains. Here,
+the transition between tilted and homeotropic arrangements was induced by changes in the grafting density.
+
+In this paper, we use Monte Carlo simulations to study the effects of confinement on a system of model mesogenic
+particles and so gain a microscopic understanding of their anchoring transition. This paper is organised as
+follows: the models used for this study are described in Section~\ref{s:models}. The model's surface induced
+structural changes are studied in Section~\ref{s:simRes} through observation of typical profiles obtained from the
+simulations and the dependence of these profiles on the surface potential and the system density. From this, in
+Section~\ref{s:anchoringPhaseDia}, we obtain a comprehensive mapping of the model's anchoring behaviour, including
+the identification and localisation of its planar to homeotropic anchoring transition. This Section also contains
+an explicit study of the anchoring bistability found to be associated with this transition. The conclusions drawn
+from this work and a description of future studies are given in Section~\ref{s:ccl}.
+
+
+%=======================================================================================
+%           THE MODEL
+%=======================================================================================
+\section{The model}
+\label{s:models}
+
+Here, surface induced structural changes are studied using Monte Carlo simulations of rod-shaped
+particles that  interact with one another through the hard Gaussian overlap (HGO)
+potential~\cite{Rigby89} and with the confining  substrates via the hard needle wall (HNW)
+potential. The latter was used since it  provides a simple and
+intuitive steric interaction which can be tuned so as to induce either homeotropic or planar
+anchoring arrangements~\cite{Chrzanowska_Teixera_01,Cleaver_Teixeira_01}. It also lends itself
+to the straightforward development of
+geometry-based predictions with  which to compare simulation results. Despite this simplicity,
+however, the HNW potential is able to exhibit both  anchoring transitions and bistability.
+
+The HGO model is a steric model in which the contact distance is the shape parameter determined
+by Berne and Pechukas~\cite{BernePechukas72} when they considered the overlap of two ellipsoidal
+Gaussian.  Thus, the  interaction potential $\mathcal{V}^HGO$ between
+two particles $i$ and $j$ with respective orientations $\ui$  and $\uj$ and intermolecular vector $\vect{r}_{ij} =
+r_{ij}\rij$ is defined as
+\begin{equation}
+    \mathcal{V}^\mrm{HGO} = \left\{  %}
+    \begin{array}{ccc}
+    0   &\mrm{if}   &r_{ij} \geq \sijr  \\
+    \infty  &\mrm{if}   &r_{ij} < \sijr
+    \end{array}
+    \right.
+\end{equation}
+where $\sijr$ is the contact distance
+\begin{equation}
+    \sijr = \so\left\{
+    1 - \frac{1}{2}\chi\left[
+    \frac{ \lp\dotProd{\rij}{\ui} + \dotProd{\rij}{\uj}\rp^2 }{1 + \chi(\dotProd{\ui}{\uj})}
+      + \frac{ \lp\dotProd{\rij}{\ui} - \dotProd{\rij}{\uj}\rp^2 }{1 - \chi(\dotProd{\ui}{\uj})}
+    \right] \right\}^{-\frac{1}{2}}.
+\end{equation}
+Here $\so$, the particle width, sets the unit of distance for this model and the shape anisotropy parameter $\chi
+= (k^2-1)/(k^2+1)$ where $k= \sel/\so$ is the particle length to breadth ratio.
+
+The HGO model is the hard-particle equivalent of the much-studied Gay-Berne model~\cite{GayBerne81}.  The phase
+behaviour of the HGO model is density driven and fairly simple, comprising only two non-crystalline phases;
+isotropic and (for $k\gtrsim 3$) nematic fluids at, respectively, low and high number densities $\rho^{*}$. The
+isotropic-nematic phase-coexistence densities have been located for various particle elongations in a series of
+previous Monte Carlo simulation studies~\cite{PadillaVelasco97,DeMiguelDelRio01,DeMiguelDelRio03}; for the most
+commonly used elongation of $k=3$, the transition occurs for $\rho^{*}\approx 0.30$ with a slight system size
+dependence. Our own simulations of 3d bulk systems of $N=1000$ particles~\cite{fbThesis,TeixeiraBarmes03} have
+found isotropic (nematic) coexistence densities of $\rho^{*}_I=0.299$ ($\rho^{*}_N=0.309$), in agreement with
+these previous studies. Although the HGO model was originally derived using geometrical considerations, an HGO
+particle cannot be represented by a fixed solid object. Rather, it is a mathematical abstraction of
+the interaction surface between two non-spherical particles~\cite{Rigby89}. For moderate
+elongations, however, the properties of
+HGO particles are similar to those of an the equivalent hard ellipsoid of revolution~\cite{Rigby89}. Simulation
+studies ~\cite{DeMiguelDelRio03} have borne this out, showing that the equation of state of the HGO fluid is
+qualitatively equivalent to, but consistently displaced from, that of the hard ellipsoid fluid.
+
+In this paper, we sidestep the issue of how an undefined HGO particle should interact with a planar substrate
+(this is addressed elsewhere~\cite{fbThesis,BarmesCleaver03b}) since here the HNW potential has been used for the
+particle-wall interaction. In this, the particle surfaces do not interact directly with the substrates; rather the
+interaction is mediated by axial needles placed at the centres of the HGO particles (Figure~\ref{fig:HGO_wal}).
+The interaction potential between particle $i$ and a planar substrate located at $z=z_0$ is, thus, given
+by~\cite{Cleaver_Teixeira_01}
+\begin{equation}
+\mathcal{V}^{HNW} = \left\{ %}
+    \begin{array}{ccc}
+    0               &\mrm{if}   &|z_i-z_0| \geq \sigma_w(\ui)  \\
+    \infty          &\mrm{if}   &|z_i-z_0| < \sigma_w(\ui)
+    \end{array}
+    \right.
+\end{equation}
+where
+\begin{equation}
+        \sigma_w(\ui) = \frac{1}{2}\so k_S\cos(\theta_i).
+    \label{eqn:sigma_w_HNW}
+\end{equation}
+Here, $k_S$ is the dimensionless needle length and $\theta_i=\arccos(u_{i,z})$ is the angle between the substrate
+normal and the particle's orientation vector, which also corresponds to the zenithal Euler angle
+(Figure~\ref{fig:HGO_wal}).
+
+The surface behaviour of the HNW model has previously been studied in slab-geometry by Cleaver and
+Teixeira~\cite{Cleaver_Teixeira_01} and Chrza\-now\-ska \etal\cite{Chrzanowska_Teixera_01}. Also the model
+simulated by Allen~\cite{Allen99}, in which the particle centres of mass were taken to interact sterically with
+the substrate, corresponds to the HNW potential with $k_S=0$. For small $k_S$, the homeotropic arrangement has
+been shown to be stable, whereas planar anchoring is favoured for long $k_S$. Insight can be gained into this
+transition by noting that, in the limit of perfect orientational and positional order, the Helmholtz free energy
+of this system is minimized by the arrangement that maximises the particle volume absorbed into the substrates.
+For all $k$ and $k_S\neq 0$, the absorbed volume of a single particle is clearly maximal for $\theta=\pi/2$,
+suggesting that the planar arrangement should always be stable (for the case $k_S=0$, planar and homeotropic
+alignments both allow the absorption of half the particle volume). For many body systems, however, it is also
+necessary to consider the relative packing efficiencies of the two arrangements.
+
+To this end, we now consider the behaviour of a system of HGO particles in a fixed volume, one face of which is
+bounded by an HNW potential substrate. The aim is to calculate the homeotropic to planar transition needle length
+for this system. For simplicity, each particle close to the surface is approximated to be an ellipsoid of
+revolution~\cite{Rigby89} with elongation $k=\sel/\so$ and semi-axis lengths $a=b=\so/2$ and $c=\sel/2$. The
+homeotropic to planar transition needle length can then be determined by equating the ratio of the volume absorbed
+per unit area of the substrate for the two key arrangements. In the limit of perfect order, symmetry details of
+the packing can be ignored in this calculation since they must be the same for both anchoring alignments; the two
+arrangements will map onto each other via suitable affine transformations.
+
+In the case of planar alignment, the adsorbed volume and occupied area are independent of $k_S$ and their ratio is
+simply $\so/3$. The homeotropic case is rather more involved, since although the projected area of each particle
+on to the surface is constant, the particle-substrate distances are now dependent on $k_S$. In the
+ellipsoidal-particle approximation, the escaped volume for such a particle can be shown to be
+\begin{equation}
+    V_e = \frac{\pi\so^2}{4}
+    \left[
+    \frac{k_S}{2} \lp \frac{k_S^2}{3\sel^2} -1  \rp + \frac{\sel}{3}
+    \right]
+    \label{eqn:V_H(Ln)}.
+\end{equation}
+Using this result, the needle length corresponding to the planar-homeotropic transition is then given by the root
+$k_S^T$ of
+\begin{equation}
+        \frac{1}{6k^2\so^2}k_S^3 - \frac{1}{2}k_S + \frac{\so}{3}\lp k-1\rp = 0
+        \label{eqn:LnTfinalPoly}
+\end{equation}
+satisfying $k_S^T \in ]0:k]$. The result is $k-$dependent; the variation of the transition $k_S^T/k$ as a function
+of $k$ is shown in Figure~\ref{fig:LnT-k}. For the two particle elongations used in the simulation part of this
+study, that is $k=3$ and $5$, the predicted transition needle lengths are $k_S^T/k = 0.48$ and 0.61, respectively.
+
+%SIMULATIONS
+%=======================================================================================
+\section{Simulation of symmetrically anchored systems}
+\label{s:simRes}
+
+Here, we present the results from a comprehensive Monte Carlo simulation study of HGO systems confined between
+symmetrical HNW substrates. All of the simulations were performed in the canonical ensemble on systems of $N=1000$
+particles. Particle elongations $k=3$ and $5$ were both studied, but for reasons of space we restrict ourselves,
+in most cases, to showing results for the $k=3$ systems only. The substrates were separated by a distance
+$L_z=4k\so$ and were located at $z=\pm L_z/2$, the system being periodic in the $x$ and $y$ directions. The
+simulation box lengths in these other directions were determined by the imposed number density, $\rho^*$, through
+the relationship $L_x=L_y=\sqrt{N/(\rho^{*}L_z)}$. In each simulation, the same substrate potential (i.e., $k_s$
+value) was applied at each wall, so that all of the results presented relate to symmetric anchoring situations.
+That restriction apart, a systematic study of the $k_S$ and $\rho^*$ dependence of these systems has been
+undertaken; Figures~\ref{fig:simsDia_HNW}(a) and (b) show the state points at which simulations were performed as
+well as the directions of the various simulation series. The simulation series directions are given since, at some
+state points, the anchoring adopted by the system was found to be dependent on that of the initial configuration
+employed. Typical run-lengths at each state point were $0.5\times 10^6$ MC sweeps (where one sweep represents one
+attempted move per particle) of equilibration followed by a production run of $0.5\times 10^6$ sweeps.
+
+%%
+%% Change after referee #2
+%%
+The relatively modest system size of $N=1000$ has been used here in order to enable a comprehensive
+mapping of the relevant phase space to be achieved. From De Miguel's study of system size effects in 3d bulk
+systems of Gay-Berne particles~\cite{DeMiguel92}, it is apparent that any $N$-dependence of bulk behaviour should
+be negligible for $N=\mathcal{O}(10^3)$. This conclusion does not transfer automatically to confined systems,
+however, since the surface extrapolation lengths can become comparable with the substrate-substrate
+separation~\cite{Priezjev03}. For the systems studied here, in which the surface conditions were symmetrical, we
+have found that doubling the slab thickness (\ie running with $N=2000$ particles) does not have a significant
+effect on the anchoring behaviour observed. However, in equivalent simulations of hybrid anchored systems, in
+which the two surface extrapolation length regions can promote competing effects, we have found that the slab
+thickness becomes a significant simulation parameter~\cite{fbThesis,BarmesCleaver04c}.
+%%
+%%
+%%
+
+We present the simulation results by first describing the typical behaviours exhibited by these systems. We then
+go on to assess the global phase and structural dependence on the imposed number density, $\rho^*$, and internal
+needle length $k_S \so$ before, in the next Section, going on to construct anchoring maps and make an
+explicit examination of the bistability displayed by one system.
+
+Initial analysis of the surface-induced structural changes has been performed using profiles of the number
+density, $\rho^{*}_\ell(z)$, and the orientational order measured with respect to the substrate normal
+\begin{equation}
+Q_{zz}(z)=\frac{1}{N(z)}\sum_{i=1}^{N(z)} \left( \frac{3}{2}u_{i,z}^2 - \frac{1}{2} \right)
+\end{equation}
+where $N(z)$ is the instantaneous occupancy of the layer. Typical profiles for bulk isotropic and nematic
+densities are shown for homeotropic ($k_S<k^T_S$), planar ($k_S>k^T_S$) and competing ($k_S\sim k^T_S$) anchoring
+arrangements in Figures~\ref{fig:typicalProfile_k3_homeo}-\ref{fig:typicalProfile_k3_bist}.
+
+Homeotropic alignment was observed when the HNW potential was characterised by a short needle length. Thus,
+Figures~\ref{fig:typicalProfile_k3_homeo} show that with $k=3$ and $k_S/k = 0.2$, $\rho^{*}_\ell(z)$ was dominated
+by surface-layer peaks at $|z-z_0|\sim k_S \so / 2$. Small secondary features, displaced by $k\so$ from the
+surface peaks, are apparent at the nematic density, consistent with an arrangement which involved smectic-like
+layers templated by the substrates. The corresponding $Q_{zz}(z)$ profiles confirm this homeotropic arrangement,
+showing positive values in regions of high $\rho^{*}_\ell(z)$, that is the interfacial regions for both densities
+and the bulk region at the nematic density. The oscillations in $Q_{zz}(z)$ correlate closely with those in
+$\rho^{*}_\ell(z)$ due to both the intrinsic coupling between density and order parameter and the homeotropic
+director-pinning imposed by the smectic-like layers. Additionally, regardless of the number density, $Q_{zz}(z)$
+displays negative values very close to the substrates ($|z-z_0|\leq k_S \so/{2}$); these features occur because
+the HNW potential dictates that any particles in these regions must be tilted away from the substrate normal.
+These regions with negative $Q_{zz}(z)$ values have very low number densities, however, and so are of little
+practical significance.
+
+For planar alignment situations, such as that observed for $k=3$ and $k_S/k = 0.8$, the density and order profiles
+adopted the forms shown on Figures~\ref{fig:typicalProfile_k3_planar}. Here, because the surface layers were
+dominated by planar-aligned particles, the main peaks in $\rho^{*}_\ell$ are located at $|z-z_0|\sim 0$. The
+peak-peak separations in the nematic-density $\rho^{*}_\ell(z)$ are also much smaller than those seen in the
+homeotropic case (approximately $\so$ rather than $k_S\so$), since here the particles in neighbouring strata had a
+side-by-side arrangement (i.e. they were {\em not} in smectic-like layers). Again, the features in the $Q_{zz}(z)$
+profiles correspond closely with those in $\rho^{*}_\ell(z)$, but this time the maxima in $\rho^{*}_\ell$ relate
+to minima in $Q_{zz}(z)$ since planar order results in negative values of $Q_{zz}(z)$.
+
+For some $k_S$ values intermediate between the two cases just presented, situations were found in which the
+relative stability of the planar and homeotropic arrangements was unclear. Generally this situation arose in
+nematic systems for which $k_S \sim k_S^{T}$. Typical profiles corresponding to this competing anchoring situation
+are shown in Figure~\ref{fig:typicalProfile_k3_bist} for $k=3$ and $k_S/k=0.48$, {\em i.e.} a needle length very
+close to the $k_S^{T}$ value given by Equation.(\ref{eqn:LnTfinalPoly}). Here, at high number densities, two sets of
+profiles (corresponding to different surface arrangements) were obtained depending on the history of the
+simulation sequence. Since, in each case, these profiles were obtained from runs equilibrated over $\sim 10^6$ MC
+sweeps, bistability is suggested.
+
+The $\rho^*=0.28$ profiles shown in Figure~\ref{fig:typicalProfile_k3_bist} are noteworthy, since they contain
+features suggesting both planar and homeotropic influences. For example, the interfacial regions are characterized
+by two peaks, of comparable height, corresponding to substrate distances of $|z-z_0|=0$ and $k_S \so / 2$,
+respectively. This double peaked behaviour can be observed in both the $\rho^{*}_\ell(z)$ and the $Q_{zz}(z)$
+profiles; in the latter it is manifested by the positive and negative regions corresponding to the peaks in the
+local density.
+
+The two sets of $\rho^*=0.34$ profiles shown in Figure~\ref{fig:typicalProfile_k3_bist} are very different from
+one another, and indicate that the two surface arrangements shown at this density in
+Figures~\ref{fig:typicalProfile_k3_homeo} and \ref{fig:typicalProfile_k3_planar} were both accessible for this
+$k_S$ value. The planar state was obtained when, in a series of runs performed at fixed density, the $k_S$ value
+was decremented between runs, whereas the homeotropic arrangement was formed in an equivalent sequence performed
+with increasing $k_S$ values. An interesting sign change is apparent in the $Q_{zz}(z)$ profile for the planar
+$\rho^*=0.34$ state. Here, while the surface and bulk alignment were both unquestionably planar, positive $Q_{zz}$
+values were obtained for $|z-z_0|\simeq k_S \so / 2$, indicating, rather surprisingly, localized regions with net
+homeotropic alignment. This behaviour was also seen for systems whose $k_S$ values were sufficiently large for the
+planar aligned state to be unambiguously stable, and so is unrelated to the possible bistability noted above.
+Instead, we attribute this behaviour to the effect of particle-particle interactions on the $\theta$-dependence of
+the orientational distribution function at these $z$ values. For example, we note that at these wall separations,
+a particle orientation corresponding to modest tilt away from the substrate normal is disfavored since the
+resulting gap opened up between the tilted particle and the substrate would be too small to be occupied by a
+second particle. Consequently, the effect of the interactions between the tilted particle and its neighbours would
+be either to close the gap (by shifting the particle towards the substrate or rotating its orientation closer to
+the substrate normal) or to make the gap big enough for a second particle to enter (by making the particle more
+planar). This relative instability of moderate tilt angles at these wall separations is, we consider, the primary
+cause of the positive $Q_{zz}$ values noted above.
+
+%==============================================================================================
+
+Having described the behaviours exhibited by these systems, we now consider their $\rho^{*}$- and
+$k_S$-dependences by presenting the results from a more comprehensive investigation. In order to study the
+influence of density, several series of simulations were carried out at constant $k_S$ values and increasing and
+decreasing densities. From these, $\rho^{*}_\ell(z,\rho^{*})$ and $Q_{zz}(z,\rho^{*})$ surfaces were computed for
+a range of $k_S$ values. Results for the cases $k_S/k = 0.0$ and $k_S/k = 1.0$ are shown on
+Figures~\ref{fig:rhoInfl_k3_L000} and~\ref{fig:rhoInfl_k3_L100} for $k=3$. Because little hysteresis was found
+between the series performed with increasing and decreasing densities, only the data obtained
+from the latter series are shown.
+
+The surfaces shown in Figures~\ref{fig:rhoInfl_k3_L000} and~\ref{fig:rhoInfl_k3_L100} largely confirm the
+observations made previously. At low densities, the surface induced effects are limited to the surface regions.
+With increase in density, however, the number of peaks in $\rho^{*}_\ell(z)$ increases steadily with $\rho^*$ due
+to enhanced layering of the particles. Surface-induced order can be seen to extend further into the cell with
+increase in $\rho^*$, largely reflecting the features apparent in the $\rho^{*}_\ell(z)$ surfaces. In the case of
+extreme homeotropic anchoring ($k_S/k = 0.0$), regardless the density, the central region of the cell failed to
+adopt nematic order. This was because, for this reduced needle length, the particle volume absorbed by the
+substrates reduced the bulk region density sufficiently to shift the I-N transition to $\rho^{*}$ values outside
+the range considered here. This does not, however, question the existence of uniform alignment in the case $k_S =
+0.0$. For the $k_S/k = 1.0$ surface, orientational ordering of approximately the central 50\% of the system can be
+seen to have taken place very uniformly. Relatively long runs were needed to establish this behaviour since, at
+densities with isotropic bulk regions, there was little azimuthal coupling between the two ordered surface
+regions.
+
+%==============================================================================================
+
+In order to generate equivalent information on the influence of $k_S/k$ on the cell's behaviour, further series of
+simulations were performed at constant densities with both increasing and decreasing needle lengths. Results from
+the series with decreasing $k_S/k$, $k=3$ and densities $\rho^{*}=0.28$ and 0.34 are shown as surfaces of
+$\rho^{*}_\ell(z,k_S/k)$ and $Q_{zz}(z,k_S/k)$ in Figures~\ref{fig:LnInfl_k3_d0.28} and~\ref{fig:LnInfl_k3_d0.34},
+respectively. The differences found between the series performed with increasing and decreasing $k_S/k$ are
+discussed in the next Section.
+
+From Figures~\ref{fig:LnInfl_k3_d0.28} and~\ref{fig:LnInfl_k3_d0.34}, the features discussed previously for strong
+homeotropic and planar anchoring arrangements can be seen at low and high values of $k_S/k$, respectively. A clear
+distinction can be made between the two anchoring regions from each of these surfaces, and an homeotropic to
+planar anchoring transition is again evident. As the transition region is approached from either high or low
+$k_S$, the peak heights of the $\rho^{*}_\ell$ surface decrease quite rapidly. At low density, remnants of
+these peaks remain at the transition, leading to bimodal surface layers which have features corresponding to both
+anchoring states. At nematic densities, in contrast, the crossover from one structure to the other is quite sharp.
+For the $\rho^{*}_\ell(z,k_S/k)$ surfaces shown in Figures~\ref{fig:LnInfl_k3_d0.28}
+and~\ref{fig:LnInfl_k3_d0.34}, the $z$-values of the peaks on the two sides of the transition are clearly not
+coincident. The associated $Q_{zz}(z,k_S/k)$ surfaces give an obvious signature of the homeotropic to planar
+transition due to the sign change they exhibit. This change is relatively smooth in the surface regions, but is
+very sharp in the bulk region of the nematic density system. The gradient of this change was also found to
+increase with $k$; the transition was much sharper for $k=5$ than for $k=3$.
+
+%=======================================================================================
+%           ANCHORING MAPS
+%=======================================================================================
+\section{Anchoring maps and bistability}
+\label{s:anchoringPhaseDia}
+
+
+A phase-space mapping of the planar to homeotropic anchoring transition region needs to be expressed in terms of
+some quantitative indicator of the arrangement displayed by a given confined system. A useful measure for the
+characterization of the surface arrangement would be a scalar capable of indicating both the type and strength of
+the anchoring for a given $(\rho^{*}, k_S/k)$ state point. To this end, we introduce $\overline{Q}_{zz}$, a
+density-profile-weighted average of $Q_{zz}(z)$ taken over a given region of interest. We define
+$\overline{Q}_{zz}$ as~:
+\begin{equation}
+    \overline{Q}_{zz} = \frac{\sum_{z_i} Q^{n}_{zz}(z_i) \rho^{*}_\ell(z_i)}
+            {\sum_{z_i} \rho^{*}_\ell(z_i)}
+\end{equation}
+where the $z_i$ considered are restricted to a given region of interest ({\em i.e.} bulk or surface). Here
+$Q^{n}_{zz}(z)\in[-1:1]$ is a pragmatically rescaled version of $Q_{zz}$ defined by~:
+\begin{equation}
+    Q^{n}_{zz} = \left\{    %}
+    \begin{array}{ccc}
+        Q_{zz}      &\text{if}  &Q_{zz} \geq 0  \\
+        2.Q_{zz}    &\text{if}  &Q_{zz} < 0.\\
+    \end{array}
+    \right.
+\end{equation}
+In order for $\overline{Q}_{zz}$ to be an objective measure, a criterion is needed with which to set the range of
+$z_i$ to be included in its evaluation for, say, a surface region. Clearly, this limiting $z_i$ needs to be
+located at a point at which the surface has no direct influence on the molecules. An apparently attractive choice
+for this would, therefore be the distance at which the particles can rotate freely without direct interaction with
+the surface, {\em i.e.} $|z_i-z_0| = k_S \so/2$. This approach is flawed, however, since, in the limit of zero
+needle length, it implies $|z_i-z_0| \sim 0$, whereas the surface layers clearly have finite thicknesses for all
+needle lengths.
+
+Instead, the following approach was adopted in defining this limit; the surface region width was made a function
+of the needle length and density by making the limiting $z_i$ value dependent on features of the measured density
+profiles. Explicitly, where the anchoring was found to be planar (with the first local maximum of
+$\rho^{*}_\ell(z)$ at $|z_i-z_0|\sim 0$), the surface region was taken to extend from the substrate to the
+distance corresponding to the second maximum in $\rho^{*}_\ell(z)$. If however, the anchoring was homeotropic
+(with the first local maximum of $\rho^{*}_\ell(z)$ at $|z_i-z_0|\sim k_S \so/2$), the surface region was taken to
+extend from the substrate to the first local minimum in $\rho^{*}_\ell(z)$. In those cases with ambiguous,
+double-peaked density profiles, the former scheme was adopted. In all cases, the bulk region was taken to be that
+part of the system not included in the surface regions.
+
+%===============================================================================================
+%===============================================================================================
+
+In what follows, maps of $\overline{Q}_{zz}$ plotted as a function of $\rho^{*}$ and $k_S/k$ are used to construct
+anchoring maps. Such diagrams have been determined for systems with elongations $k=3$ and $k=5$ using
+data from the series of simulations performed at constant densities and both increasing and decreasing needle
+lengths (recall Figure~\ref{fig:simsDia_HNW}). Results for both series in the surface ({\em Su}) and bulk ({\em
+Bu}) regions are shown in Figures~\ref{fig:QzzPhaseDia_k3} and~\ref{fig:QzzPhaseDia_k5} for $k=3$ and $k=5$,
+respectively.
+
+The results obtained for the two elongations are qualitatively similar. In the surface region diagrams, the
+anchoring transitions occur at $k_S/k$ values close to those predicted in Section~\ref{s:models}, as can be
+observed from the lines of $\overline{Q}^{Su}_{zz} = 0$. This agreement can be seen to improve with increase in
+density. Also the contour line spacing around $k_S^T$ becomes tighter with increasing density, indicating a
+possible discontinuous transition between the planar and homeotropic anchoring states. In the bulk region
+diagrams, by comparison, little surface influence can be observed at low densities, because the values of
+$\overline{Q}^{Bu}_{zz}$ are limited by these systems' orientational isotropy. At number densities corresponding
+to bulk nematic order, however, the surface influence extends into the bulk region and sharp anchoring transitions
+become apparent at needle lengths similar to those suggested by the surface region anchoring diagrams. It is
+noteworthy that this effect is generally seen at global number densities significantly greater than the I-N
+transition densities of the equivalent bulk systems. This indicates that the local densities found in the bulk
+regions were lower than the imposed $\rho^{*}$ values due to the absorbing nature of the substrates.
+
+The anchoring maps are asymmetric in that bulk planar ordering develops at lower densities than its
+homeotropic counterpart. This is due, in part, to the $k_S$-dependence of the volume absorption by the substrates,
+leading to the approximately bi-linear dependence of $\rho^{*}_{NI}$ on $k_S$ seen in the $\overline{Q}^{Bu}_{zz}$
+anchoring maps. As noted previously, in the limit $k_S=0$, this absorption has proved sufficient to prevent the
+onset of bulk nematic for the range of $\rho^{*}$ considered here. In addition to this bilinear $k_S$ dependence,
+a further increase in $\rho^{*}_{NI}$ can be observed at $k_S\simeq k_S^T$. We attribute this anomalous behaviour
+to the competing anchoring effects experienced by these systems. As was noted previously, the profiles obtained
+for such systems contain features associated with both of the anchoring arrangements. This, we suggests, leads to
+relatively disordered surface regions in these systems which, in turn, causes a delay in the onset of bulk-region
+nematic order.
+
+%==============================================================================================
+
+Another interesting feature of Figures~\ref{fig:QzzPhaseDia_k3} and~\ref{fig:QzzPhaseDia_k5} comes from the
+comparison of the diagrams for increasing and decreasing needle lengths. At high densities, this confirms the
+earlier observation that, in conditions corresponding to competing  anchoring, the structure adopted becomes
+dependent on system history. This suggests possible bistable behaviour, on the `timescales' of our simulations at
+least, for state points close to the anchoring transition. The extent of this bistability has been evaluated by
+computation of the absolute value of the difference between the results obtained with series of increasing and
+decreasing needle lengths. These bistability maps, shown on Figures~\ref{fig:QzzPhaseDia_k3}(c)
+and~\ref{fig:QzzPhaseDia_k5}(c), indicate distinct bistable regions at nematic densities for both $k=3$ and $k=5$.
+
+In order to examine this behaviour more explicitly, a final series of simulations has been performed in an attempt
+to switch the cell from planar to homeotropic and back again. For this, a previously equilibrated planar anchored
+system of $N=1000$ particles with $k=3$, $\rho^{*}=0.34$ and $k_S/k = 0.5$ was used as the initial configuration.
+The switching was then performed through the series of simulations $R_1$ to $R_5$ listed in
+Table~\ref{tble:bistFieldConditions}, \ie by applying and removing an electric field $\vect{E} = E\vecth{z}$ and
+taking the dielectric anisotropy $\chi_e$ to be, alternately, positive and negative. The effect of this was to
+align the particles parallel or perpendicular to $\vect{E}$ for positive and negative values of $\chi_e$,
+respectively. While this setup is admittedly somewhat unrealistic, it can be related to a putative experimental
+system in which the mesogen's dielectric coupling varies according to the frequency of an applied AC field.
+
+Configuration snapshots corresponding to the initial and final states from each run in this series are shown in
+Figures~\ref{fig:HGOk3BistSnaps}(a) to (f). The corresponding behaviours of $\overline{Q}^{Su}_{zz}$ and
+$\overline{Q}^{Bu}_{zz}$, as a function of the number of MC sweeps, are shown in Figures~\ref{fig:QzzWak3Bist}(a)
+and~\ref{fig:QzzWak3Bist}(b). Also, for comparison, the values of $\overline{Q}_{zz}$ observed in our previous
+runs at this state point are shown as horizontal lines.
+
+The results confirm that, for the `timescales' accessible to these simulations, the bistability implied by
+Figure~\ref{fig:QzzPhaseDia_k3}(c) is fully realizable. Run $R_1$ shows that the initial system remained stable in
+its planar arrangement; after reorientation of the particles along $\vecth{z}$ by the applied field (run $R_2$),
+the  system equilibrated naturally to a homeotropic arrangement (run $R_3$) although the final values adopted by
+$\overline{Q}_{zz}$ proved higher than those obtained from the previous runs performed at this state point. This
+discrepancy may have been a consequence of the relatively high field strength employed in run $R_2$ which induced
+almost perfect homeotropic alignment in the near-substrate region. Thus, while the bulk of the system equilibrated
+towards the stable homeotropic state upon removal of the field, packing constraints in the surface region may have
+inhibited particles from adopting planar orientation close to the surface (as was seen for a small number of
+particles in the previous simulations). We do not think that this brings into question the equilibration of the
+state observed here. Reapplication of the field with a negative molecular dielectric anisotropy (run $R_4$) then
+generated a strongly planar arrangement which relaxed to the original stable state upon field removal (run $R_5$).
+In this case, the system equilibrated to the same values of $\overline{Q}_{zz}$ as those obtained previously. It
+should be noted also, that the `response times' of the systems were different in the bulk and interfacial regions;
+no precise information can be inferred from this, however, since the true time evolution of the system cannot be
+determined from our MC simulations.
+
+%=======================================================================================
+%            CONCLUSIONS
+%=======================================================================================
+\section{Conclusions}
+\label{s:ccl}
+
+In this paper we have studied the behaviour of liquid crystalline systems confined in slab geometry between
+symmetric walls. For the simple HNW potential used here, we have shown that the preferred anchoring direction is
+controlled by the particle-substrate interaction needle length, $k_S$. At nematic densities, all of the systems
+simulated have exhibited a homeotropic to planar anchoring transition on increase in $k_S$. As well as having
+orthogonal bulk alignments, the homeotropic and planar states have been shown to involve distinct surface
+arrangements, with little configurational overlap.
+
+The anchoring transition observed here appears to be first order, because of both the associated discontinuity in
+the anchoring orientation and the configurational hysteresis (or bistability) observed. This bistability has been
+found over a relatively narrow parameter window, but has proved highly reproducible with both states being very
+long lived. Presumably, this longevity is related to the configurational distinctiveness of the two surface states
+and the anchoring-orientation-conserving effect of the overlying nematic fluid. It should be possible to
+characterize this bistability more quantitatively by using reweighting techniques to determine the form of
+free-energy barrier separating the stable states; the height of this $\rho^*$-dependent barrier height sets the
+time-scale of any spontaneous switching between the states and, so, knowledge of it would enable some sort of
+comparison to be made with bistable experimental systems.
+
+Rather surprisingly, the anchoring behaviour of this system has shown very little dependence on the system
+density; the limits of the bistability regions are, essentially, isochores. One consequence of this has been that
+the approximate transition needle lengths, $k_S^T$, calculated in the high packing limit, have proved reasonably
+accurate for all nematic densities. Put another way, this suggests that even at $\rho_{NI}^*$, this system was
+aware of the two states' particle-volume absorption efficiencies in the high packing limit. This counterintuitive
+result is presumably a consequence of the simplicity of the HNW model used here: we will revisit this issue, and
+the routes it offers for manipulation of the bistability region, in future work employing models with less
+idealized particle-substrate interactions~\cite{BarmesCleaver03b}. Specifically, focus will be brought to bear on
+the influence of the particle-surface contact function on the surface anchoring behaviour and the size and shape
+of the bistability region.
+
+
+
+%=======================================================================================
+\section*{Acknowledgments}
+
+We wish to acknowledge useful discussions with Dmytro Antipov, Chris Care and Paulo Teixeira and Sheffield Hallam
+University's Materials Research Institute for financial support.
+
+
+%=======================================================================================
+%           Bibliography
+%=======================================================================================
+\linespacing{1.0}
+
+\begin{thebibliography}{10}
+
+\bibitem{Jerome91}
+{B. J\'erome}.
+\newblock Surface effects and anchoring in liquid crystals.
+\newblock {\em Physics reports}, 54:391--451, 1991.
+
+\bibitem{Schoen96}
+{M. Schoen}.
+\newblock On the uniqueness of stratification-induced structural tranformations
+  in confined films.
+\newblock {\em Ber. Bunsenges. Phys. Chem.}, 100:1355, 1996.
+
+\bibitem{Schoen96a}
+{M. Schoen}.
+\newblock The impact of discrete wall structure on stratification-induced
+  structural phase transitions in confined films.
+\newblock {\em Journal of Chemical Physics}, 105:2910--2918, 1996.
+
+\bibitem{PatelYokoyama93}
+{J.S. Patel and H. Yokoyama}.
+\newblock Continuous anchoring transition in liquid crystals.
+\newblock {\em Nature}, 362:525, 1993.
+
+\bibitem{JagemalmKomitov1997}
+{P. Jagemalm and L. Komitov}.
+\newblock Temperature induced anchoring transition in nematic liquid crystals
+  with two-fold degenerate alignment.
+\newblock {\em Liquid Crystals}, 23:1, 1997.
+
+\bibitem{BarberiGiocondo98}
+{R. Barberi, M. Giocondo, M. Iovane, I. Dozov and E. Polossat}.
+\newblock {Nematic anchoring transitions on bistable SiO films driven by
+  temperature and impurities}.
+\newblock {\em Liquid Crystals}, 25:23, 1998.
+
+\bibitem{ZhuLu94}
+{Y-M Zhu, Z-H. Lu, X.B Jia, Q.H. Wei, D. Xiao, Y. Wei, Z.H. Wu, Z.L. Hu and
+  M.G. Xie}.
+\newblock Anchoring transition of liquid crystals on crown ether monolayers.
+\newblock {\em Physical Review Letters}, 72:2573, 1994.
+
+\bibitem{ZhuWei94}
+{Y-M. Zhu and Y. Wei}.
+\newblock {Conformation change-driven anchoring transition of liquid crystals
+  on crown ether liquid crystals Langmuir-Blodgett films}.
+\newblock {\em Journal of Chemical Physics}, 101:10023, 1994.
+
+\bibitem{BarberoPopaNita00}
+{G. Barbero and V. Popa-Nita}.
+\newblock Model for the planar-homeotropic anchoring transition induced by
+  trans-cis isomerisation.
+\newblock {\em Physical Review E}, 61:6696, 2000.
+
+\bibitem{AlkhairallaAllison99}
+{B. Alkhairalla, H. Allinson, N. Boden, S. D. Evans, and J. R. Henderson }.
+\newblock Anchoring and orientational wetting of nematic liquid crystals on
+  self-assembled monolayer substrates~: an evanescent wave ellipsometric study.
+\newblock {\em Physical Review E}, 59:3033, 1999.
+
+\bibitem{AlkhairallaBoden02}
+{Alkhairalla B, Boden N, Cheadle E, Evans SD, Henderson JR, Fukushima H,
+  Miyashita S, Schonherr H, Vancso GJ, Colorado R, Graupe M, Shmakova OE and
+  Lee TR}.
+\newblock Anchoring and orientational wetting of nematic liquid crystals on
+  semi-fluorinated self-assembled monolayer surfaces.
+\newblock {\em Europhysics Letters}, 59:410, 2002.
+
+\bibitem{Jerome93}
+{B. Jerome J. O'Brien, Y. Ouchi, C. Stanners and Y.R. Shen}.
+\newblock {Bulk reorientation driven by orientational transition in a liquid
+  crystal monolayer}.
+\newblock {\em Physical Review Letters}, 71:758, 1993.
+
+\bibitem{StoenescuMartinotLagarde99}
+{D.N. Stonescu, P. Martinot-Lagarde and I. Dozov}.
+\newblock Anchoring transition dominated by surface memory effect.
+\newblock {\em Molecular Crystals And Liquid Crystals}, 329:339, 1999.
+
+\bibitem{Sluckin95}
+{T.J. Sluckin}.
+\newblock Anchoring transitions at liquid crystal surfaces.
+\newblock {\em Physica A}, 213:105, 1995.
+
+\bibitem{TeixeiraSluckin92}
+{P.I.C. Teixeira and T.J. Sluckin}.
+\newblock {Microscopic theory of anchoring transitions at the surfaces of pure
+  liquid crystals and their mixtures. I. The Fowler approximation}.
+\newblock {\em Journal of Chemical Physics}, 97:1498, 1992.
+
+\bibitem{TeixeiraSluckin92a}
+{P.I.C. Teixeira and T.J. Sluckin}.
+\newblock {Microscopic theory of anchoring transitions at the surfaces of pure
+  liquid crystals and their mixtures. II. The effect of surface adsoption}.
+\newblock {\em Journal of Chemical Physics}, 97:1510, 1992.
+
+\bibitem{TeixeiraSluckin93}
+{P.I.C Teixeira, T.J. Sluckin and D.E. Sullivan}.
+\newblock Landau-de gennes theory of anchoring transition at a nematic liquid
+  crystal-substrate interface.
+\newblock {\em Liquid Crystals}, 14:1243, 1993.
+
+\bibitem{ZhengQianSheng96}
+{T. Zheng Qian and P. Sheng}.
+\newblock Liquid-crystal phase transitions induced by microtextured substrates.
+\newblock {\em Physical Review Letters}, 77:4564, 1996.
+
+\bibitem{ZhengQianSheng97}
+{T. Zheng Qian and P. Sheng}.
+\newblock Orientational states and phase transitions induced by microtextured
+  substrates.
+\newblock {\em Physical Review E}, 55:7111, 1997.
+
+\bibitem{GayBerne81}
+{J.G. Gay and B.J. Berne}.
+\newblock Modification of the overlap potential to mimic a linear site-site
+  potential.
+\newblock {\em Journal of Chemical Physics}, 74:3316, 1981.
+
+\bibitem{ZhangChakrabarti96}
+{Z. Zhang, A. Chakrabarti, O.G. Mouristen and M.J. Zuckermann}.
+\newblock Substrate-induced bulk alignment of liquid crystals.
+\newblock {\em Physical Review E}, 53:2461, 1996.
+
+\bibitem{WallCleaver97}
+{G.D. Wall and D.J. Cleaver}.
+\newblock Computer simulation studies of confined liquid-crystal films.
+\newblock {\em Physical Review E}, 56:4306--4316, 1997.
+
+\bibitem{LathamCleaver00}
+{R. Latham and D.J. Cleaver}.
+\newblock Substrate-induced demixing in a confined liquid crystal film.
+\newblock {\em Chemical Physics Letters}, 330:7--14, 2000.
+
+\bibitem{WallCleaver03}
+{G.D. Wall and D.J. Cleaver}.
+\newblock Computer simulations of adsorbed liquid crystal films.
+\newblock {\em Molecular Physics}, 101:1105, 2003.
+
+\bibitem{GruhnSchoen97}
+{T. Gruhn and M. Schoen}.
+\newblock Microscopic structure of molecularly thin confined liquid-crystal
+  films.
+\newblock {\em Physical Review E}, 55:2861, 1997.
+
+\bibitem{GruhnSchoen98}
+{T. Gruhn and M. Schoen}.
+\newblock {Grand canonical Monte Carlo simulations of confined `nematic'
+  Gay-Berne films}.
+\newblock {\em Thin Solid Films}, 330:46, 1998.
+
+\bibitem{GruhnSchoen98a}
+{T. Gruhn and M. Schoen}.
+\newblock {A grand canonical ensemble Monte Carlo study of confined planar and
+  homeotropically anchored Gay-Berne films}.
+\newblock {\em Molecular Physics}, 93:681, 1998.
+
+\bibitem{Allen99}
+{M.P. Allen}.
+\newblock Molecular simulation and theory of liquid crystal surface anchoring.
+\newblock {\em Molecular Physics}, 96:1391, 1999.
+
+\bibitem{VanRoijDijkstra00}
+{R. van Roij, M. Dijkstra and R. Evans}.
+\newblock Orientational wetting and capillary nematization of hard-rod fluids.
+\newblock {\em Europhysics Letters}, 49:350, 2000.
+
+\bibitem{VanRoijDijkstra00a}
+{R. van Roij, M. Dijkstra and R. Evans}.
+\newblock {Interfaces, wetting and capillary nematization of a hard-rod fluid:
+  Theory for the Zwanzig model}.
+\newblock {\em Journal of Chemical Physics}, 117:7689, 2000.
+
+\bibitem{DijkstraVanRoij01}
+{M. Dijkstra, R. van Roij and R. Evans}.
+\newblock Wetting and capillary nematization of a hard-rod fluids~: a
+  simulation study.
+\newblock {\em Physical Review E}, 63:051703--1, 2001.
+
+\bibitem{Chrzanowska_Teixera_01}
+{A. Chrzanowska, P.I.C. Teixeira, H. Ehrentraut and D.J. Cleaver}.
+\newblock Ordering of hard particles between hard walls.
+\newblock {\em Journal of Physics : Condensed Matter}, 13:1--13, 2001.
+
+\bibitem{Cleaver_Teixeira_01}
+{D.J. Cleaver and P.I.C Teixeira}.
+\newblock Discontinuous structural transition in a thin hybrid liquid crystal
+  film.
+\newblock {\em Chemical Physics Letters}, 338:1--6, 2001.
+
+\bibitem{BernePechukas72}
+{B.J. Berne and P. Pechukas}.
+\newblock Gaussian model potentials for molecular interactions.
+\newblock {\em Journal of Chemical Physics}, 56:4213--4216, 1972.
+
+\bibitem{CleaverTildesley94}
+{D.J. Cleaver and D.J. Tildesley}.
+\newblock {Computer modelling of the structure of 4-n-octyl-4'-cyanobiphenyl
+  adsorbed on graphite}.
+\newblock {\em Molecular Physics}, 81:781, 1994.
+
+\bibitem{YoneyaIwakabe95}
+{M. Yoneya and Y. Iwakabe}.
+\newblock {Molecular dynamics simulations of liquid crystal molecules adsorbed
+  on graphite}.
+\newblock {\em Liquid Crystals}, 18:45, 1995.
+
+\bibitem{CleaverCallaway95}
+{D.J. Cleaver, M.J. Callaway, T. Forester, W. Smith and D.J. Tildesley}.
+\newblock {Computer modelling of the 4-n-alkyl-4'-cyanobiphenyls adsorbed on
+  graphite: energy minimizations and molecular dynamics of periodic systems}.
+\newblock {\em Molecular Physics}, 86:613, 1995.
+
+\bibitem{BingerHanna99}
+{D.R. Binger and S. Hanna}.
+\newblock {Computer simulation of interactions between liquid crystal molecules
+  and polymer surfaces. I. Alignment of nematic and smectic A phases}.
+\newblock {\em Liquid Crystals}, 26:1205, 1999.
+
+\bibitem{BingerHanna00}
+{D.R. Binger and S. Hanna}.
+\newblock {Computer simulation of interactions between liquid crystal molecules
+  and polymer surfaces. II. Alignment od smectic C forming mesogens}.
+\newblock {\em Liquid Crystals}, 27:89, 2000.
+
+\bibitem{BingerHanna01}
+{D.R. Binger and S. Hanna}.
+\newblock {Computer simulation of interactions between liquid crystal molecules
+  and polymer surfaces. III. use of pseudopotentials to represent the surface}.
+\newblock {\em Liquid Crystals}, 28:1215, 2001.
+
+\bibitem{DoerrTaylor99}
+{T.P. Doerr and P.L. Taylor}.
+\newblock {Simulations of liquid crystal anchoring at an amorphous polymer
+  surface from various initial configurations.}
+\newblock {\em Molecular Crystals And Liquid Crystals}, 330:1735, 1999.
+
+\bibitem{DoerrTaylor99a}
+{T.P. Doerr and P.L. Taylor}.
+\newblock {Molecular dynamics simulations of liquid crystal anchoring at an
+  amorphous polymer surface.}
+\newblock {\em International Journal of Mordern Physics C}, 10:415, 1999.
+
+\bibitem{LangeSchmid02}
+{H. Lange and F. Schmid}.
+\newblock Surface anchoring on layers of grafted liquid-crystalline chain
+  molecules~: a computer simulation.
+\newblock {\em Journal of Chemical Physics}, 111:362, 2002.
+
+\bibitem{LangeSchmid02a}
+{H. Lange and F. Schmid}.
+\newblock An anchoring transition at surfaces with grafted liquid-crystalline
+  chain molecules.
+\newblock {\em European Physical Journal E}, 7:175, 2002.
+
+\bibitem{LangeSchmid02c}
+{H. Lange and F. Schmid}.
+\newblock Surface anchoring on liquid crystalline polymer brushes.
+\newblock {\em Computer physics communications}, 147:276, 2002.
+
+\bibitem{Rigby89}
+{M. Rigby}.
+\newblock Hard gaussian overlap fluids.
+\newblock {\em Molecular Physics}, 68:687, 1989.
+
+\bibitem{PadillaVelasco97}
+{P. Padilla and E. Velasco}.
+\newblock The isotropic-nematic transition for the hard gaussian overlap fluid
+  : testing the decoupling approximation.
+\newblock {\em Journal of Chemical Physics}, 106:10299, 1997.
+
+\bibitem{DeMiguelDelRio01}
+{E. de Miguel, E. Mart\'{\i}n del R\'{\i}o}.
+\newblock {The isotropic-nematic transition in hard gaussian overlap fluids}.
+\newblock {\em Journal of Chemical Physics}, 115:9072--9082, 2001.
+
+\bibitem{DeMiguelDelRio03}
+{E. de Miguel, E. Mart\'{\i}n del R\'{\i}o}.
+\newblock {Equation of state for hard gaussian overlap fluids}.
+\newblock {\em Journal of Chemical Physics}, 118:1852, 2003.
+
+\bibitem{fbThesis}
+F.~Barmes.
+\newblock {\em Computer simulation of confined and flexoelectric liquid
+  crystalline systems}.
+\newblock PhD thesis, Sheffield Hallam University, June 2003.
+
+\bibitem{TeixeiraBarmes03}
+{P.I.C. Teixeira, F. Barmes and D.J. Cleaver}.
+\newblock {Symmetric alignment of the nematic matrix between close penetrable
+  colloidal particles}.
+\newblock {\em Journal of Physics : Condensed Matter}, accepted, 2004.
+
+\bibitem{BarmesCleaver03b}
+{F. Barmes and D.J. Cleaver}.
+\newblock {Surface interaction potential effect on the anchoring behaviour of
+  liquid crystals.}
+\newblock in preparation, 2004.
+
+\bibitem{DeMiguel92}
+{E. de Miguel}.
+\newblock {System size effects at the isotropic-nematic transition from
+  computer simulations}.
+\newblock {\em Physical Review E}, 47:3334, 1992.
+
+\bibitem{Priezjev03}
+{N.V. Priezjev, G. Ska\u{c}ej, R.A. Pelkovits and S. \u{Z}umer}.
+\newblock External and intrinsic anchoring in nematic liquid crystals: A monte
+  carlo study.
+\newblock {\em Physical Review E}, 68:041709, 2003.
+
+\bibitem{BarmesCleaver04c}
+{F. Barmes and D.J. Cleaver}.
+\newblock {Anchoring transitions and bistability in hybrid anchored liquid
+  crystal films}.
+\newblock {\em in preparation}, 2004.
+
+\end{thebibliography}
+
+%=======================================================================================================%
+%           tables
+%=======================================================================================================%
+\clearpage
+\newpage
+
+\begin{table}
+\centering
+\begin{tabular}{||c||c||c||c||c||}
+    \hhline{|t:=:t:=:t:=:t:=:t:=:t|}
+    Run     &   $\vecth{E}$ &$E$    & $\chi_e$  &run length\\
+    \hhline{|:=::=::=::=::=:|}
+    $R_1$   &   (0,0,0)     &0.0    &0.0    &$0.25.10^6$\\
+    $R_2$   &   (0,0,1)     &6.0    &0.5    &$0.25.10^6$\\
+    $R_3$   &   (0,0,0)     &0.0    &0.0    &$1.00.10^6$\\
+    $R_4$   &   (0,0,1)     &6.0    &-0.5   &$0.25.10^6$\\
+    $R_5$   &   (0,0,0)     &0.0    &0.0    &$0.50.10^6$\\
+    \hhline{|b:=:b:=:b:=:b:=:b:=:b|}
+\end{tabular}
+\caption{Parameterizations used to perform the switching between the planar and homeotropic states of the bistable
+system. Run lengths are given in Monte Carlo sweeps.} \label{tble:bistFieldConditions}
+\end{table}
+
+
+%=======================================================================================================%
+%           figures                                                                     %
+%=======================================================================================================%
+
+\pagebreak
+\newlength{\picH}   % picture height
+\newlength{\picW}   % picture width
+\newcommand{\picA}{270} % picture angle
+
+\picW = 10cm
+\newcommand{\pic}[1]{\fbox{\includegraphics[width=\picW]{#1}}}
+\newcommand{\picL}[1]{\fbox{\includegraphics[height=\picW, angle=\picA]{#1}}}
+
+
+
+%=======================================================================================
+\picW = 8cm
+\begin{figure}
+\centering \pic{fig_01.ps} \caption{(Color online) Schematic representation of the geometry used for the hard
+needle wall particle-surface interaction} \label{fig:HGO_wal}
+\end{figure}
+
+%=======================================================================================
+\picW = 8cm
+\begin{figure}
+        \centering
+        \picL{fig_02.ps}
+    \caption{(Color online) Predicted variation of $k_S^T/k$ with $k$ in the high packing limit.}
+    \label{fig:LnT-k}
+\end{figure}
+
+%=======================================================================================
+\picW = 10cm
+\begin{figure}
+    \centering
+    \subfigure[$k=3$]{\picL{fig_03a.ps}}
+    \subfigure[$k=5$]{\picL{fig_03b.ps}}
+    \caption{(Color online) Representation of the state points considered in the simulations presented in this
+    paper. The arrows represent the direction in which the simulations series were performed.}
+    \label{fig:simsDia_HNW}
+\end{figure}
+
+%=======================================================================================
+\picW = 8cm
+\begin{figure}
+        \centering
+    \pic{fig_04.ps}
+    \caption{(Color online) Typical profiles corresponding to homeotropic anchoring for $k=3$
+    and $k_S/k = 0.20$ as obtained from simulation series at constant density and decreasing
+    needle length.}
+    \label{fig:typicalProfile_k3_homeo}
+\end{figure}
+
+%=======================================================================================
+\picW = 8cm
+\begin{figure}
+        \centering
+        \pic{fig_05.ps}
+    \caption{(Color online) Typical profiles corresponding to a planar arrangement with $k=3$ and $k_S/k =
+    0.80$ as obtained from simulation series at constant density and decreasing
+    needle length.}
+    \label{fig:typicalProfile_k3_planar}
+\end{figure}
+
+%=======================================================================================
+\picW = 8cm
+\begin{figure}
+        \centering
+        \pic{fig_06.ps}
+    \caption{(Color online) Typical profiles for $k=3$ and $k_S/k = 0.48$. The term $k_S$ up or down in the key
+    of this Figure, refers to whether the profiles has been obtained from simulation with
+    increasing (up) or decreasing (down) needle length.}
+    \label{fig:typicalProfile_k3_bist}
+\end{figure}
+\clearpage
+\pagebreak
+%=======================================================================================
+\picW = 7cm
+\begin{figure}
+        \centering
+        \subfigure[]{\pic{fig_07a.ps}}
+    \subfigure[]{\pic{fig_07b.ps}}
+    \caption{(Color online) Surfaces showing the influence of $\rho^{*}$ on systems with $k=3$ and $k_S/k =
+    0.0$ (strongly homeotropic anchoring). These data are extracted from simulation series with
+    decreasing needle length.}
+    \label{fig:rhoInfl_k3_L000}
+\end{figure}
+
+\picW = 7cm
+\begin{figure}
+        \centering
+        \subfigure[]{\pic{fig_08a.ps}}
+    \subfigure[]{\pic{fig_08b.ps}}
+    \caption{(Color online) Surfaces showing the influence of $\rho^{*}$ on systems with $k=3$ and $k_S/k = 1.0$ (strongly planar anchoring).
+    These data are extracted from simulation series with decreasing needle length.}
+    \label{fig:rhoInfl_k3_L100}
+\end{figure}
+
+
+%=======================================================================================
+\picW = 7cm
+\begin{figure}
+        \centering
+        \subfigure[]{\pic{fig_09a.ps}}
+    \subfigure[]{\pic{fig_09b.ps}}
+    \caption{(Color online) Surfaces showing the influence of $k_S/k$ on systems with $k=3$ and $\rho^{*} = 0.28$.
+    These data are extracted from simulation series with decreasing needle length.}
+    \label{fig:LnInfl_k3_d0.28}
+\end{figure}
+
+\picW = 7.0cm
+\begin{figure}
+        \centering
+        \subfigure[]{\pic{fig_10a.ps}}
+    \subfigure[]{\pic{fig_10b.ps}}
+    \caption{(Color online) Surfaces showing the influence of $k_S/k$ on systems with $k=3$ and $\rho^{*} = 0.34$.
+    These data are extracted from simulation series with decreasing needle length.}
+    \label{fig:LnInfl_k3_d0.34}
+\end{figure}
+
+%=======================================================================================
+
+\picW = 7cm
+\begin{figure}
+    \centering
+    \subfigure[Anchoring maps for series with increasing $k_S/k$.]{
+    \pic{fig_11al.ps}
+    \pic{fig_11ar.ps}}
+
+    \subfigure[Anchoring maps for series with decreasing $k_S/k$.]{
+    \pic{fig_11bl.ps}
+    \pic{fig_11br.ps}}
+
+    \subfigure[Bistability diagrams (\ie difference between (a) and (b)).]{
+    \pic{fig_11cl.ps}
+    \pic{fig_11cr.ps}}
+    \caption{Anchoring maps of $\overline{Q}_{zz}$ for $k=3$ for the surface
+    and bulk regions of the cell. Diagrams on the l.h.s are relative to the
+    interfacial region and those on the r.h.s are relative to the bulk region.}
+    \label{fig:QzzPhaseDia_k3}
+\end{figure}
+
+
+%=======================================================================================
+\picW = 7cm
+\begin{figure}
+    \centering
+    \subfigure[Series with increasing $k_S/k$.]{
+    \pic{fig_12al.ps}
+    \pic{fig_12ar.ps}}
+
+    \subfigure[Series with decreasing $k_S/k$.]{
+    \pic{fig_12bl.ps}
+    \pic{fig_12br.ps}}
+
+    \subfigure[Bistability phase diagram (\ie difference between (a) and (b)).]{
+    \pic{fig_12cl.ps}
+    \pic{fig_12cr.ps}}
+    \caption{Anchoring maps of $\overline{Q}_{zz}$ for $k=5$ for the surface
+    and bulk regions of the cell. Diagrams on the l.h.s are relative to the
+    interfacial region and those on the r.h.s are relative to the bulk region.}
+    \label{fig:QzzPhaseDia_k5}
+\end{figure}
+
+
+%=======================================================================================
+\picW = 6cm
+\begin{figure}
+    \centering
+    \subfigure[start $R_1$]{\pic{fig_13a.ps}}
+    \subfigure[end $R_1$]{\pic{fig_13b.ps}}
+    \subfigure[end $R_2$]{\pic{fig_13c.ps}}
+    \subfigure[end $R_3$]{\pic{fig_13d.ps}}
+    \subfigure[end $R_4$]{\pic{fig_13e.ps}}
+    \subfigure[end $R_5$]{\pic{fig_13f.ps}}
+    \caption{Configuration snapshots corresponding to the initial (start) and final
+    configurations of runs $R_1$ to $R_5$ described in Section~\ref{s:anchoringPhaseDia}.}
+    \label{fig:HGOk3BistSnaps}
+\end{figure}
+
+%=======================================================================================
+\picW = 12cm
+\begin{figure}
+    \centering
+    \subfigure[$\overline{Q}_{zz}^{Su}(n)$]{\picL{fig_14a.ps}}
+    \subfigure[$\overline{Q}_{zz}^{Bu}(n)$]{\picL{fig_14b.ps}}
+    \caption{(Color online) Evolution of $\overline{Q}_{zz}$ in the (a)interfacial and (b)bulk regions as a
+    function of the number of Monte Carlo sweeps.}
+    \label{fig:QzzWak3Bist}
+\end{figure}
+
+\end{document}

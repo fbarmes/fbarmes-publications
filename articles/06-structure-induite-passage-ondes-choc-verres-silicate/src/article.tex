@@ -1,0 +1,495 @@
+
+%\documentclass[aps,pre,11pt,onecolumn,superscriptaddress]{revtex4}
+\documentclass[aps,10pt,twocolumn]{revtex4}
+
+
+%============================================================================
+%		packages
+%============================================================================
+\usepackage[final]{graphics}	% for graphics
+\usepackage[final]{graphicx}	% for graphics
+\usepackage{subfigure}		% allow subfigure
+\usepackage{amssymb}		% font
+\usepackage{amstext}		% ams latex package
+\usepackage{amsmath}		% font
+\usepackage{amsfonts}		% font
+\usepackage{amsbsy}		% font
+\usepackage{hhline}		% nice lines is tables
+\usepackage{xspace}		% add space at the end of macros
+\usepackage{color}
+\usepackage[french]{babel}
+\usepackage{calc}
+
+%--------------------------
+%	newcommands
+%--------------------------
+\newcommand{\etal}{\emph{et al.}\@\xspace}
+\newcommand{\cf}{\emph{c.f.}\@\xspace}
+\newcommand{\mrm}[1]{\ensuremath{\mathrm{#1}}\xspace}
+\newcommand{\SiOTwo}{\ensuremath{\mrm{SiO_2}}\xspace}
+
+\newlength{\picH}	% picture height
+\newlength{\picW}	% picture width
+\newcommand{\picA}{270}	% picture angle
+
+\picW = 8cm
+
+\newcommand{\pic}[1]{\includegraphics[width=\picW]{#1}}
+\newcommand{\picL}[1]{\includegraphics[height=\picW, angle=\picA]{#1}}
+\newcommand{\picB}[1]{\fbox{\includegraphics[width=\picW]{#1}}}
+\newcommand{\picLB}[1]{\fbox{\includegraphics[height=\picW, angle=\picA]{#1}}}
+
+\newcommand{\e}[1]{\ensuremath{e^{#1}}}
+
+%--------------------------
+%	page layout
+%--------------------------
+%%\textheight=254mm
+%%\voffset=-9mm
+
+\parindent=0pt
+
+\begin{document}
+
+\graphicspath
+{
+{../imgs/}
+}
+
+%%=============================
+%%	Titre
+%%=============================
+\title{Structure induite par passage d'ondes de choc dans les verres silicate}
+\author{F. Barmes}
+\affiliation{Centre Europ\'een de Calcul Atomique et Mol\'eculaire, Lyon}
+
+\author{L. Soulard}
+\affiliation{CEA-DAM. Bruy\`ere le Ch\^atel}
+
+
+
+\noaffiliation
+
+%%=============================
+%%	Abstract
+%%=============================
+\begin{abstract}
+\textbf{R\'esum\'e~:} On d\'ecrit ici une m\'ethode permettant de mod\'eliser et d'analyser la
+structure induite par le passage d'une onde de choc dans un verre silicate. On montre aussi que
+les r\'esultats obtenus par les simulations sous choc et celles utilisant l'Hugoniostat sont
+tr\`es similaires, validant ainsi la seconde m\'ethode qui permet l'utilisation de syst\`emes
+beaucoup plus petit.\\ 
+
+
+\textbf{Abstract~:} Here we describe a method allowing modeling and analysis of the shock
+induced structural changes in silicate glasses. We show that the results obtained using
+non-equilibrium molecular dyanmics and those obtained using the Hugoniostat ensemble are very
+similar, thus validating the latter method which allows usage of much smaller systems.
+\end{abstract}
+
+\maketitle
+
+
+%%=========================================================================================================================
+%%	Introduction
+%%=========================================================================================================================
+\section*{Introduction}
+
+Le but de cette \'etude est de construire et de valider les m\'ethodes et outils n\'ecessaires \`a la
+mod\'elisation de verres silicates en conditions de choc \`a l'\'echelle mol\'eculaire.\\
+La description r\'ealiste de verres de \SiOTwo n\'ecessiterait le d\'eveloppement d'un potentiel
+compliqu\'e comprenant des forces \`a deux et trois corps afin de rendre compte de
+l'organisation structurelle du mat\'eriau mais aussi des forces \`a courte et longue port\'ee
+(interactions coulombienne). Cette \'etude se concentre sur la validation
+des m\'ethodes \`a employer afin de pouvoir mod\'eliser et analyser un verre silicate en
+conditions de choc~; on choisit donc, dans un premier temps, de r\'esoudre le probl\`eme en
+utilisant un potentiel facilement ma\^{\i}trisable afin de pouvoir se concentrer sur la mise en place
+des m\'ethodes de simulation. On montrera toutefois que le potentiel utilis\'e permet d'obtenir
+des r\'esultats qualitativement correct.
+
+%%=========================================================================================================================
+%%	Potentiel et m\'ethodes
+%%=========================================================================================================================
+\section{Mod\'elisation d'un verre silicate}
+
+
+\subsection{Potentiel d'interaction}
+Le potentiel d'interaction choisit pour la description des forces inter-atomique, est le
+potentiel BKS, d\'evelopp\'e par van Beest, Kramer et van Santen~\cite{BKS} coup\'e \`a
+$r=r_c$ et que l'on remplace pour $r<r_0$ par un polyn\^{o}me d'ordre deux afin de corriger le caract\`ere
+non-physique du potentiel BKS \`a courte port\'ee. Le potentiel utilis\'e devient donc~:
+%%
+%%
+\begin{equation}
+\mathcal{V}= 
+	\left\{
+	\begin{array}{cc}
+	%
+	\mathcal{V}^{\mrm{BKS}}_c &r_{ij} > r_0 \\
+	%
+	p(r) = a_{ij}r^2 + b_{ij}r + c_{ij}					&r_{ij} \leq r_0
+	\end{array}
+	\right.
+\label{eqn::BKSFB}
+\end{equation}
+avec
+\begin{equation}
+\mathcal{V}^{\mrm{BKS}}_c = \mathcal{V}^{BKS}(r) - \mathcal{V}^{BKS}(r_c) - (r-r_c)\frac{d\mathcal{V}^{BKS}(r_c)}{dr}\\
+\end{equation}
+%%
+%%
+La Figure~\ref{fig::BKSFB} donne une repr\'esentation graphique du potentiel final utilis\'e.
+\begin{figure}
+\picW=7cm
+\picL{potBKS.ps}
+\caption{Repr\'esentation du potentiel d'interaction inter-atomique utilis\'e dans cette
+\'etude. Les courbes pointill\'ees repr\'esentent le potentiel BKS tronqu\'e sans l'utilisation
+de p(r).}
+\label{fig::BKSFB}
+\end{figure}
+%%
+%%
+Dans l'\'equation~(\ref{eqn::BKSFB}), $\mathcal{V}^{BKS}(r)$ est le potentiel BKS~\cite{BKS} qui d\'efinit l'interaction entre
+deux atomes $i,j=\left\{\mrm{Si},\mrm{O}\right\}$ de charges $q_i$ et $q_j$ et s\'epar\'es par
+une distance $r_{ij}$. Les valeurs des coefficients du potentiel sont donn\'es dans~\cite{BKS}.
+%%
+\begin{equation}
+\mathcal{V}^{BKS}(r_{ij}) = \frac{q_iq_j}{4\pi \epsilon_0 r} +A_{ij}e^{-B_{ij}r_{ij}} - \frac{C_{ij}}{r^6_{ij}} 
+\end{equation}
+%%
+%%
+Les coefficients du polyn\^{o}me $p(r)$ sont calcul\'es tels que~:
+\begin{equation}
+	\left\{
+	\begin{array}{ccc}
+	\mathcal{V}^{\rm BKS}_c 							&=&	p(r)				\\
+	\frac{d}{dr}\mathcal{V}^{\rm BKS}_c					&=& \frac{d}{dr}p(r)	\\
+	\frac{d2}{dr2}\mathcal{V}^{\rm BKS}_c				&=& \frac{d2}{dr2}p(r)
+	\end{array}
+	\right.
+\end{equation}
+
+
+
+
+\subsection{Cr\'eation et analyse d'un verre silicate}
+
+Dans le dioxide de silicium \`a l'\'etat solide, le mat\'eriau adopte une structure o\`u les atomes
+d'oxyg\`ene sont dispos\'es aux coins de t\'etra\`edre centr\'es autour des atomes de
+silicium.  La m\'ethode utilis\'ee pour cr\'eer une telle configuration s'inspire de celle d\'ecrite par
+Vashishta~\etal~\cite{VashishtaKalia90} ou Taraskin et Elliott~\cite{TaraskinElliott97}.\\
+On part d'une structure de $\mrm{\beta-cristobalite}$~\cite{Wickoff} avec une maille
+\'el\'ementaire telle que la masse volumique $\mu=2.2\mrm{g.cm^{-3}}$. On fait alors fondre ce crystal
+\`a haute temp\'erature (T=6000K) afin de faire dispara\^{\i}tre toute m\'emoire de la structure
+ordonn\'ee. Le liquide ainsi obtenu est alors lentement refroidi via une s\'erie de 13x3
+simulations de 25ps
+(thermalisation,\'equilibration,production) afin d'amener progressivement le syst\`eme \`a
+T=300K.\\
+
+Afin de v\'erifier la validit\'e de la m\'ethode utilis\'ee, les propri\'et\'es structurelles
+du verre (g(r),distribution des angles de liaisons, tailles des anneaux) sont
+calcul\'ees (Figure~\ref{fig:mkGlass}). La comparaison entre les r\'esultats obtenus et ceux publi\'es par
+d'autres auteurs~\cite{SusmanVolin91,RinoEbbsjo93,HorbachKob99,YanCormack} montre que la
+structure de notre verre est tout \`a fait correcte, malgr\'e l'a priori simplicit\'e du
+potentiel utilis\'e. 
+
+\begin{figure}
+\picW=7cm
+\subfigure[g(r)]{\picL{mkGlass_gr.ps}}
+\subfigure[Distribution des angles de liaisons]{\picL{mkGlass_BAD.ps}}
+\subfigure[Distribution de la taille des anneaux]{\picL{mkGlass_SPA.ps}}
+\caption{Repr\'esentation de la structure du syst\`eme de \SiOTwo calcul\'ee \`a haute (T=4000K)
+et basse (T=300K) temp\'erature. Dans le cas de la distribution des anneaux, les points
+($\blacksquare$) repr\'esentent les donn\'ees obtenues dans~\cite{RinoEbbsjo93} \`a 310 K avec
+le potentiel VKRE.}
+\label{fig:mkGlass}
+\end{figure}
+
+%%=========================================================================================================================
+%%	Passage d'ondes de choc
+%%=========================================================================================================================
+\section{Simulation en conditions de choc}
+
+Les simulations en conditions de choc sont effectu\'ees en utilisant des syst\`emes o\`u les
+conditions p\'eriodiques ont \'et\'e enlev\'ees dans la direction de propagation de l'onde, dans
+notre cas $x$. A l'instant, $t=0$ deux pistons repr\'esent\'es par des plans de masse infinie
+entrent en contact avec les faces de gauche et de droite du syst\`eme. Le piston de droite \`a une
+vitesse nulle, et le piston de gauche se d\'eplace vers la droite \`a une vitesse $u\neq 0$.
+La mise en mouvement du piston de gauche \`a pour effet d'entra\^{\i}ner dans le syst\`eme la
+propagation d'une onde de choc se deplacant vers la droite. L'onde de choc, dont la vistesse $D$
+d\'epend de $u$ ainsi  que de l'\'equation d'\'etat du syst\`eme, s\'epare le syst\`eme en deux
+r\'egions. La r\'egion en amont du choc est la r\'egion non-choqu\'ee (0) et la r\'egion en aval
+est la r\'egion choqu\'ee (1). Le but ici est d'analyser la structure induite dans la r\'egion
+(1) par le passage de l'onde.\\
+
+Afin de mener a bien ces analyses, on utilise une fen\^etre dont la position et la taille
+change au cours de la simulation de mani\`ere \`a englober la totalit\'e de la r\'egion (1). Les
+dimensions de cette fen\^etre sont calcul\'ees \`a partir du profile de vitesses des atomes
+selon la direction de propagation de l'onde. Dans un premier temps, on localise la position du
+front d'onde, c'est \`a dire le point d'inflexion maximal sur le profile. La r\'egion (1) est
+situ\'ee entre la  position du piston et celle du dernier maximum local en aval du
+front d'onde. On calcule alors les propri\'et\'es
+suivantes~:
+\begin{itemize}
+	\item[$\bullet$] Vitesse de propagation de l'onde de choc en fonction de la vitesse du piston.
+	\item[$\bullet$] Distribution des angles de liaisons SiOSi, OSiO et SiSiSi dans la r\'egion (1)
+	\item[$\bullet$] Distribution de la taille des anneaux dans la r\'egion (1).\\
+\end{itemize}
+
+
+\begin{figure}
+\picW=7cm
+\picL{shockVelocity.ps}
+\caption{Repr\'esentation de l'\'evolution de la vitesse du front d'onde $D$ en fonction de la
+vitesse du piston $u$. La ligne pointill\'ee sert uniquement \`a guider l'oeil.}
+\label{fig::shockVelocity}
+\end{figure}
+
+La vitesse de propagation de l'onde de choc en fonction de la vitesse du piston ($D=f(u)$) est
+calcul\'ee en mesurant la position du front d'onde en fonction du temps  pour chaque vitesse
+de propagation du piston. $D$ est simplement la pente de cette droite. La
+Figure~\ref{fig::shockVelocity} montre les r\'esultats obtenus et permet de distinguer
+un r\'egion \'elastique pour $u < 1.5\, \mrm{Km.s^{-1}}$ o\`u la vitesse du choc est tr\`es
+importante mais ne varie pas avec $u$ ainsi qu'une r\'egion plastique o\`u $D$ est une fonction
+lin\'eaire de $u$.\\
+
+La Figure~\ref{fig::BAD_shock} montre les r\'esultats obtenus pour le calcul de la
+distribution des angles de liaisons SiOSi, OSiO et SiSiSi dans la r\'egion 1. On remarque que
+pour tous les angles mesur\'es, l'augmentation de la vitesse du piston  induit une distribution
+d'angle plus large, qui peut \^etre expliqu\'e par l'augmentation de la temp\'erature en aval du
+front d'onde. On peut toutefois montrer que les distributions obtenues \`a vitesse de piston
+\'elev\'ees et donc \`a temp\'eratures \'elev\'ees sont tr\`es diff\'erentes de celles obtenues dans
+le cas de simulations de volume \`a ces m\^emes temp\'eratures (\cf inserts de la
+Figure~\ref{fig::BAD_shock}). La structure induite par le passage de l'onde  est donc bien
+sp\'ecifique aux conditions de choc et n'est pas le simple r\'esultat de l'augmentation de la
+temp\'erature derri\`ere le front d'onde. 
+\begin{figure}
+\picW=7cm
+\subfigure[angle OSiO]{\picL{BAD_shock_OSiO.ps}}
+\subfigure[angle SiOSi]{\picL{BAD_shock_SiOSi.ps}}
+\subfigure[angle SiSiSi]{\picL{BAD_shock_SiSiSi.ps}}
+\caption{Repr\'esentation de la distribution des angles de liaisons OSiO(a), SiOSi(b) et
+SiSiSi(c). Dans les cadres majeurs, Les courbes en pointill\'es montrent la distribution au
+p\^ole, les courbes continues fines correspondent \`a la distribution pour  diff\'erentes
+vitesses $u$ et les courbes en gras  correspondent \`a la vitesse de piston maximale
+repr\'esent\'ee ($u=4500 \mrm{m.s^{-1}}$). Dans les inserts, les courbes continues correspondent aux
+courbes en gras des cadres majeurs, et les courbes en gras repr\'esentent, la distribution \`a haute
+temp\'erature obtenue au cours d'une simulation de volume.}
+\label{fig::BAD_shock}
+\end{figure}
+
+
+%%=========================================================================================================================
+%%	Hugoniot
+%%=========================================================================================================================
+\section{Simulation sur l'Hugoniostat}
+
+On se propose ici, d'appliquer la m\'ethode de l'Hugoniostat afin de pouvoir effectuer une
+comparaison avec les simulations sous choc direct, et dans le cas o\`u les r\'esultats sont
+comparables, de pouvoir disposer d'une m\'ethode permettant d'analyser plus rapidement la
+structure de choc et avec de meilleurs statistiques. Plusieurs m\'ethodes ont \'et\'es
+developp\'ees afin de pouvoir effectuer des simulations sur l'Hugoniostat~\cite{HUG01,HUG02,HUG03}. Dans notre
+cas, on choisit une m\'ethode sous contrainte qui \`a l'avantage d'ob\'eir aux \'equations
+d'Hugoniot \`a chaque pas de temps~\cite{HUG03}. On rapelle cependant les \'equations
+d'Hugoniot qui permettent de lier les propri\'et\'es thermodynamiques des r\'egions (0) et (1)
+avec les vitesses $u$ et $D$~:
+%%
+\begin{equation}\
+	\begin{array}{ccc}
+	\mu_1	&=&		\left(\mu_0D\right)/\left(D-u\right)\\
+	P_1		&=&		\mu_0Du+P_0\\
+	D		&=&		(1/\mu_0)\left[ (P_1-P_0)/(\mu_0^{-1} - \mu_1^{-1})  \right]^{1/2}\\
+	u		&=&		\left[  (P_1-P_0)(\mu_0^{-1} - \mu_1^{-1})\right]^{1/2}
+	\end{array}
+\label{eqn:hug}	
+\end{equation}
+
+Le syst\`eme de d\'epart des simulations dans l'Hugoniostat (p\^ole) est un verre de
+$N=1536$ atomes \`a $T=300\, K$ et $\rho=2.2 \mrm{g.cm^{-3}}$ pr\'epar\'e selon la m\'ethode d\'ecrite ci-avant.
+Les propri\'et\'es thermodynamique du p\^ole ont \'et\'es mesur\'ees au cours de la derni\`ere
+simulation de production du syst\`eme.\\ 
+
+
+Chaque simulation dans l'Hugoniostat part de la m\^eme configuration (le p\^ole) compress\'ee de mani\`ere
+instantan\'ee \`a la densit\'e voulue. La plage de densit\'e utilis\'ee est $\rho \in
+[3000:5000]\,\mrm{Kg.m^{-3}}$. Pour chaque simulation, on mesure l'\'evolution de la pression
+ainsi que les propri\'et\'es structurelle du syst\`eme.\\
+
+
+\begin{figure}
+\picW=7cm
+\subfigure[]{\picL{cmp_D-u.ps}}
+\subfigure[]{\picL{cmp_P-mu.ps}}
+\caption{Comparaisons des caract\'eristiques thermodynamiques obtenues au cours des simulations
+sous choc ($\square$) en en utilisant l'Hugoniostat ($\bullet$). La sous-figure (a) utilise les
+donn\'ees mesur\'ees sous choc et calcul\'ees \`a partir des simulation dans l'Hugoniostat en
+utilisant les relations d'Hugoniot. La sous-figure (b) utilise les donn\'ees mesur\'ees dans
+l'Hugoniostat et calcul\'ees \`a partir des simulations sous choc.}
+\label{fig::cmp_thedy}
+\end{figure}
+
+
+La diff\'erence entre les simulations sous choc et avec l'Hugoniostat, est que les quantit\'es
+impos\'ees dans le cas d'une m\'ethode sont celles qui peuvent etre mesur\'ees avec l'autre.
+Dans le cas des simulations dans l'Hugoniostat, la densit\'e est impos\'ee et on mesure la
+pression $P_1$. Connaissant $\mu_0$ et $P_0$, les \'equations d'hugoniot permettent calculer $u$
+et $D$.  Dans le cas des simulations sous choc, on impose $u$
+et on mesure $D$. Connaissant $P_0$ et $\mu_0$ on peut alors calculer $P_1$ et $\mu_1$. Les \'equations
+d'Hugoniot~(\ref{eqn:hug}) permettent donc de faire la relation entre les propri\'et\'es mesur\'ees et
+impos\'ees dans les deux types de simulations.\\
+
+Afin de comparer les propri\'et\'es thermodynamiques
+obtenues avec les deux types de simulations, on mesure les  courbes $D=f(u)$ et $P=d{\mu}$ (\cf
+Figure~\ref{fig::cmp_thedy}). On remarque que les deux m\'ethodes de simulations donnent des
+r\'esultats tr\`es comparable \`a
+ceci pr\`es que la m\'ethode d'Hugoniot ne permet pas d'observer la zone \'elastique.
+Dans la zone plastique qui nous int\'eresse ici, les r\'esultats sont cependant tr\`es satisfaisant.\\
+
+
+
+\begin{figure}
+\picW=7cm
+\subfigure
+[Distributions des angles de liaisons obtenues \`a partir des
+simulation sous choc (lignes continues) et avec l'Hugoniostat ($\blacktriangle$:SiSiSi, 
+$\bullet$:OSiO, $\blacksquare$:SiOSi).]
+{\picL{cmp_BAD.ps}}
+\subfigure[Distributions des tailles des anneaux obtenues \`a partir des
+simulation sous choc ($\bullet$) et avec l'Hugoniostat (histogrammes).]
+{\picL{cmp_SPA.ps}}
+\caption{Comparaison des structures obtenues avec les simulations sous choc et en utilisant
+l'Hugoniostat. Dans les deux sous figures, les \'equivalences (1) \`a (4) sont repr\'esent\'e de gauche a
+droite et de haut en bas.}
+
+\label{fig::cmp_BAD}
+\label{fig::cmp_SPA}
+\end{figure}
+
+
+
+Afin de confirmer les observations men\'ees \`a l'aide des propri\'et\'ees thermodynamiques. On
+mesure pour les deux types de simulation, et chaque s\'eries les propri\'et\'es structurelles
+(distribution d'angles  de liaisons et distribution de tailles des anneaux). Afin d'effectuer
+les comparaison, on choisit \`a l'aide des r\'esultats pr\'esent\'es dans la
+Figure~\ref{fig::cmp_thedy}, l'\'equivalence entre la vitesse du piston dans les simulations sous
+choc et la densit\'e impos\'ee dans l'Hugoniostat. On d\'ecide de l'\'equivalence suivante~:
+\begin{eqnarray*} 
+\mrm{cas (1) :}\mu=3600 \mrm{Kg.m^{-3}} &\equiv& v_p=2000 \mrm{m.s^{-1}}\\
+\mrm{cas (2) :}\mu=4100 \mrm{Kg.m^{-3}} &\equiv& v_p=3000 \mrm{m.s^{-1}}\\
+\mrm{cas (3) :}\mu=4600 \mrm{Kg.m^{-3}} &\equiv& v_p=4000 \mrm{m.s^{-1}}\\
+\mrm{cas (4) :}\mu=4800 \mrm{Kg.m^{-3}} &\equiv& v_p=5000 \mrm{m.s^{-1}}\\
+\end{eqnarray*}
+
+Les comparaisons sont pr\'esent\'ees dans les Figures~\ref{fig::cmp_BAD} et~\ref{fig::cmp_SPA}
+dans le cas des angles de liaisons et des tailles d'anneaux respectivement. Encore une fois, les
+comparaisons montrent une tr\`es grande correspondance entre les r\'esultats obtenus avec
+l'Hugoniostat et en conditions de choc. Les comparaisons s'am\'eliorant \`a mesure que 
+la force du choc augmente.
+
+
+
+%%=========================================================================================================================
+%%	Conclusion - perspectives
+%%=========================================================================================================================
+\section*{Conclusion}
+
+On pr\'esente ici une m\'ethode permettant la simulation de verres silicate en conditions de
+choc. Deux m\'ethodes ont \'et\'e utilis\'ees, \`a savoir la simulation avec passage direct
+d'ondes de choc et l'utilisation de l'Hugoniostat, un ensemble thermodynamique qui permet de
+reproduire les conditions de choc.\\
+%%
+La premi\`ere m\'ethode, bien que tr\`es ch\`ere en nombre de particules permet de suivre
+l'\'evolution du front d'onde au travers du mat\'eriau. L'utilisation d'une fen\^etre
+d'analyse se d\'epla\c{c}ant avec le front d'onde pour recouvrir la r\'egion choqu\'ee, permet
+l'analyse des propri\'et\'es thermodynamique et structurelle du mat\'eriau juste apr\`es le
+passage de l'onde.\\
+%%
+La m\'ethode de l'Hugoniostat permet d'\'etudier les propri\'et\'es statiques du syst\`eme en
+conditions de choc avec des syst\`emes de tailles tr\`es inf\'erieures et donc bien plus
+rapide.\\
+%%
+L'analyse thermodynamique et structurelle des configuration obtenues jointe \`a l'utilisation
+des relations d'Hugoniot permet la comparaison des r\'esultats obtenus avec les deux
+m\'ethodes. On montre que les deux m\'ethodes permettent d'obtenir des r\'esultats tr\`es
+similaires, validant ainsi l'utilisation de la m\'ethode d'Hugoniot en remplacement des
+simulation sous choc direct.
+
+%%=========================================================================================================================
+%%	Bibliography
+%%=========================================================================================================================
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+
+\end{document}
+
+%%Les param\`etres de simulations sont les suivants~:
+%%\begin{center}
+%%\begin{tabular}{lll}
+%%\hline
+%%$A_0=\frac{1.0}{4\pi\epsilon_0}$ &= $2.307080\e{-28}$	&[J.m-1]	\\
+%%$q_{Si}$	&= 2.4 					&charge partielle du silicium\\
+%%$q_O$		&= -1.2 				&charge partielle de l'oxyg\`ene\\
+%%$r_c$		&= 6.0					&[m] distance du cutoff \\
+%%\hline
+%%\end{tabular}
+%%\end{center}
+
+%%Les coefficients du potentiel BKS sont donn\'es dans~\cite{BKS}~:
+
+%%\begin{center}
+%%\begin{tabular}{cccc}
+%%	&$A_{ij}$ \mrm{[J]}		&$B_{ij}$ \mrm{[m^-1]}	&$C_{ij}$ \mrm{[J.m^6]}\\
+%%\hline
+%%O-O	&2.225061\e{-16}	&2.760000\e{+10}	&2.803810\e{-77}	\\
+%%Si-O	&2.884521\e{-15}	&4.873180\e{+10}	&2.139517\e{-77}	\\
+%%Si-Si	&0.0			&0.0			&0.0			\\
+%%\hline
+%%\end{tabular}
+%%\end{center}
+
+%%t les coefficients de p(r) sont~:
+%%\begin{center}
+%%\begin{tabular}{cc}
+%%\hline
+%%O-O		&	2.0\e{-10} m\\
+%%Si-O	&	1.5\e{-10} m\\
+%%Si-Si	&	0.0\e{-10} m\\
+%%\hline
+%%\end{tabular}
+%%\end{center}
+
+%%\begin{center}
+%%\begin{tabular}{cccc}
+%%\hline
+%%		&a [$J.m^{-2}$]		&b	[$J.m^{-1}$]	&c [J]				\\
+%%O-O		&1.510154e+02		&-7.925215e-08		&1.100414e-17		\\
+%%Si-O	&3.413039e+02		&-9.361408e-08		&3.924997e-18		\\
+%%Si-Si	&0.000000e+00		&0.000000e+00		&0.000000e+00		\\
+%%\hline
+%%\end{tabular}
+%%\end{center}
+
+
+%%\begin{figure}
+%%\picW=7cm
+%%\subfigure[]{\picLB{cmp_BAD_01.ps}}
+%%\subfigure[]{\picLB{cmp_BAD_02.ps}}
+%%
+%%\subfigure[]{\picLB{cmp_BAD_03.ps}}
+%%\subfigure[]{\picLB{cmp_BAD_04.ps}}
+%%\caption{}
+%%\label{fig::cmp_BAD}
+%%\end{figure}
+
+
+%%\begin{figure}
+%%\picW=7cm
+%%\subfigure[]{\picLB{cmp_SPA_01.ps}}
+%%\subfigure[]{\picLB{cmp_SPA_02.ps}}
+
+%%\subfigure[]{\picLB{cmp_SPA_03.ps}}
+%%\subfigure[]{\picLB{cmp_SPA_04.ps}}
+%%\caption{}
+%%\label{fig::cmp_SPA}
+%%\end{figure}

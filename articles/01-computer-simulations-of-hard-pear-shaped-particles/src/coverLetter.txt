@@ -1,0 +1,52 @@
+
+
+List of corrections :
+
+#=================================
+#	EDITOR COMMENTS
+#=================================
+
+Changed the label of Figure 3 so as to match the PRE format
+Included the missing labels in Figures 4 and 7
+
+#=================================
+#	REFEREE COMMENTS
+#=================================
+
+
+>> The paper is well written and the computational procedures are clearly
+>> described, except for one aspect: the authors have used the constant NPT
+>> MC method. However, for liquid-crystalline phases with translational
+>> order, it is sometimes advisable to allow also the shape of the
+>> simulation box to fluctuate, in order to relax residual anistropic
+>> stresses. Maybe this was not necessary in the present case. However, a
+>> short discussion of the choice of the method would be useful.
+
+The simulations did allow for box shape fluctuation: brief comments have been added in 
+Sections 2.1.2 and 2.2.2 to clarify this. Additionally, an extra reference relating to
+this technical issue (Reference [20]) has now been incorporated.
+
+#----------------------------------------------
+
+>> I have one additional minor comment: in the last sentence of the
+>> Abstract, the authors comment that is unusual to observe smectic-A
+>> phases for hard-particle models. Yet, hard sphero-cylinders - probably
+>> the most widely studied hard-particle model - do exhibit a stable
+>> smectic-A phase over a wide range of aspect ratios (this is described in
+>> a series of papers by Stroobants, Lekkerkerker, Bolhuis, Frenkel,
+>> McGrother and Jackson). The correct statement would be that the
+>> hard-particle models usually do not exhibit smectic-A2 or Ad phases. I
+>> consider the observation of a Smectic-Ad phase to be an important result
+>> of the present paper. Yet, little attention is paid to the physical
+>> properties of this phase: e.g. it is not discussed how the layer spacing
+>> depends on density. It would be useful if the authors point out more
+>> clearly that their work really goes well beyond the earlier
+>> sphero-cylinder literature.
+
+The abstract has been changed so as to refer to this phase as an interdigitated smectic A2.
+
+We have also performed some further simulations (at higher pressures) so as to give a clearer 
+characterisation  of this phase. These extra results have been incorporated into the manuscript by 
+inserting an extra line to each of Figs 10a and 10b and by adding some text at the end of 
+Section 2.2.3.
+

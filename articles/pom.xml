@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.barmes.publications</groupId>
+		<artifactId>fbarmes-publications-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>fbarmes-publications-articles-parent</artifactId>
+	<name>fbarmes-publications-articles-parent</name>
+	<packaging>pom</packaging>
+
+	<properties>
+		<latex.main.file>article</latex.main.file>		
+	</properties>
+
+
+	<modules>
+		<module>01-computer-simulations-of-hard-pear-shaped-particles</module>
+		<module>02-symmetric-alignment-nematic-matrix</module>
+		<module>03-computer-simulation-liquid-crystal-anchoring-transition</module>
+		<module>04-using-particle-shape-tilted-bistable-lc-anchoring</module>
+		<module>05-molecular-dynamics-shock-wave-structural-changes-silica-glasses</module>
+		<module>06-structure-induite-passage-ondes-choc-verres-silicate</module>
+	</modules>
+
+
+
+</project>

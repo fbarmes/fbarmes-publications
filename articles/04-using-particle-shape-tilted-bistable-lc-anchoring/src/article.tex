@@ -1,0 +1,1271 @@
+
+
+
+%%\documentclass[twocolumn,aps,pre,showpacs,superscriptaddress,draft]{revtex4}
+
+%%\documentclass[preprint,pre,showpacs,superscriptaddress]{revtex4}
+\documentclass[aps,10pt,twocolumn]{revtex4}
+
+
+
+%============================================================================
+%       packages
+%============================================================================
+\usepackage[final]{graphics}    % for graphics
+\usepackage[final]{graphicx}    % for graphics
+\usepackage{subfigure}      % allow subfigure
+\usepackage{amssymb}        % font
+\usepackage{amstext}        % ams latex package
+\usepackage{amsmath}        % font
+\usepackage{amsfonts}       % font
+\usepackage{amsbsy}     % font
+\usepackage{hhline}     % nice lines is tables
+\usepackage{xspace}     % add space at the end of macros
+\usepackage{color}
+
+%============================================================================
+%        page style and size
+%============================================================================
+%\oddsidemargin = 0.6in          % 40mm left margin
+%\oddsidemargin = 0.2in
+%\textwidth = 5.75in         % 20mm right margin
+%\textwidth = 5.95in
+%\textheight = 9.1in         % 20mm from page number to bottom
+%\voffset = -0.5in           % lift up
+%\parindent = 0pc            %no indentation
+%\parskip 12pt
+
+
+%============================================================================
+%       new commands
+%============================================================================
+\newcommand{\remark}[1]{\textbf{\textcolor{red}{#1}}}
+\newcommand{\remove}[1]{}
+
+\newcommand{\linespacing}[1]{\renewcommand{\baselinestretch}{#1}\large\normalsize}
+\newcommand{\mrm}[1]{\ensuremath{\mathrm{#1}}}
+\newcommand{\vect}[1]{ \mathbf{#1} }
+\newcommand{\vecth}[1]{ \mathbf{\hat{#1} } }
+
+\newcommand{\gvect}[1]{\forcebold{#1}}
+\newcommand{\gvecth}[1]{\forcebold{\hat{#1}}}
+
+\newcommand{\dotproduct}[2]{\vect{#1} \cdot \vect{#2}   }
+
+
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+
+
+%============================================================================
+%       Contact distance related macros
+%============================================================================
+
+\newcommand{\so}{\sigma_0}
+\newcommand{\sel}{\sigma_\ell}
+
+\newcommand{\rij}{\vecth{r}_{ij}}
+\newcommand{\ui}{\vecth{u}_i}
+\newcommand{\uj}{\vecth{u}_j}
+\newcommand{\sijr}{\sigma(\ui,\uj,\rij)}
+\newcommand{\dotProdP}[2]{ \left( #1 \cdot #2 \right) }
+\newcommand{\dotProd}[2]{ #1 \cdot #2 }
+
+\newcommand{\sir}{\sigma(\ui,\vect{r}_{ij})}
+
+\newcommand{\ijr}{\ui,\uj,\rij}
+\newcommand{\kSp}{k_S^{\prime}}
+
+\newcommand{\etal}{\emph{et al.}\@\xspace}
+\newcommand{\ie}{\emph{i.e.}\@\xspace}
+\newcommand{\eg}{\emph{e.g.}\@\xspace}
+\newcommand{\etc}{etc.\@\xspace}
+
+
+%============================================================================
+%       Macros - figures
+%============================================================================
+\pagebreak
+\newlength{\picH}   % picture height
+\newlength{\picW}   % picture width
+\newcommand{\picA}{270} % picture angle
+
+\picW = 10cm
+\newcommand{\pic}[1]{\includegraphics[width=\picW]{#1}}
+\newcommand{\picL}[1]{\includegraphics[height=\picW, angle=\picA]{#1}}
+
+
+
+%=======================================================================================
+%           BEGIN DOCUMENT
+%=======================================================================================
+\begin{document}
+\graphicspath
+{
+{../imgs/}
+}
+
+%%\title{Surface interaction potential effect on\\ the anchoring behaviour of liquid crystals}
+%%\title{Partial substrate penetrability as a control mechanism for surface induced anchoring}
+
+\title{Using particle shape to induce tilted and bistable liquid crystal anchoring}
+
+\author{F. Barmes}
+\affiliation{Centre Europ\'een de Calcul Atomique et Mol\'eculaire, 46, All\'ee d'Italie, 69007 Lyon, France}
+
+\author{D.J. Cleaver}
+\affiliation{Materials and Engineering Research Institute, Sheffield Hallam University, Sheffield, S1 1WB, United
+Kingdom}
+
+
+\pacs{61.30.-v, 64.70Md,  61.30.Cz, 68.08.-p}
+
+
+%%61.30.-v : liquid crystals
+%%64.70Md : transitions in liquid crystals
+%%61.30.Cz : molecular and microscopic models and theories of liquid crystals
+%%68.08.-p : liquid-solid interfaces
+
+
+\date{\today}
+
+%=======================================================================================
+%           ABSTRACT
+%=======================================================================================
+
+%%\begin{abstract}
+%%We investigate the use of partial surface penetrability as a mean of controlling
+%%the surface induced anchoring orientations with systems of hard Gaussian overlaps confined in an
+%%infinitely wide slab with symmetric anchoring. Using the HGO-sphere potential for interaction
+%%with the planar substrates, we demonstrate that the combination of purely steric interactions
+%%and surface penetrability triggers the formation of tilted as well as homeotropic phases. Upon
+%%extending the HGO-sphere to the HGO-surface potential which induces a  more restrictive
+%%absorption behaviour, the tilted arrangement becomes planar. In addition, this second potential
+%%allows the observation of a wide and strong region of bistability where both planar and
+%%homeotropic arrangements are equally stable. As a result, besides further explaining
+%%the origin of tilted and planar phases, the HGO-surface potentiel opens  up the prospects of
+%%studying systems where surface bistability is of critical importance.
+%%\end{abstract}
+
+\begin{abstract}
+We use Monte Carlo simulations of hard Gaussian overlap (HGO) particles symmetrically confined
+in slab geometry to investigate the role of particle-substrate interactions on liquid
+crystalline anchoring. Despite the restriction here to purely steric interactions and smooth
+substrates, a range of behaviours are captured, including tilted anchoring and
+homeotropic-planar bistability. These macroscopic behaviours are all achieved through
+appropriate tuning of the microscopics of the HGO-substrate interaction, based upon non-additive
+descriptions for the HGO-substrate shape parameter.
+\end{abstract}
+
+%============================================================================
+%           Title
+%============================================================================
+\maketitle
+%=======================================================================================
+%           INTRODUCTION
+%=======================================================================================
+%%\newpage
+\section{Introduction}
+The term \emph{surface anchoring} refers to the means by which a preferred orientation (or set of orientations) is
+imposed on a liquid crystal by a confining substrate~\cite{Jerome91}. The mechanisms underlying surface anchoring
+are fundamental to the operation of virtually all liquid crystal display cells, since the field-off states
+utilised in such devices are usually surface-aligned~\cite{Shanks82,Geelhaar98}. Indeed, surface anchoring is
+particularly important in the latest generation of bistable devices~\cite{ZBD,DennistonYeomans,DavidsonMottram02}
+in which the display cells possess two optically distinct surface-stabilised arrangements.
+
+Experimental studies of liquid crystal anchoring (see J\'{e}r\^ome~\cite{Jerome91} for a review) have identified
+three classes of alignment characterised by $\alpha$, the angle between the average director tilt and the
+substrate normal. These alignments are homeotropic, tilted and planar with, respectively, $\alpha=0$, $0 < \alpha
+<\pi/2$ and $\alpha = \pi/2$. The anchoring properties of adsorbed liquid crystalline systems have also been the
+subject of several theoretical investigations performed, in the main, using mean
+field~\cite{TjiptoMargoSullivan88,DelRioTeloDaGamma95} and density
+functional~\cite{OsipovHess93,Teixeira97,Allen99} approaches.
+
+Despite this range of previous studies, molecular-level understanding of the mechanisms driving anchoring remains
+limited and the methods used to control surface anchoring in current devices are largely empirical. For instance,
+it has long been known that rubbed substrates can be used to create planar surface alignment~\cite{LuDeng98}, but
+the mechanisms underlying this result have been the subject of an extended debate~\cite{ChenFeller89}. If the
+surface is a polymer film, soft rubbing has the effect of aligning the polymer chains in the rubbing direction.
+This, in turn, aligns the liquid crystal molecules thus highlighting a chemical mechanism coupling the nematic
+director in the interfacial region with the polymer chain orientation~\cite{Clark85,GearyGoodby87}. If, however,
+the substrate is scratched by the rubbing, creating a grooved surface, it has been argued that a steric mechanism
+can generate the same effect~\cite{Berreman72}.
+
+While treatments such as substrate rubbing offer surface pretilt and azimuthal control over the anchoring
+direction, they do not represent the only routes to controllable liquid crystal alignment. This has been
+illustrated by a series of computer simulation studies performed over the last decade, which have given direct
+insight into the relationship between molecular adsorption and liquid crystal anchoring. The most common
+arrangement found in such studies is planar anchoring; this has been found at flat substrates for
+hard-particle~\cite{VanRoijDijkstra00,DijkstraVanRoij01,Chrzanowska_Teixera_01,BarmesCleaver04a},
+Gay-Berne~\cite{WallCleaver03} and all-atom~\cite{BingerHanna01} models (though note that planar alignment of the
+adsorbed molecules does \emph{not} always result in planar anchoring \cite{PalermoBiscarini98}). Homeotropic
+anchoring has been achieved using hard-particle systems employing non-additive wall-particle interactions at
+perfectly flat walls~\cite{Allen99,Cleaver_Teixeira_01,Chrzanowska_Teixera_01,LangeSchmid02,BarmesCleaver04a} and
+full interactions at walls with tethered flexible chains~\cite{LangeSchmid02,LangeSchmid02a,LangeSchmid02c} and
+rigid rods~\cite{DowntonAllen04}. While homeotropic anchoring has been seen in simulations of Gay-Berne particles
+confined by smooth substrates~\cite{WallCleaver03}, and could certainly be forced using the well-depth anisotropy
+tuning approach employed in~\cite{AntypovCleaver04}, the majority of such systems have yielded tilted
+alignments~\cite{ZhangChakrabarti96,WallCleaver97,TeixeiraChrzanowska01,WebsterCleaver03}. Up to now, the tilt
+observed in these systems has been ascribed to competition between the particle-particle and particle-wall
+attractive interactions. However, by investigating the equivalent hard-particle system, we show here that this
+tilt actually has an \emph{entropic} origin. Tilted anchoring in hard-particle systems has previously been seen
+only when the substrates have been made rough through the tethering of
+chains~\cite{LangeSchmid02,LangeSchmid02a,LangeSchmid02c} or rods~\cite{DowntonAllen04}. Indeed, entropy-driven
+tilt of cylindrically symmetric particles at smooth walls has not, to our knowledge, been seen or even considered
+in any previous simulation or theoretical study.
+
+In this study we extend previous work~\cite{BarmesCleaver04a} on the anchoring behaviour of generic hard-particle
+liquid crystal models by studying the effect of changing the particle-substrate contact function. Specifically, we
+use Monte Carlo simulations to study the anchoring behaviour of hard Gaussian overlap (HGO) particles confined in
+a slab geometry using two particle-surface potentials - the HGO-sphere and HGO-surface potentials. As well as
+investigating the intrinsic anchoring properties of these two surfaces, we study their behaviours for varying
+degrees of substrate penetrability, in order to identify the conditions under which the stable anchoring condition
+changes. This is done with the aim of developing and characterising a surface potential capable of exhibiting both
+homeotropic and planar anchoring alignments, i.e. bistable anchoring. A narrow region of bistability was
+identified in our previous work based on the simple hard needle-wall (HNW) surface
+potential~\cite{BarmesCleaver04a} and found to be explained by the non-additive nature of this potential.
+
+The remainder of this paper is organised as follows: in Section~\ref{s:RSP} we describe the HGO-sphere potential
+and its induced phase behaviour. Following this, in Section~\ref{s:RSUP} we show equivalent work performed with
+the HGO-surface  model. Finally, in Section~\ref{s:CCL}, we present a discussion and the conclusions deduced from
+this work and propose some directions for future work.
+
+
+%=======================================================================================
+%       ROD - SPHERE
+%=======================================================================================
+\section{The HGO-sphere surface potential}
+\label{s:RSP} In this Section, surface induced structural changes are studied using Monte Carlo simulations of
+rod-shaped particles that interact with one another through the HGO potential~\cite{Rigby89} and with the
+confining substrates via the HGO-sphere potential. The HGO model is a steric model in which the contact distance
+is the shape parameter determined by Berne and Pechukas~\cite{BernePechukas72} when they considered the overlap of
+two ellipsoidal Gaussians.  Thus, the interaction potential $\mathcal{V}^HGO$ between two particles $i$ and
+$j$ with respective orientations $\ui$ and $\uj$ and intermolecular vector $\vect{r}_{ij} = r_{ij}\rij$ is defined
+as
+%%
+%%
+\begin{equation}
+    \mathcal{V}^\mrm{HGO} = \left\{  %}
+    \begin{array}{ccc}
+    0   &\mrm{if}   &r_{ij} \geq \sijr  \\
+    \infty  &\mrm{if}   &r_{ij} < \sijr
+    \end{array}
+    \right.
+\end{equation}
+where $\sijr$ is the contact distance, or shape parameter,
+%%
+%%----------------------------------------------------------------
+%%	TWO COLUMNS VERSION OF THE EQUATION
+%%----------------------------------------------------------------
+%\begin{multline}
+%\label{eqn:HGO_sigma}
+%    \sijr = \so\left\{
+%    1 - \frac{1}{2}\chi\left[
+%    \frac{ \lp\dotProd{\rij}{\ui} + \dotProd{\rij}{\uj}\rp^2 }{1 + \chi(\dotProd{\ui}{\uj})}
+%    \right. \right. \\
+%    %%
+%    %%
+%    %%
+%    \left. \left.
+%    + \frac{ \lp\dotProd{\rij}{\ui} - \dotProd{\rij}{\uj}\rp^2 }{1 - \chi(\dotProd{\ui}{\uj})}
+%    \right] \right\}^{-\frac{1}{2}}.
+%\end{multline}
+%%
+%%----------------------------------------------------------------
+%%	ONE COLUMN VERSION OF THE EQUATION
+%%----------------------------------------------------------------
+%%
+\begin{equation}
+\label{eqn:HGO_sigma}
+    \sijr = \so\left\{
+    1 - \frac{1}{2}\chi\left[
+    \frac{ \lp\dotProd{\rij}{\ui} + \dotProd{\rij}{\uj}\rp^2 }{1 + \chi(\dotProd{\ui}{\uj})}
+    %%
+    + \frac{ \lp\dotProd{\rij}{\ui} - \dotProd{\rij}{\uj}\rp^2 }{1 - \chi(\dotProd{\ui}{\uj})}
+    \right] \right\}^{-\frac{1}{2}}.
+\end{equation}
+%%
+%%
+Here $\so$, the particle width, sets the unit of distance for this model and the shape anisotropy parameter $\chi
+= (k^2-1)/(k^2+1)$, where $k= \sel/\so$, is the particle length to breadth ratio.
+
+The HGO model is the hard-particle equivalent of the much-studied Gay-Berne model~\cite{GayBerne81}. The phase
+behaviour of the HGO model is density driven and fairly simple, comprising only two non-crystalline phases;
+isotropic and (for $k\gtrsim 3$) nematic fluids at, respectively, low and high number densities $\rho^{*}$. The
+isotropic-nematic phase-coexistence densities have been located for various particle elongations in a series of
+previous simulation studies~\cite{PadillaVelasco97,DeMiguelDelRio01,DeMiguelDelRio03}; for the most commonly used
+elongation of $k=3$, the isotropic-nematic transition occurs at $\rho^{*}\approx 0.30$ with a slight system size
+dependence.
+
+Although the HGO model was originally derived using geometrical considerations, an HGO particle cannot be
+represented by a fixed solid object. Rather, it is a mathematical abstraction of the interaction surface between
+two non-spherical particles~\cite{Rigby89}. For moderate elongations, however, the properties of HGO particles are
+similar to those of an the equivalent hard ellipsoid of revolution~\cite{Rigby89}. Simulation studies
+~\cite{DeMiguelDelRio03} have borne this out, showing that the equation of state of the HGO fluid is qualitatively
+equivalent to, but consistently displaced from, that of the hard ellipsoid fluid.
+
+The shape parameter $\sijr$ given by eqn.(\ref{eqn:HGO_sigma}) has too low a symmetry to be appropriate for
+describing the interaction between an HGO particle and a featureless, planar substrate. However, a simple function
+with the appropriate symmetry {\em is} obtained in the limit that one of the particles is made spherical. For a
+sphere of diameter $\sigma_j$, the contact distance for this interaction is given by eqn.(4)
+of~\cite{BernePechukas72}~:
+%
+\begin{equation}
+    \sigma^{\rm HGO-sphere}(\ui,\rij) = \sqrt{
+    \frac{\so^2 + \sigma^2_j}
+    {2(1 - \chi(\dotproduct{u_i}{r_{ij}})^2 )}
+    }.
+    \label{eqn:sw_RSP_BP}
+\end{equation}
+%
+In Refs.~\cite{ZhangChakrabarti96,WallCleaver97,TeixeiraChrzanowska01,WebsterCleaver03}, this contact function was
+used as the basis for the particle-substrate interaction: the surface, as viewed by any particle, was taken to be
+represented by a sphere located in the surface plane but with the same $x$- and $y$-coordinates as those of the
+particle. In this Section, we adopt this same HGO-sphere approximation for the particle-substrate contact
+function. We also investigate the dependence of the system's anchoring on the penetrability of the substrate. This
+is achieved by mediating the interaction between each particle and the substrate using a second ``inner" particle
+of breadth $\so$ and length $\sel^{\prime} \leq \sel$. Thus, when the inner particle is made short, the HGO
+becomes able to embed its ends into the substrate. This results in an interaction
+%
+\begin{equation}
+%%\label{eqn:sw_RSP_BP}
+    \mathcal{V}^{\rm HGO-sphere} = \left\{
+    \begin{array}{ccc}
+        0   &\mathrm{if}    &|z_i - z_0| \geq \sigma^{\rm HGO-sphere}_w(\ui)    \\
+        \infty  &\mathrm{if}    &|z_i - z_0| < \sigma^{\rm HGO-sphere}_w(\ui)
+    \end{array}
+    \right.
+\end{equation}
+%
+between particle $i$ and a substrate located at $z_0$, where
+%%\begin{equation}
+%%    \sigma^{\rm HGO-sphere}_w(\ui) = \sigma_0\lp \frac{1}{\sqrt{1 - \chi_S\cos^2\theta_i}} - \frac{1}{2} \rp
+%%    \label{eqn:sigma_w_RSP}
+%%\end{equation}
+%%
+\begin{equation}
+    \sigma^{\rm HGO-sphere}_w(\ui) = \sigma_0\left[ (1 - \chi_S\cos^2\theta_i)^{-1/2} - \frac{1}{2} \right]
+    \label{eqn:sigma_w_RSP}
+\end{equation}
+%%
+%%
+is a rewriting of eqn.~(\ref{eqn:sw_RSP_BP}) in terms of $\theta_i$, the particle zenithal angle, subject to the
+imposition $\sigma_j = \so $ and a shift of the surface spheres by one particle radius so as to make the substrate
+surface coincide with $z_0$. $\chi_S = (k^2_S - 1)/(k^2_S + 1)$, $k_S$ being the length to breadth ratio
+($\sel^{\prime}/\so$) of the inner ellipsoid. In the next Subsections, the consequences of changing this variable
+will be examined. Broadly, reducing $k_S$, and so increasing the degree of surface penetrability is expected to
+stabilise the homeotropic arrangement. Indeed, previous simulation studies~\cite{Allen99,BarmesCleaver04a} have
+shown the homeotropic state to be stable for $k_S=0$.
+%The behaviour of this system for non-zero $k_S$ is less
+%clear, however; arrangements which maximise the free volume (by, e.g., expelling particle volume) are increasingly
+%favoured as the system density is raised.
+At the other limit, it is established that hard rods at hard walls adopt planar
+alignment~\cite{DijkstraVanRoij01}. And between the two lies the possibility of substrate-induced tilt.
+
+%---------------------------------------------------------------------------------------
+\subsection{Simulation results}
+\label{ss:RSPresults} The surface induced structural changes obtained using the HGO-sphere potential have been
+investigated by means of Monte Carlo computer simulations in the canonical ensemble. Systems of $N=1000$ HGO
+particles with elongation $k=3$ were confined in a slab geometry with fixed wall separation $L_z=4k\sigma_0$, the
+walls being situated at $z_0 = \pm\frac{L_z}{2}$ and symmetric anchoring conditions imposed. Periodic boundary
+conditions were applied in the $x$- and $y$-directions. 
+At the time of the computation, one individual run of half a million sweeps represented about 30
+hours of computation time on a Compaq dec alpha workstation. With more recent processors (intel
+pentium IV with 3.0GHz clock speed) this can be reduced to 5 hours bringing the total time to
+compute an anchoring map down to 300 hours of CPU time.
+The relatively modest system size of $N=1000$ has been
+used here in order to enable a comprehensive mapping of the relevant phase space to be achieved. From De Miguel's
+study of system size effects in 3d bulk systems of Gay-Berne particles~\cite{DeMiguel92}, it is apparent that any
+$N$-dependence of bulk behaviour should be negligible for $N\geq\mathcal{O}(10^3)$. This conclusion does not
+transfer automatically to confined systems, however, since the surface extrapolation lengths can become comparable
+with the substrate-substrate separation~\cite{Priezjev03}. For the systems studied here, in which the surface
+conditions were symmetrical, we have found that doubling the slab thickness (\ie running with $N=2000$ particles)
+does not have a significant effect on the anchoring behaviour observed. However, in equivalent simulations of
+hybrid anchored systems, in which the two surface extrapolation length regions can promote competing effects, we
+have found that the slab thickness becomes a significant simulation parameter; this is described in detail
+elsewhere~\cite{BarmesCleaver04d}. Sequences of simulations were performed at constant number density $\rho^{*}$
+and decreasing $k_S$ for several values of $\rho^{*}$; from these simulations, the surface induced structural
+changes were studied through computation of profiles for the number density $\rho^{*}_\ell(z)$, orientational
+order with respect to the substrate normal, $Q_{zz}(z)$, and slice averaged orientational order, $\langle
+P_2(z)\rangle$. Full descriptions relating to the computation of these observables are given
+elsewhere~\cite{WallCleaver97,BarmesCleaver04a}.
+
+%---------------------------------------------------------------------------------------------------
+\picW = 8cm
+\begin{figure}
+    \centering
+    \pic{fig_01.ps}
+    \caption{[Color online] Typical $z$-profiles for confined systems of HGO particles with
+    $k=3.0$ and $k_S/k = 0.0$ using the HGO-sphere potential.
+    These data are extracted from simulation series with decreasing $k_S$.}
+    \label{fig:RSP_typeProf_k3_homeo}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------------------------
+\begin{figure}
+    \centering
+    \pic{fig_02.ps}
+    \caption{[Color online] Typical $z$-profiles for confined systems of HGO particles with
+    $k=3.0$ and $k_S/k = 1.0$ using the HGO-sphere potential.
+    These data are extracted from simulation series with decreasing $k_S$.}
+    \label{fig:RSP_typeProf_k3_planar}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+In Figs.~\ref{fig:RSP_typeProf_k3_homeo} and~\ref{fig:RSP_typeProf_k3_planar}, we show typical observable profiles
+obtained at isotropic and nematic densities for systems with $k_S/k=0$ and $k_S/k=1.0$, respectively. At low
+density, the system with $k_S/k = 0.0$ shows strong surface adsorption peaks adjacent to each substrate with high
+orientational order perpendicular to the surfaces. As expected, the central 50\% of the system is orientationally
+isotropic. At the nematic density, however, the positive $Q_{zz}(z)$ profile values effectively replicate those
+obtained for $\langle P_2(z)\rangle$, indicating uniform homeotropic anchoring. Furthermore, the peak separations
+of about $\sel$ in the corresponding $\rho^{*}_\ell(z)$ profiles indicate substrate-templated pseudo-smectic
+layering of the type exhibited by other homeotropic systems~\cite{WallCleaver97,BarmesCleaver04a}. The equivalent
+profiles obtained from the $k_S/k=1.0$ system indicate very different behaviour, however. At low densities, the
+surface density peaks are shifted away from the substrates, and no structure is apparent in $\rho^{*}_\ell(z)$
+apart from these first-monolayer features. Additionally, this system has low order parameter throughout, with very
+little surface-enhancement compared with that shown by the homeotropic system. On compression to a nematic
+density, the $\rho^{*}_\ell(z)$ profile gains secondary peaks at each substrate, but the observed peak-peak
+separation distance is not appropriate for either homeotropic or planar anchoring states. Additionally, whilst the
+$\langle P_2(z)\rangle$ profile clearly indicates a well ordered nematic film at this density, the central region
+of the corresponding $Q_{zz}(z)$ profile adopts near-zero values. These features suggest a tilted arrangement, as
+is confirmed by the configuration snapshot, Fig.~\ref{fig:RSP_snaps}(b), generated for this system at
+$\rho^{*}=0.35$.
+
+%---------------------------------------------------------------------------------------------------
+\picW = 4cm
+\begin{figure}
+    \centering
+    \subfigure[$k_S/k = 0.0$]{\pic{fig_03a.ps}}
+    \subfigure[$k_S/k = 1.0$]{\pic{fig_03b.ps}}
+    \caption{[Color online] Typical configuration snapshots showing the surface induced (a) homeotropic ($k_S/k=0$) and (b)
+    tilted ($k_S/k=1.0$) surface induced arrangements for confined systems of $N=1000$ HGO particles
+    using $\mathcal{V}^{\rm HGO-sphere}$ for surface interactions and $\rho^{*} = 0.35$.}
+    \label{fig:RSP_snaps}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+The crossover from homeotropic to tilted anchoring has been studied further through extensive simulations
+performed over the $\rho^{*},k_S/k$ phase space. These are summarised in the surface and bulk-region anchoring
+maps shown in Figs.~\ref{fig:RSP_phaseDia} (a) and (b), respectively, and calculated following the method given
+in~\cite{BarmesCleaver04a}. These maps show the contours of $\overline{Q_{zz}}(\rho^{*},k_S/k)$, the
+density-profile-weighted average of $Q_{zz}(z)$ in the interfacial and bulk regions of the cell. The difference
+between the computation of these profiles and those of~\cite{BarmesCleaver04a} lies in the convention adopted to
+define the location of the boundary between the interfacial and bulk regions of the cell. Here, the interfacial
+region was taken to extend from the substrate to the second local maximum in $\rho^{*}_\ell(z)$ regardless of the
+surface arrangement. These maps indicate a transition between homeotropic and tilted anchoring states at $k_S/k
+\simeq 0.5$, but this crossover is less sharp than the homeotropic-planar anchoring transition observed with the
+HNW surface model~\cite{BarmesCleaver04a}. Indeed, profiles obtained from simulation series performed at constant
+density but either increasing or decreasing $k_S$ show negligible differences, indicating that the HGO-sphere
+model does not exhibit bistability for $k=3$.
+
+%---------------------------------------------------------------------------------------------------
+\picW=7cm
+\begin{figure}
+    \centering
+    \subfigure[Interfacial region]{\pic{fig_04a.ps}}
+    \subfigure[Bulk region]{\pic{fig_04b.ps}}
+    \caption{Anchoring maps showing the evolution of
+    $\overline{Q_{zz}}(\rho^{*},k_S/k)$ as obtained from series of simulations at constant
+    density and decreasing $k_S$ and using the HGO-sphere potential. Subfigures (a) and (b)
+    correspond to the interfacial and bulk regions of the cell respectively.}
+    \label{fig:RSP_phaseDia}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+\subsection{Origin of the tilt}
+To examine the basis of the tilted anchoring identified in the previous Subsection, we now assess the geometrical
+properties of the HGO-sphere surface interaction model. As is shown in Appendix~\ref{app:A}, for an ellipsoid of
+elongation $k$ and tilt $\theta$ whose closest surface-intersection-point lies a distance $d$ from the ellipsoid
+centre, $V_{\rm abs}(k,\theta)$, the ellipsoid volume absorbed into the surface is given by~:
+%%
+%%--------------------------------------------------
+%%	TWO COLUMN VERSION OF THE EQUATION
+%%--------------------------------------------------
+%\begin{multline}
+%    V_{\rm abs}(k,d,\theta)=\frac{k\pi}{3}\lp
+%    \frac{1}{2}-\frac{d}{(k^2\cos^2\theta+\sin^2\theta)^{1/2}}\rp^2  \\
+%    \times \lp 1 + \frac{d}{(k^2\cos^2\theta+\sin^2\theta)^{1/2}}\rp .
+%    \label{eqn:Ve_RSP}
+%\end{multline}
+%%
+%%--------------------------------------------------
+%%	ONE COLUMN VERSION OF THE EQUATION
+%%--------------------------------------------------
+\begin{equation}
+    V_{\rm abs}(k,d,\theta)=\frac{k\pi}{3}\lp
+    \frac{1}{2}-\frac{d}{(k^2\cos^2\theta+\sin^2\theta)^{1/2}}\rp^2  
+    \lp 1 + \frac{d}{(k^2\cos^2\theta+\sin^2\theta)^{1/2}}\rp .
+    \label{eqn:Ve_RSP}
+\end{equation}
+%%
+Approximating this ellipsoid with the HGOs used in the simulations and $d$ with $\sigma^{\rm HGO-sphere}_w(\ui)$
+of eqn.~(\ref{eqn:sigma_w_RSP}), we obtain an expression for $V_{\rm abs}(k,k_S,\theta)$. Setting $k=3$, we
+present in Fig.~\ref{fig:Ve_RSP_fkS} a graphical representation of $V_{\rm abs}(k_S,\theta)$, the absorbed
+particle volume as a function of both $k_S$ and $\theta$. For short $k_S$, this adsorbed volume is maximal at
+$\theta = 0$, corresponding to an homeotropic anchoring state. As $k_S$ approaches $k$, however, a second maximum
+develops at intermediate $\theta$, which suggests the stability of a tilted arrangement.
+
+%---------------------------------------------------------------------------------------------------
+\picW = 6cm
+\begin{figure}
+    \centering
+    \pic{fig_05.ps}
+    \caption{[Color online] Representation of $V_{\rm abs}(k_S,\theta)$ for the HGO-sphere potential and $k=3$.}
+    \label{fig:Ve_RSP_fkS}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+More insight into this result can be gained by comparing the HGO-sphere shape parameter,
+eqn.~(\ref{eqn:sigma_w_RSP}), with that of the HNW potential, $\sigma^{\rm HNW}_w=0.5k_S\cos\theta$. In the case
+$k_S=k$, the latter represents the distance between the substrate and the particle's centre of mass when one of
+the particle's ends is in contact with the surface plane~\cite{BarmesCleaver04a}. $\sigma^{\rm HGO-sphere}_w$, in
+contrast, represents the distance at which the HGO particle interacts with a sphere embedded within the substrate.
+The difference between the two shape parameters (Fig.~\ref{fig:cmpHNW_RSP}) shows that, for intermediate tilt
+angles, $\sigma^{\rm HGO-sphere}_w$ drops below $\sigma^{\rm HNW}_w$. At these angles, therefore, the HGO-sphere
+surface potential allows the particle ends to penetrate the surface plane. The angles corresponding to this region
+of reduced $\sigma^{\rm HGO-sphere}_w$ coincide with the maximum in $V_{\rm abs}(k_S,\theta)$ and appear,
+therefore, to be associated with the tilt behaviour.
+
+%---------------------------------------------------------------------------------------------------
+\begin{figure}
+    \centering
+    \picL{fig_06.ps}
+    \caption{[Color online] Comparison between $\sigma^{\rm HNW}_w$ (solid line) and $\sigma^{\rm HGO-sphere}_w$ (dashed
+    line). The dotted line represents the difference between the two
+    ($\sigma^{\rm HGO-sphere}_w-\sigma^{\rm HNW}_w$.)}
+    \label{fig:cmpHNW_RSP}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+The tilt angle $\theta^{\rm max}_{tilt}$ for which the absorbed volume of a single particle is maximal can be
+calculated using eqn.~(\ref{eqn:Ve_RSP}) for various values of $k$ and $k_S$. For example, we show
+(Fig.~\ref{fig:Ve_RSP_fk}) the surface $V_{\rm abs}(k,\theta)$ calculated in the full-particle limit $k_S=k$. For
+this case, $\theta^{\rm max}_{tilt}(k)$ has been obtained by computing the contour of $\frac{d}{d\theta}V_{\rm
+abs}(k,\theta)$ at level $0$, from which we have found that $\theta^{\rm max}_{tilt}$ is constant at about 0.9
+radians ($\sim 50^\circ$) for $k\leq 10$. This implies that a tilt angle of about $50^\circ$ should be adopted by
+full (\emph{i.e.} $k_S=k$) HGO particles adsorbed using the HGO-sphere potential. Despite both the neglect of
+many-body effects in this analysis and the geometrical approximations made, the prediction $\theta^{\rm
+max}_{tilt}\sim 50$ degrees matches the simulation results reasonably well. At the state point $\rho^{*} = 0.35$
+and $k_S/k = 1.0$, for the $z$ location where $\rho^{*}_\ell(z)$ is maximal, the simulations give $Q_{zz} =
+0.209$, which corresponds to an average tilt angle of $46.6^\circ$. Since surface-packing of particles increases
+with decrease in tilt angle, the single-particle prediction for $\theta^{\rm max}_{tilt}$ can be expected to be an
+be an over-estimate; the tilt angle adopted in the simulations therefore appears to represent a reasonable
+compromise.
+
+%---------------------------------------------------------------------------------------------------
+\picW = 6cm
+\begin{figure}
+    \centering
+    \pic{fig_07.ps}
+    \caption{[Color online] Representation of $V_{\rm abs}(k,\theta)$ for the HGO-sphere potential and $k_S=k$.}
+    \label{fig:Ve_RSP_fk}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+The numerical and geometrical treatments described in this Section have shown that a tilted phase can be both
+predicted and obtained with a purely steric model. This sheds new light on the tilted phases obtained in
+refs.~\cite{ZhangChakrabarti96, WallCleaver97,TeixeiraChrzanowska01,WebsterCleaver03} in simulations of confined
+Gay-Berne systems; it now appears that the tilts seen in these systems were simply the entropically favoured
+arrangements for the surface potential employed, and were \emph{not} caused by competition between
+particle-particle and particle-wall enthalpic contributions. The steric argument presented here is also consistent
+with the change from tilted to planar surface alignment observed when Wall and
+Cleaver~\cite{WallCleaver97,WallCleaver03} simulated equivalent systems but with the molecular elongation reduced
+from $k=3$ to $k=2$; we now see that in the latter case, the particles were simply too short to significantly
+absorb at the surface and, therefore, adopted the planar state. Evaluation of $V_{\rm abs}(k=2,\theta)$ (see
+Fig.~\ref{fig:Ve_RSP_fk}) confirms this, showing that for this elongation, the absorbed volume is virtually
+independent of molecular orientation. In the light of this, it seems reasonable to assume that a planar surface
+arrangement would have been obtained in the simulations of Refs.~\cite{ZhangChakrabarti96,
+WallCleaver97,TeixeiraChrzanowska01,WebsterCleaver03}, had the surfaces been represented by a lattice of fixed
+spheres, as was done in~\cite{PalermoBiscarini98}.
+
+Thus, we conclude that for the HGO-sphere surface potential, a previously unrecognised angle-dependent absorption
+of particles into the surface leads to the formation of tilted phases, even for full particles. The anchoring
+behaviour obtained with this model is found to vary continuously with $k_S/k$, such that no bistability is found
+between the homeotropic and tilted anchoring states. That said, varying $k_S/k$ does not appear to be the best
+route by which to control the anchoring tilt angle: changing the surface-sphere radius ($\sigma_j$ in
+eqn.(\ref{eqn:sw_RSP_BP})) is a more natural approach to adopt. In the next Section, we address the behaviour
+induced by an alternative potential for which no such absorption can occur, the aim being to regain the standard
+homeotropic-planar anchoring behaviour obtained with the HNW potential.
+
+%=======================================================================================
+%           ROD - SURFACE
+%=======================================================================================
+\section{The HGO-surface potential}
+\label{s:RSUP}
+In this Section, we consider the behaviour of the HGO fluid when confined by a \emph{full} (but
+structureless) substrate using the HGO-surface shape parameter derived in Appendix~\ref{app:B}, that is:
+\begin{equation}
+\label{eqn:hgo-surface}
+    \sigma^{\rm HGO-surface}_w = \sigma_0\lp \sqrt{\frac{1-\chi_S\sin^2\theta}{1-\chi_S}} -
+    \frac{1}{2}\rp .
+\end{equation}
+With this potential, each HGO particle effectively interacts with a planar continuum rather than a single sphere.
+Again a shift of $\sigma_0/2$ has been introduced so as to displace the material forming the substrate from the
+simulation box.
+
+Before presenting the simulation results obtained for this system, we first consider the surface absorption
+properties expected for the modified shape parameter~(\ref{eqn:hgo-surface}). Again, this is done by using the
+shape parameter to calculate $V_{\rm abs}(k,k_S,\theta)$ the particle volume absorbed into the surface as a
+function of its orientation and inner-particle extension. The results of this calculation for $k=3$ are shown in
+Figure~\ref{fig:Ve_RSUP_fks}. From this we see that when $k_S = 0$, $V_{\rm abs}(k,k_S,\theta)$ is maximal at
+$\theta = 0$, indicating a stable homeotropic state. For $k_S = k=3$, in contrast, $V_{\rm abs}(k,k_S,\theta)$ is
+close to zero for all $\theta$, with only a small maximum present at $\theta = 0$. This maximum is, in fact, an
+anomaly relating to the ellipsoidal approximation employed in Appendix~\ref{app:A}; by design, $\sigma_w^{\rm
+HGO-surface}$ actually forbids any particle adsorption into the substrate if $k_S=k$. For this system, therefore,
+we expect to regain the planar base state previously found for rod-shaped objects in contact with a hard flat
+surface~\cite{DijkstraVanRoij01}.
+
+%---------------------------------------------------------------------------------------------------
+\picW = 6cm
+\begin{figure}
+    \centering
+    \pic{fig_08.ps}
+    \caption{[Color online] Representation of $V_{\rm abs}(k_s,\theta)$ for the HGO-surface potential and $k=3$.}
+    \label{fig:Ve_RSUP_fks}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+From these calculations, it is apparent that the mechanism driving any homeotropic-planar anchoring transition
+with the HGO-surface potential must be qualitatively different from that seen with the HNW
+potential~\cite{BarmesCleaver04a}. For the latter, the stable anchoring state could be predicted by simply
+comparing the particle volume that could be absorbed into the surfaces in the homeotropic and planar arrangements:
+the favourable state was always that which maximized the total absorbed volume. In the case of the HGO-surface
+potential, however, there is {\em no} absorption in the planar arrangement. Here, therefore, the competition is
+between the higher orientational entropy of the planar state and the volume adsorption available (for $k_S<k$) in
+the homeotropic state.
+
+%----------------------------------------------------------------------------------------------
+\subsection{Simulation results}
+The anchoring behaviour of the rod-surface potential has been studied using Monte Carlo simulations broadly
+equivalent to those presented in Section~\ref{ss:RSPresults}. All of the simulations were performed in the
+canonical ensemble on systems of $N=1000$ HGO particles with elongation $k=3$, confined in slab geometry with
+symmetric anchoring conditions. At each density investigated, two series of simulations were performed with
+increasing and decreasing $k_S$. The typical $z$-profiles for this model are shown in
+Figs.~\ref{fig:RSUP_typeProf_k3_homeo} and~\ref{fig:RSUP_typeProf_k3_planar} for $k_S=0.0$ and $k_S = k$,
+respectively.
+%---------------------------------------------------------------------------------------------------
+\picW = 8cm
+\begin{figure}
+    \centering
+    \pic{fig_09.ps}
+    \caption{[Color online] Typical $z$-profiles for systems of $N=1000$ HGO particles with
+    $k=3.0$ and $k_S/k = 0.0$ confined using the HGO-surface potential.
+    These data were obtained from a simulation series performed with decreasing $k_S$.}
+    \label{fig:RSUP_typeProf_k3_homeo}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+%%
+%%
+
+The results obtained for $k_S=0$ are virtually indistinguishable from those found for the equivalent HGO-sphere
+system (recall Fig.~\ref{fig:RSP_typeProf_k3_homeo}), indicating, as expected, strong homeotropic anchoring. This
+similarity between the profiles obtained with the two $k_S=0$ systems is explained by the observation that for
+$\alpha \simeq 0$, the interfacial geometry is equivalent for both potentials used. No such similarity is apparent
+for the two $k_S=k$ systems, however. Here, the HGO-surface system develops a multi-peak density profile with peak
+separations of $\sigma_0$, and, at nematic densities, a central region with negative $Q_{zz}(z)$ values. As
+predicted, therefore, this system does indeed adopt a planar state at high inner-particle elongation.
+
+%---------------------------------------------------------------------------------------------------
+\picW = 8cm
+\begin{figure}
+    \centering
+    \pic{fig_10.ps}
+    \caption{[Color online] Typical $z$-profiles for systems of $N=1000$ HGO particles with
+    $k=3.0$ and $k_S/k = 1.0$ confined using the HGO-surface potential.
+    These data were obtained from a simulation series performed with decreasing $k_S$.}
+    \label{fig:RSUP_typeProf_k3_planar}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+The full anchoring behaviour of this $k=3$ system, evaluated as a function of $k_S$ and $\rho^{*}$, is indicated
+by the anchoring maps shown in Figure~\ref{fig:QzzWaPhaseDia_k3_RSUP}. As previously, these show contours of
+$\overline{Q_{zz}}(\rho^{*},k_S/k)$, the density-profile-weighted averages of $Q_{zz}(z)$ in the interfacial and
+bulk regions. Again, in calculating these, the surface region was taken to extend from the substrate to the second
+maximum in $\rho^{*}_{\ell}$, regardless of the surface arrangement obtained. The anchoring maps computed for
+simulation series performed with decreasing and increasing $k_S$ are given in
+Figs.~\ref{fig:QzzWaPhaseDia_k3_RSUP}(a) and (b), respectively. Clear differences are apparent from these two data
+sets, indicating hysteresis in the anchoring behaviour. This is quantified in the accompanying bistability maps
+(Figs.~\ref{fig:QzzWaPhaseDia_k3_RSUP}(c)) obtained by simply subtracting the (b) surfaces from their
+corresponding (a) surfaces. We note that the bistability indicated here covers a much wider range of both density
+and $k_S/k$ than that obtained using the HNW potential~\cite{BarmesCleaver04a}, and is centred on $k_S/k \simeq
+0.75$. 
+
+%---------------------------------------------------------------------------------------------------
+\picW = 4cm
+\begin{figure}
+    \centering
+    \subfigure[Simulation series performed at constant density with decreasing $k_S$]{\pic{fig_11al.ps}\pic{fig_11ar.ps}}
+    
+	\subfigure[Simulation series performed at constant density with increasing $k_S$]{\pic{fig_11bl.ps}\pic{fig_11br.ps}}
+    
+	\subfigure[Bistability maps obtained by subtracting Figs.(b) from Figs.(a)]{\pic{fig_11cl.ps}\pic{fig_11cr.ps}}
+    \caption{Anchoring maps obtained from simulations of $N=1000$
+    $k=3$ HGO particles confined using the HGO-surface surface potential.
+    Diagrams on the l.h.s correspond to the interfacial
+    region and those on the r.h.s correspond to the bulk region.}
+    \label{fig:QzzWaPhaseDia_k3_RSUP}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+
+%=======================================================================================
+%   CONCLUSIONS
+%=======================================================================================
+\section{Conclusions}
+\label{s:CCL}
+
+We have investigated, by means of Monte Carlo computer simulation, the effect of the particle-substrate shape
+parameter (or contact function) on the anchoring behaviour of a generic confined liquid crystal model.
+Essentially, by tuning the degree and sense of the non-additivity of this contact function, we have been able to
+establish both a tilted anchoring state and a strongly first-order (i.e. bistable) planar to homeotropic anchoring
+transition.
+
+Non-additivity has been incorporated into the systems studied in two different ways. Firstly, as was shown in
+Section \ref{s:RSP}, the HGO-sphere shape parameter has an intrinsic angle-dependent non-additivity; particles
+approaching the substrate in either planar or homeotropic alignments `see' the full surface, whereas particles
+approaching at intermediate angles are allowed to partially absorb. For systems with $k_S \approx k$, this
+microscopic effect was found to control both the structure of the fluid in the near-substrate region {\em and} the
+macroscopic anchoring orientation. The second use of non-additivity in this work centred on $k_S$, the
+(dimensionless) particle length used to determine the particle-substrate interactions. By using $k_S$ as a model
+parameter, we have been able controllably to introduce a homeotropic anchoring state into the simulated systems,
+and continuously vary its relative stability. Given that particle shape is the main determinant of structure in
+most liquids, it should not, perhaps, be a great surprise that the contact function used to define
+particle-substrate interactions has had so dominant an effect here. That said, the utility of this approach does
+not appear to be widely recognised.
+
+Whilst non-additivity has been used here as a convenient device with which to control model systems, we stress
+that this approach does not represent an abstract concept with no relevance to real systems. Indeed, for molecular
+systems (in which intramolecular flexibility may be significant) adsorbed at substrates with `soft' coatings, the
+relevance of a fully-additive generic model is arguable. For the specific models used in this work, an
+experimental realisation of reducing the parameter $k_S$ would be to employ a substrate coating that allows some
+penetration by the molecular endgroups, but repels the central part of the molecule; for mesogens, which commonly
+have sub-molecular units with significantly different character, this is perfectly achievable behaviour.
+
+We have shown that the anchoring properties of generic model mesogens adsorbed at perfectly flat walls can be
+controlled by details of the mesogen-substrate interaction. Moreover, we have shown that the nature of the
+interfacial region can depend markedly on the anchoring state. For example, the depth at which the substrate
+profile ceases to be apparent in the liquid structure depends strongly on the anchoring orientation; since
+interfacial region structure underlies mesoscopic descriptors such as anchoring coefficients and surface
+viscosities, a more detailed understanding of such differences may offer a route to enhanced device control.
+Similarly, orientational correlations parallel with and perpendicular to the substrate can be expected to depend
+on the anchoring orientation; the systems determined here therefore represent good candidate systems with which to
+explore phenomena such as nematic bridging in microconfined and/or colloid-bearing mesogenic systems.
+
+Finally, having achieved a microscopic model capable of exhibiting anchoring bistability, we are now in a position
+to examine the orientational behaviour present in more complex systems. These include other liquid crystal cell
+configurations, such as the bistable hybrid aligned nematic considered by Davidson and
+Mottram~\cite{DavidsonMottram02}, and more exotic liquid crystal models such the PHGO description of flexoelectric
+pear-shaped particles~\cite{BarmesCleaver03}.
+
+%A good example of the use of absorption behaviour to control anchoring is the work of Filas and Patel on systems
+%with silane coated surfaces~\cite{FilasPatel87}. Here, by coating rubbed surfaces with two silane based
+%surfactants which independently induced homogeneous and homeotropic anchoring, respectively, it proved possible to
+%generate any tilt angle between these two limits simply by varying the relative concentration of the two
+%compounds.
+%
+% Using surface penetrability as a control mechanism for the surface
+%induced anchoring in confined liquid crystalline systems. To this end, we have used both the  and HGO-surface
+%potentials, which rely on similar mechanisms but exhibit different absorption behaviours. For application in
+%simulating switching between two surface aligned states in a  bistable liquid crystal device, another aim of this
+%study was to build a surface potential that produces both planar and homeotropic anchoring with a strong
+%bistability region.
+%%%
+%%% The RSPm and RSUP effects
+%%%
+%%% Discussions :
+%%%
+%%%  -> tilted phases can be explained with surface penetrability
+%%%  -> RSUP good candidate for flexo switch
+%%%  -> ???
+%The approach used to model the surfaces is very similar to that used in a preceding
+%publication~\cite{BarmesCleaver04a} but using more realistic surface interactions. The HGO-sphere potential was
+%found to display a very interesting surface behaviour as with this steric potential, due to artificial
+%substrate-absorption, the expected planar arrangement was replaced by a tilted structure. This shows that a tilted
+%phase can result from the sole combination of purely steric interactions and  surface penetrability and sheds a
+%new light on previous simulation work where the origin of such an arrangement was attributed to the competition
+%between packing constraints and attractive forces. Meanwhile, the rod-surface potential, which does not allow
+%surface penetrability for full particles, yields the more common homeotropic and planar anchoring which further
+%proves the argument of surface absorption in explaining the origins of the tilted phases observed with the
+%HGO-sphere potential. In addition, the HGO-surface potential proves a better candidate for modelling bistable
+%switching between the homeotropic and planar arrangements, as not only the surface behaviour observed with the HNW
+%model was recovered, but stronger and wider bistability behaviour could be observed.
+%%%
+%%
+%% What's next
+%%%
+%The results obtained from this work will be subsequently used in an attempt to model bistable switching between
+%two stable arrangement in confined systems of normal and flexoelectric liquid crystalline systems.
+
+
+%=======================================================================================
+%   Acknowledgments
+%=======================================================================================
+\section*{Acknowledgments}
+FB wishes to acknowledge useful discussions with Dmytro Antipov and Sheffield Hallam University's Material
+Research Institute for financial support
+
+%=======================================================================================
+%   APPENDIX 1
+%=======================================================================================
+\appendix
+%%\newpage
+\section{Volume of an ellipsoid absorbed at a plane}
+\label{app:A}
+Here, we consider the geometry of an ellipsoidal particle close to a confining surface and
+interacting with it using an arbitrary potential that allows partial absorption into the substrate. The aim is to
+determine an expression for $V_{\rm abs}$, the volume absorbed into the surface. To this end, we consider the
+setups shown in Fig.~\ref{fig:scalingVe-Vs}. The result is first quoted for the case of a sphere of radius $a$:
+the volume of the illustrated sphere which is absorbed into the surface is
+\begin{equation} \label{eqn:Vs}
+    V_s = \frac{\pi}{3}(a-d_1)^2(2a+d_1).
+\end{equation}
+As indicated in the Figure, this same solution can then be transformed to the case of an ellipsoid of elongation
+$k$ simply by scaling space by a factor $k$ along the ellipsoid's symmetry axis, $\vecth{z}$, thus $V_{\rm abs} =
+kV_s$. What is required, therefore, is an expression for $V_s$ in terms of the ellipsoid's co-ordinates.
+%---------------------------------------------------------------------------------------------------
+\picW = 8cm
+\begin{figure}[h]
+    \centering
+    \pic{fig_12.ps}
+    \caption{[Color online] Schematic representation of the geometrical configuration considered in
+    Appendix~\ref{app:A} to
+    calculate the absorbed volume of an ellipsoid at a planar substrate.}
+    \label{fig:scalingVe-Vs}
+\end{figure}
+%---------------------------------------------------------------------------------------------------
+
+The surface of an ellipsoid of semi-axes $a,a,ka$ along $\vecth{x},\vecth{y}$ and $\vecth{z}$ is given by
+\begin{equation}
+    \frac{x^2}{a^2} + \frac{y^2}{a^2} + \frac{z^2}{k^2a^2} = 1 .
+\end{equation}
+Taking the ellipsoid tilt to be confined to $\vecth{x}-\vecth{z}$ plane, the distance $d_1$ can be determined by
+considering the triangle $O A_1 B_1$ in that plane. The co-ordinates of $A_1$ and $B_1$ are equal, respectively,
+to those of $A$ and $B$ rescaled by $1/k$ along $\vecth{z}$. Hence
+\begin{eqnarray*}
+    A_1 &=& \lp x_A, 0, \frac{z_A}{k} \rp   \\
+    B_1 &=& \lp x_B, 0, \frac{z_B}{k} \rp
+\end{eqnarray*}
+and, from Pythagoras' theorem,
+\begin{equation}
+    d_1 = \sqrt{a^2 - \frac{1}{4}\lp   (x_A-x_B)^2 + \frac{1}{k^2}(z_A-z_B)^2 \rp  }  .
+    \label{eqn:d1Initial}
+\end{equation}
+$A$ and $B$, defined as the points in the $\vecth{x}-\vecth{z}$ plane where the ellipsoid intersects the
+substrate, can be found by solving the simultaneous equations
+\begin{eqnarray}
+        x^2+\left(\frac{z}{k}\right)^2 &=  &a^2 \\
+        x \sin\theta   &=  & z\cos\theta - d .
+    \label{eqn:system}
+\end{eqnarray}
+Combining these gives
+\begin{equation}
+    z^2\lp k^2\cos^2\theta + \sin^2\theta \rp - 2zk^2d\cos\theta + d^2k^2 -
+    a^2k^2\sin^2\theta = 0
+\end{equation}
+the roots of which are
+\begin{equation}
+   z = \frac{dk^2\cos\theta \pm \sqrt{k^2\sin^2\theta
+   \left[ a^2(k^2\cos^2\theta + \sin^2\theta) -d^2\right]}}
+   {k^2\cos^2\theta + \sin^2\theta}.
+\end{equation}
+%%
+%%
+Eqn.~(\ref{eqn:d1Initial}) can now be rewritten using
+\begin{eqnarray*}
+    (x_B-x_A)^2 &=& \frac{\cos^2\theta}{\sin^2\theta}\lp z_B-z_A \rp^2  \\
+    (z_B - z_A)^2 &=& \frac{4k^2\sin^2\theta
+    \left[ -d^2 + a^2\lp k^2\cos^2\theta + \sin^2\theta  \rp  \right]}{(k^2\cos^2\theta + \sin^2\theta)^2}
+\end{eqnarray*}
+which, after full simplification, reduces to
+\begin{equation}
+    d_1 = \frac{d}{\sqrt{k^2\cos^2\theta + \sin^2\theta} }.
+\end{equation}
+Having obtained this expression for $d_1$ purely in terms of the ellipsoid co-ordinates, we insert it into
+eqn.~(\ref{eqn:Vs}) and scale by $k$ to give the absorbed volume of the ellipsoid
+%%
+%%-----------------------------------------------
+%%	TWO COLUMN VERSION OF THE EQUATION
+%%-----------------------------------------------
+%%
+%\begin{multline}
+%    V_{\rm abs}(k,\theta) = \frac{k\pi}{3}
+%    \lp  a - \frac{d}{\sqrt{k^2\cos^2\theta + \sin^2\theta} } \rp^2   \\
+%    \times \lp 2a + \frac{d}{\sqrt{k^2\cos^2\theta + \sin^2\theta} } \rp .
+%    \label{eqn:finalVe}
+%\end{multline}
+%%
+%%-----------------------------------------------
+%%	ONE COLUMN VERSION OF THE EQUATION
+%%-----------------------------------------------
+%%
+\begin{equation}
+    V_{\rm abs}(k,\theta) = \frac{k\pi}{3}
+    \lp  a - \frac{d}{\sqrt{k^2\cos^2\theta + \sin^2\theta} } \rp^2 
+    \lp 2a + \frac{d}{\sqrt{k^2\cos^2\theta + \sin^2\theta} } \rp .
+    \label{eqn:finalVe}
+\end{equation}
+
+
+%=======================================================================================
+%   APPENDIX 2
+%=======================================================================================
+%%\appendix
+%%\newpage
+
+\section{Determination of the Rod-Surface $\sigma^{\rm HGO-surface}_w$ }
+\label{app:B} In this appendix, we give two routes to the rod-surface shape parameter employed in
+Section~\ref{s:RSUP} of this paper. The first approach adopted here is to take the Gaussian-overlap (GO)
+rod-sphere interaction given by Berne and Pechukas \cite{BernePechukas72} and integrate the position of the sphere
+across the xy-plane. The result of this calculation is then compared with the generic GO form to allow
+identification of a rod-surface shape parameter, $\sigma (\theta)$. In the second approach, this same result is
+obtained by direct calculation of the minimum distance between a single GO particle and a sphere constrained to
+lie in the surface plane.
+
+As a starting point, we take eqn.(4) of \cite{BernePechukas72}, the GO interaction potential for two ellipsoidal
+particles:
+\begin{equation}
+\label{1}
+ V(\ui,\uj,\vect{r}_{ij})= \varepsilon(\ui,\uj) \exp \left[ - \frac{r_{ij}^2} {\sigma^2(\ijr)} \right]
+\end{equation}
+When one of the particles is made spherical, to give a rod-sphere interaction, Berne and Pechukas tell us that the
+shape parameter becomes
+\begin{equation}
+\label{2} \sigma(\ui,\rij)= \sqrt  \frac{\sigma_{0}^2+\sigma_{j}^2} {2(1-\chi(\ui \cdot \rij)^2)}
+\end{equation}
+where
+\begin{equation}
+\label{3}
+ \chi=\frac{\sigma_{\ell}^2-\sigma_{0}^2}{\sigma_{\ell}^2+\sigma_{j}^2}.
+\end{equation}
+On inserting (\ref{2}) into (\ref{1}), the resultant interaction between a rod and a sphere is
+\begin{equation}
+\label{4}
+ V(\ui,\vect{r}_{ij})= \varepsilon_0 \exp \left[ - \frac{2r_{ij}^2\{1-\chi (\ui \cdot \rij)^2\}} {\sigma_{0}^2+\sigma_{j}^2}
+ \right] .
+\end{equation}
+With the aim of extending this to calculate a rod-surface interaction, we take eqn.~(\ref{4}) and integrate the
+sphere's position over the \textit{xy}-plane. To do this, we define a co-ordinate system such that
+$\ui=(\sin\theta,0,\cos\theta)$ and $\vect{r}_{ij}=(x,y,z)$. With these definitions (and redefining $\varepsilon$
+to have units of energy per unit area), the double integral over $V(\ui,\vect{r}_{ij})$ becomes
+%%
+%%
+%%-----------------------------------------------
+%%	TWO COLUMN VERSION OF THE EQUATION
+%%-----------------------------------------------
+%%
+%\begin{multline}
+%\label{5}
+% V(\ui,z)=
+%  \varepsilon_0 \int \int_{\rm xy-plane} \\ \exp
+% \left[ - \frac{2(x^2+y^2+z^2-\chi (x\sin\theta+z\cos\theta)^2)} {\sigma_{0}^2+\sigma_{j}^2} \right] dx dy
+%\end{multline}
+%%
+%%
+%%-----------------------------------------------
+%%	ONE COLUMN VERSION OF THE EQUATION
+%%-----------------------------------------------
+\begin{equation}
+\label{5}
+ V(\ui,z)=
+  \varepsilon_0 \int \int_{\rm xy-plane}  \exp
+ \left[ - \frac{2(x^2+y^2+z^2-\chi (x\sin\theta+z\cos\theta)^2)} {\sigma_{0}^2+\sigma_{j}^2} \right] dx dy
+\end{equation}
+%%
+The \textit{y}-integral is a straightforward Gaussian, and the \textit{x}-integral is just a `complete the square'
+problem. Performing these gives
+\begin{equation}
+\label{6}
+ V(\ui,z)= \varepsilon_0  \exp
+ \left[ - \frac{2z^2(1-\chi)} {(\sigma_{0}^2+\sigma_{j}^2)(1-\chi\sin^2\theta)} \right] .
+\end{equation}
+Comparing this with the generic GO form (i.e. eqn.~(\ref{1})), we can identify $\sigma(\theta)$  with the square
+root of the terms dividing $z^2$ in the exponential term in eqn.~(\ref{6}). So, the final result is
+\begin{equation}
+\label{7} \sigma(\theta)=\sqrt{\frac{(\sigma_{0}^2+\sigma_{j}^2)(1-\chi\sin^2\theta)}{2(1-\chi)}} =
+\sigma_0\sqrt{\frac{1-\chi\sin^2\theta}{(1-\chi)}}
+\end{equation}
+where the second equality requires the (usual) imposition $\sigma_{0}=\sigma_{j}$.
+
+Interestingly, the result (\ref{7}) obtained by integrating over the gaussian containing the rod-sphere shape
+parameter can alternatively be obtained in a process involving differentiation of that same rod-sphere shape
+parameter. To see this, we consider an HGO particle located in the vicinity of a planar interface and seek to
+calculate the distance between the interface and the closest part of the rod. Taking the rod-sphere shape
+parameter to define the shape of the rod as viewed by the interface, what this then amounts to is identifying the
+sphere, constrained to lie in the plane, whose location minimises the shape parameter calculation.
+
+The $\vect{r}_{ij}$ vector corresponding to this minimum can be identified simply by differentiating an expression
+for the projection of $\rij\sigma(\ui,\rij)$ along the surface normal and setting it to zero. For arbitrary
+$\rij$, this projection is given by
+\begin{equation}
+\label{9} \sigma_z(\ui,\rij)= (\rij\cdot\vecth{z})\sqrt  \frac{\sigma_{0}^2+\sigma_{j}^2} {2(1-\chi(\ui \cdot
+\rij)^2)}.
+\end{equation}
+Writing $\rij=(\sin\phi,0,\cos\phi)$ the turning points of (\ref{9}) are given by
+\begin{equation}
+\label{10} \tan(\phi_{\rm min})= \frac{\chi\cos\theta\sin\theta} {1-\chi\sin^2\theta}.
+\end{equation}
+This gives the orientation of $\rij$ corresponding to the point on the rod that is nearest to the surface. Using
+(\ref{10}) to substitute for $\phi$ in (\ref{9}) and performing some trigonometrical manipulation then gives an
+expression for $\sigma(\theta)$ which is identical to that given by (\ref{7}).
+
+
+%=======================================================================================
+%           Bibliography
+%=======================================================================================
+%\newpage
+\begin{thebibliography}{43}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname bibnamefont\endcsname\relax
+  \def\bibnamefont#1{#1}\fi
+\expandafter\ifx\csname bibfnamefont\endcsname\relax
+  \def\bibfnamefont#1{#1}\fi
+\expandafter\ifx\csname citenamefont\endcsname\relax
+  \def\citenamefont#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibinfo}[2]{#2}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{\citenamefont{{B. J\'er\^ome}}(1991)}]{Jerome91}
+\bibinfo{author}{\bibnamefont{{B. J\'er\^ome}}}, \bibinfo{journal}{Phys. Rep.}
+  \textbf{\bibinfo{volume}{54}}, \bibinfo{pages}{391} (\bibinfo{year}{1991}).
+
+\bibitem[{\citenamefont{{I.A. Shanks}}(1982)}]{Shanks82}
+\bibinfo{author}{\bibnamefont{{I.A. Shanks}}}, \bibinfo{journal}{Contemp.
+  Phys.} \textbf{\bibinfo{volume}{23}}, \bibinfo{pages}{65}
+  (\bibinfo{year}{1982}).
+
+\bibitem[{\citenamefont{{T. Geelhaar}}(1998)}]{Geelhaar98}
+\bibinfo{author}{\bibnamefont{{T. Geelhaar}}}, \bibinfo{journal}{Liq. Crysts.}
+  \textbf{\bibinfo{volume}{24}}, \bibinfo{pages}{91} (\bibinfo{year}{1998}).
+
+\bibitem[{\citenamefont{{G.P. Bryan-Brown, C.V. Brown, I.C. Sage and V.C.
+  Hui}}(1998)}]{ZBD}
+\bibinfo{author}{\bibnamefont{{G.P. Bryan-Brown, C.V. Brown, I.C. Sage and V.C.
+  Hui}}}, \bibinfo{journal}{Nature} \textbf{\bibinfo{volume}{392}},
+  \bibinfo{pages}{365} (\bibinfo{year}{1998}).
+
+\bibitem[{\citenamefont{{C. Denniston and J.M.
+  Yeomans}}(2001)}]{DennistonYeomans}
+\bibinfo{author}{\bibnamefont{{C. Denniston and J.M. Yeomans}}},
+  \bibinfo{journal}{Phys. Rev. E} \textbf{\bibinfo{volume}{87}},
+  \bibinfo{pages}{275505} (\bibinfo{year}{2001}).
+
+\bibitem[{\citenamefont{{A.J Davidson and N.J.
+  Mottram}}(2002)}]{DavidsonMottram02}
+\bibinfo{author}{\bibnamefont{{A.J Davidson and N.J. Mottram}}},
+  \bibinfo{journal}{Phys. Rev. E} \textbf{\bibinfo{volume}{65}},
+  \bibinfo{pages}{051710} (\bibinfo{year}{2002}).
+
+\bibitem[{\citenamefont{{B. Tjipto-Margo and D.E.
+  Sullivan}}(1988)}]{TjiptoMargoSullivan88}
+\bibinfo{author}{\bibnamefont{{B. Tjipto-Margo and D.E. Sullivan}}},
+  \bibinfo{journal}{J. Chem. Phys.} \textbf{\bibinfo{volume}{88}},
+  \bibinfo{pages}{6620} (\bibinfo{year}{1988}).
+
+\bibitem[{\citenamefont{{E. Mart\'{\i}n del R\'{\i}o, M.M Telo da Gama and E.
+  de Miguel}}(1995)}]{DelRioTeloDaGamma95}
+\bibinfo{author}{\bibnamefont{{E. Mart\'{\i}n del R\'{\i}o, M.M Telo da Gama
+  and E. de Miguel}}}, \bibinfo{journal}{Phys. Rev. E}
+  \textbf{\bibinfo{volume}{52}}, \bibinfo{pages}{5028} (\bibinfo{year}{1995}).
+
+\bibitem[{\citenamefont{{M.A. Osipov and S. Hess}}(1993)}]{OsipovHess93}
+\bibinfo{author}{\bibnamefont{{M.A. Osipov and S. Hess}}}, \bibinfo{journal}{J.
+  Chem. Phys.} \textbf{\bibinfo{volume}{99}}, \bibinfo{pages}{4181}
+  (\bibinfo{year}{1993}).
+
+\bibitem[{\citenamefont{{P.I.C Teixeira}}(1997)}]{Teixeira97}
+\bibinfo{author}{\bibnamefont{{P.I.C Teixeira}}}, \bibinfo{journal}{Phys. Rev.
+  E} \textbf{\bibinfo{volume}{55}}, \bibinfo{pages}{2876}
+  (\bibinfo{year}{1997}).
+
+\bibitem[{\citenamefont{{M.P. Allen}}(1999)}]{Allen99}
+\bibinfo{author}{\bibnamefont{{M.P. Allen}}}, \bibinfo{journal}{Molec. Phys.}
+  \textbf{\bibinfo{volume}{96}}, \bibinfo{pages}{1391} (\bibinfo{year}{1999}).
+
+\bibitem[{\citenamefont{{Z. Lu, H. Deng and Y. Wei}}(1998)}]{LuDeng98}
+\bibinfo{author}{\bibnamefont{{Z. Lu, H. Deng and Y. Wei}}},
+  \bibinfo{journal}{Supramol. Sci.} \textbf{\bibinfo{volume}{5}},
+  \bibinfo{pages}{649} (\bibinfo{year}{1998}).
+
+\bibitem[{\citenamefont{{W. Chen, M.B. Feller and Y.R.
+  Shen}}(1989)}]{ChenFeller89}
+\bibinfo{author}{\bibnamefont{{W. Chen, M.B. Feller and Y.R. Shen}}},
+  \bibinfo{journal}{Phys. Rev. Letts.} \textbf{\bibinfo{volume}{63}},
+  \bibinfo{pages}{2665} (\bibinfo{year}{1989}).
+
+\bibitem[{\citenamefont{{N.A. Clark}}(1985)}]{Clark85}
+\bibinfo{author}{\bibnamefont{{N.A. Clark}}}, \bibinfo{journal}{Phys. Rev.
+  Letts.} \textbf{\bibinfo{volume}{55}}, \bibinfo{pages}{292}
+  (\bibinfo{year}{1985}).
+
+\bibitem[{\citenamefont{{J.M. Geary, J.W. Goodgy, A.R. Kmetz and J.S.
+  Patel}}(1987)}]{GearyGoodby87}
+\bibinfo{author}{\bibnamefont{{J.M. Geary, J.W. Goodgy, A.R. Kmetz and J.S.
+  Patel}}}, \bibinfo{journal}{J. Appl. Phys.} \textbf{\bibinfo{volume}{62}},
+  \bibinfo{pages}{4100} (\bibinfo{year}{1987}).
+
+\bibitem[{\citenamefont{{D.W. Bereman}}(1972)}]{Berreman72}
+\bibinfo{author}{\bibnamefont{{D.W. Bereman}}}, \bibinfo{journal}{Phys. Rev.
+  Letts.} \textbf{\bibinfo{volume}{28}}, \bibinfo{pages}{1683}
+  (\bibinfo{year}{1972}).
+
+\bibitem[{\citenamefont{{R. van Roij, M. Dijkstra and R.
+  Evans}}(2000)}]{VanRoijDijkstra00}
+\bibinfo{author}{\bibnamefont{{R. van Roij, M. Dijkstra and R. Evans}}},
+  \bibinfo{journal}{Europhys. Letts.} \textbf{\bibinfo{volume}{49}},
+  \bibinfo{pages}{350} (\bibinfo{year}{2000}).
+
+\bibitem[{\citenamefont{{M. Dijkstra, R. van Roij and R.
+  Evans}}(2001)}]{DijkstraVanRoij01}
+\bibinfo{author}{\bibnamefont{{M. Dijkstra, R. van Roij and R. Evans}}},
+  \bibinfo{journal}{Phys. Rev. E} \textbf{\bibinfo{volume}{63}},
+  \bibinfo{pages}{051703} (\bibinfo{year}{2001}).
+
+\bibitem[{\citenamefont{{A. Chrzanowska, P.I.C. Teixeira, H. Ehrentraut and
+  D.J. Cleaver}}(2001)}]{Chrzanowska_Teixera_01}
+\bibinfo{author}{\bibnamefont{{A. Chrzanowska, P.I.C. Teixeira, H. Ehrentraut
+  and D.J. Cleaver}}}, \bibinfo{journal}{J. Phys.: Cond. Matt.}
+  \textbf{\bibinfo{volume}{13}}, \bibinfo{pages}{4715} (\bibinfo{year}{2001}).
+
+\bibitem[{\citenamefont{{F. Barmes and D.J.
+  Cleaver}}(2004{\natexlab{a}})}]{BarmesCleaver04a}
+\bibinfo{author}{\bibnamefont{{F. Barmes and D.J. Cleaver}}},
+  \bibinfo{journal}{Phys. Rev. E} \textbf{\bibinfo{volume}{69}},
+  \bibinfo{pages}{061705} (\bibinfo{year}{2004}{\natexlab{a}}).
+
+\bibitem[{\citenamefont{{G.D. Wall and D.J. Cleaver}}(2003)}]{WallCleaver03}
+\bibinfo{author}{\bibnamefont{{G.D. Wall and D.J. Cleaver}}},
+  \bibinfo{journal}{Molec. Phys.} \textbf{\bibinfo{volume}{101}},
+  \bibinfo{pages}{1105} (\bibinfo{year}{2003}).
+
+\bibitem[{\citenamefont{{D.R. Binger and S. Hanna}}(2001)}]{BingerHanna01}
+\bibinfo{author}{\bibnamefont{{D.R. Binger and S. Hanna}}},
+  \bibinfo{journal}{Liq. Crysts.} \textbf{\bibinfo{volume}{28}},
+  \bibinfo{pages}{1215} (\bibinfo{year}{2001}).
+
+\bibitem[{\citenamefont{{V. Palermo, F. Biscarini and C.
+  Zannoni}}(1998)}]{PalermoBiscarini98}
+\bibinfo{author}{\bibnamefont{{V. Palermo, F. Biscarini and C. Zannoni}}},
+  \bibinfo{journal}{Phys. Rev. E} \textbf{\bibinfo{volume}{57}},
+  \bibinfo{pages}{R2519} (\bibinfo{year}{1998}).
+
+\bibitem[{\citenamefont{{D.J. Cleaver and P.I.C
+  Teixeira}}(2001)}]{Cleaver_Teixeira_01}
+\bibinfo{author}{\bibnamefont{{D.J. Cleaver and P.I.C Teixeira}}},
+  \bibinfo{journal}{Chem. Phys. Letts.} \textbf{\bibinfo{volume}{338}},
+  \bibinfo{pages}{1} (\bibinfo{year}{2001}).
+
+\bibitem[{\citenamefont{{H. Lange and F.
+  Schmid}}(2002{\natexlab{a}})}]{LangeSchmid02}
+\bibinfo{author}{\bibnamefont{{H. Lange and F. Schmid}}}, \bibinfo{journal}{J.
+  Chem. Phys.} \textbf{\bibinfo{volume}{111}}, \bibinfo{pages}{362}
+  (\bibinfo{year}{2002}{\natexlab{a}}).
+
+\bibitem[{\citenamefont{{H. Lange and F.
+  Schmid}}(2002{\natexlab{b}})}]{LangeSchmid02a}
+\bibinfo{author}{\bibnamefont{{H. Lange and F. Schmid}}},
+  \bibinfo{journal}{Euro. Phys. J. E} \textbf{\bibinfo{volume}{7}},
+  \bibinfo{pages}{175} (\bibinfo{year}{2002}{\natexlab{b}}).
+
+\bibitem[{\citenamefont{{H. Lange and F.
+  Schmid}}(2002{\natexlab{c}})}]{LangeSchmid02c}
+\bibinfo{author}{\bibnamefont{{H. Lange and F. Schmid}}},
+  \bibinfo{journal}{Comp. Phys. Comms.} \textbf{\bibinfo{volume}{147}},
+  \bibinfo{pages}{276} (\bibinfo{year}{2002}{\natexlab{c}}).
+
+\bibitem[{\citenamefont{{M.T. Downton and M.P. Allen}}(2004)}]{DowntonAllen04}
+\bibinfo{author}{\bibnamefont{{M.T. Downton and M.P. Allen}}},
+  \bibinfo{journal}{Europhys. Letts.} \textbf{\bibinfo{volume}{65}},
+  \bibinfo{pages}{48} (\bibinfo{year}{2004}).
+
+\bibitem[{\citenamefont{{D. Antypov and D.J.
+  Cleaver}}(2004)}]{AntypovCleaver04}
+\bibinfo{author}{\bibnamefont{{D. Antypov and D.J. Cleaver}}},
+  \bibinfo{journal}{J. Phys.: Cond. Matt.} \textbf{\bibinfo{volume}{16}},
+  \bibinfo{pages}{S1887} (\bibinfo{year}{2004}).
+
+\bibitem[{\citenamefont{{Z. Zhang, A. Chakrabarti, O.G. Mouristen and M.J.
+  Zuckermann}}(1996)}]{ZhangChakrabarti96}
+\bibinfo{author}{\bibnamefont{{Z. Zhang, A. Chakrabarti, O.G. Mouristen and
+  M.J. Zuckermann}}}, \bibinfo{journal}{Phys. Rev. E}
+  \textbf{\bibinfo{volume}{53}}, \bibinfo{pages}{2461} (\bibinfo{year}{1996}).
+
+\bibitem[{\citenamefont{{G.D. Wall and D.J. Cleaver}}(1997)}]{WallCleaver97}
+\bibinfo{author}{\bibnamefont{{G.D. Wall and D.J. Cleaver}}},
+  \bibinfo{journal}{Phys. Rev. E} \textbf{\bibinfo{volume}{56}},
+  \bibinfo{pages}{4306} (\bibinfo{year}{1997}).
+
+\bibitem[{\citenamefont{{P.I.C Teixeira, A. Chrzanowska, G.D. Wall and D.J.
+  Cleaver}}(2001)}]{TeixeiraChrzanowska01}
+\bibinfo{author}{\bibnamefont{{P.I.C Teixeira, A. Chrzanowska, G.D. Wall and
+  D.J. Cleaver}}}, \bibinfo{journal}{Molec. Phys.}
+  \textbf{\bibinfo{volume}{99}}, \bibinfo{pages}{889} (\bibinfo{year}{2001}).
+
+\bibitem[{\citenamefont{{R.E. Webster, N.J. Mottram and D.J.
+  Cleaver}}(2003)}]{WebsterCleaver03}
+\bibinfo{author}{\bibnamefont{{R.E. Webster, N.J. Mottram and D.J. Cleaver}}},
+  \bibinfo{journal}{Phys. Rev. E} \textbf{\bibinfo{volume}{68}},
+  \bibinfo{pages}{021706} (\bibinfo{year}{2003}).
+
+\bibitem[{\citenamefont{{M. Rigby}}(1989)}]{Rigby89}
+\bibinfo{author}{\bibnamefont{{M. Rigby}}}, \bibinfo{journal}{Molec. Phys.}
+  \textbf{\bibinfo{volume}{68}}, \bibinfo{pages}{687} (\bibinfo{year}{1989}).
+
+\bibitem[{\citenamefont{{B.J. Berne and P. Pechukas}}(1972)}]{BernePechukas72}
+\bibinfo{author}{\bibnamefont{{B.J. Berne and P. Pechukas}}},
+  \bibinfo{journal}{J. Chem. Phys.} \textbf{\bibinfo{volume}{56}},
+  \bibinfo{pages}{4213} (\bibinfo{year}{1972}).
+
+\bibitem[{\citenamefont{{J.G. Gay and B.J. Berne}}(1981)}]{GayBerne81}
+\bibinfo{author}{\bibnamefont{{J.G. Gay and B.J. Berne}}}, \bibinfo{journal}{J.
+  Chem. Phys.} \textbf{\bibinfo{volume}{74}}, \bibinfo{pages}{3316}
+  (\bibinfo{year}{1981}).
+
+\bibitem[{\citenamefont{{P. Padilla and E. Velasco}}(1997)}]{PadillaVelasco97}
+\bibinfo{author}{\bibnamefont{{P. Padilla and E. Velasco}}},
+  \bibinfo{journal}{J. Chem. Phys.} \textbf{\bibinfo{volume}{106}},
+  \bibinfo{pages}{10299} (\bibinfo{year}{1997}).
+
+\bibitem[{\citenamefont{{E. de Miguel, E. Mart\'{\i}n del
+  R\'{\i}o}}(2001)}]{DeMiguelDelRio01}
+\bibinfo{author}{\bibnamefont{{E. de Miguel, E. Mart\'{\i}n del R\'{\i}o}}},
+  \bibinfo{journal}{J. Chem. Phys.} \textbf{\bibinfo{volume}{115}},
+  \bibinfo{pages}{9072} (\bibinfo{year}{2001}).
+
+\bibitem[{\citenamefont{{E. de Miguel, E. Mart\'{\i}n del
+  R\'{\i}o}}(2003)}]{DeMiguelDelRio03}
+\bibinfo{author}{\bibnamefont{{E. de Miguel, E. Mart\'{\i}n del R\'{\i}o}}},
+  \bibinfo{journal}{J. Chem. Phys.} \textbf{\bibinfo{volume}{118}},
+  \bibinfo{pages}{1852} (\bibinfo{year}{2003}).
+
+\bibitem[{\citenamefont{{E. de Miguel}}(1992)}]{DeMiguel92}
+\bibinfo{author}{\bibnamefont{{E. de Miguel}}}, \bibinfo{journal}{Phys. Rev. E}
+  \textbf{\bibinfo{volume}{47}}, \bibinfo{pages}{3334} (\bibinfo{year}{1992}).
+
+\bibitem[{\citenamefont{{N.V. Priezjev, G. Ska\u{c}ej, R.A. Pelkovits and S.
+  \u{Z}umer}}(2003)}]{Priezjev03}
+\bibinfo{author}{\bibnamefont{{N.V. Priezjev, G. Ska\u{c}ej, R.A. Pelkovits and
+  S. \u{Z}umer}}}, \bibinfo{journal}{Phys. Rev. E}
+  \textbf{\bibinfo{volume}{68}}, \bibinfo{pages}{041709}
+  (\bibinfo{year}{2003}).
+
+\bibitem[{\citenamefont{{F. Barmes and D.J.
+  Cleaver}}(2004{\natexlab{b}})}]{BarmesCleaver04d}
+\bibinfo{author}{\bibnamefont{{F. Barmes and D.J. Cleaver}}},
+  \bibinfo{journal}{in preparation}  (\bibinfo{year}{2004}{\natexlab{b}}).
+
+\bibitem[{\citenamefont{{F. Barmes, M. Ricci, C. Zannoni and D.J.
+  Cleaver}}(2003)}]{BarmesCleaver03}
+\bibinfo{author}{\bibnamefont{{F. Barmes, M. Ricci, C. Zannoni and D.J.
+  Cleaver}}}, \bibinfo{journal}{Phys. Rev. E} \textbf{\bibinfo{volume}{68}},
+  \bibinfo{pages}{021708} (\bibinfo{year}{2003}).
+
+\end{thebibliography}
+
+
+
+%=======================================================================================
+\end{document}

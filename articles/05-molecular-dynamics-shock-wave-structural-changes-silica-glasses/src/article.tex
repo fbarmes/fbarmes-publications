@@ -1,0 +1,1302 @@
+	
+%\documentclass[aps,pre,10pt,onecolumn]{revtex4}
+%\documentclass[aps,12pt,preprint,superscriptaddress]{revtex4}
+\documentclass[aps,10pt,twocolumn]{revtex4}
+
+%============================================================================
+%		packages
+%============================================================================
+\usepackage[final]{graphics}	% for graphics
+\usepackage[final]{graphicx}	% for graphics
+\usepackage{subfigure}		% allow subfigure
+\usepackage{amssymb}		% font
+\usepackage{amstext}		% ams latex package
+\usepackage{amsmath}		% font
+\usepackage{amsfonts}		% font
+\usepackage{amsbsy}		% font
+\usepackage{hhline}		% nice lines is tables
+\usepackage{xspace}		% add space at the end of macros
+\usepackage{color}
+\usepackage{calc}
+\usepackage{hhline}     % nice lines in tables
+
+%--------------------------
+%	newcommands
+%--------------------------
+\newcommand{\etal}{\emph{et al.}\@\xspace}
+\newcommand{\ie}{\emph{i.e.}\@\xspace}
+\newcommand{\eg}{\emph{e.g.}\@\xspace}
+
+\newcommand{\cf}{\emph{c.f.}\@\xspace}
+\newcommand{\mrm}[1]{\ensuremath{\mathrm{#1}}\xspace}
+\newcommand{\SiOTwo}{\ensuremath{\mrm{SiO_2}}\xspace}
+
+\newlength{\picH}	% picture height
+\newlength{\picW}	% picture width
+\newcommand{\picA}{270}	% picture angle
+
+\picW = 8cm
+
+\newcommand{\pic}[1]{\includegraphics[width=\picW]{#1}}
+\newcommand{\picL}[1]{\includegraphics[height=\picW, angle=\picA]{#1}}
+\newcommand{\picB}[1]{\fbox{\includegraphics[width=\picW]{#1}}}
+\newcommand{\picLB}[1]{\fbox{\includegraphics[height=\picW, angle=\picA]{#1}}}
+
+\newcommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+\newcommand{\angstrom}{\ensuremath{\mrm{\AA}}\xspace}
+
+\newcommand{\vect}[1]{ \mathbf{#1} }
+\newcommand{\vecth}[1]{ \mathbf{\hat{#1} } }
+
+
+%--------------------------
+%	page layout
+%--------------------------
+\parindent=0pt
+
+\begin{document}
+
+
+\graphicspath
+{
+{../imgs/}
+}
+
+
+%%=============================
+%%	Titre
+%%=============================
+\title{Molecular dynamics of shock-wave induced\\ structural changes in silica glasses}
+\author{F. Barmes}
+
+\affiliation
+{
+Centre Europ\'een de Calcul Atomique et Mol\'eculaire,
+46, all\'ee d'Italie,
+69007 Lyon, France
+}
+
+
+\author{L. Soulard}
+\affiliation
+{
+CEA-DAM Ile-de-France,
+Boite Postale 12,
+91680 Bruy\`eres-le-Ch\^atel,
+France
+}
+
+
+
+\author{M. Mareschal}
+\affiliation
+{
+Universit\'e Libre de Bruxelles,
+Facult\'e des Sciences, CP231,
+Boulevard du Triomphe
+B1050, Brussels, Belgium
+}
+
+
+%%=============================
+%%	Abstract
+%%=============================
+\begin{abstract}
+%%------------------------------------------------------------------------------------------------------
+%%	What
+%%------------------------------------------------------------------------------------------------------
+We seek to model the shock wave induced structural changes in silicate glass at the atomic
+scale. We use both direct shock propagation with non-equilibrium molecular dynamics (NEMD) and
+bulk  simulations in the Hugoniot ensemble to characterize the structure and topology of the
+shocked glass. 
+%%------------------------------------------------------------------------------------------------------
+%%	Bulk
+%%------------------------------------------------------------------------------------------------------
+Despite the lack of long-range interactions in our model, the close agreement between our
+structures and those obtained by experimental and simulation studies alike, underlines the
+importance of the role played by first neighbor interactions on the structure of silicate glass.  
+%%------------------------------------------------------------------------------------------------------
+%%	Shock
+%%------------------------------------------------------------------------------------------------------
+The results obtained from this study show that, in agreement with experimental work, the
+structure and topology of the shock-induced densified phase is unique in its structure as can be
+revealed by medium-range order measurements. The modifications include a reduction of the
+average tetrahedra size and an increase in the proportion of 3-4 and 8-10 membered Si-rings. 
+%%------------------------------------------------------------------------------------------------------
+%%	Hug
+%%------------------------------------------------------------------------------------------------------
+Application of a Hugoniostat method based on constraint dynamics shows near-perfect agreement
+with the NEMD results. Besides validating the former method, this opens the prospect of studying
+shock-induced effects at a fraction of the cost required to run large scale shock simulations
+while using much more complicated potentials and setups.\\
+\end{abstract}
+
+
+
+
+\maketitle
+
+%%=========================================================================================================================
+%% Section : Introduction
+%%=========================================================================================================================
+\section{Introduction}
+
+
+%%------------------------------------------------------------------------------------------------------
+%%	Shock waves damaging lenses in high power laser experiments
+%%------------------------------------------------------------------------------------------------------
+High power lasers are used to achieve extreme temperature and pressure conditions. During such
+experiments, deterioration of the optics due to the passage of the laser has been observed in
+the form of small craters at the back of the lenses~\cite{FeitCampbell97,FeitHrubesh00}. Is is
+believed that these craters originate from the absorption of the laser by defects which create a
+dense absorbing plasma.  The induced temperature rise in turn triggers the propagation of a
+mechanical shock wave creating regions of permanently densified glass~\cite{DemosKoslowski00}.\\
+%%
+%%------------------------------------------------------------------------------------------------------
+%%	results on shock through SiO2
+%%------------------------------------------------------------------------------------------------------
+Experimental work on shock compression shows the creation of a densified
+phase upon propagation of shock wave through silica glass~\cite{SugiuraIkeda96}.
+Kubota~\etal~\cite{KubotaCaturla01,KubotaCaturla03} have used molecular 
+dynamics to propagate shock waves with up to $2.0$ \mrm{Km/s} piston velocity through slabs
+of up to $240\e{3}$ atoms. The authors show drastic shock induced modifications in the structure
+and topology of the \SiOTwo network. It has also been shown that the structure of the resulting
+densified phase is unique as can be revealed by medium-range order measurements such as the ring
+size distribution~\cite{SusmanVolin91,TrachenkoDove02,DavilaCaturla03}.\\ 
+%%
+%%------------------------------------------------------------------------------------------------------
+%%	Hugoniostat simulations
+%%------------------------------------------------------------------------------------------------------
+Despite the major increase in the available computer power which allows simulation of several
+hundred million atoms, non-equilibrium molecular dynamics (NEMD) simulations of shocked materials
+still represent a computationally major undertaking. This is mainly due to the large system
+sizes needed to achieve a steady shock front; additionally a non-negligible part of the total
+simulation time is spent calculating the trajectories of particles in the unshocked region. 
+Another NEMD method has been used in~\cite{ZhakhovskiiZybin99} where the simulation box
+consists of a moving window which follows the shock front. The method achieves accurate description
+of the shock induced effects provided steady shock waves are obtained.
+Alternatively, to address the system size problem, several groups have attempted to construct an
+alternative method where equilibrium simulations are performed on bulk systems in the Hugoniot
+ensemble. Such a method 
+allows usage of much smaller systems to achieve results equivalent to those obtained with NEMD.
+The first such method (GNVHug) was proposed by Soulard~\cite{Soulard99} and uses the Gauss
+principle of least constraints to integrate the equations of motions and constrain the system on
+the Hugoniot. This method presents the double advantage of reaching equilibrium very rapidly
+($\mathcal{O}(10^{-13})\mrm{s}$) and guaranteeing that the system obeys the Hugoniot relations
+at all times. The method was applied to the simulation of shocked liquid argon and
+nitromethane~\cite{Soulard99,Soulard01} and has shown good agreement with NEMD simulations. An
+alternative approach was proposed by Maillet~\etal~\cite{MailletMareschal00} which uses a
+Nos\'e-Hoover like method to couple the system, instantaneously, uniaxially and homogeneously
+compressed to the shock density, with a thermostat to achieve the final Hugoniot state. Applied
+to the shock deformation of Lennard-Jones crystals along the $\langle 100 \rangle$ direction,
+the method has shown to reproduce both the 
+Hugoniot curve and the shock induced defect structure. This method was later extended to
+\textit{ab initio} molecular-dynamics to obtain the shock Hugoniot of tin up to 200
+GPa~\cite{BernardMaillet02}. Answering the criticism that the instantaneous compression of the 
+system can lead to unrealistically large temperature and stresses,
+Ravelo~\etal~\cite{RaveloHolian04} improved the uniaxial Hugoniostat by adding an strain-rate
+dynamical variable which acts as a piston. The method allows gradual compression of the system
+to the shock density and therefore a more natural evolution of both the  temperature and stress.
+Applied to the calculations of the Hugoniot of Lennard-Jones crystals equivalent to those
+performed in~\cite{MailletMareschal00}, the method improves the agreement with NEMD, especially
+for large compressions.\\  
+%%
+%%------------------------------------------------------------------------------------------------------
+%%	In this paper ...
+%%------------------------------------------------------------------------------------------------------
+In this paper, we seek to model the shock induced structural changes in silicon dioxide at the
+atomic scale. To this end, after validating that our model achieves an accurate description of
+the glassy state of silicon dioxide, we use NEMD simulations to characterize precisely the structure
+induced by a mechanical shock wave. We then apply the GNVHug method and show this gives very good agreement
+with the NEMD results. The remainder of this paper is organized as follows. In
+Section~\ref{s:potential} we present the potential used to describe the inter-atomic
+interactions in silicon dioxide. In
+Section~\ref{s:bulk}, we describe the methods and results  obtained to create and analyze a
+bulk system of silicon dioxide in the glass phase in order to check our potential leads to an
+appropriate structure before shocking it. In Section~\ref{s:shock}, we turn on to the study of
+the structural changes induced by the propagation of a mechanical shock wave using NEMD simulations, while
+Section~\ref{s:hug} concentrates on obtaining similar results with the Hugoniostat. 
+Section~\ref{s:CCL} concludes this work with a discussion of the results drawn from this work
+and proposes some directions for future developments.
+
+%%=========================================================================================================================
+%% Section : Model
+%%=========================================================================================================================
+\section{The intermolecular potential}
+\label{s:potential}
+
+Accurate description of silicate glass is not in principle an easy task. Ideally the
+inter-atomic potential should include Coulombic interactions, and an appropriate method  to take the long-range forces into account (\eg
+Ewald summation) and also include dynamic charges.\\
+%%------------------------------------------------------------------------------------------------------
+%%	The main potentials
+%%------------------------------------------------------------------------------------------------------
+Several intermolecular potentials that successfully describe the behavior of silicon dioxide in
+the glass phase have been built over the years~\cite{Limoge01}. Among the most widely used, are
+the so-called BKS potential developed by van Beest~\etal~\cite{vanBeestKramer90} and the
+three body potential of Vashishta~\etal~\cite{VashishtaKalia90} which we will refer
+to as the VKRE potential hereforth. We choose to use the BKS potential, as it
+allows for faster simulation than the more complicated three-body form of the VKRE
+potential while leading to similar results; the three body information necessary to
+create the tetrahedra network in silicon dioxide is not lost with the BKS potential, but is 
+implicitly present by the choice of the potential parameters derived from the cluster model of
+van Beest~\etal~\cite{vanBeestKramer90}.\\ 
+
+%%------------------------------------------------------------------------------------------------------
+%%	Our BKS potential
+%%------------------------------------------------------------------------------------------------------
+The BKS potential is a two-body potential based on the Buckingham potential with an added Coulombic
+term. The potential describes the
+interaction between two atoms $i$ and $j=\{\mrm{Si},\mrm{O}\}$ separated by $\vect{r}_{ij} =
+r_{ij}\vecth{r}_{ij}$, the interatomic vector as:
+%%
+%%
+\begin{equation}
+\mathcal{V}^{\mrm{BKS}} =  \frac{A_0q_i q_j}{r_{ij}} + A_{ij}e^{-B_{ij}r_{ij}} -\frac{C_{ij}}{r^6_{ij}}
+\label{eqn:BKS}
+\end{equation}
+with $A_0 = 1/(4\pi\epsilon_0) = 2.307\e{-28}$ \mrm{J/m}. Values for the $A_{ij},B_{ij}$ and $C_{ij}$
+parameters are taken from~\cite{vanBeestKramer90} and recalled here in Table~\ref{tble::BKS_par}.\\
+%%
+%%
+
+\begin{table}
+\centering
+\begin{tabular}{|cccc|}
+\hline
+	&$A_{ij}$ \mrm{(J)}		&$B_{ij}$ \mrm{(m^{-1})}	&$C_{ij}$ \mrm{(Jm^6)}\\
+\hline
+O-O		&2.225\e{-16}		&2.760\e{10}				&2.804\e{-77}	\\
+Si-O	&2.884\e{-15}		&4.873\e{10}				&2.139\e{-77}	\\
+Si-Si	&0.0				&0.0						&0.0			\\
+\hline
+\end{tabular}
+\caption{Numerical values of the BKS potential parameters as given by van Beest~\etal~\cite{vanBeestKramer90}}
+\label{tble::BKS_par}
+\end{table}
+
+%%
+%%
+\picW=8cm
+\begin{figure}
+\picL{fig01.ps}
+\caption{Graphical representation of the inter-atomic potential. The dashed lines
+represent the unphysical behavior at short inter-atomic separations of the original BKS potential.}
+\label{fig:potBKS}
+\end{figure}
+%%
+
+Buckingham-like potentials have the unphysical property of diverging to minus infinity at
+small interatomic distances which can be disastrous at high temperatures where atoms
+have the kinetic energy to overcome the potential barrier and fuse together. Several methods
+have been employed to correct for this behavior. Vollamyr~\etal~\cite{VollmayrKob96} replace the
+BKS potential with a harmonic form for $r^0_{\mrm{SiO}} \leq 1.1936\, \angstrom$ and $r^0_{\mrm{OO}} \leq
+1.439\, \angstrom$. Another method is that of Guissani and Guillot~\cite{GuissaniGuillot95} or Coluzzi and
+Verrocchio~\cite{ColuzziVerrocchio02} where a 18-6 and 24-6 Lennard-Jones potential are
+respectively added to the BKS form. Here we choose to follow the former method and replace the
+BKS potential with a second order polynomial $p(r)$ for $r<r^0$.\\
+We also make the assumption that the structure of \SiOTwo is essentially
+controlled by the interactions within the shell of first neighbors and as a result we cut and shift
+the potential for $r>r_c$. This assumption comes from the argument that since silicate glass is
+essentially a random continuous network of \SiOTwo tetrahedra, controlling the shape of an individual
+tetrahedra and its relative position with respect to its first neighbors is sufficient to recover
+medium and long-range order.\\
+%%
+%%------------------------------------------------------------------------------------------------------
+%% The long-range effect you don't expect
+%%------------------------------------------------------------------------------------------------------
+It should be noted that the effects on the structural and dynamic properties of cutting the
+Coulombic part of the potential are different than those described by
+Jund~\etal~\cite{JundRarivo00}. Here we simply cut and shift the potential for
+$r>r_c$ but keep all contributions to the potential, including the Coulombic term, below the
+cutoff distance which is 3.6 times greater than the average Si-O distance. Jund~\etal, on the other hand,
+studied the  effect of gradually removing the Coulombic part of the potential at \emph{all
+distances}. A quantitative study on the effects of the long range forces on the stucture of
+silicate glasses is under way and will be the subject of a future publication~\cite{HalversonBarmes07}.
+In the light of the preliminary results obtained (not shown here), we are however confident that
+the long-range forces effect is negligible in the structural properties of silicate glass.
+
+
+Preliminary results (not shown here) however seem to confirm our approximation for the stuctural
+properties.\\ 
+
+
+The final form of the  potential used here is expressed as:
+%%
+%%
+\begin{equation}
+\mathcal{V}= 
+	\left\{
+	\begin{array}{cc}
+	p(r) = a_{ij}r^2 + b_{ij}r + c_{ij}					&r_{ij} \leq r^0_{ij}\\
+	%
+	\mathcal{V}^{\mrm{BKS}}_c 					 		& r^0_{ij} < r_{ij} \leq r_c\\
+	%
+	0													& r_{ij} > r_c
+	\end{array}
+	\right.
+\label{eqn::BKSFB}
+\end{equation}
+%%
+with 
+\begin{equation*}
+\mathcal{V}^{\mrm{BKS}}_c = \mathcal{V}^{\mrm{BKS}}(r) - \mathcal{V}^{\mrm{BKS}}(r_c)
+-(r-r_c)\frac{d\mathcal{V}^{\mrm{BKS}}(r_c)}{dr},
+\end{equation*}
+%%
+the cut and shifted version of the potential. We set $r_c=6\,\angstrom$, $r^0_{\mrm{SiO}}=1.5\,\angstrom$ and
+$r^0_{\mrm{OO}}=2.0\,\angstrom$. The coefficients of $p(r)$ are calculated so that the zero,
+first and second order derivatives of $\mathcal{V}^{\mrm{BKS}}_c$ and $p(r)$ are equal. The
+values used for the polynomial coefficients are given in Table~\ref{tble:poly_coef}. A graphical
+representation of this potential is given in Figure~\ref{fig:potBKS}. 
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+		&$a_{ij}$ \mrm{(J/m^{2})}		& $b_{ij}$ \mrm{(J/m)}		&$c_{ij}$ \mrm{(J)}	\\
+\hline
+O-O		&1.510\e{2}						&-7.925\e{-8}					& 1.100\e{-17}	\\
+Si-O	&3.413\e{2}  	 				&-9.361\e{-8}					& 3.925\e{-18}	\\
+Si-Si	&0.0			   				&0.0							& 0.0			\\
+\hline
+\end{tabular}
+\caption{Numerical values used for the coefficient of the polynomial functions.}
+\label{tble:poly_coef}
+\end{table}
+
+
+%%=========================================================================================================================
+%%	Section : Bulk behavior
+%%=========================================================================================================================
+\section{Bulk behavior of \SiOTwo}
+\label{s:bulk}
+
+\subsection{Sample preparation method}
+
+%%------------------------------------------------------------------------------------------------------
+%% A few words about silicate glass structure 
+%%------------------------------------------------------------------------------------------------------
+The structure of pure silica in the glass phase is that of a disordered network of corner
+sharing tetrahedra where each silicon is surrounded by four oxygens. The structure of vitreous
+silica is well known from experimental
+work~\cite{MozziWarren69,Bruckner70,JohnsonWright83,Wright94}.
+%%------------------------------------------------------------------------------------------------------
+%% General method - cooling with high rate
+%%------------------------------------------------------------------------------------------------------
+The general method for creating a sample of glassy \SiOTwo for use in molecular simulation involves
+gradual cooling of a liquid phase past the liquid to glass transition
+point~\cite{VashishtaKalia90,HorbackKob99}. The cooling rate is an important parameter as
+it has been shown that the resulting glass structure is heavily dependent on its creation
+history~\cite{VollmayrKob96}. Still, even the slowest cooling rates achievable with today's
+computers are several orders of magnitude greater than the fastest cooled experimental glasses;
+as a result much higher glass transition temperatures are
+expected~\cite{VollmayrKob96,YuanCormack01,ColuzziVerrocchio02}. 
+%%------------------------------------------------------------------------------------------------------
+%% Details of our method
+%%------------------------------------------------------------------------------------------------------
+In this study, we have used a method analog to that of~\cite{VashishtaKalia90} to create a
+system in the glass phase. The method starts from a $\beta$-cristobalite crystal~\cite{Wickoff} whose 
+density is set to $\rho=2.2\, \mrm{g/cm^{3}}$, the  typical density of glassy
+\SiOTwo~\cite{Weast}. The initial system used here consists of $N=1536$ atoms organized in
+$4\times4\times4$ crystal cells along the $x,y$ and $z$ directions.
+This initial configuration is melted at high temperature  ($T=6\e{3}\mrm{K}$) until all
+memory from the crystal structure is lost. The fluid phase is then cooled down to $T=300 \mrm{K}$ using 
+a series of 13 simulations grouped in sets of three for thermalization, equilibration and
+production. Each simulation was 25 ps in length using a timestep $\delta t=0.5\e{-15}$ s. During
+the equilibration and production simulations, the temperature was kept constant while during the
+thermalisation simulation, the system was subjected to a temperature gradient where the
+temperature of the heat bath was decreased every hundred time steps.
+%%
+%% temperature gradient : 40e9 K/s
+%%
+
+\subsection{Analysis}
+
+%%------------------------------------------------------------------------------------------------------
+%% What we analyse
+%%------------------------------------------------------------------------------------------------------
+The structure of the glass thus created was assessed by calculating short, medium and long range
+structural properties. The long range structure of the glass is obtained
+through calculation of the pair correlation function as shown in Figure~\ref{fig:mkGlass_gr}.
+Short to medium range order is obtained using bond-angle distribution (BAD) and ring size
+analysis. 
+While we have calculated all six BADs, we restrict ourselves on
+discussing only the OSiO, SiOSi and SiSiSi angles distribution (which we will refer to as
+$\theta_\mrm{OSiO},\theta_\mrm{SiOSi}$ and $\theta_\mrm{SiSiSi})$ as these carry the most
+information about the structure of the network but also because only $\theta_\mrm{OSiO}$ and
+$\theta_\mrm{SiOSi}$ are available with experimental techniques.  Comparison of the results
+obtained here with those from both experimental and other simulation studies shows good
+agreement.\\  
+
+\picW=8cm
+\begin{figure}
+\picL{fig02.ps}
+\caption{Representation of the pair correlation functions for the Si-Si(top), Si-O(middle) and
+O-O(bottom) pairs in the glass phase at $T=300K$.}
+\label{fig:mkGlass_gr}
+\end{figure}
+
+\picW=8cm
+\begin{figure}
+\picL{fig03.ps}
+\caption{Bond angle distribution obtained for the Si-O-Si($\blacksquare$), O-Si-O($\blacktriangle$) and Si-Si-Si($\bullet$) angles from
+simulation of the bulk system at both high(left) and low(right) temperatures.}
+\end{figure}
+
+%%------------------------------------------------------------------------------------------------------
+%% g(r) : long range order and alpha-beta distances
+%%------------------------------------------------------------------------------------------------------
+Measurements of the g(r) first peak and the location of the bond length distribution main peak (not
+shown here) shows that for the O-O, Si-O and Si-Si pairs we obtain respectively
+$r_\mrm{OO}=2.639\,\angstrom$, $r_\mrm{SiO}=1.640\,\angstrom$ and $r_\mrm{SiSi}=3.067\,\angstrom$. 
+This compares well with the experimental values 
+$r_\mrm{OO}=2.63\,\angstrom$ and $r_\mrm{SiO}=1.61\,\angstrom$~\cite{MozziWarren69,JohnsonWright83} but also
+with simulation data~\cite{YuanCormack01,VashishtaKalia90}. Using the BKS potential, Yuan and
+Cormack~\cite{YuanCormack01} found $r_\mrm{OO}=2.621\,\angstrom$, $r_\mrm{SiO}=1.615\,\angstrom$ and
+$r_\mrm{SiSi}=3.129\,\angstrom$ while Vashishta~\etal~\cite{VashishtaKalia90} obtained
+$r_\mrm{OO}=2.65\,\angstrom$, $r_\mrm{SiO}=1.62\,\angstrom$ and $r_\mrm{SiSi}=3.05\,\angstrom$ using their
+three-body potential.\\
+
+%%------------------------------------------------------------------------------------------------------
+%% O-Si-O angle : tetrahedra structure
+%%------------------------------------------------------------------------------------------------------
+The structure of the tetrahedra is measured by the $\theta_\mrm{OSiO}$ distribution. For a network of perfect
+tetrahedra, the ideal $\theta_\mrm{SiOSi}$ is $109.47^\circ$ close to the  experimental value
+of $109.7^\circ$~\cite{GrimleyWright90}. Simulation data usually reproduce this property well with
+a value of $108.6^\circ$\cite{JundRarivo00,YuanCormack01}. Similarly we obtain $108.9^\circ$.\\
+%%------------------------------------------------------------------------------------------------------
+%% Si-O-Si and Si-Si-Si
+%%------------------------------------------------------------------------------------------------------
+Measurement of the $\theta_\mrm{SiOSi}$ distribution gives information of the structure beyond the
+basic tetrahedral configuration. While variations exist, experimental
+data~\cite{MozziWarren69,NemilovKhim82,CoombsDeNatale85,Galeener85}  suggest a
+value of $144^\circ$ for the $\theta_\mrm{SiOSi}$ distribution peak. Our value of $152^\circ$ clearly
+overestimates this, but this seems to be a feature intrinsic to the BKS potential, as the 
+value of $152^\circ$ and $\sim 150^\circ$ were reported by other simulation
+studies~\cite{YuanCormack03,JundRarivo00,JundJulien99}. According
+to~\cite{YuanCormack03}, this can be explained by the lack of Si-O-Si interactions in the cluster
+model used to derive the BKS potential. In Table~\ref{tble:mkGlass}, we present a summary of the
+above comparisons.\\
+
+%%------------------------------------------------------------------------------------------------------
+%% comparison summary
+%%------------------------------------------------------------------------------------------------------
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+& $r_{\mrm{OO}}[\angstrom]$		&$r_{\mrm{SiO}}[\angstrom]$	&$r_{\mrm{SiSi}}[\angstrom]$ &$\theta_\mrm{OSiO}$	& $\theta_\mrm{SiOSi}$	\\
+\hline
+this study								&2.639	&1.640	&3.067	& $108.9^\circ$		&$152^\circ$		\\
+\cite{MozziWarren69,JohnsonWright83}	&2.63	&1.61	&		&					&$144^\circ$		\\
+\cite{GrimleyWright90}					&		&		&		&$109.47^\circ$		&					\\
+\cite{YuanCormack01,YuanCormack03}		&2.621	&1.615	&3.129	&$108.6^\circ$		&$152^\circ$		\\
+\cite{VashishtaKalia90}					&2.65	&1.62	&3.05	&					&					\\
+\hline
+\end{tabular}\\
+\caption{Comparison of the structural properties of the silicate glass obtained with this study and published
+simulation~\cite{YuanCormack01,YuanCormack03,VashishtaKalia90} and
+experimental~\cite{MozziWarren69,JohnsonWright83,GrimleyWright90} results.}
+\label{tble:mkGlass}
+\end{table}
+
+
+
+
+%%------------------------------------------------------------------------------------------------------
+%% Measuring the rings
+%%------------------------------------------------------------------------------------------------------
+An alternative method to analyse medium range order is the calculation of the n-sized rings
+distributions. This measures the topology of the \SiOTwo network over distances that extend to
+several Si-O bond distances. Ring size statistics is considered as the generally accepted
+measure of medium range order in random-continuous network such as those formed by silicate
+glasses~\cite{WeaireWooten80,TadrosKlenin85,GrenecheTeillet85,LuedtkeLandman89}. This 
+allows the identification of topologically different structures. For instance,  the ring size
+distribution is similar for $\alpha$ and $\beta$ cristobalite or $\alpha$ and $\beta$ quartz.
+The distributions however differ  between the two crystal structures, quartz and cristobalite
+showing respectively single peaks at sizes 6 and 8.\\
+%%------------------------------------------------------------------------------------------------------
+%%	General idea
+%%------------------------------------------------------------------------------------------------------
+In silicon dioxide glass, rings are closed paths where the vertices and edges are respectively
+the Si atoms and the Si-O-Si bonds. Measurement of the ring size distribution is performed using shortest
+path analysis~\cite{WrightDesa78} which involves identification of
+the shortest-path linking each triplet of first neighbors Si atoms. The number of triplets to consider is
+related to the Si atom coordination; a four-coordinated Si atom for instance belongs to six different rings.
+The difficulty of the ring size analysis lies in defining a unique criteria able to identify the
+primitive rings, \ie those rings which are not formed by the combination of smaller rings. It has been
+shown that simply counting all rings up to a given size leads to meaningless
+results~\cite{WeaireWooten80,TadrosKlenin85,LuedtkeLandman89}. The number of rings 
+increasing monotonously with ring size as small rings are counted several times as part of
+bigger rings. A correct ring analysis must therefore identify exclusively primitive rings.\\
+
+
+%%------------------------------------------------------------------------------------------------------
+%% Our method - building to connectivity
+%%------------------------------------------------------------------------------------------------------
+In this study we choose to use the criteria based on those proposed by
+Franzblau~\cite{Franzblau91} and Marians and Hobbs~\cite{MariansHobbs90} for the definition of a
+primitive ring.\\
+The first step is to build the network connectivity. The common approach to this is to count as
+a bond all distances shorter than a given threshold. As we plan to study highly
+densified shocked phases, this method can however lead to an unrealistically large number of
+bonds and therefore we have chosen an alternative method.\\
+A neighbor list is built for each atom to
+identify all \mrm{Si_i-O_j} bonds. Care must be taken that this method is reversible, \ie
+the path \mrm{Si_1-O_2-Si_2} must exist both in the \mrm{Si_1} and \mrm{Si_2} neighbor
+lists.
+A successful method to build those lists is to loop over all \mrm{O_i} and find \mrm{Si_{i,1}}
+and \mrm{Si_{i,2}}, the two closest \mrm{Si} neighbors. \mrm{O_i} then registers itself in the
+neighbor list of \mrm{Si_{i,1}} and \mrm{Si_{i,2}}. Although this method assumes
+that each oxygen has a twofold coordination, it can be shown that the
+connectivity obtained with this method is consistent with the network topology and allows to
+recover an accurate Si coordination.\\
+%%
+%%------------------------------------------------------------------------------------------------------
+%% Our method - candidate rings
+%%------------------------------------------------------------------------------------------------------
+The next step is to identify all candidate rings. This is
+done by triple looping over all \mrm{Si_i} atoms and all their first \mrm{Si_{1}} and
+\mrm{Si_{2}} neighbors. For each (\mrm{Si_i},\mrm{Si_{1}}) pairs, we build a tree of all
+successive neighbors of \mrm{Si_1} down to the eleventh level and identify the position of
+\mrm{Si_2}. The candidate rings are the \mrm{Si_i}-\mrm{Si_1}-\ldots-\mrm{Si_2} closed paths in
+the tree.\\ 
+%%
+%%------------------------------------------------------------------------------------------------------
+%% Our method - SP criteria
+%%------------------------------------------------------------------------------------------------------
+Each candidate ring is then tested against our shortest-path criteria. This criteria follows the
+definition given by Franzblau~\cite{Franzblau91}. A n-member ring is considered as primitive if
+by following the \mrm{Si_0},\mrm{Si_1},\ldots,\mrm{Si_i},\ldots,\mrm{Si_n} atoms which form the
+ring, the \mrm{Si_0-Si_i} distance sequence is unimodal. This criteria allows to remove all rings whose
+shape is not convex such as eight-shaped or tennis racket-shaped rings. The shortest ring
+isolated as such is counted in the statistics.\\  
+
+\picW=8cm
+\begin{figure}
+\subfigure[]{\picL{fig04a.ps}}
+\subfigure[]{\picL{fig04b.ps}}
+\caption{Ring size distribution measured from the bulk simulations at high(a) and low(b)
+temperatures. The points ($\blacksquare$) represent the results obtained by Rino and
+Ebbsj\"o~\cite{RinoEbbsjo93} at $T=2500$K and $T=310$K using the VKRE potential.}
+\label{fig:mkGlass_SPA}
+\end{figure}
+
+The method has been tested against both  $\beta$ and $\alpha$-cristobalite crystals and lead to
+a distribution with only 6-membered rings. Figure~\ref{fig:mkGlass_SPA} shows the ring size
+distribution obtained from the bulk simulations at both high and low temperatures along with a
+comparison with the results obtained by Rino and Ebbsj\"o~\cite{RinoEbbsjo93} using the VKRE
+model. Unfortunately they did not provide any details regarding the shortest path criteria used
+in their study. Save for a discrepancy for 8-membered rings at high temperature,
+Figure~\ref{fig:mkGlass_SPA} shows good agreement between the two studies.
+
+
+
+%%=========================================================================================================================
+%%	Section : Shock induced structural changes
+%%=========================================================================================================================
+
+\section{\SiOTwo under shock conditions}
+\label{s:shock}
+
+\subsection{Method}
+
+
+%%------------------------------------------------------------------------------------------------------
+%%	The system
+%%------------------------------------------------------------------------------------------------------
+The analysis of shock-induced structural changes have been investigated using a non-equilibrium
+molecular dynamics method. The initial system of size $N=30\e{3}$ atoms consisted of
+$50\times5\times5$
+$\beta$-cristobalite cells along the $x,y$ and $z$ directions.  Periodic boundary conditions were
+applied along the $y$ and $z$ axes while free surfaces were used along $x$. The
+method described in the previous section was applied on this initial configuration to obtain a
+glass phase. All shock simulation started from a well equilibrated glass system at $T=300$K.\\
+
+%%------------------------------------------------------------------------------------------------------
+%% Simulations procedure
+%%------------------------------------------------------------------------------------------------------
+At $t=t_0$, the system was hit by two pistons represented by $(y,z)$ planes of infinite mass on
+the left and right hand surfaces. The left piston has a velocity $u \neq 0$ along positive $x$ while
+the piston on the right-hand side had a zero velocity. Displacement of the left-hand side piston
+induced the propagation of a mechanical shock wave through the sample whose velocity $D$ is a
+function of $u$ and of the equation of state of the system. The shock wave divides the system in
+two parts: the non-shocked region, which is located downstream of the shock wave, is referred by the
+subscript $0$ while the shocked region, located upstream of the shock wave, is referred by the 
+subscript $1$. The aim here is to analyse the shock-induced structural changes in the shocked
+region.\\ 
+
+
+\picW=8cm
+\begin{figure}
+\picL{fig05.ps}
+\caption{Evolution of the shock velocity ($D$) as a function of
+piston velocity ($u$) as obtained from the non-equilibrium shock simulations.  The dotted line
+represents the linear fit of the simulation data. Experimental data are taken from~\cite{SugiuraKondo81}}
+\label{fig:shock_D-u}
+\end{figure}
+
+
+
+\subsection{Analysis}
+
+%%------------------------------------------------------------------------------------------------------
+%% What we analyse
+%%------------------------------------------------------------------------------------------------------
+Analysis of the shocked region is performed using a moving analysis window whose size and position
+changes with time so as to match that of region 1. The dimensions of this 
+window are calculated using the profile of particle velocity along $x$, the 
+shock propagation direction.The shock front is located using the point of maximum inflexion on
+the profile. The shocked and non-shocked regions are located respectively up and downstream of
+this point and separated by a transition region where the system undergoes the
+near-instantaneous transition from unshocked to shocked states. This transition region is
+identified using a numerical algorithm that analyses local variations in the profile and excluded
+from the analysis window. The thermodynamic, structural and topological properties are then
+computed independently in each regions.\\ 
+
+%%In order to exclude this transition region from the analysis window, we take region 1 to extend
+%%from the position of the piston to the last local-maximum upstream of the shock front. Likewise,
+%%the region 0 is taken to extend from the first local minimum downstream of the shock front  to
+%%the right hand system surface.
+
+
+\picW=8cm
+\begin{figure}
+\subfigure[]{\picL{fig06a.ps}}
+\subfigure[]{\picL{fig06b.ps}}
+\subfigure[]{\picL{fig06c.ps}}
+\caption{Shock-induced modifications of the $\theta_\mrm{OSiO}$(a), $\theta_\mrm{SiOSi}$(b) and
+$\theta_\mrm{SiSiSi}$(c) bond angle
+distributions. In the main graphs the dashed curves represent the distributions of the
+unshocked materials and the bold line the distributions for the highest shock velocities
+($v_p=4.5$ \mrm{ Km/s}). 
+The solid lines represent the distributions for 
+$v_p = 1,2,3.5,4,4.5$  \mrm{Km/s}.
+The insert shows a comparison between the high shock velocity distribution (bold line) and those
+obtained from an unshocked bulk system with similar temperature (T=2000K). }
+\label{fig:shock_BAD}
+\end{figure}
+
+
+%%------------------------------------------------------------------------------------------------------
+%% D-u
+%%------------------------------------------------------------------------------------------------------
+Measurement of the shock front position as a function of time and for each piston velocity allows
+to measure $D(u)$ as shown on Figure~\ref{fig:shock_D-u}.
+In the plastic regime, the curve obtained here is very similar to that
+of~\cite{KubotaCaturla03}. For $D>1$ \mrm{Km/s} the system undergoes a transformation from
+an elastic to plastic regime where $u$ is a linear function of $D$. In the latter regime, we
+observe shock induced structural changes and a permanent densification of the system.
+Additionally, our curve compares well with the experimental data obtained by
+Sugiura~\etal~\cite{SugiuraKondo81} using flier plate experiment.\\
+We however note a difference between our data and those of~\cite{KubotaCaturla03} in the elastic
+regime. This is a consequence of our analysis algorithm which uses the velocity 
+profile to locate the shock front position. In the elastic regime, the small changes induced to
+the velocity profile lead to a very noisy measurement of the shock front position as a function
+of time; hence the difference in the shock velocity. This behavior disappeared however as
+the plastic regime, which is of interest here, is entered.\\ 
+
+%%------------------------------------------------------------------------------------------------------
+%% BADs
+%%	-> OSiO : smaller tetrahedra
+%%	-> SiOSi : more small rings
+%%	-> SiSiSi : also more big rings
+%%------------------------------------------------------------------------------------------------------
+Figure~\ref{fig:shock_BAD} shows the shock-induced modifications of the bond angle
+distributions. Upon increasing the shock velocity, the distributions gradually change from that
+of an unshocked material to that of a heavily shocked material. For
+the $\theta_\mrm{OSiO}$ distribution, this involves displacement of the main peak to lower angles, indicating
+a reduction of the average tetrahedra size which is compatible with the shock-induced
+densification. The stronger the shock, the more dense the phase and therefore the smaller the
+average tetrahedra. This is consistent with experimental observation of the variation of
+$\theta_\mrm{OSiO}$ under pressure~\cite{DevineArndt87,DevineDupree87}.\\
+%%
+%%
+Variations of the $\theta_\mrm{SiOSi}$ distribution obeys to the same rule, stronger shock waves
+induce smaller angles which corresponds to a denser phase. We however note the creation of a
+local maxima at $\theta_{\mrm{SiOSi}}=105.30^\circ$ for intermediate shock strengths. Again, the
+same phenomenon has been observed experimentally~\cite{HemleyMao86,OkunoReynard99}.
+%%
+%%
+The $\theta_\mrm{SiSiSi}$ distributions of the unshocked material shows two peaks at
+$\theta^1_{\mrm{SiSiSi}}=60.30^\circ$ and $\theta^2_{\mrm{SiSiSi}}=103.50^\circ$ with a much higher
+probability for $\theta^2_{\mrm{SiSiSi}}$
+($\theta^2_{\mrm{SiSiSi}}/\theta^1_{\mrm{SiSiSi}}=12.03$). In the shocked materials, while the 
+positions of the peaks shift only slightly to lower and greater angles for respectively
+$\theta^1_{\mrm{SiSiSi}}$ and $\theta^2_{\mrm{SiSiSi}}$, their ratios nears one for the fastest
+shock velocities used here. The shift of the $\theta^1_{\mrm{SiSiSi}}$ peak to lower
+angles is understandable from the densification of the materials, which induces the
+inter-tetrahedra angle to decrease. The shift of the $\theta^2_{\mrm{SiSiSi}}$ peak to higher
+angles is however counter-intuitive as this corresponds to an opening of the inter-tetrahedra
+angle, which is not \emph{a priori} compatible with the phase densification. In terms of the
+system's topology, the shifts to lower angles of the $\theta^1_{\mrm{SiOSi}}$ and
+$\theta^1_{\mrm{SiSiSi}}$ distribution peaks suggests an increase of small ring while the shift of
+$\theta^2_{\mrm{SiSiSi}}$ to higher angles also suggests an increase in the proportion of large 
+rings.\\
+%%
+%%
+The inserts of Figure~\ref{fig:shock_BAD} compare the distributions obtained for the fastest
+shock velocity used here with those obtained from bulk simulations at a temperature equal to that found in
+the shocked region. This shows that the structure of the shocked state
+is much different than that of a high temperature system. The modifications observed here
+are therefore induced by the propagation of the shock wave and not merely the consequence of the
+associated temperature increase. The $\theta_\mrm{OSiO}$ distribution suggests a reduction of the average tetrahedra
+size  whereas the modifications of the $\theta_\mrm{SiOSi}$ and $\theta_\mrm{SiSiSi}$
+distributions suggest an increase in the proportion of both small and large rings.\\
+
+\picW=8cm
+\begin{figure}
+\subfigure[]{\picL{fig07a.ps}}
+\subfigure[]{\picL{fig07b.ps}}
+\caption{Ring size distribution in the shocked materials. Subfigure (a) compares the
+distribution in the unshocked region with those in the shocked region with slow and fast piston
+velocity. Subfigure(b) represents the ring size proportion in the shocked 
+region for different $u$ divided by the proportion in the unshocked region.}
+\label{fig:shock_rings}
+\end{figure}
+
+%%------------------------------------------------------------------------------------------------------
+%%	Rings
+%%	-> small and big ring increase
+%%	-> increase in same proportions
+%%	-> IMPROVE A BIT, REMOVE REPETITIONS
+%%------------------------------------------------------------------------------------------------------
+In order to further assess the medium-range structure modification induced by the shock wave, we
+compare the ring size histograms in the shocked and unshocked regions.
+In agreement with the results of~\cite{KubotaCaturla01}, Figure~\ref{fig:shock_rings}(a)
+confirms the results suggested by the bond angle distributions. 
+As the shock velocity increases, the ring size distribution in the shocked regions flattens out
+suggesting a structural reorganization which translates into an increase of both small (3-4) and
+large (7-10) rings. Observation of the ratio of the rings size proportion in the shocked region
+to that in the unshocked region shows that the relative increase is similar for both sizes.
+While the increase in the proportion of small rings is easily understandable considering the
+shock induced densification of the material, the increase of large ring is less so. One would
+assume that reducing the average ring size and the average $\theta_\mrm{SiOSi}$ would favor
+small rings only. The increase in the proportion of large ring can be related to
+the $\theta_\mrm{SiSiSi}$ distribution. This indicates that the system favors two
+configurations with inter-tetrahedra angle of  about $60^\circ$ and $100^\circ$. The low angle
+peak accounts for the small rings while the high angle peak accounts for large rings.
+Experimentally, it has been shown that the presence of 3 and 4 membered Si rings in silicate
+glass can be associated to the so-called \mrm{D_2} and \mrm{D_1} peaks respectively in Raman
+spectra~\cite{PasquarelloCar98}. The shock induced intensity increase of the \mrm{D_2} and \mrm{D_1} peaks in
+the Raman spectra of Okuno~\etal~\cite{OkunoReynard99} thus confirms our simulation data.
+Unfortunately, a similar connection can not be made for large rings as they can not be precisely
+isolated experimentally.
+
+%%=========================================================================================================================
+%%	Section : Hugoniostat
+%%=========================================================================================================================
+\section{Modeling \SiOTwo using the Hugoniostat}
+\label{s:hug}
+
+\subsection{Method}
+
+As an alternative method to non-equilibrium molecular dynamics which involves the simulation of
+large systems, we seek here to simulate the shock induced structural changes using bulk
+simulations in the Hugoniot ensemble. The advantage of using such a method is that it
+requires fewer atoms ($\mathcal{O}(10^{3})$) which allows to run much longer simulations and
+achieve better statistics in shorter simulation times. Here we use the GNVHug Hugoniostat of
+Soulard~\cite{Soulard99} as it allows to reach equilibrium very quickly and obeys the Hugoniot
+relations at all times. The method has been applied successfully to the
+computation of the Hugoniot in the solid and liquid phases; the behavior of the method in the
+glassy state remains unknown however. According to its original phase, a material uses very
+different thermodynamic paths in the near-instantaneous transition to the shocked state and therefore
+successful application of the GNVHug method in one phase does not translate to another. We
+therefore also aim to clarify the issue of the applicability of the GNVHug method to glassy phases.\\
+%%
+The GNVHug has been described  in details in previous publications~\cite{Soulard99,Soulard01}.
+We recall here the general idea.\\ 
+
+A cubic system whose size $L$ and volume $V$ are allowed to vary with time is considered with
+three dimensional periodic boundary conditions applied. The system consists of $N$ atoms $i$ 
+with individual masses $m_i$ and $E_p$ and $E_k$ the total potential and kinetic energies. Using the Gauss
+principle~\cite{hoo01,eva01ST,mor03ST}, the time evolution of the system is such that 
+%%
+\begin{equation}
+\frac{1}{2}\sum_{i=1}^{N}\left( m_{i}\left[ \frac{f_{i}}{m_{i}}-\frac{d^2r_i}{dt^2}\right]^{2} \right)  \label{Eq2}
+\end{equation}
+%%
+with $f_{i}=-\partial E_p/\partial r_i$, is minimum at all time.\\
+
+Given a volume $V$, the system is constrained on the thermodynamic hypersurface $H\left(
+E,P\right)$ which corresponds to a Hugoniot state at thermodynamic equilibrium:
+%%
+\begin{eqnarray}
+H &=&E-\frac{1}{2}P\left( V_{0}-V\right) \nonumber \\ &=& E_{0}+\frac{1}{2}P_{0}\left(
+V_{0}-V\right)  \label{Eq3} 
+\end{eqnarray}
+with $P_{0}$, $E_{0}$ and $V_{0}$ the initial pressure, energy and volume and $P$ and $E$
+the pressure and the energy behind the shock. The pressure is defined using the virial
+expression: 
+%%
+\begin{equation}
+P=\frac{Nk_{B}T}{V}+\frac{\Phi}{3V}  \label{Eq4b}
+\end{equation}
+where $\Phi$ is the virial and $k_{B}$ the Boltzmann constant.\\
+
+Since $V$ is taken to be constant (\ie $\frac{dV}{dt}=0)$ we get:
+\begin{equation}
+\frac{dE}{dt}-\frac{1}{2}\frac{dP}{dt}\left( V_{0}-V\right) =0  \label{Eq4}
+\end{equation}
+
+Combining Equations \ref{Eq2} and \ref{Eq4} \textit{via} a Lagrange multiplier $\lambda $, the
+following equation of motions is obtained:
+%%
+%%
+\begin{eqnarray}
+\frac{d^2r_i}{dt^2}&=&\frac{f_i}{m_i}-\lambda\frac{dr_i}{dt}\label{Eq5}\\
+\lambda&=&\frac{V-V_0}{4V-V_0}\frac{\frac{1}{2}\frac{d\Phi}{dt}+\sum_i^Nf_{i}\frac{dr_i}{dt}}{2E_k}.\label{Eq6}
+\end{eqnarray}\\
+%%
+
+
+The first stage of the Hugoniot calculation involves the determination of $P_{0}$ and $E_{0}$ by
+means of standard molecular dynamics simulations in the canonical ensemble.  
+The GNVHug algorithm is then started by scaling the system to a chosen volume $V$. The
+initial positions of atoms  are deduced from the initial structure and the appropriate scale factor
+$\left(V/V_0\right)^{(1/3)}$. Knowing the virial and the potential energy, the relevant
+kinetic energy is calculated so as to satisfy Equation~\ref{Eq3}. 
+If a negative value is obtained, the system is relaxed for a few hundred time steps until the
+kinetic energy becomes positive.
+
+
+
+\subsection{Results}
+
+
+In order to test the GNVHug method, a glass system was prepared using the method described
+in Section~\ref{s:bulk}. The initial configuration was a $\beta$-cristobalite crystal of
+$N=1536$ atoms ($4\times4\times4$ crystal cells) with three dimensional periodic boundary
+conditions applied. All simulations in the Hugoniot ensemble started from the same, well
+equilibrated glass system. The pole parameters ($E_0$,$P_0$,$V_0$) which are required as input
+parameters for the simulations were averaged over the last production simulation of the glass
+preparation procedure. Shock densities in the range $\rho_1\in[3:5]\, \mrm{ g/cm^{3}}$ were used.\\ 
+
+\picW=8cm
+\begin{figure}
+\subfigure[]{\picL{fig08a.ps}}
+\subfigure[]{\picL{fig08b.ps}}
+\caption{Comparisons of the thermodynamic properties obtained with the NEMD ($\square$) and
+Hugoniostat ($\bullet$) methods. }
+\label{fig:cmp_thedy}
+\end{figure}
+
+
+
+%%------------------------------------------------------------------------------------------------------
+%%	What we measure - how
+%%------------------------------------------------------------------------------------------------------
+The first comparison between the NEMD and GNVHug methods involves the calculation of the shock wave
+velocity as a function of piston velocity ($D(u)$) and the calculation of the Hugoniot equation
+of state ($P_1(\rho_1)$). Direct comparison between the two methods is however not possible as
+some parameters of one method (\eg $D$) are not directly accessible in the second. We therefore
+make use of the Hugoniot relations to be able to compare the results obtained from the two
+methods. From the fundamental Hugoniot relations~\cite{Thouvenin} one can derive:
+\begin{eqnarray}
+	\rho_1	&=& (\rho_0D)/(D-u)	\label{eqn:Hug_1}\\
+	P_1		&=&	\rho_0Du + P_0	\label{eqn:Hug_2}\\
+	D		&=&	\rho_0^{-1}\sqrt{(P_1-P_0)/(\rho_0^{-1} - \rho_1^{-1})}	\label{eqn:Hug_3}\\
+	u		&=& \sqrt{(P_1-P_0)(\rho_0^{-1}-\rho_1^{-1})}					\label{eqn:Hug_4}
+\end{eqnarray}
+%%
+%%
+Using Equations~\ref{eqn:Hug_1}-\ref{eqn:Hug_4}, Figure~\ref{fig:cmp_thedy} shows the comparison
+of $D(u)$ and $P_1(\rho_1)$ obtained using the two methods. This shows that the thermodynamic
+quantities are in very close agreements in the plastic regime. The elastic regime is in principle
+also available to the Hugoniot method as it obeys the Hugoniot relations. However, for small
+density increments, the  shock-induced effects are reversible and the shocked state differs
+little from the unshocked-state; hence $H\sim 0$. Constraining the system to $\frac{\partial H}{\partial
+t}=0$ is therefore a numerically challenging  task which explains why the method fails to match
+the NEMD results in the elastic regime. This does not question the efficiency of the method, but
+is merely a numerical flaw of the glassy systems used.
+Additionally, as an amorphous glassy phase is studied here, it is assumed that anisotropic effects are
+negligible and therefore we have only computed the pressure and not the shear stress as the
+approximation of isostatic should hold.\\
+
+
+
+\picW=4cm
+\begin{figure}
+\subfigure[equivalence (A)]{\picL{fig09a}}
+\subfigure[equivalence (B)]{\picL{fig09b}}
+
+\subfigure[equivalence (C)]{\picL{fig09c}}
+\subfigure[equivalence (D)]{\picL{fig09d}}
+\caption{Comparison of the bond angle distributions measured using the NEMD and the Hugoniostat method
+for several equivalent densities and shock velocities in the plastic regime. The points
+represent the Hugoniostat results while the lines and histograms show the shock data.}
+\label{fig:cmp_BAD}
+\end{figure}
+
+
+\picW=4cm
+\begin{figure}
+\subfigure[equivalence (A)]{\picL{fig10a}}
+\subfigure[equivalence (B)]{\picL{fig10b}}
+
+\subfigure[equivalence (C)]{\picL{fig10c}}
+\subfigure[equivalence (D)]{\picL{fig10d}}
+\caption{Comparison of the ring-size distributions measured using the NEMD and the Hugoniostat method
+for several equivalent densities and shock velocities in the plastic regime. The points
+represent the Hugoniostat results while the lines and histograms show the shock data.}
+\label{fig:cmp_ring}
+\end{figure}
+
+
+%%\picW=8cm
+%%\begin{figure}
+%%\subfigure[]{\picL{FIGS/cmp_BAD.ps}}
+%%\subfigure[]{\picL{FIGS/cmp_SPA.ps}}
+%%\caption{Comparison of the structural quantities measured using the NEMD and Hugoniostat method
+%%for several equivalent densities and shock velocities in the plastic regime. The points
+%%represent the Hugoniostat results while the lines and histograms show the shock data. In both graphs the
+%%equivalence A-D are shown left to right and top to bottom ($\frac{A|B}{C|D}$).}
+%%\label{fig:cmp_struct}
+%%\end{figure}
+
+
+Figure~\ref{fig:cmp_BAD} and~\ref{fig:cmp_ring}  show the comparison of the structural properties between the NEMD
+and Hugoniot methods. Using the results of Figure~\ref{fig:cmp_thedy}, the following parameters
+are taken to lead to equivalent conditions:
+\begin{eqnarray*} 
+\mrm{(A):}\rho=3.6\, \mrm{ g/cm^{3}} &\leftrightarrow& v_p=2\, \mrm{ Km/s}\\
+\mrm{(B):}\rho=4.1\, \mrm{ g/cm^{3}} &\leftrightarrow& v_p=3\, \mrm{ Km/s}\\
+\mrm{(C):}\rho=4.6\, \mrm{ g/cm^{3}} &\leftrightarrow& v_p=4\, \mrm{ Km/s}\\
+\mrm{(D):}\rho=4.8\, \mrm{ g/cm^{3}} &\leftrightarrow& v_p=5\, \mrm{ Km/s}\\
+\end{eqnarray*}
+%%
+Computation of both the bond angle distributions and the ring size distributions show very
+close agreement in the structures obtained with the equilibrium and non-equilibrium
+simulations. For simulations equivalent to piston velocities greater than $3\,\mrm{ Km/s}$,
+the two sets of results become virtually indistinguishable. This shows that past the plastic
+regime limit, the shock-induced structural properties are available using the equilibrium
+method.\\
+
+The main advantage of using the GNVHug method here lies in the speed with which the results were
+obtained. Starting from a $\beta$-cristobalite crystal, the creation of the (large) glass sample
+and the shock simulations required more than a month of computation using parallel simulations
+with six processors. Using  the same resources and single processor calculations,
+the Hugoniostat method required a mere week of simulation to recover the same results. Besides
+the clear financial advantage of 
+using short simulations, this opens up the prospect of using more realistic methods and
+potentials. The small system sizes and three dimensional periodicity associated with the GNVHug
+method make usage of long-range Coulombic interactions with dynamic charges and many-body
+potentials a standard exercise. Application of a similar method with direct shock propagation,
+while possible, is much more complicated. The system size and complicated boundaries
+require more complicated techniques for treatment of the long-range forces (\ie Fast
+Multipole Method) in addition to large computational overheads.\\ 
+
+
+
+%%=========================================================================================================================
+%%	Section : Conclusion
+%%=========================================================================================================================
+\section{Conclusion}
+\label{s:CCL}
+
+%%------------------------------------------------------------------------------------------------------
+%%	What we did
+%%------------------------------------------------------------------------------------------------------
+In this paper we have used atomistic simulations to model the shock-induced structural changes in silicate glass.
+%%
+%%------------------------------------------------------------------------------------------------------
+%%	Long range not needed ?
+%%------------------------------------------------------------------------------------------------------
+Our model is a modified version of the BKS potential where the long-range part of the
+interaction is cut and shifted, based on the assumption that the glass structure
+is mainly dictated through interactions within the first neighbor shell. We show that the glass
+produced with this potential is structurally equivalent to those generated using the BKS
+potential with long range interaction and the three-body VKRE potential. In addition, our 
+structural parameters are consistent with those found in experimental studies. This
+therefore suggests the validity of the assumption made here. The short range interactions are
+responsible for the average tetrahedra size and shape as well as their relative positions. The
+glass being a continuous random network of connected tetrahedra, the long range order is
+controlled by the cumulative effects of setting the individual tetrahedra structure and their
+relative positions with respect to their immediate neighbors.\\
+%%
+%%------------------------------------------------------------------------------------------------------
+%%	NEMD results
+%%------------------------------------------------------------------------------------------------------
+We have subsequently used non-equilibrium molecular dynamics to propagate mechanical
+shock waves through our glassy system. Comparison of the structures measured in the shocked and
+unshocked regions reveal that, above the plastic regime limit, the shock wave induces
+profound and irreversible structural changes. These are manifested by the reduction
+in the average tetrahedra size associated with the material densification. The relative
+positions of the tetrahedra is distributed with equal probabilities among two configurations
+where the angle made by connected tetrahedra equals $60^\circ$ or $103^\circ$. Analysis of the ring size
+distributions shows that this is connected with an increase in the proportion of both 3-4 and
+7-10 membered rings. Thus, in addition to the material densification manifested by smaller
+tetrahedra and narrow inter-tetrahedra angles, the shock wave also stabilizes the formation of
+large rings in the network created by wide inter-tetrahedra angles.\\ 
+%%
+%%------------------------------------------------------------------------------------------------------
+%%	GNVHug
+%%------------------------------------------------------------------------------------------------------
+We have then applied the GNVHug Hugoniostat method to perform equilibrium bulk
+simulations of the shock-induced structural changes. The method is shown to reproduce well the
+$D(u)$ and $P_1(\rho_1)$ curves in the plastic regime. Analysis of the structures shows very good
+agreement with those obtained using NEMD simulations; the correspondence improving with
+increased shock wave velocities. As the Hugoniostat method allows use of much smaller systems,
+these results open up the prospect of achieving modeling of the shock wave induced effects using
+complicated potentials at a fraction of the cost required to run large scale shock simulations.\\
+%%
+%%------------------------------------------------------------------------------------------------------
+%%	What now
+%%------------------------------------------------------------------------------------------------------
+This will form the basis of future work where the Hugoniostat method will be used to explore
+more complicated potentials including long-range forces and dynamics charges but also more
+complicated setups in an attempt to obtain a more realistic model of the mechanisms underlying
+damage of the optics by high-power lasers. Additionally, the results obtained from the bulk
+simulation will be completed by a more refined study to quantify the influence of long range
+forces on the structural properties of the glass comparing the glass structure obtained with and without
+treatment of the long range forces.
+
+%%=========================================================================================================================
+%%	Bibliography
+%%=========================================================================================================================
+\begin{thebibliography}{10}
+
+\bibitem{FeitCampbell97}
+M.D. Feit, J.H. Campbell, D.R. Faux, F.Y. Gening, M.R. Kozlowski, A.M.
+  Rubenchik, R.A. Riddle, A.~Salleo, and J.~Yoshiyama.
+\newblock In {\em SPIE proceedings}, volume 3244, page 350, 1997.
+
+\bibitem{FeitHrubesh00}
+M.D. Feit, L.W. Hrubesh, A.M. Rubenchik, and J.N. Wong.
+\newblock In {\em SPIE proceedings}, volume 4347, page 316, 2000.
+
+\bibitem{DemosKoslowski00}
+S.G. Demos, M.R. Koslowski, M.~Staggs, L.L. Chase, A.~Burnham, and H.B.
+  Radousky.
+\newblock In {\em Laser Induced damage in optical materials}, 2000.
+
+\bibitem{SugiuraIkeda96}
+H.~Sugiura, R.~Ikeda, K.~Kondo, and T.~Yamadaya.
+\newblock {\em Journal of Applied Physics}, 81:1651, 1996.
+
+\bibitem{KubotaCaturla01}
+A.~Kubota, M.-J. Caturla, J.S. Stolken, and M.D. Feit.
+\newblock {\em Optics Express}, 8:611, 2001.
+
+\bibitem{KubotaCaturla03}
+A.~Kubota, M.-J. Caturla, J.S. Stolken, B.~Sadigh, A.~Quong, A.~Rubenchik, and
+  M.D. Feit.
+\newblock In {\em SPIE proceedings}, 2003.
+
+\bibitem{SusmanVolin91}
+S.~Susman, K.J. Volin, D.L. Price, M.~Grimsditch, J.P. Rino, R.K. Kalia,
+  P.~Vashishta, G.~Gwanmesia, Y.~Wang, and R.C. Liebermann.
+\newblock {\em Physical Review B}, 43:1194, 1991.
+
+\bibitem{TrachenkoDove02}
+K.~Trachenko and M.~Dove.
+\newblock {\em Journal of Physics : Condensed Matter}, 14:7449, 2002.
+
+\bibitem{DavilaCaturla03}
+L.P. D\'avila, M.J. Caturla, A.~Kubota, B.~Sadigh, T.D. de~la Rubia, J.F.
+  Shackelford, S.H. Risbud, and S.H. Garofalini.
+\newblock {\em Physical Review Letters}, 91:205501, 2003.
+
+\bibitem{ZhakhovskiiZybin99}
+V.V. Zhakhovski\u{\i}, S.V. Zybin, K.~Nishihara, and S.I. Anisimov.
+\newblock {\em Physical Review Letters}, 83:1175, 1999.
+
+\bibitem{Soulard99}
+L.~Soulard.
+\newblock In {\em Shock Compression of Condensed Matter}, 1999.
+
+\bibitem{Soulard01}
+L.~Soulard.
+\newblock In {\em Shock Compression of Condensed Matter}, 2001.
+
+\bibitem{MailletMareschal00}
+J.-B. Maillet, M.~Mareschal, L.~Soulard, R.~Ravelo, P.S. Lomdahl, T.C. Germann,
+  and B.L. Holian.
+\newblock {\em Physical Review E}, 63:016121, 2000.
+
+\bibitem{BernardMaillet02}
+S.~Bernard and J.-B. Maillet.
+\newblock {\em Physical Review B}, 66:012103, 2002.
+
+\bibitem{RaveloHolian04}
+R.~Ravelo, B.L. Holian, T.C. Germann, and P.S. Lomdahl.
+\newblock {\em Physical Review B}, 70:014103, 2004.
+
+\bibitem{Limoge01}
+Y.~Limoge.
+\newblock {\em C.R. Acad. Sci. Paris t. 2}, 4:263, 2001.
+
+\bibitem{vanBeestKramer90}
+G.J.~Kramer B.W.H.~van Beest and R.A. van Santen.
+\newblock {\em Physical Review Letters}, 64:1955, 1990.
+
+\bibitem{VashishtaKalia90}
+J.P.~Rino P.~Vashishta, R.K.~Kalia and I.~Ebbsj\"o.
+\newblock {\em Physical Review B}, 41:12197, 1990.
+
+\bibitem{VollmayrKob96}
+W.~Kob K.~Vollmayr and K.~Binder.
+\newblock {\em Physical Review B}, 54:15808, 1996.
+
+\bibitem{GuissaniGuillot95}
+Y.~Guissani and B.~Guillot.
+\newblock {\em Journal of Chemical Physics}, 104:7633, 1996.
+
+\bibitem{ColuzziVerrocchio02}
+B.~Coluzzi and P.~Verrocchio.
+\newblock {\em Journal of Chemical Physics}, 116:3789, 2002.
+
+\bibitem{JundRarivo00}
+P.~Jund, M.~Rarivomanantsoa, and R.~Julien.
+\newblock {\em Journal of Physics : Condensed Matter}, 12:8777, 2000.
+
+\bibitem{HalversonBarmes07}
+J.D. Halverson and F.~Barmes.
+\newblock {}.
+\newblock {\em in preparation}, 2007.
+
+\bibitem{MozziWarren69}
+R.L. Mozzi and B.E. Warren.
+\newblock {\em Journal of Applied Physics}, 2:164, 1969.
+
+\bibitem{Bruckner70}
+R.~Br\"uckner.
+\newblock {\em Journal of Non-Crystalline Solids}, 5:123, 1970.
+
+\bibitem{JohnsonWright83}
+P.A.V. Johnson, A.C. Wright, and R.N. Sinclair.
+\newblock {\em Journal of Non-Crystalline Solids}, 58:109, 1983.
+
+\bibitem{Wright94}
+A.C. Wright.
+\newblock {\em Journal of Non-Crystalline Solids}, 179:84, 1994.
+
+\bibitem{HorbackKob99}
+J.~Horbach and W.~Kob.
+\newblock {\em Physical Review B}, 60:3169, 1990.
+
+\bibitem{YuanCormack01}
+X.~Yuan and A.N. Cormack.
+\newblock {\em Journal of Non-Crystalline Solids}, 283:69, 2001.
+
+\bibitem{Wickoff}
+W.G. Wickoff.
+\newblock {\em Crystal structures 2nd ed.}
+\newblock Wiley, 1963.
+
+\bibitem{Weast}
+R.C.~Weast ed.
+\newblock {\em Handbook of chemistry and physics}.
+\newblock The Chemical Rubber Co., 1970.
+
+\bibitem{GrimleyWright90}
+D.J. Grimley, A.C. Wright, and R.C. Sinclair.
+\newblock {\em Journal of Non-Crystalline Solids}, 119:49, 1990.
+
+\bibitem{NemilovKhim82}
+S.V. Nemilov and Fiz. Khim.
+\newblock {\em Stekla}, 8:385, 1982.
+
+\bibitem{CoombsDeNatale85}
+P.G. Coombs, J.F.~De Natale, P.J. Hood, D.K. McElfresh, R.S. Wortman, and J.F.
+  Shackelford.
+\newblock {\em Philos. Mag. B}, 51:L39, 1985.
+
+\bibitem{Galeener85}
+F.L. Galeener.
+\newblock {\em Philos. Mag. B}, 51:L1, 1985.
+
+\bibitem{YuanCormack03}
+X.~Yuan and A.N. Cormack.
+\newblock {\em Journal of Non-Crystalline Solids}, 319:31, 2003.
+
+\bibitem{JundJulien99}
+P.~Jund and R.~Julien.
+\newblock {\em Phil. Mag. A}, 39:37, 1999.
+
+\bibitem{WeaireWooten80}
+{ D. Weaire and F. Wooten }.
+\newblock {\em Journal of Non-Crystalline Solids}, 35-36:495, 1980.
+
+\bibitem{TadrosKlenin85}
+{ A. Tadros, M.A. Klenin and G. Lucovsky }.
+\newblock {\em Journal of Non-Crystalline Solids}, 75:407, 1985.
+
+\bibitem{GrenecheTeillet85}
+J.M. Greneche, J.~Teillet, and J.M.D. Coey.
+\newblock {\em Journal of Non-Crystalline Solids}, 83:27, 1985.
+
+\bibitem{LuedtkeLandman89}
+{ W.D. Luedtke and U. Landman }.
+\newblock {\em Physical Review B}, 40:1164, 1989.
+
+\bibitem{WrightDesa78}
+{A.C. Wright and J.A.E. Desa}.
+\newblock {\em Phys. Chem. Glasses}, 19:140, 1978.
+
+\bibitem{Franzblau91}
+{ D.S. Franzblau }.
+\newblock {\em Physical Review B}, 44:4925, 1991.
+
+\bibitem{MariansHobbs90}
+{ C.S. Marians and L.W. Hobbs }.
+\newblock {\em Journal of Non-Crystalline Solids}, 124:242, 1990.
+
+\bibitem{RinoEbbsjo93}
+{J.P. Rino, I. Ebbsj\"o, R.K. Kalia, A. Nakano and P. Vashishta}.
+\newblock {\em Physical Review B}, 47:3053, 1993.
+
+\bibitem{SugiuraKondo81}
+H.~Sugiura, K.~Kondo, and A.~Sawaoka.
+\newblock {}.
+\newblock {\em Journal of Applied Physics}, 52:3375, 1981.
+
+\bibitem{DevineArndt87}
+R.A.B. Devine and J.~Arndt.
+\newblock {}.
+\newblock {\em Physical Review B}, 35:9376, 1987.
+
+\bibitem{DevineDupree87}
+R.A.B. Devine, R.~Dupree, I.~Farnan, and J.J. Capponi.
+\newblock {}.
+\newblock {\em Physical Review B}, 35:2560, 1987.
+
+\bibitem{HemleyMao86}
+R.J. Hemley, H.K. Mao, P.M. Bell, and B.O. Mysen.
+\newblock {}.
+\newblock {\em Physical Review Letters}, 57:747, 1986.
+
+\bibitem{OkunoReynard99}
+M.~Okuno, B.~Reynard, Y.~Shimada, Y.~Syono, and C.~Willaime.
+\newblock {}.
+\newblock {\em Phys. Chem. Minerals}, 26:304, 1999.
+
+\bibitem{PasquarelloCar98}
+A.~Pasquarello and R.~Car.
+\newblock {}.
+\newblock {\em Physical Review Letters}, 80:5145, 1998.
+
+\bibitem{hoo01}
+W.~G. Hoover.
+\newblock {\em Molecular Dynamics}.
+\newblock Springer-Verlag, 1986.
+
+\bibitem{eva01ST}
+D.J. Evans, W.G. Hoover, B.H. Failor, B.~Moran, and A.J.C. Ladd.
+\newblock {\em Physical Review A}, 28(2):1016, 1983.
+
+\bibitem{mor03ST}
+G.P. Morris and C.P. Dettmann.
+\newblock {\em Chaos}, 8(2):321, 1998.
+
+\bibitem{Thouvenin}
+J.~Thouvenin.
+\newblock {\em D\'etonique}.
+\newblock Eyrolles, 1997.
+
+\end{thebibliography}
+
+
+\end{document}
+

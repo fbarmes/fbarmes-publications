@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     14 janv. 2011 21:43:53                                                        
+
+     Latex build    
+     latex build
+                   
+     fbarmes                                                                
+     ====================================================================== -->
+<project name="Latex build" default="default" basedir=".">
+	<description>
+            latex build
+    </description>
+
+	<property name="exec.latex" value="latex">
+	</property>
+	<property name="exec.dvips" value="dvips">
+	</property>
+	<property name="exec.ps2pdf" value="ps2pdf">
+	</property>
+	<property name="exec.xhlatex" value="xhlatex">
+	</property>
+
+	<property name="dir.project.root" value="${basedir}" />
+	<property name="dir.project.src" value="${dir.project.root}/src/" />
+	<property name="dir.project.target" value="${dir.project.root}/target" />
+	<property name="dir.project.target.html" value="${dir.project.root}/target/html" />
+
+	<property name="project.finalName" value="${project.artifactId}-${project.version}"></property>
+	
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="default" depends="" description="latex build">
+		<antcall target="-latex" />
+	</target>
+
+
+	<!-- ================================= 
+          target: echo              
+         ================================= -->
+	<target name="echo" depends="" description="">
+		<echo>dir.lib.ant=${dir.lib.ant}</echo>
+		<echo>ant.delegate.filename=${ant.delegate.filename}</echo>
+		<echo>project.artifactId=${project.groupId}</echo>
+		<echo>project.artifactId=${project.artifactId}</echo>
+		<echo>project.version=${project.version}</echo>
+		
+		<echo>project.build.directory=${project.build.directory}</echo>
+		<echo>project.finalName=${project.finalName}</echo>	
+		
+		<echo>latex.main.file=${latex.main.file}</echo>
+	</target>
+
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+	<target name="compile" depends="" description="">
+		<antcall target="-latex" />
+		<antcall target="-latex" />
+		<copy file="${dir.project.target}/${latex.main.file}.dvi"  tofile="${dir.project.target}/${project.finalName}.dvi" />
+	</target>
+
+	<!-- ================================= 
+          target: package              
+         ================================= -->
+	<target name="package" depends="" description="">
+		<antcall target="-latex" />
+		<antcall target="-dvips" />
+		<antcall target="-ps2pdf" />
+		
+		<copy file="${dir.project.target}/${latex.main.file}.ps"  tofile="${dir.project.target}/${project.finalName}.ps" />
+		<copy file="${dir.project.target}/${latex.main.file}.pdf" tofile="${dir.project.target}/${project.finalName}.pdf" />
+		
+	</target>
+
+
+
+
+	<!-- ================================= 
+          target: ps              
+         ================================= -->
+	<target name="ps" depends="" description="make the postscript">
+		<antcall target="-latex" />
+		<antcall target="-dvips" />
+	</target>
+
+	<!-- ================================= 
+          target: pdf              
+         ================================= -->
+	<target name="pdf" depends="" description="make the pdf">
+		<antcall target="-latex" />
+		<antcall target="-dvips" />
+		<antcall target="-ps2pdf" />
+	</target>
+
+
+	<!-- ================================= 
+          target: mk-html              
+         ================================= -->
+	<target name="-mk-html" depends="" description="make the html">
+
+		<copy todir="${dir.project.target.html}">
+			<fileset dir="${dir.project.src}">
+				<include name="*.tex"/>
+				<include name="**/*.tex"/>
+			</fileset>
+		</copy>
+
+		<exec executable="${exec.xhlatex}" dir="${dir.project.target.html}">
+			<arg line="${latex.main.file}.tex"/>
+		</exec>
+
+		<delete dir="${dir.project.target.html}">
+			<include name="*"/>
+			<exclude name="*.html"/>
+		</delete>
+
+	</target>
+
+
+	<!-- ================================= 
+		 target: clean              
+		================================= -->
+	<target name="clean" description="clean">
+		<antcall target="-clean" />
+	</target>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: -init
+         - - - - - - - - - - - - - - - - - -->
+	<target name="-init">
+		<mkdir dir="${dir.project.src}"/>
+		<mkdir dir="${dir.project.target}"/>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: -clean
+         - - - - - - - - - - - - - - - - - -->
+	<target name="-clean">
+		<delete dir="${dir.project.target}" includes="**/*" includeemptydirs="true" />
+		<delete dir="${dir.project.target}" />
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: -latex
+         - - - - - - - - - - - - - - - - - -->
+	<target name="-latex" depends="-init">
+		<exec executable="${exec.latex}">
+			<arg line="-output-directory ${dir.project.target}"/>
+			<arg line="${dir.project.src}/${latex.main.file}.tex"/>
+		</exec>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: -dvips                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="-dvips">
+		<exec executable="${exec.dvips}" dir="${dir.project.target}">
+			<arg line="-o ${latex.main.file}.ps"/>
+			<arg line="-t a4"/>
+			<arg line="${latex.main.file}.dvi"/>
+		</exec>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: -ps2pdf                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="-ps2pdf">
+		<exec executable="${exec.ps2pdf}" dir="${dir.project.target}">
+			<arg line="${latex.main.file}.ps"/>
+		</exec>
+	</target>
+
+
+</project>

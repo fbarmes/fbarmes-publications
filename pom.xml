@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>fr.barmes.publications</groupId>
+	<artifactId>fbarmes-publications-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>fbarmes-publications-parent</name>
+	<packaging>pom</packaging>
+
+	<properties>
+		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+		<ant.delegate.filename>build-template.xml</ant.delegate.filename>		
+	</properties>
+
+
+	<modules>
+		<module>articles</module>
+		<!-- <module>letters</module> -->
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>${maven-antrun-plugin.version}</version>
+					<executions>
+		
+						<!-- compile: ant compile -->
+						<execution>
+							<id>maven-antrun-plugin-compile</id>
+							<phase>compile</phase>
+							<configuration>
+								<target>
+									<ant antfile="${dir.lib.ant}/${ant.delegate.filename}" target="compile" />
+								</target>
+							</configuration>
+							<goals>
+								<goal>run</goal>
+							</goals>
+						</execution>
+	
+						<!-- compile: ant package -->
+						<execution>
+							<id>maven-antrun-plugin-package</id>
+							<phase>package</phase>
+							<configuration>
+								<target>
+									<ant antfile="${dir.lib.ant}/${ant.delegate.filename}" target="package"/>
+								</target>
+							</configuration>
+							<goals>
+								<goal>run</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<eclipseProjectDir>.</eclipseProjectDir>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+		
+	</build>
+
+</project>

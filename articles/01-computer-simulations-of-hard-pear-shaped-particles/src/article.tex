@@ -1,0 +1,1102 @@
+
+%%\documentclass[a4paper,12pt,onecolumn]{article}
+%%\documentclass[aps,10pt,twocolumn]{revtex4-1}
+%%\documentclass[aps,pre,10pt,twocolumn,%superscriptaddress{revtex4-1}
+
+\documentclass[%
+reprint,
+superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+showpacs,
+%preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper,
+floatfix,
+%onecolumn
+]{revtex4-1}
+
+%===============================%
+%                               %
+%   packages                    %
+%                               %
+%===============================%
+
+\usepackage{graphicx}           % for graphics
+\usepackage{graphics}           % for graphics
+\usepackage{calc}               % allow calculations
+\usepackage{subfigure}          % allow subfigure
+\usepackage{amssymb}            % font
+\usepackage{amstext}            % font
+\usepackage{amsmath}            % font
+\usepackage{amsfonts}           % font
+\usepackage{amsbsy}             % font
+\usepackage{float}              % figure HERE
+\usepackage{color}              % allow use of color
+\usepackage{fancybox}           % nice boxes
+\usepackage{epsfig}     		% to include eps figs
+\usepackage{fancybox}       	% nice boxes
+\usepackage{hhline}     		% nice lines in tables
+
+%===============================%
+%                               %
+%   new commands                %
+%                               %
+%===============================%
+\newcommand{\DiF}[1]{ {\fontsize{18}{22pt}\usefont{U}{pzd}{m}{n}\symbol{'#1} }}
+\newcommand{\vect}[1]{ \mathbf{#1} }
+\newcommand{\vecth}[1]{ \mathbf{\hat{#1} } }
+\newcommand{\dotproduct}[2]{\vect{#1} \centerdot \vect{#2}   }
+\newcommand{\TAB}{\hspace*{\tabul}}
+\newcommand{\forcebold}[1]{\mbox{\boldmath $#1$ }}
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+\newcommand{\lcurl}{\left\{}    %}
+\newcommand{\rcurl}{\right\}} %{
+\newcommand{\change}[1]{\textbf{BC} \textit{#1} \textbf{EC} }
+
+\newcommand{\pic}[1]{\includegraphics[width=\picW]{#1}}
+\newcommand{\picL}[1]{\includegraphics[height=\picW, angle=270]{#1}}
+
+
+\newlength{\imageheight}
+\newlength{\imagewidth}
+\newlength{\picH}
+\newlength{\picW}
+\newlength{\picA}
+\newlength{\tablength}
+\newlength{\tabul}
+
+
+%============================================================================
+%   Constants
+%============================================================================
+\newcommand{\F}[2]{\frac{#1}{#2}}
+
+%============================================================================
+%   Contact distance related macros
+%============================================================================
+
+\newcommand{\rij}{\vecth{r}_{ij}}
+\newcommand{\ui}{\vecth{u}_i}
+\newcommand{\uj}{\vecth{u}_j}
+\newcommand{\sijr}{\sigma(\ui,\uj,\rij)}
+\newcommand{\dotProdP}[2]{ \left( #1 \centerdot #2 \right) }
+\newcommand{\dotProd}[2]{ #1 \centerdot #2 }
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\lc}{\left[}
+\newcommand{\rc}{\right]}
+
+\newcommand{\sir}{\sigma(\ui,\vect{r}_{ij})}
+\newcommand{\drui}{d_i\lc\dotProdP{\ui}{\rij}\rc}
+\newcommand{\lrui}{\ell_i\lc\dotProdP{\ui}{\rij}\rc}
+
+\newcommand{\druj}{d_j\lc\dotProdP{\uj}{\rij}\rc}
+\newcommand{\lruj}{\ell_j\lc\dotProdP{\uj}{\rij}\rc}
+
+\newcommand{\druiSq}{d_i^2\lc\dotProdP{\ui}{\rij}\rc}
+\newcommand{\lruiSq}{\ell_i^2\lc\dotProdP{\ui}{\rij}\rc}
+
+\newcommand{\drujSq}{d_j^2\lc\dotProdP{\uj}{\rij}\rc}
+\newcommand{\lrujSq}{\ell_j^2\lc\dotProdP{\uj}{\rij}\rc}
+
+
+\parindent = 0pt
+%=======================================%
+%                                       %
+%   beginning of the document           %
+%                                       %
+%=======================================%
+
+\begin{document}
+
+\graphicspath
+{
+{../imgs/}
+}
+
+\title{Computer simulations of hard pear-shaped particles}
+
+\author{F. Barmes}
+\affiliation{Materials Research Institute, Sheffield Hallam University,
+Sheffield S1 1WB, United Kingdom}
+
+\author{M. Ricci}
+\author{C. Zannoni}
+\affiliation{Dip.di Chimica Fisica ed Inorganica, Universit\`{a} di Bologna,
+40136 Bologna, Italy}
+
+\author{D.J. Cleaver}
+\affiliation{Materials Research Institute, Sheffield Hallam University,
+Sheffield S1 1WB, United Kingdom}
+
+
+
+
+
+\pacs{61.30 61.20Ja 61.30}
+
+\date{\today}
+
+
+%=======================================================================================================%
+%           ABSTRACT
+%=======================================================================================================%
+\begin{abstract}
+We report results obtained from Monte Carlo simulations
+investigating mesophase formation in two model systems of hard
+pear-shaped particles. The first model considered is a hard
+variant of the truncated Stone-Expansion model previously shown to
+form nematic and smectic mesophases when embedded within a 12-6
+Gay-Berne-like potential 
+[R. Berardi, M. Ricci and Z. Zannoni. \emph{ChemPhysChem}, 7:443, 2001]. 
+When stripped of
+its attractive interactions, however, this system is found to lose
+its liquid crystalline phases. For particles of length to breadth
+ratio $k=3$, glassy behaviour is seen at high pressures, whereas
+for $k=5$ several bi-layer-like domains are seen, with high
+intradomain order but little interdomain orientational
+correlation. For the second model, which uses a parametric shape
+parameter based on the generalised Gay-Berne formalism, results
+are presented for particles with elongation $k=3,4$ and $5$. Here,
+the systems with $k=3$ and $4$ fail to display orientationally
+ordered phases, but that with $k=5$ shows isotropic, nematic and,
+unusually for a hard-particle model, interdigitated smectic ${\rm
+A_2}$ phases.
+%CHANGE1
+\end{abstract}
+
+\maketitle
+
+%=======================================================================================================%
+%           INTRODUCTION
+%=======================================================================================================%
+\section{Introduction}
+
+In recent years, flexoelectricity has become an increasingly important feature in the design of
+materials for use in liquid crystal devices. Flexoelectric behaviour, which
+leads to field-induced director distortion, results, at a molecular level, from competition
+between electric and steric dipolar interactions. As well as leading to modified bulk
+properties, flexoelectricity has been mooted to be a possible driver for switching in devices
+with bistable anchoring surfaces~\cite{Davidson_Mottram}. Indeed, it has been suggested
+that the switching mechanism of the zenithally bistable device~\cite{ZBD} may rely, in part, on
+flexoelectric behaviour.
+
+The early studies of Meyer~\cite{Meyer_69} and Prost and Marcerou~\cite{Prost_Marcerou_77},
+showed that the mechanisms underlying flexoelectricity can be understood in two ways. In the
+original explanation from Meyer, flexoelectric behavior was explained in terms of particles with
+a strong anisotropy in their charge repartition. Thus, it was shown that, upon polarization by
+an applied field, pear-shaped particles exhibit a splay director distortion, whereas
+banana-shaped particles exhibit a bend distortion. Subsequently, Prost and Marcerou showed that
+flexoelectricity could also be obtained using particles with a non-zero quadrupole moment. This
+did not contradict Meyer's original work, however, since in reality flexoelectric mesogens are
+known to possess either one or both of these properties~\cite{ProstMarcerou80}.
+
+Although well studied theoretically~\cite{Osipov83, Osipov_84, DosovLargarde83}, few computer
+simulations using flexoelectric particles have been performed to date. Whilst particle based
+simulations showing ferroelectric behaviour are reasonably well established (see, {\em e.g.},
+\cite{wei92a,wei92b}), models with the dipolar and/or quadrupolar symmetry steric interactions
+needed for flexoelectric behaviour are relatively scarce.
+
+Neal and co-workers performed one such study using molecules represented by rigid assemblies of
+three Gay-Berne sites~\cite{Neal}. One of the assemblies considered in Ref.~\cite{Neal} was a
+triangular arrangement of mutually parallel Gay-Berne sites, leading, overall, to approximately
+pear-shaped molecules. On compression, a system of such molecules ordered from an isotropic
+liquid to a smectic arrangement in which the molecular orientations in successive layers were
+almost perfectly anti-parallel. Subsequently, Stelzer {\em et al.}~\cite{Stelzer_Berardi_99}
+investigated the behaviour of pear-shaped molecules using a model with two interaction sites per
+particle; each particle comprised a Lennard-Jones site embedded near to one end of a Gay-Berne
+site. Isotropic, nematic and smectic phases were observed, local antiparallel alignment being
+seen in the nematic phase. Measurements of the splay and bend flexoelectric coefficients gave a
+non-zero splay coefficient and, to within error estimates, a zero bend coefficient in accordance
+with Meyer's theory. Equivalent simulations by Billeter and
+Pelcovits~\cite{Billeter_Pelcovits_00}, using qualitatively the same model but with different
+energy parametrisations and an alternative method for the calculation of the flexoelectric
+coefficients, confirmed the results of Ref. \cite{Stelzer_Berardi_99}. In this case, however, no
+stable nematic phase was found between the isotropic and (locally antiparallel) smectic A
+phases.
+
+Whilst the results from these systems proved encouraging, their reliance on multi-site generic
+potentials remained a relative inefficiency. This was resolved somewhat in recent work by
+Berardi and some of the current authors~\cite{Berardi_Ricci_01}, in which a single-site model
+was developed, using Zewdie's generalisation approach~\cite{Zewdie98a,Zewdie98b}, to represent
+tapered or pear-shaped particles. Here, using the geometrical shape of a B\'{e}zier curve as a
+template for the particle shape, a numerically calculated mesh of contact distance values was
+fitted using a truncated Stone expansion which, in turn, was employed in the simulations themselves.
+Results from this study were very encouraging, as both nematic and smectic A phases were
+found, and, through appropriate manipulation of the well-depth anisotropy terms, equivalent
+phases with net {\em polar} order were generated.
+
+In this paper, we seek to explore the fundamental properties of single-site pear-shaped models
+such as that used in Ref~\cite{Berardi_Ricci_01}, by investigating mesophase formation
+in systems of hard, noncentrosymmetric particles. Hard particle simulations have proved to be an
+effective and efficient testbed for many of the theories of liquid crystal
+physics~\cite{hard_rev}, and have confirmed that shape anisotropy alone can be sufficient for
+the onset of nematic and even smectic order. Two distinct systems are described here. The first
+is a hard version of the truncated Stone expansion potential described in~\cite{Berardi_Ricci_01}. The
+second employs a novel approach, based on a parametric variant of the generalized Gay-Berne
+shape parameter~\cite{CleaverCare96}, which yields an analytical expression for the contact
+distance between two pear-shaped objects.
+
+The content of the remainder of this paper is arranged as follows. In subsection \ref{s:Stone}
+we give a brief description of the truncated Stone expansion potential before presenting and discussing
+results obtained from Monte Carlo simulations of same. In the following subsection, we introduce
+the parametric approach for generating shape parameters for non-ellipsoidal particles, and apply
+it to generate shape parameters for the B\'{e}zier pears considered in
+Ref.~\cite{Berardi_Ricci_01}. Results obtained from Monte Carlo simulations of such systems are
+presented in subsection~\ref{s:GBP_results}. Finally, the two sets of simulations are compared
+and discussed in Section~\ref{S:GBP_conclusions}.
+
+
+
+%=======================================================================================================%
+%           RESULTS FROM BOLOGNA
+%=======================================================================================================%
+\section{Simulations of hard pears.}
+\subsection{The truncated Stone expansion model}
+\label{s:Stone}
+\subsubsection{Model Details}
+Our first simulations of hard pear-shaped particles used a steric
+version of the potential described in Ref.~\cite{Berardi_Ricci_01}. This gives the interaction
+between two particles, $i$ and $j$, as %
+\begin{equation}
+    \mathcal{V}^{HP} = \left\{  %}
+    \begin{array}{ccc}
+        \infty  &\mathrm{if\ }  &r_{ij} < \sijr \\
+        0   &\mathrm{if\ }  &r_{ij} \geq \sijr
+    \end{array}
+    \right.
+\end{equation}
+%
+where $\sijr$ represents the contact distance between two pear-shaped particles with
+orientations $\vecth{u}_i$ and $\vecth{u}_j$ and $\vecth{r}_{ij} = \frac{\vect{r}_{ij}}{r_{ij}}$
+and $\vect{r}_{ij}$ is the intermolecular vector.
+Following the approach of Zewdie~\cite{Zewdie98a,Zewdie98b}, this
+contact distance was expressed as an expansion of the form
+\begin{eqnarray}
+\label{eqn:Stone_sigma1}
+    \sijr   &\simeq&  \mathcal{L}(\vecth{u}_i,\vecth{u}_j,\vecth{r}_{ij}) \nonumber \\
+        &=& \sum_{L_1,L_2,L_3}\sigma_{L_1, L_2, L_3}S^{*L_1, L_2, L_3}
+        (\vecth{u}_i,\vecth{u}_j,\vecth{r}_{ij})
+\end{eqnarray}
+%
+where $S^{L_1, L_2, L_3}$ is a Stone function~\cite{Stone}, and the expansion coefficients
+$\sigma_{L_1, L_2, L_3}$ are given by
+
+\begin{widetext}
+\begin{equation}
+\label{eqn:Stone_sigma2}
+    \sigma_{L_1, L_2, L_3} = \frac
+    {
+    \int \mathcal{L}(\vecth{u}_i,\vecth{u}_j,\vecth{r}_{ij})S^{L_1, L_2, L_3}
+    (\vecth{u}_i,\vecth{u}_j,\vecth{r}_{ij})d\vecth{u}_id\vecth{u}_jd\vecth{r}_{ij}
+    }
+    {
+    \int S^{*L_1, L_2, L_3}(\vecth{u}_i,\vecth{u}_j,\vecth{r}_{ij})S^{L_1, L_2, L_3}
+    (\vecth{u}_i,\vecth{u}_j,\vecth{r}_{ij})d\vecth{u}_id\vecth{u}_jd\vecth{r}_{ij}
+    }.
+\end{equation}
+\end{widetext}
+
+%
+Simulations were performed with two parameterisations of this model, with length to breadth
+ratios, $k$, of 3 and 5 respectively. In both cases the shape parameter expansion
+(\ref{eqn:Stone_sigma1}) was restricted to indices $\{L_1, L_2, L_3\} = 1\ldots 6$; the
+expansion coefficients used for $k = 3$ were identical to those given in
+Ref.~\cite{Berardi_Ricci_01}, while those for $k=5$ are listed in Table~\ref{tble:HP_sigma_k5}.
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{cccccc}
+    \hhline{======}
+      $[000]$ & $    1.90456 $ & $[011]$ & $    0.51113 $ & $[101]$ & $    0.51113 $  \\
+      $[022]$ & $    2.01467 $ & $[202]$ & $    2.01467 $ & $[033]$ & $   -0.11376 $  \\
+      $[303]$ & $   -0.11376 $ & $[044]$ & $    0.91479 $ & $[404]$ & $    0.91479 $  \\
+      $[055]$ & $   -0.29937 $ & $[505]$ & $   -0.29937 $ & $[066]$ & $    0.41523 $  \\
+      $[606]$ & $    0.41523 $ & $[110]$ & $   -0.03942 $ & $[121]$ & $   -0.45400 $  \\
+      $[211]$ & $   -0.45400 $ & $[123]$ & $    0.59579 $ & $[213]$ & $    0.59579 $  \\
+      $[132]$ & $    0.17137 $ & $[312]$ & $    0.17137 $ & $[143]$ & $   -0.27083 $  \\
+      $[413]$ & $   -0.27083 $ & $[220]$ & $   -0.56137 $ & $[222]$ & $   -2.78379 $ \\
+      $[224]$ & $    2.41676 $ & $[231]$ & $    0.31104 $ & $[321]$ & $    0.31104 $  \\
+      $[233]$ & $    0.45382 $ & $[323]$ & $    0.45382 $ & $[242]$ & $    0.38115 $  \\
+      $[422]$ & $    0.38115 $ & $[244]$ & $   -1.69388 $ & $[424]$ & $   -1.69388 $  \\
+      $[246]$ & $    1.40664 $ & $[426]$ & $    1.40664 $ & $[330]$ & $   -0.07836 $  \\
+      $[440]$ & $   -0.17713 $ & $[442]$ & $   -0.52246 $ &    &   \\
+    \hhline{======}
+    \end{tabular}
+    \caption{The non zero $\sigma_{L_1, L_2, L_3}$ coefficients for the HP model and $k=5$.}
+    \label{tble:HP_sigma_k5}
+\end{table}
+
+\subsubsection{Simulation Results}
+
+\picW = 6cm
+\begin{figure*}
+    \centering
+    \subfigure[$k=3$]{\picL{HP_P-rho_k3.ps}}
+    \subfigure[$k=3$]{\picL{HP_P2-rho_k3.ps}}
+    \subfigure[$k=5$]{\picL{HP_P-rho_k5.ps}}
+    \subfigure[$k=5$]{\picL{HP_P2-rho_k5.ps}}
+    \caption{Results from constant $NPT$ simulations of the truncated Stone expansion model obtained using
+    $k=3$(a,b) and $k=5$(c,d). The curves for $k=3$ and $k=5$ correspond, respectively, to system sizes
+    of $N=1250$ and $N=1000$.}
+    \label{fig:HP_phaseDia}
+\end{figure*}
+
+
+Our first simulations were performed on a system of 1250 particles
+with elongation $k=3$ using constant {\em NPT} Monte Carlo (MC)
+techniques. This system was chosen since it was shown in
+Ref.~\cite{Berardi_Ricci_01} that the attractive version of this
+model with elongation $k=3$ has isotropic, nematic and smectic
+phases. In addition to the normal positional and orientational MC
+moves, one fifth of the attempted particle moves were orientation
+inversions, implemented through the reversal of the appropriate
+$\vecth{u}_i$ vector. Volume change moves were attempted, on
+average, once every two MC sweeps, where one sweep represents one
+attempted move per particle in the system.
+Within these volume
+change moves, each box dimension was allowed to change
+independently so as to minimise the influence of the periodic
+boundary conditions during the formation of possible smectic
+phases~\cite{Dominguez_Velasco_02}.
+%CHANGE2
+%
+Typically, run lengths of $0.5\ \mathrm{to}\ 1 \times 10^6$ MC
+sweeps were used for equilibration and production phases, but at the highest densities
+considered, equilibration runs were extended up to $5 \times 10^6$ MC sweeps. Two separate
+simulation sequences were performed. The first was a compression sequence starting from a low
+density phase with a fully isotropic initial distribution of particle orientations. The second
+was an expansion sequence, the starting configuration for which was generated by taking a high
+density configuration obtained from the compression sequence and inducing the particle
+orientations to align with the $(0,0,1)$ direction. This was achieved by applying a uniform
+field with this orientation to the system and assuming a strong molecular coupling via a
+positive dielectric anisotropy.
+
+\picW = 6cm
+\begin{figure}
+    \centering
+    \pic{HP_box_NPT_k5_b_N1000_P2.5.ps}
+    \caption{Configuration snapshot for the truncated Stone expansion model with $k=5$ and
+    $P^{*}=2.5$.}
+    \label{fig:HP_k5_snap}
+\end{figure}
+
+\picW = 6cm
+\begin{figure*}
+    \centering
+    \subfigure[$k=3$]{\picL{HP_dc-t_NVT_N1000_k3_S1.ps}}
+    \subfigure[$k=5$]{\picL{HP_dc-t_NVT_N1000_k5_S1.2.ps}}
+    \caption{Particle mean square displacement curves obtained for the truncated Stone expansion model with
+    $k=3$ and $k=5$. These data were obtained from constant NVT MC simulations.
+    One sweep corresponds to $N$ Monte Carlo moves}
+    \label{fig:HP_dc}
+\end{figure*}
+
+The equation of state and nematic, $<P_2>$, and polar, $<P_1>$ order parameter data~\cite{OP}
+obtained from these simulations are shown in Fig.~\ref{fig:HP_phaseDia}a. Surprisingly, the
+results obtained from the compression sequence show no spontaneous ordering, and at all
+densities $<P_2>$ falls short of the values typical of a nematic phase. In contrast, the expansion
+sequence (with a field-aligned initial configuration) performed on this system has some
+reasonably high $<P_2>$ values, consistent with nematic order being present at the higher
+densities considered. The discrepancy between these two sets of order parameter values is also
+seen in the equation of state data and indicates a failure of this system to equilibrate at
+densities $\rho^{*} > 0.30$. We return to the causes of this non-equilibration below.
+
+
+An equivalent compression sequence was performed using a system of 1000 particles with
+elongation $k=5$. This system was studied since increasing particle shape anisotropy generally
+promotes mesophase formation. While the equation of state data obtained for this system showed a
+slight inflection and $<P_2>$ attained values of 0.3 (Fig.~\ref{fig:HP_phaseDia}b), the behaviour
+expected for an isotropic-nematic transition was again absent. Configuration snapshots from high
+density runs performed using this system ({\em e.g.} Fig.~\ref{fig:HP_k5_snap}) showed that the
+modest order parameter values resulted from the formation of numerous bi-layer-like domains.
+While the local order within these domains was very high, orientational correlations between the
+domains were weak. This multi-domain structure persisted even when run-lengths were extended
+significantly.
+
+
+The failure of these hard-particle systems to reproduce the density-driven nematic-isotropic
+transition shown by the equivalent soft particle model is a surprising result; by contrast, the
+nematic-isotropic transition densities of hard gaussian overlap model \cite{DeMiguelDelRio01}
+are virtually identical to those of the equivalent (soft) Gay-Berne systems
+\cite{DeMiguel_Rull_91,DeMiguel_Rull_91a}. Indeed, the failure of our hard pear systems to form
+nematic phases could be taken as an indication that particle shape did not contribute
+significantly to the mesophase formation processes seen in Ref.~\cite{Berardi_Ricci_01}. To
+assess both this and the non-equilibration noted above, we have measured the particle mobility
+in our systems by computing the mean square displacement
+\begin{equation}
+        \langle\delta r^2(n)\rangle  = \langle({\bf r}_n - {\bf r}_0)^2\rangle
+\end{equation}
+
+%
+where ${\bf r}_n - {\bf r}_0$ is the displacement vector moved by a particle in $n$ consecutive
+MC sweeps and the angled brackets indicate an average over all particles and the run length. In
+MC simulations with fixed maximum particle displacement, Brownian diffusion dictates that
+$\langle\delta r^2(n)\rangle$ should increase linearly with $n$ in a fluid phase. Instead, the
+$\langle\delta r^2(n)\rangle$ data for $k=3$ (fig~\ref{fig:HP_dc}a), show that, as the density
+was increased, the mobility of the particles decreased dramatically, indicating the onset of
+glassy behaviour. This observation is certainly consistent with our earlier conclusion that
+equilibration was not achieved at high densities; for both of our simulation sequences for
+$k=3$, the sampling of configuration space will have been poor for $\rho^{*} \geq 0.30$. For the
+$k=5$ system, the measured mobility again showed a marked decrease with increase in density,
+although it did not reach the very low levels found at $k=3$ (fig~\ref{fig:HP_dc}b). We note,
+however, that $\langle\delta r^2(n)\rangle$ does not distinguish between single particle
+diffusion and en-masse mobility of larger assemblies such as the bilayer domains seen in
+Fig.~\ref{fig:HP_k5_snap}.
+
+
+
+The low mobilities found at high densities in these systems can be explained by consideration
+of details of the shape parameters obtained by truncating the expansion (\ref{eqn:Stone_sigma1})
+at $\{L_1, L_2, L_3\} = 1\ldots 6$. To illustrate this, we show, in Figs. \ref{fig:HP_shapes},
+sample shape parameters for parallel and anti-parallel particle configurations (i.e.
+$\lp\dotproduct{u_i}{u_j}\rp = -1$ and $1$) for both $k=3$ and $k=5$. These reveal that the
+contact functions used in our simulations were not purely convex, as had been supposed, but had
+significant ridges. We suggest that in our $k=3$ simulations, these non-convex features were
+sufficient to prevent particles from sliding past one another and so gave rise to locked
+configurations. For the $k=5$ particles, for which strong local ordering was achieved, we note
+that the shape parameter for antiparallel particles (illustrated in Fig. \ref{fig:HP_shapes}d)
+has an equatorial ridge which presumably leads to the interlocked bilayer structures so prevalent
+in Fig.~\ref{fig:HP_k5_snap}.\\
+These problems are similar to those encountered in Ref.~\cite{WilliamsonJackson98} where
+simulations were performed using a seven site linear hard sphere chain (LHSC) model. This model
+was found to form metastable glassy states in the vicinity of the isotropic-nematic transition
+due to the non-convex shapes of the particles which inhibited their ability to slide past one
+another. The tendency of these systems to become irretrievably interlocked was overcome in
+Ref.~\cite{WilliamsonJackson98} by the use of reptation moves. This solution was not available
+to us here, however, since ours is a single-site model.
+
+\picW = 6cm
+\begin{figure*}
+    \centering
+    \subfigure[Parallel particles.]{\pic{HP_3DProf_k3_0.ps}}
+    \subfigure[Antiparallel particles.]{\pic{HP_3DProf_k3_PI.ps}}
+
+    \subfigure[Parallel particles.]{\pic{HP_3DProf_k5_0.ps}}
+    \subfigure[AntiParallel particles.]{\pic{HP_3DProf_k5_PI.ps}}
+    \caption{Contact surfaces for the truncated Stone expansion model
+    with $k=3$(a,b) and $k=5$(c,d).}
+    \label{fig:HP_shapes}
+\end{figure*}
+
+Once in a stable nematic phase, the LHSC model proved to be reasonably well behaved,
+exhibiting a stable nematic region and undergoing a reversible nematic-smectic A
+transition. This raises the question of whether the glassy behaviour we have observed here is
+simply a simulation bottleneck associated with the isotropic-nematic transition or a genuine
+pre-empting of the nematic phase by a glass. While we are not in a position to give a
+categorical answer to this question, the evidence we do have suggests the latter to be the case.
+All of our $k=3$ simulations with $\rho^{*} > 0.30$ ({\em i.e.} those in both the compression
+{\em and} expansion sequences) had low particle mobilities, the effective diffusion coefficient
+decreasing monotonically with increase in applied pressure. This indicates that if there is
+a region of fluid, nematic phase-stability, it lies beyond the pressure values considered here;
+we have certainly found no evidence that the nematic phase seen in Ref.~\cite{Berardi_Ricci_01}
+is preserved when the $k=3$ model is stripped of its attractive interactions. From this change
+of phase behaviour, we infer that, for this system, the presence of attractive interactions
+affects the local packing of the particles -- the attractive wells, being located at $r> \sijr$,
+provide a means by which the particles can escape from the inter-locked arrangements that
+dominate the equivalent hard particle system at high densities. We are not aware of any other
+model system for which both shape anisotropy \emph{and} attractive interactions are required to
+promote a nematic-isotropic transition. For the $k=5$ hard particle system, while the measured
+mobility did decrease with increase in density, it did not drop as far as that found at $k=3$.
+That said, the tendency of this system to form local bilayer-like packing arrangements is in
+conflict with the usual mechanisms of nematic phase formation ({\em e.g.} diverging
+orientational correlations), leading us to conclude that here, too, the nematic phase is
+probably never stable.
+
+Faced with this unexpected phase behaviour, we present, in the following subsection, an
+alternative, parametric approach to developing non-centrosymmetric single-site models. By
+applying this approach to the B\'{e}zier pears used as a basis for the truncated Stone expansion models
+used in this subsection, we then derive a series of pear-shaped models for different particle
+elongations and perform MC simulations to investigate their ability to form mesophases.
+
+%=======================================================================================================%
+%           OUR METHOD
+%=======================================================================================================%
+\subsection{The parametric hard gaussian overlap model} \label{s:GBP_method}
+
+%=======================================================================================================
+%=======================================================================================================
+\subsubsection{Computation of the contact distance}
+
+We start with the generalised expression for the shape parameter which governs the interaction
+between a pair of uniaxial, but non-identical, ellipsoidal gaussians~\cite{CleaverCare96}. This
+expression, which itself is an approximation to the hard ellipsoid contact function for
+non-identical ellipsoids~\cite{Rasmussen}, gives the contact distance between particles $i$ and
+$j$ of elongations $l_i$, $l_j$ and breadths $d_i$, $d_j$ as
+\begin{widetext}
+\begin{equation}
+\sijr = \sigma_0 \left[ 1 - \chi\left\{
+    \frac{\alpha^2\dotProdP{\rij}{\ui}^2 + \alpha^{-2}\dotProdP{\rij}{\uj}
+    -2\chi\dotProdP{\rij}{\ui}\dotProdP{\rij}{\uj}\dotProdP{\ui}{\uj}  }{1-\chi^2\dotProdP{\ui}{\uj}^2}
+    \right\}\right]^{-\frac{1}{2}}
+\end{equation}
+with
+\begin{eqnarray*}
+    \sigma_0 &=& \sqrt{\frac{d^2_i + d^2_j}{2}}               \\
+    %
+    \alpha^2 &=& \left[ \frac{ (l^2_i-d^2_i)(l^2_j+d^2_i)}
+    {(l^2_j-d^2_j)(l^2_i+d^2_j)}\right]^{\half}         \\
+    %
+    \chi &=& \left[ \frac{(l^2_i-d^2_i)(l^2_j-d^2_j)}
+    {(l^2_j+d^2_i)(l^2_i+d^2_j)}\right]^{\half}.         \\
+    %
+\end{eqnarray*}
+If, alternatively, brackets containing the length and breadth values are grouped as
+\begin{equation*}
+    \begin{array}{cc}
+    A = (l^2_i-d^2_i) &B = (l^2_j-d^2_j) \\
+    C = (l^2_j+d^2_i) &D = (l^2_i+d^2_j),
+    \end{array}
+\end{equation*}
+
+the shape parameter can be rewritten as
+
+\begin{equation}
+\label{eqn:GGB}
+    \sijr = \sigma_0 \left[ 1 - \frac{ AC\dotProdP{\rij}{\ui}^2 + BD\dotProdP{\rij}{\uj}^2
+    - 2AB\dotProdP{\rij}{\ui}\dotProdP{\rij}{\uj}\dotProdP{\ui}{\uj} }
+    {CD - AB\dotProdP{\ui}{\uj}^2}
+    \right]^{-\half}.
+\end{equation}
+\end{widetext}
+In practice, this form, being free of possible division by zero or complex numbers, is better
+suited for implementation in computer simulation codes.
+
+The limitation of the expression (\ref{eqn:GGB}) is that it is restricted to particles with
+ellipsoidal symmetry. The thrust of this subsection is to illustrate that, since
+eqn.(\ref{eqn:GGB}) is valid for any set of particle axis lengths $l_i$, $l_j$, $d_i$, $d_j$, it
+can also be used for some situations in which these axis lengths, rather than being held fixed,
+are allowed to vary parametrically.
+
+As an illustration of this, we consider the properties of a pear-shaped particle. When its
+sharp end interacts, it resembles a particle with a relatively large $l/d$ ratio, whereas its
+blunt end corresponds to an $l/d$ ratio rather nearer to unity. In generating smooth variation
+between these two limiting cases, a multitude of parametric forms is possible: here we restrict
+ourselves to making $l_i$ and $d_i$ simple polynomials of the polar angle
+$\dotProdP{\rij}{\ui}$, that is
+\begin{eqnarray}
+        d_i(\dotProd{\rij}{\ui}) &=& a_{d,0}
+        +\ldots + a_{d,n}(\dotProd{\rij}{\ui})^n\\     \label{eqn:drui}
+        %
+        l_i(\dotProd{\rij}{\ui}) &=& a_{l,0} +\ldots + a_{l,m}(\dotProd{\rij}{\ui})^m.
+\end{eqnarray}
+
+Whilst this restriction limits, to some extent, the range of particle shapes available, it has
+the advantage that the effect of this parametric approach on $\sijr$ is transparent: through the
+coefficients $A$, $B$, $C$ and $D$, it simply introduces higher order dependence of $\sijr$ on
+the scalar products $\dotProdP{\rij}{\ui}$ and $\dotProdP{\rij}{\uj}$. On a more practical
+level, we note that restricting the shape parameter expansion to polynomials in these dot
+products has the benefit of making it readily usable in a molecular dynamics (MD) simulation. To
+reflect the generalisation introduced by this approach, we name the resultant class of model the
+parametric hard gaussian overlap (PHGO).
+
+As we show in the following subsections, by working through a specific example, this parametric
+approach can be used to generalise the HGO model to give shape parameters which approximate
+other convex and axially symmetric particle shapes. We note, however, that since the PHGO's
+departure from the conventional HGO shape parameter is based, in part, on the interparticle
+vector, $\vect{r}_{ij}$, it ignores some possible close contacts and is {\em not}, therefore,
+suitable for modelling particles with concave surface regions ({\em e.g} dumbells). For systems
+which do satisfy the convexity criterion, however, the approximations inherent in the PHGO
+approach are outweighed by the advantages: it yields an analytical form for the shape parameter,
+making it suitable for either MC or MD simulation and is easy to embed into a Gay-Berne type
+model; it introduces little computational overhead, beyond that required to simulate the
+standard HGO model; and, since it is a simple generalisation of the HGO model, it can readily be
+used to represent some or all of the particles in a multi-component mixture or a multi-site
+model (indeed, extension to polydispersity and/or dynamic particle shape variation is quite
+straightforward).
+
+%=======================================================================================================
+%=======================================================================================================
+\subsubsection{Parameterising B\'{e}zier pears}
+
+\picW = 8cm
+\begin{figure}
+    \centering
+    \picL{k3_GBP.ps}
+    \caption{B\'ezier point geometry corresponding to the pear shape used for the PHGO model.
+    For an elongation $k=3$, $\sigma_0 = 1.0$ and $h=2.0$.}
+    \label{fig:bezierPear_k3}
+\end{figure}
+
+
+In order to test the PHGO approach, we have used it to generate shape parameters for
+pear-shaped particles based on B\'{e}zier-curves (i.e. the same target system as was employed in
+Ref.~\cite{Berardi_Ricci_01}). For this, the ideal particle shape was first determined
+geometrically using a combination of two B\'{e}zier curves as shown in
+Fig.~\ref{fig:bezierPear_k3}. This geometry is very similar to that used in
+Ref.~\cite{Berardi_Ricci_01}, the exception being that we took points $q_2$ and $q_3$ to be
+coincident. This has the advantage of making the B\'{e}zier points' coordinates more easily
+scalable with the desired length to breadth ratio $k$. The coordinates of the B\'{e}zier points
+used are given in Table~\ref{tble:bezierCoords}.
+
+\tabul = 1cm
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+    \hhline{===}
+    \TAB q\TAB  &\TAB x\TAB &\TAB y\TAB             \\
+    \hhline{---}
+    $q_1$          &$-\frac{1}{2}\sigma_0$   &0.0                    \\
+    $q_2,$$q_3$    &0.0                      &$\frac{2}{3}k\sigma_0$  \\
+    $q_4$          &$\frac{1}{2}\sigma_0$    &0.0                    \\
+    $q_5$          &1.0                      &$-\frac{2}{3}k\sigma_0$ \\
+    $q_6$          &-1.0                     &$-\frac{2}{3}k\sigma_0$ \\
+    \hhline{===}
+    \end{tabular}
+    \caption{Coordinates for the pear shape Bezier points used for the PGHO model.}
+    \label{tble:bezierCoords}
+\end{table}
+
+
+From these points, it is possible to extract the coordinates of any point on the
+curve~\cite{graphicsMaths}. By taking these B\'{e}zier curves to correspond to the contact
+surface between a pear shaped particle $i$ and a point probe $j$ ({\em i.e.} taking $l_j=d_j=0$
+in eqn.(\ref{eqn:GGB})), it can readily be shown that these points need to be fitted by the
+particle-point shape parameter
+\begin{equation}
+\begin{split}
+    &\sir =\\
+    &\frac{d_i(\dotProd{\rij}{\ui})l_i(\dotProd{\rij}{\ui})}
+    {\left[l_i^2(\dotProd{\rij}{\ui}) +
+    \lp\dotProd{\ui}{\rij}\rp^2\lp d_i^2(\dotProd{\rij}{\ui})- l_i^2(\dotProd{\rij}{\ui})
+    \rp\right]^{\frac{1}{2}}}.
+    \label{eqn:GBP_sir}
+\end{split}
+\end{equation}
+To achieve this, various polynomial forms were considered for the expansions of
+$d_i(\dotProdP{\rij}{\ui})$ and $l_i(\dotProdP{\rij}{\ui})$ in eqns.(\ref{eqn:drui}), these
+being fitted numerically using a simplex least squares minimisation
+method~\cite{Numerical_Recipes}. Good fits were obtained by taking 10 terms in the particle
+breadth polynomial and 2 in the length polynomial. Full sets of the coefficients obtained are
+given in Table~\ref{tble:dili} for particles with overall aspect ratios $k=3$, 4 and 5.
+
+\tabul = 1.0cm
+\begin{table}
+    \centering
+    \begin{tabular}{cccc}
+    \hhline{====}
+    $a_{d,0} $       &   0.501852454     &    0.501377232    &    0.497721868    \\
+    $a_{d,1} $       &   -0.141145314    &   -0.129608758    &   -0.123155821    \\
+    $a_{d,2} $       &   -0.060542359    &   -0.074219217    &    0.024405876    \\
+    $a_{d,3} $       &   0.225813650     &   0.484166441     &    0.723627215    \\
+    $a_{d,4} $       &   0.832274021     &   0.923492941     &    0.389831429    \\
+    $a_{d,5} $       &   -1.015039575    &   -1.987232902    &   -3.018638148    \\
+    $a_{d,6} $       &   -2.504045172    &   -2.943008017    &   -1.951629076    \\
+    $a_{d,7} $       &   1.375313426     &   2.808075172     &    4.413215403    \\
+    $a_{d,8} $       &   3.196830129     &   3.815344782     &    2.998417509    \\
+    $a_{d,9} $       &   -0.699241457    &   -1.426641750    &   -2.241573216    \\
+    $a_{d,10}$       &   -1.430400139    &   -1.682476460    &   -1.416614353    \\
+    \hhline{====}
+    $a_{l,0} $       &   1.498259615     &   1.995906501     &    2.493069403    \\
+    $a_{l,1} $       &   -0.002027616    &   -0.004518187    &   -0.008067236    \\
+    \hhline{====}
+    \end{tabular}
+    \caption{Values of the $a_{d,\alpha}$ and $a_{l,\alpha}$ for the PHGO model with $k=3$, 4 and 5}
+    \label{tble:dili}
+\end{table}
+
+\picW = 7cm
+\begin{figure}
+    \centering
+    \picL{GBP_profile_k5.ps}
+    \label{fig:fitProfile}
+    \caption{Fit of the PHGO model (line) to the B\'ezier curve (points) for k=$5$. Equivalent
+    curves for $k=3$ and $4$ are similar but with better agreement.}
+\end{figure}
+
+\picW = 6cm
+\begin{figure*}
+    \centering
+    \subfigure[Parallel particles.]{\pic{GBP_3DProf_k5_0.ps}}
+    \subfigure[Anti-parallel particles]{\pic{GBP_3DProf_k5_PI.ps}}
+    \caption{Contact surfaces for the PHGO model with an elongation $k=5$. For shorter
+    elongations, the shapes are similar but smoother.}
+    \label{fig:CD}
+\end{figure*}
+
+
+In order to assess the accuracy of this fitting procedure, we present in
+Fig.~\ref{fig:fitProfile}a plot comparing the target B\'{e}zier curve and the corresponding
+fitted shape parameter for $k=5$. The strong correspondence between these data sets, whilst
+encouraging, does not guarantee that the particle-particle potential will be as required. To
+assess this more fully, we computed the contact surfaces between two pears as a function of
+$\rij$ uniformly distributed on the unit sphere. For this, the orientations $\ui$ and $\uj$ were
+held fixed and the three cases \mbox{$\ui=\uj=(0,0,1)$}, \mbox{$\ui = -\uj = (0,0,1)$} and
+\mbox{$\ui = (0,0,1),\uj = (0,1,0)$} were considered. The parallel and anti-parallel surfaces
+are shown for $k=5$ in Figs.~\ref{fig:CD}. As required, an approximately ellipsoidal contact
+surface is obtained when the two particles are parallel, and a pear shape when they are
+anti-parallel. The orthogonal case (which is not shown since it is rather unpreposessing), is a
+more severe test since here the point of contact is often well away from the line of centres. We
+have found that this case gives an asymmetrical lobe shape which we have found to be consistent
+with the equivalent surface given by the models of Ref.~\cite{Berardi_Ricci_01}. Importantly, we
+note that all three of the PHGO contact functions considered in this way are almost perfectly
+convex, and, so, should not be prone to the locking-up suffered by the truncated Stone function expansion
+models simulated in subsection \ref{s:Stone}. In the next subsection, we go on to investigate
+both this assertion and the general applicability of our parametric models to molecular
+simulation by performing constant {\em NPT} Monte Carlo compression sequences on PHGO pear
+systems with $k=3$, 4 and 5.
+
+
+
+%=======================================================================================================%
+%           RESULTS
+%=======================================================================================================%
+\subsubsection{Simulation Results} \label{s:GBP_results}
+
+\picW = 6cm
+\begin{figure*}
+    \centering
+    \subfigure[$k=4$]{\picL{GBP_P-rho_k4.ps}}
+    \subfigure[$k=4$]{\picL{GBP_P2-rho_k4.ps}}
+    \subfigure[$k=5$]{\picL{GBP_P-rho_k5.ps}}
+    \subfigure[$k=5$]{\picL{GBP_P2-rho_k5.ps}}
+    \caption{Results from constant NPT simulations of the PHGO model obtained with $k=4$(a,b) and
+    $k=5$(c,d) and system sizes of $N=1000$ particles.}
+    \label{fig:phaseDia}
+\end{figure*}
+
+\picW = 6cm
+\begin{figure*}
+    \centering
+    \subfigure[$g_\parallel(r_\parallel)$]{\picL{GBP_grParallel_k4.ps}}
+    \subfigure[$g_\perp(r_\perp)$]{\picL{GBP_grPerpLayer_k4.ps}}
+    \caption{Pair correlation functions $g^{\rm mol}_\perp(r_\perp)$ and
+    $g^{\rm mol}_\parallel(r_\parallel)$ resolved parallel and perpendicular to the molecular
+    orientation for PHGO particles with elongation $k=4$.}
+    \label{fig:PCF_GBP_k4}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+\picW = 5cm
+    \subfigure[isotropic]{\pic{GBP_box_k4_iso.ps}}
+\picW = 4.5cm
+    \subfigure[domain ordered]{\pic{GBP_box_k4_fun.ps}}
+    \caption{Configuration snapshots of systems of $N=1000$ PHGO particles with $k=4$ at
+    $P^{*}=1.80$(a) and $5.00$(b).}
+    \label{fig:phaseSnaps_k4}
+\end{figure*}
+
+
+In order to test our models, we have examined their phase
+behaviour via MC simulations in the isothermal-isobaric ensemble
+using $N=1000$ particles and a series of increasing pressures.
+Three particle elongations, $k=3,4$ and $5$, have been studied,
+their phase behaviour being assessed through the variation of the
+number density, $\rho^{*}$, and the polar and nematic order
+parameters, $<P_1>$ and $<P_2>$, respectively.
+The volume
+change scheme used here was the same as that used with the Stone
+expansion model and
+%CHANGE3
+typical run lengths were $0.5\times 10^6$ to $1\times 10^6$ for
+equilibration and production.
+
+
+
+The improved equilibration behaviour of these
+systems meant that the very long runs used previously were
+unnecessary here. The results of these simulations are illustrated
+by the plots presented in Figs.~\ref{fig:phaseDia}. For the sake
+of brevity, results for $k=3$ system are not shown here since they
+are qualitatively the same as those found for $k=4$.
+
+
+The behaviour of the order parameters for the two lower values of $k$ indicates that there was
+no long range orientational ordering for these systems. $<P_1>$ remained nearly constant at around
+$0.0$ while $<P_2>$ failed to reach the values ($>0.6$) characteristic of nematic order. However,
+for both elongations, $P(\rho^{*})$ had an inflection suggesting proximity to a weak phase
+transition. These features coincided, approximately, with the broad maxima seen in the
+corresponding $<P_2>$ curves. This suggests that even if no nematic phase is shown by these
+systems, some other high density phase may have been formed here. We note that for these systems
+the particle mobilities, monitored via their mean square displacements, changed little
+throughout the density range considered in these simulations.
+
+\picW = 6cm
+\begin{figure*}
+    \centering
+    \subfigure[$g_\parallel(r_\parallel)$]{\picL{GBP_grParallel_k5.ps}}
+    \subfigure[$g_\perp(r_\perp)$]{\picL{GBP_grPerpLayer_k5.ps}}
+    \caption{Pair correlation functions $g_\perp(r_\perp)$ and
+    $g_\parallel(r_\parallel)$ resolved parallel and perpendicular to the director
+    for PHGO model particles with elongation $k=5$.}
+    \label{fig:PCF_GBP_k5}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \picW = 4.5cm
+    \subfigure[isotropic]{\pic{GBP_box_k5_iso.ps}}
+    \picW = 4.9cm
+    \subfigure[nematic]{\pic{GBP_box_k5_nem.ps}}
+    \picW = 3.7cm
+    \subfigure[smectic]{\pic{GBP_box_k5_smA.ps}}
+    \caption{Configuration snapshots of systems of $N=1000$ PHGO particles with $k=5$ and
+    $P^{*}=1.00$(a), $1.50$(b) and $2.80$(c).}
+    \label{fig:phaseSnaps_k5}
+\end{figure*}
+
+
+More insight into the high density arrangements adopted by these systems has been obtained
+through computation of the pair correlation functions resolved parallel
+($g^{\rm mol}_\parallel(r_\parallel)$) and perpendicular ($g^{\rm mol}_\perp(r_\perp)$) to the
+particle orientations $\vecth{u}_i$ (the superscript mol is used to indicate that molecular,
+rather than director orientations were used to calculate these functions). These are shown in
+Fig.~\ref{fig:PCF_GBP_k4} for $k=4$, and indicate local smectic-like arrangements with anti-parallel
+alignment of nearest neighbours within layers. However, the decay of the oscillations in $g^{\rm
+mol}_\parallel(r_\parallel)$, coupled with the low corresponding $<P_2>$ values, indicate the
+absence of long-ranged smectic order. Configurations snapshots illustrate these structures more
+clearly. As can be seen from Fig.\ref{fig:phaseSnaps_k4}, with $k=4$, upon
+compression, these systems formed convoluted, space filling bilayer structures, the bilayers
+being planar in some regions and highly curved in others. The presence of these curved regions
+makes these systems qualitatively different from those seen in the $k=5$ truncated Stone expansion model
+(recall Fig~\ref{fig:HP_k5_snap}), where the orientations of the bilayer domains changed
+discontinuously with position.
+
+
+For the $k=5$ PHGO pear model, a very different situation was
+found. While $<P_1>$ remained resolutely at zero for all
+densities, confirming an absence of polar order, $<P_2>$ showed
+the well known `S' shape characteristic of an isotropic-nematic
+transition and reached the values expected for an orientationally
+ordered phase. A corresponding plateau in the $P(\rho^{*})$ curve
+and a configuration snapshot (Fig.~\ref{fig:phaseSnaps_k5})
+confirm this assessment. At higher densities, secondary features
+are apparent in both $P_2(\rho^{*})$ and $P(\rho^{*})$ indicating
+the presence of a second phase transition. The nature of this
+third phase was determined by computation of the pair correlation
+functions resolved parallel ($g_\parallel(r_\parallel)$) and
+perpendicular ($g_\perp(r_\perp)$) to the director $\vecth{n}$ as
+shown in Figs.~\ref{fig:PCF_GBP_k5}(a) and (b). These graphs show
+that for pressures above that of the second phase transition,
+$g_\parallel(r_\parallel)$ became periodic, indicating the onset
+of a smectic phase. Moreover, the decay of the oscillations in
+$g_\perp(r_\perp)$ further indicates this to be a smectic A. A
+snapshot configuration from this high density region confirms this
+identification, a highly interdigitated bilayer smectic ${\rm
+A_2}$ phase being seen, in which the molecules in adjacent layers
+are almost perfectly anti-parallel. This anti-parallel arrangement
+is apparent from the peak splitting observed in
+$g_\parallel(r_\parallel)$, the short peaks corresponding to the
+distinct natural separations of particles in the two possible
+anti-parallel arrangements. Similar behaviour has been observed in
+simulations of Gay-Berne systems with longitudinal terminal
+molecular dipoles~\cite{BerardiOrlandi03}.
+Comparison of
+the $g_\parallel(r_\parallel)$ and $g_\perp(r_\perp)$ data
+obtained at different pressures in the range $P=[2.4:3.8]$, shows
+an interesting compressibility behaviour. Upon increasing the
+pressure in this range, the system density rises and intra-layer
+particle separations decrease slightly but the bilayer separations
+increase (Figs.~\ref{fig:PCF_GBP_k5}(a) and (b)). From the
+measured $g_\parallel(r_\parallel)$ data it is found that the
+distance between the main peaks, which corresponds to the
+separation of the bilayers, increases from $7.38$ to $7.66$. The
+distance from the main peak to the first minor peak, which
+corresponds to the strongly interdigitating `tail-tail'
+configuration increases from $2.49$ to $2.76$, whereas that to the
+second minor peak, corresponding to the weakly interdigitating
+`head-head' alignment remains effectively constant at $4.85$.
+Thus, the in-plane compression induced by this increase in
+pressure leads to a 10\% increase in the separation within the
+interdigitated bilayers that comprise the smectic ${\rm A_2}$
+phase.
+%CHANGE4
+
+
+%=======================================================================================================%
+%           CONCLUSION                                                          %
+%=======================================================================================================%
+\section{Discussion and Conclusions}
+\label{S:GBP_conclusions}
+
+In this paper, we have investigated the mesogenic behaviour of two
+classes of model hard pear-shaped particles, both based on a
+target shape built using a B\'{e}zier curve. The first model
+considered used a truncated Stone expansion approach to generate the
+particle-particle contact distance numerically. Although the
+Gay-Berne version of this model was well behaved, giving nematic
+and smectic A mesophases~\cite{Berardi_Ricci_01}, these were
+\emph{not} found on removal of the attractive interactions.
+Rather, the non-convex regions of the contact surfaces induced the
+particles to interlock, leading to the formation of multi-domain
+and glassy phases. For this model, therefore, it appears that the
+nematic-isotropic transition is not driven by particle shape
+alone: long-ranged orientational order is only seen when the shape
+is softened somewhat, by the incorporation of attractive
+interactions.
+
+The second hard-pear model considered here was based on the PHGO
+approach, a route to non-centrosymmetric shape parameters which we
+have introduced in this paper. While the PHGO shape parameter is
+not determined from a full evaluation of the appropriate gaussian
+integral, the approximation it makes, that locally a
+non-centrosymmetric particle closely resembles an appropriately
+chosen ellipsoid, is intuitively reasonable. Furthermore, the
+computational simplicity and ready transferability of the PHGO
+model suggest that it may be of considerable utility in the
+generic modelling of self assembling systems. Here, we have found
+that the smooth, convex contact surfaces of a PHGO hard pear model
+yield stable nematic and bilayered smectic ${\rm A_2}$ phases.
+Interestingly, these phases are only seen when the particle aspect
+ratio is increased to $k=5$, whereas hard ellipsoid systems are
+know to form a nematic with $k$ values as low as
+2.75~\cite{FrenkelMulder85}. Future work exploring the behaviour
+of the PHGO hard pear model will include a more thorough study of
+its flexoelectric properties, and an investigation into the
+applicability of the PHGO shape parameter in theoretical
+approaches commonly used to study liquid crystals.
+
+\section*{Acknowledgements}
+
+FB acknowledges Sheffield Hallam University's Materials Research Institute for a research
+student bursary and the INSTM for financial support through contract no. TMR.FMRX CT970121
+in respect of extended visits he made to Bologna. DJC thanks Ian Withers for discussions
+which stimulated the development of the PHGO approach. %
+
+%=======================================================================================================%
+%           Bibliography                                                        %
+%=======================================================================================================%
+
+\begin{thebibliography}{10}
+
+\bibitem{Davidson_Mottram}
+{A.J. Davidson and N.J. Mottram}.
+\newblock {\em Phys. Rev. E}, 65:051710, 2002.
+
+\bibitem{ZBD}
+{G.P. Bryan-Brown, C.V. Brown, I.C. Sage and V.C. Hui}.
+\newblock {\em Nature}, 392:365, 1998.
+
+\bibitem{Meyer_69}
+{R.B. Meyer}.
+\newblock {\em Phys. Rev. Letts.}, 22:918, 1969.
+
+\bibitem{Prost_Marcerou_77}
+{J. Prost and J.P. Marcerou}.
+\newblock {\em Le Journal de Physique}, 38:315--324, 1977.
+
+\bibitem{ProstMarcerou80}
+{J.P. Marcerou and J. Prost}.
+\newblock {\em Mol. Cryst. Liq. Cryst.}, 58:259--284, 1980.
+
+\bibitem{Osipov83}
+{M.A. Osipov}.
+\newblock {\em Sov. Phys. JETP}, 58:6, 1983.
+
+\bibitem{Osipov_84}
+{M.A. Osipov}.
+\newblock {\em Le Journal de Physique Lettres}, 45:823--826, 1984.
+
+\bibitem{DosovLargarde83}
+{I. Dozov et al.}
+\newblock {\em Le Journal de Physique Lettres}, 44:L817--L822, 1983.
+
+\bibitem{wei92a}
+{D. Wei and G.N. Patey}.
+\newblock {\em Phys. Rev. Letts.}, 68:2043, 1992.
+
+\bibitem{wei92b}
+{D. Wei and G.N. Patey}.
+\newblock {\em Phys. Rev. A}, 46:7783, 1992.
+
+\bibitem{Neal}
+{M.P. Neal, A.J. Parker and C.M Care}.
+\newblock {\em Molec. Phys.}, 91:603, 1997.
+
+\bibitem{Stelzer_Berardi_99}
+{J. Stelzer, R. Berardi and C. Zannoni}.
+\newblock {\em Chem. Phys. Letts.}, 299:9, 1999.
+
+\bibitem{Billeter_Pelcovits_00}
+{J.L. Billeter and R.A. Pelcovits}.
+\newblock {\em Liq. Cryst.}, 27:1151, 1997.
+
+\bibitem{Berardi_Ricci_01}
+{R.Berardi, M. Ricci and C. Zannoni}.
+\newblock {\em ChemPhysChem}, 7:443, 2001.
+
+\bibitem{Zewdie98a}
+{H. Zewdie}.
+\newblock {\em J. Chem. Phys.}, 108:2117, 1998.
+
+\bibitem{Zewdie98b}
+{H. Zewdie}.
+\newblock {\em Phys. Rev. E}, 57:1793, 1998.
+
+\bibitem{hard_rev}
+{M.P. Allen, G.T. Evans, D. Frenkel and B. Mulder}.
+\newblock {\em Adv. Chem. Phys.}, 86:1, 1993.
+
+\bibitem{CleaverCare96}
+{D.J. Cleaver, C.M. Care, M.P. Allen and M.P. Neal}.
+\newblock {\em Phys. Rev. E}, 54:559, 1996.
+
+\bibitem{Stone}
+{A.J. Stone}.
+\newblock {\em Molec. Phys.}, 36:241, 1978.
+
+\bibitem{Dominguez_Velasco_02}
+{H. Dom\'{\i}nguez, E. Velasco and J. Alejandre}.
+\newblock {\em Molec. Phys.}, 100:2739, 2002.
+
+\bibitem{OP}
+{P. Pasini, C. Zannoni}.
+\newblock {\em Advances in the computer simulations of Liquid crystals, chapter
+  2}.
+\newblock Kluwer Academic Publisher, Dordrecht, 1998.
+
+\bibitem{DeMiguelDelRio01}
+{E. de Miguel, E. Mart\'{i}n del R\'{i}o}.
+\newblock {\em J. Chem. Phys.}, 115(19):90729082, 2001.
+
+\bibitem{DeMiguel_Rull_91}
+{E. de Miguel et al}.
+\newblock {\em Molec. Phys.}, 72(3):593--605, 1991.
+
+\bibitem{DeMiguel_Rull_91a}
+{E. de Miguel et al}.
+\newblock {\em Molec. Phys.}, 74(2):405--424, 1991.
+
+\bibitem{WilliamsonJackson98}
+{D.C. Williamson, G. Jackson}.
+\newblock {\em J. Chem. Phys.}, 108:10294, 1998.
+
+\bibitem{Rasmussen}
+{J. W. Perram et al.}
+\newblock {\em Phys. Rev. E}, 54:6565, 1996.
+
+\bibitem{graphicsMaths}
+{D.F. Rogers and J.A. Adams}.
+\newblock {\em Mathematical elements for computer graphics, 2nd ed.}
+\newblock Mc Graw-Hill, 1990.
+
+\bibitem{Numerical_Recipes}
+{W.H. Press, S.A. Teukolsky, W.T. Vetterling and B.P. Flannery}.
+\newblock {\em Numerical recipes in C, the art of scientific computing}.
+\newblock Cambridge University Press, 1990.
+
+\bibitem{BerardiOrlandi03}
+{R. Berardi, S. Orlandi and C. Zannoni}.
+\newblock {\em Phys. Rev. E}, in the press, 2003.
+
+\bibitem{FrenkelMulder85}
+{D. Frenkel and B.M. Mulder}.
+\newblock {\em Molec. Phys.}, 55:1171, 1985.
+
+\end{thebibliography}
+
+\end{document}
