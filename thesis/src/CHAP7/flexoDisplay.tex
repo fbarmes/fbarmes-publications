@@ -1,0 +1,109 @@
+
+
+\section{The flexoelectric display}
+
+The model proposed by Davidson and Mottram~\cite{DavidsonMottram02} is an idealised 
+representation of an existing display cell, the ZBD device~\cite{ZBD}, in which the grating 
+morphology of the ZBD device is treated as a planar surface which has homeotropic or planar 
+anchoring states. The geometry
+considered in~\cite{DavidsonMottram02} is shown in Figure~\ref{fig:bistDisplay}.
+In this, a system of flexoelectric mesogens is confined in a slab geometry; 
+the top surface induces a monostable homeotropic anchoring while the bottom surface is
+bistable and allows both homeotropic and planar arrangements. In the case of an 
+homeotropic bottom surface anchoring, the cell is in the so called
+vertical state (Figure~\ref{fig:bistDisplay}a) and all particles have a vertical orientation; 
+in the case of a bottom planar anchoring, the state is in a so called hybrid aligned 
+nematic (HAN) state (Figure~\ref{fig:bistDisplay}b) where the particle
+orientations change continuously from homeotropic on the top surface to planar at the bottom.\\
+
+\picW = 5cm
+\begin{figure}
+	\centering
+	\subfigure[The Vertical state]{\pic{bistDisplay_V.ps}}
+	\hspace*{10mm}
+	\subfigure[The HAN state]{\pic{bistDisplay_HAN.ps}}
+	\caption{Schematic representation of the two stable states of the 
+	display cell considered in~\cite{DavidsonMottram02}. The top surface induces a
+	monostable homeotropic anchoring while the bottom surface is bistable and induces 
+	both homeotropic and planar arrangements. }
+	\label{fig:bistDisplay}
+\end{figure}
+
+Easy switching between these states can be achieved by applying an electric field between the two
+substrates which will reorient the particles either parallel or perpendicular to the 
+surfaces for respectively a negative or positive molecular dielectric susceptibility. 
+Upon removal of this field, because of the strong homeotropic anchoring at the top
+surface, particles close to that substrate will recover the homeotropic anchoring whereas 
+particles close to the bottom substrate will keep the field induced orientation because of the
+bottom surface bistability. As a result both HAN and vertical states can be produced with an
+appropriate choice of starting configuration and electric field for a given value (and sign) of
+the molecular dielectric susceptibility.\\
+
+The difficulty that then arises is that of achieving the reverse switching, the so called hard 
+switching from V to HAN if $\delta\epsilon > 0$ or from HAN to V if $\delta\epsilon<0$.
+Davidson and Mottram showed that this `hard switch' can be made
+possible by reversing the field orientation and using moderate values of the field strength,
+if the liquid crystal particles have flexoelectric properties. Upon application of the reverse field,
+competition is created between the dielectric alignment behaviour and the  field-induced splay 
+promoted by the flexoelectricity. For appropriate values of the field, this competition 
+causes the confined liquid crystal to adopt a distorted state 
+which, upon removal of the field, relaxes to the other state thus rendering hard switching
+possible. Table~\ref{tble:switchPara} summarizes the parameterisation combinations required 
+to achieve easy and hard switching of the cell.\\
+
+
+
+
+\begin{table}
+	\centering
+	\begin{tabular}{||c||c||c||}
+	\hhline{|t:=:t:=:t:=:t|}
+	$\delta\epsilon$	&easy switching		&hard switching	\\
+	\hhline{|:=::=::=:|}
+	$\delta\epsilon>0$	&HAN to V using $E < 0$	&V to HAN using $E > 0$	\\
+	\hhline{|:=::=::=:|}
+	$\delta\epsilon<0$	&V to HAN using $E > 0$	&HAN to V using $E < 0$	\\
+	\hhline{|b:=:b:=:b:=:b|}
+	\end{tabular}
+\caption{Electric parameterisation given in~\cite{DavidsonMottram02} 
+required to performed the `easy' and `hard' switching between
+the HAN and vertical states.}
+\label{tble:switchPara}
+\end{table}
+
+The treatment used by Davidson and Mottram was, however, based on elastic theory approach. 
+In this Chapter, the aim is to investigate, using molecular simulations, the validity of 
+this and thus get a microscopic picture of the process underlying the switching scheme.\\
+In order to model the display proposed by Davidson and Mottram using molecular simulation
+methods, a similar slab geometry like that shown on Figure~\ref{fig:bistDisplay} is to be 
+used, that is with an homeotropic top surface and a bistable 
+bottom surface. The flexoelectric molecules are to be represented using the $k=5$ PHGO 
+model for pear  shaped particles developed in Chapter~\ref{chap:six}.
+
+The competition between the dielectric effect and the field-induced flexoelectric splay 
+is to be achieved through a particle-field interaction made of dielectric and dipolar 
+contributions, as shown in Appendix~\ref{chap:B}. 
+In the case of a negative dielectric susceptibility, for example, the particles 
+need to experience the competitive effects of the dielectric contribution, which tends to align 
+the particles  perpendicular to the field, and the dipolar effect which tends to align 
+the particles parallel  to it. The latter has the effect of introducing splay distortions 
+due to the preferred packing arrangement of pear shaped particles.\\
+
+The system electric energy $U_e$  is given by (see Appendix~\ref{chap:B})~:
+%
+\begin{equation}
+	U_e = \sum_{i=1}^{N}\left\{ 
+	-\frac{1}{2}\epsilon_0\delta\epsilon\lp \dotProd{\vect{E}}{\ui} \rp^2 
+	- \mu \dotProdP{\vect{E}}{\ui}
+	\right\}
+\end{equation}
+%
+where $\epsilon_0$ is the unit of energy, $\delta\epsilon$ is the dielectric susceptibility,
+$\mu$ is the dipole moment, $\ui$ is the molecular orientation and $\vect{E} = E\vecth{E}=
+E\vecth{z}$ is
+the applied electric field.
+
+
+
+
+

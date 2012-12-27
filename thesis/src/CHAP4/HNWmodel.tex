@@ -1,0 +1,308 @@
+
+
+\section{A first surface potential}
+\label{s:HNWmodel}
+
+Here, surface induced structural changes are studied using ellipsoidal shaped particles interacting
+through the hard Gaussian overlap potential. In this Chapter all
+particle-surface interactions are performed using the Hard Needle Wall potential 
+(HNW)~\cite{Chrzanowska_Teixera_01} as this provides a simple and intuitive steric interaction which
+can be tuned so as to induce either homeotropic or planar arrangement. As a result surface
+induced structural changes can be studied using one model along with parameters values
+appropriate for both surface arrangements.
+Also, this potential allows the study of the transition from one arrangement to the other.
+
+
+%==============================================================================================
+%==============================================================================================
+\subsection{The Hard Needle Wall potential}
+\label{ss:HNW}
+
+
+With the Hard Needle Wall (HNW) potential, the particles do not interact directly 
+with the surfaces,  rather the surface  interaction is achieved by a needle of length 
+$k_S$ placed at the centre of each particle
+(Figure~\ref{fig:HGO_wal}). As a result, the HNW potential can be viewed as an extension of the
+potential used by Allen~\cite{Allen99} where only the centre of mass interacts with the surface.
+The case considered in~\cite{Allen99}, thus, corresponds to the HNW potential with a zero needle
+length. The interaction potential between the needle and the surface is defined by 
+$\mathcal{V}^\mrm{HNW}$ as~:
+
+\begin{equation}
+\mathcal{V}^{HNW} = \left\{ %}
+	\begin{array}{ccc}
+	0               &\mrm{if}   &|z_i-z_0| \geq \sigma_w  \\
+	\infty          &\mrm{if}   &|z_i-z_0| < \sigma_w
+	\end{array}
+	\right.
+\end{equation}
+
+with~:
+
+\begin{equation}
+        \sigma_w = \frac{1}{2}\so k_S\cos(\theta)
+	\label{eqn:sigma_w_HNW}
+\end{equation}
+
+Here $\so$ defines the unit of distance, $k_S$ is the dimensionless needle length and 
+$\theta$ the angle 
+between the surface normal and the particle's orientation vector, which and also corresponds 
+to the Euler zenithal angle.  The behaviour of $\sigma_w(\theta,k_S)$ is shown on 
+Figure~\ref{fig:sw_HNW}\\
+
+%----------------------------------------------------
+\picW = 7cm
+\begin{figure}
+	\centering
+	\pic{HNWConfig.ps}
+	\caption{The HNW configuration}
+	\label{fig:HGO_wal}
+\end{figure}
+%----------------------------------------------------
+
+%------------------------------------------
+\picW = 7cm
+\begin{figure}
+	\centering
+	\pic{sw_HNW_2.ps}
+	\caption{Evolution of $\sigma_w(k_S, \cos\theta)$ for the HNW surface potential.}
+	\label{fig:sw_HNW}
+\end{figure}
+%------------------------------------------
+
+At high densities, this potential drives the preferred
+anchoring behaviour by dictating the volume of absorbed particles that can be subsumed 
+into the surface. The only model parameter upon which the anchoring strength and 
+angle are dependent is the needle length. According to this, there is a finite volume of 
+any `surface particle' that can be absorbed on the surface. The effect of this absorbed 
+volume is to reduce the system's free energy due to the increased free volume (and, thus,
+entropy) it afford to rest of the system.
+The greater the volume  absorbed, the lower the free energy. As a result the most stable
+surface arrangement, \ie that which minimizes the free energy, is the one that maximizes 
+the absorbed volume.\\
+
+The surface behaviour of the HNW model has already been studied by Chrza\-now\-ska 
+\etal\cite{Chrzanowska_Teixera_01} and Cleaver and Teixeira~\cite{Cleaver_Teixeira_01}. For
+small $k_S$, the homeotropic arrangement is most stable, whereas the planar arrangement is 
+favored for long $k_S$. Some more quantitative insight into this can be obtained by studying the
+amount of volume that can be absorbed into the surface as a function of molecular orientation 
+and needle length. Approximating the shape of a Gaussian ellipsoid to that of an ellipsoid of
+revolution~\cite{Rigby89}, the volume $V_e$ of a single particle of elongation $k$ absorbed into 
+the substrate as a function of $k_S$ and $\theta$ can be obtained as described in
+Appendix~\ref{chap:A}~:
+\begin{equation}
+	Ve=\frac{1}{3}\pi
+	\lp \frac{1}{2}-\sqrt{\frac{\sigma^\mrm{HNW}_w(k_S,\theta)}{k^2\cos^2\theta+\sin^2\theta}}\rp^2 
+	\lp 1 + \sqrt{\frac{\sigma^{HNW}_w(k_S,\cos\theta)}{k^2\cos^2\theta+\sin^2\theta}} \rp
+	\label{eqn:Ve_HNW}
+\end{equation}
+
+On replacing $\sigma^\mrm{HNW}_w(k_S,\theta)$ with the expression of
+Equation~\ref{eqn:sigma_w_HNW}, $V_e$ reads~:
+\begin{equation}
+	V_e = \frac{1}{8}\pi
+	\lp-1+\sqrt{\frac{k_S^2\cos^2\theta}{5+4\cos(2\theta)}}\rp^2
+	\lp2+\sqrt{\frac{k_S^2\cos^2\theta}{5+4\cos(2\theta)}}\rp
+\end{equation}
+A graphical representation of this function is given in Figure~\ref{fig:Ve_HNW}. 
+
+\picW = 8cm
+\begin{figure}
+	\centering
+	\pic{Ve_HNW_fkS.ps}
+	\caption{Representation of the absorbed volume $V_e$ of a single particle 
+	for the HNW potential as a function of $k_S$ and $\theta$.}
+	\label{fig:Ve_HNW}
+\end{figure}
+
+This shows that regardless the needle length, the absorbed volume of a single particle is maximal 
+for $\theta=\pi/2$,
+suggesting that the planar arrangement should be most stable for every case. One exception is the
+case $k_S=0$ where both planar and homeotropic arrangement allow the adsorption of an equal
+volume (half the ellipsoid volume.)
+Clearly this disagrees with the simulation results of~\cite{Chrzanowska_Teixera_01,Cleaver_Teixeira_01} 
+where intermediate, short needle lengths
+also showed stable homeotropic alignment. This discrepancy can be resolved by also considering
+the packing behaviour of the two arrangements. This is described in the next Section.
+
+
+
+
+%==============================================================================================
+%==============================================================================================
+\subsection{Relative stability of anchoring orientations}
+\label{ss:PHstability}
+
+We now consider the behaviour of
+a system of numerous hard Gaussian overlap molecules in a confined geometry, interacting with 
+the surface through the HNW potential. The aim is to calculate the homeotropic to
+planar transition needle length for this system. Each particle close to the surface is 
+approximated to be an ellipsoid of revolution with elongation $k=\frac{\sel}{\so}$ and 
+with semi axis $a=b=\frac{\so}{2}$ and $c=\frac{\sel}{2}$. The following quantities are also
+defined~:
+
+\begin{itemize}
+        \item $Veps$~: full volume of an ellipsoid.
+	\item $V_P(k_S)$~: volume absorbed by one ellipsoid with $\theta=\frac{\pi}{2}$
+	\item $S_P$~: area of the substrate occupied by one ellipsoid with $\theta=\frac{\pi}{2}$
+	\item $V_H(k_S)$~: volume absorbed by one ellipsoid with $\theta=0$
+        \item $S_H$~: area of the substrate occupied by one ellipsoid with $\theta=0$
+\end{itemize}
+
+\picW = 7cm
+\begin{figure}[h]
+	\centering
+	\pic{HPTransTheory_f3.ps}
+	\caption{Schematic representation of the geometry considered for the 
+	calculation of $V_H(k_S)$.}
+	\label{fig:HPTransTheory_f3}
+\end{figure}
+%----------------------------------------------------------------
+
+The homeotropic to planar transition can be understood by considering the ratio of the volume
+absorbed into the surface to the surface occupied by the particle on the substrate (\ie the
+projection of the particle onto the substrate) for the two key arrangements. The free energy  
+for these will be equal when the two ratios are equal. 
+As a result, the problem of finding the anchoring transition needle length reduces to solving~:
+%
+\begin{equation}
+        \frac{V_H(k_S)}{S_H} = \frac{V_P(k_S)}{S_P}
+	\label{eqn:P-Htransition}
+\end{equation}
+
+%-----------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------
+\subsubsection{expression for $V_P(k_S)$ and $S_P$}
+The case of planar alignment is straightforward~:
+%
+\begin{eqnarray}
+        S_P &=& \frac{\pi\so\sel}{4}\\
+        V_P &=& \frac{\pi\so^2\sel}{12}
+\end{eqnarray}
+
+
+%-----------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------
+\subsubsection{expression for $S_H$}
+
+In the case of Homeotropic arrangement, $\theta=0 \forall k_S$. As a result, although the
+particle will be positioned at a different distances from the surface as a function of $k_S$, the
+projection of the particle on to the surface is constant and thus~:
+%
+\begin{equation}
+        S_H = \frac{\pi\so^2}{4}
+\end{equation}
+%
+%-----------------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------
+\subsubsection{expression for $V_H(k_S)$ }
+
+The volume that can be absorbed if $\theta=0$, is a function of $k_S$, but is not obtained
+trivially. The extreme cases are known~:
+\begin{eqnarray*}
+        V_H(0) &=& \frac{Veps}{2}\\
+	V_H(k) &=& 0
+\end{eqnarray*}
+
+The set up shown in Figure~\ref{fig:HPTransTheory_f3} is considered where ultimately 
+$V_H(k_S)$ corresponds to the solid volume. First an expression for $V_F$, the volume of 
+a portion of an ellipsoid from the tip to a distance $z_0$ is  required as a function 
+of $z_0$. From this $V_H(k_S)$ can be identified. Starting from the equation of an ellipsoid~:
+\begin{equation}
+	\frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1
+	\label{eqn:ellipsoidEqn}
+\end{equation}
+
+$V_F$ is given by~;
+\begin{equation}
+	V_F = \int^{z_0}_{-c} \int^{y_\mrm{max}}_{y_\mrm{min}} \int^{x_\mrm{max}}_{x_\mrm{min}} dx.dy.dz
+\end{equation}
+%
+Using~(\ref{eqn:ellipsoidEqn}), the triple integral transforms to~:
+%
+\begin{eqnarray}
+	V_F &=& \int^{z_0}_{-c}
+		\int^{ \frac{b}{c}\sqrt{c^2 - z_0^2} }_{-\frac{b}{c}\sqrt{c^2 - z_0^2}}
+		\int^{\frac{a}{b}\sqrt{b^2K - y^2} }_{-\frac{a}{b}\sqrt{b^2K - y^2}}
+		dx.dy.dz\\
+	\mrm{with\ } K &=& 1 - \frac{z^2}{c^2} \nonumber
+\end{eqnarray}
+%
+%
+and thus~:
+%
+\begin{equation}
+	V_F 	= \pi ab \left[  z_0\lp 1 - \frac{z_0^2}{3c^2}\rp + \frac{2c}{3} \right]
+	\label{eqn:V_F(z_0)}
+\end{equation}
+
+This expression can be checked, considering two known limits.
+If $z_0=c$, $V_F = \frac{4}{3} \pi abc$ which is the full volume of an ellipsoid.
+If $z_0=-c$, $V_F = 0$, again giving the expected result.\\
+
+$V_H(k_S)$ can then be obtained by identification of the parameters $a,b,c$ and $z_o$ with the
+setup shown in Figure~\ref{fig:HPTransTheory_f3} using ~:
+\begin{eqnarray*}
+	a &=& b = \frac{\so}{2}\\
+	c &=& \frac{\sel}{2}	\\
+	z_0 &=& \frac{-k_S}{2}
+\end{eqnarray*}
+%
+which leads to~:
+%
+\begin{equation}
+	V_H = \frac{\pi\so^2}{4}
+	\left[
+	\frac{k_S}{2} \lp \frac{k_S^2}{3\sel^2} -1  \rp + \frac{\sel}{3}
+	\right]
+	\label{eqn:V_H(Ln)}
+\end{equation}
+
+
+
+%======================================================================================================
+%======================================================================================================
+\subsubsection{Transition needle length }
+
+Having obtained expressions for $V_H(k_S)$, $S_H$, $V_P(k_S)$ and $S_P$,
+Equation \ref{eqn:P-Htransition} can be solved.
+%
+\begin{gather}
+        \frac{V_H(k_S)}{S_H} = \frac{V_P(k_S)}{S_P}                     \\
+        \frac{1}{6k^2\so^2}k_S^3 - \frac{1}{2}k_S + \frac{\so}{3}\lp k-1\rp = 0
+\end{gather}
+
+Also, for clarity and generality purposes, the results are best expressed using the reduced 
+needle length $k_S^{'} = \frac{k_S}{k}$. This leads to~:
+\begin{equation}
+	\frac{k}{6\so^2}k_S^{'3} - \frac{k}{2}k_S^{'} +\frac{\so}{3}\lp k-1\rp = 0
+	\label{eqn:LnTfinalPoly}
+\end{equation}
+
+The transition needle length $k_S^{T\prime}$ is therefore given by the root 
+of~\ref{eqn:LnTfinalPoly} satisfying $k_S^{T\prime} \in ]0:1]$
+The result is $k-$dependent, the variation of the transition $k_S^{T\prime}$ as a function
+of k is shown in Figure~\ref{fig:LnT-k}.
+
+\picW = 10cm
+\begin{figure}
+        \centering
+        \picL{LnT-k.ps}
+	\caption{Variation of $k_S^{T\prime}(k)$}
+	\label{fig:LnT-k}
+\end{figure}
+
+
+For the two elongations used in this study, that is $k=3$ and $5$, the transition needle length is :
+\begin{center}
+	\textbf{$k=3$~:} $k_S^{T\prime} \sim 0.4817$	\\
+	\textbf{$k=5$~:} $k_S^{T\prime} \sim 0.6084$	\\
+\end{center}
+%
+Thus with $k=3$, the anchoring transition should occur for a reduced needle length of about 50\% 
+whereas with $k=5$, the transition should occur for a reduced needle length of about 60\%.
+
+
+
+
+

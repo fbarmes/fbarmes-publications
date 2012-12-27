@@ -1,0 +1,262 @@
+
+
+\section{The PHGO model.}
+
+Here a novel model for non-centrosymmetric particles is described. The route adopted
+is to extend the generalized Gay-Berne (GGBP) potential~\cite{CleaverCare96} to the description of
+non-centrosymmetric particles thus leading to the so called Parametric Hard Gaussian Overlap (PHGO)
+model.
+
+%================================================================================================
+%================================================================================================
+\subsection{Obtaining the contact distance.}
+
+The generalized Gay-Berne model describes the interaction between two ellipsoidal particles 
+$i$, $j$ with arbitrary lengths $\ell_i$, $\ell_j$ and breadth $d_i$, $d_j$ and orientations
+$\ui$ and $\uj$ separated by an intermolecular vector $\vect{r}_{ij} = r_{ij}\rij$. The contact 
+distance for this model is given by~:
+%
+\begin{multline}
+\sijr = \\
+\sigma_0 \left[ 1 - \chi\left\{
+    \frac{\alpha^2\dotProdP{\rij}{\ui}^2 + \alpha^{-2}\dotProdP{\rij}{\uj}
+    -2\chi\dotProdP{\rij}{\ui}\dotProdP{\rij}{\uj}\dotProdP{\ui}{\uj}  }{1-\chi^2\dotProdP{\ui}{\uj}^2}
+    \right\}\right]^{-\frac{1}{2}}
+    \label{eqn:GGB_CD_original}
+\end{multline}
+
+with~:
+\begin{eqnarray*}
+    \sigma_0 &=& \sqrt{\frac{d^2_i + d^2_j}{2}}               \\
+    %
+    \alpha^2 &=& \left[ \frac{ (\ell^2_i-d^2_i)(\ell^2_j+d^2_i)}
+    {(\ell^2_j-d^2_j)(\ell^2_i+d^2_j)}\right]^{\half}         \\
+    %
+    \chi &=& \left[ \frac{(\ell^2_i-d^2_i)(\ell^2_j-d^2_j)}
+    {(\ell^2_j+d^2_i)(\ell^2_i+d^2_j)}\right]^{\half}.         \\
+    %
+\end{eqnarray*}
+If, alternatively, the brackets containing the length and breadth values are grouped as~:
+%
+\begin{equation*}
+	\begin{array}{cc}	
+	A = (\ell^2_i-d^2_i) &B = (\ell^2_j-d^2_j) \\
+	C = (\ell^2_j+d^2_i) &D = (\ell^2_i+d^2_j),
+    	\end{array}
+\end{equation*}
+%
+the shape parameter can be rewritten as~:
+\begin{multline}
+    \sijr = \\
+    \sigma_0 \left[ 1 - \frac{ AC\dotProdP{\rij}{\ui}^2 + BD\dotProdP{\rij}{\uj}^2
+    - 2AB\dotProdP{\rij}{\ui}\dotProdP{\rij}{\uj}\dotProdP{\ui}{\uj} }
+    {CD - AB\dotProdP{\ui}{\uj}^2}
+    \right]^{-\half}
+    \label{eqn:GGB_CD_modified}
+\end{multline}
+
+Although the two forms of Equations~\ref{eqn:GGB_CD_original} and~\ref{eqn:GGB_CD_modified} 
+are mathematically equivalent, the second is to be preferred for
+implementation in a simulation code as it is free of possible division by zero or complex
+numbers in the limit $\ell=0$ and $d = 0$.\\
+
+By design, Equation~\ref{eqn:GGB_CD_modified} is restricted to the description of particles with 
+fixed $\ell$ and $d$. The extension from the $GGB$ to the $PHGO$ contact distance is to consider
+particles for which $\ell$ and $d$ vary parametrically with $\dotProdP{\rij}{\ui}$ and 
+$\dotProdP{\rij}{\uj}$. As a result the shape of $i$ as `seen' by $j$ 
+can be tuned to be a function of the relative position and orientation of the particles. 
+This makes it possible to model particles with arbitrary non-centrosymmetric shapes although the
+approximation made by the model can lead to anomalies if non-convex particle shapes are used.
+
+This method can therefore be applied to the description of particles having the B\'ezier shape used 
+by the Stone expansion of the HP model as these do satisfy the convexity requirements of the model.
+When two such particles interact with their sharp ends, $\ell/d$ needs to be 
+relatively large, whereas the  blunt end interaction requires an $\ell/d$ ratio rather nearer to unity. 
+In order to avoid discontinuities between these two limiting cases, a multitude of 
+parametric forms is possible; here the form of $\ell_i$ and $d_i$ is limited to simple 
+polynomials of the polar angle $\dotProdP{\rij}{\ui}$, that is~:
+\begin{eqnarray}
+        d_i(\dotProd{\rij}{\ui}) &=& a_{d,0} +\ldots + a_{d,n}(\dotProd{\rij}{\ui})^n\\     
+	\label{eqn:drui}
+        \ell_i(\dotProd{\rij}{\ui}) &=& a_{\ell,0} +\ldots + a_{\ell,m}(\dotProd{\rij}{\ui})^m.
+\end{eqnarray}
+
+The main limitation of this model is that the description of concave
+particles (i.e. dumbells) is not avaliable.
+The advantages are, however, numerous as the analytical form makes it possible to use the model
+in both MC and MD codes. Also, this monosite model does not introduce any discontinuities in
+the particle-particle contact surfaces.
+Although the use of polynomials to describe the dependency of $\ell$ and $d$ over 
+$\dotProdP{\rij}{\ui}$ might seem simplistic, this allows a very
+straightforward implementation in the coefficients $A,B,C$ and $D$ by simply adding higher order
+terms. Reversibly, the contact distance of the HGO model can be recovered in taking the limit $m=n=0$.\\
+Finally simulations of multi-component fluids is an easy extension of this model, as a set of 
+$a_{\ell,i}$, $a_{d,i}$ can be assigned to every type of particle. Systems of particles whose
+shapes vary within a simulation run can also be achieved using this approach.
+
+%================================================================================================
+%================================================================================================
+\subsection{Parameterizing B\'ezier pears.}
+
+In order to apply the PHGO approach to pear-shaped particles, the coefficients $a_{\ell,i}$ and
+$a_{d,i}$ need to be computed. This has been performed by numerically fitting the particle-point
+potential to a geometrical shape. For this, a numerical simplex  method~\cite{NumericalRecipes}
+has been chosen.\\
+The shape that is considered here is a simple update of the B\'ezier shape described in
+Section~\ref{s:HP_model}, the difference being that the control points $q_2$ and $q_3$ are set
+to be always coincident. This makes the B\'ezier shape easily scalable with $k$. 
+This new B\'ezier shape is shown on Figure~\ref{fig:GBP_BzPear} and the associated control
+points coordinates as a function of $k$ are given on Table~\ref{tble:GBP_CtrlCoords}.
+
+%=============================
+\picW = 12cm
+\begin{figure}
+	\centering
+	\hspace*{2cm}\picL{GBP_BzPear.ps}
+	\caption{B\'ezier shape for parameterized with the PHGO model.}
+	\label{fig:GBP_BzPear}
+\end{figure}
+%=============================
+
+\begin{table}
+	\centering
+	\begin{tabular}{||c||c||c||}
+	\hhline{|t:=:t:=:t:=:t|}
+	\hspace{5mm}$q_i$\hspace{5mm}	&\hspace{5mm}x\hspace{5mm}	&\hspace{5mm}y\hspace{5mm}	\\
+	\hhline{|:=::=::=:|}
+	$q_1$				&$-\frac{1}{2}\sigma_0$		&$0$			\\
+	$q_2$				&$0$				&$\frac{2}{3}k\sigma_0$	\\
+	$q_3$				&$0$				&$\frac{2}{3}k\sigma_0$	\\
+	$q_4$				&$\frac{1}{2}\sigma_0$		&$0$			\\
+	$q_5$				&$\sigma_0$			&$-\frac{2}{3}k\sigma_0$\\
+	$q_6$				&$-\sigma_0$			&$-\frac{2}{3}k\sigma_0$\\
+	\hhline{|b:=:b:=:b:=:b|}
+	\end{tabular}
+	\caption{B\'ezier control points coordinates for the B\'ezier pear used with the PHGO model.}
+	\label{tble:GBP_CtrlCoords}
+\end{table}
+
+%=============================
+
+Using the geometrical properties of the B\'ezier curves, it is possible 
+to extract the coordinates of each point of the pear surface and, hence, the numerical data
+corresponding to the particle-point contact distance as a function of $\dotProdP{\ui}{\rij}$. 
+These data are then fitted to the expression for the PHGO contact distance with
+$\ell_j=d_i=0$ which in this case reduces to~:
+\begin{equation}
+	\sir = \frac{d_i(\dotProd{\rij}{\ui})l_i(\dotProd{\rij}{\ui})}
+	{\left\{ l_i^2(\dotProd{\rij}{\ui}) +
+	\dotProdP{\ui}{\rij}^2\left[ d_i^2(\dotProd{\rij}{\ui})- l_i^2(\dotProd{\rij}{\ui})
+	\right] \right\}^{\frac{1}{2}}}
+	\label{eqn:GBP_sir}
+\end{equation}
+
+The values of the $a_{d,\alpha}$ and $a_{\ell,\alpha}$ coefficients obtained from the fitting
+procedure are shown on Table~\ref{tble:GBP_dili}. $n=10$ and
+$m=1$ have been chosen as this was found to be the best compromise between simulation speed 
+and fit accuracy.
+%
+%=======================================================================================================
+%=======================================================================================================
+\tabul = 1.0cm
+\begin{table}
+    \centering
+    \begin{tabular}{||c||c||c||c||}
+    \hhline{|:t=:t:=:t:=:t:=:t|}
+    \TAB\TAB    &   \TAB$k=3$\TAB   &   \TAB$k=4$\TAB   &   \TAB$k=5$\TAB   \\
+    \hhline{|:=::=::=::=:|}
+    $a_{d,0} $       &   0.501852454     &    0.501377232    &    0.497721868    \\
+    $a_{d,1} $       &   -0.141145314    &   -0.129608758    &   -0.123155821    \\
+    $a_{d,2} $       &   -0.060542359    &   -0.074219217    &    0.024405876    \\
+    $a_{d,3} $       &   0.225813650     &   0.484166441     &    0.723627215    \\
+    $a_{d,4} $       &   0.832274021     &   0.923492941     &    0.389831429    \\
+    $a_{d,5} $       &   -1.015039575    &   -1.987232902    &   -3.018638148    \\
+    $a_{d,6} $       &   -2.504045172    &   -2.943008017    &   -1.951629076    \\
+    $a_{d,7} $       &   1.375313426     &   2.808075172     &    4.413215403    \\
+    $a_{d,8} $       &   3.196830129     &   3.815344782     &    2.998417509    \\
+    $a_{d,9} $       &   -0.699241457    &   -1.426641750    &   -2.241573216    \\
+    $a_{d,10}$       &   -1.430400139    &   -1.682476460    &   -1.416614353    \\
+    \hhline{|:=::=::=::=:|}
+    $a_{\ell,0} $       &   1.498259615     &   1.995906501     &    2.493069403    \\
+    $a_{\ell,1} $       &   -0.002027616    &   -0.004518187    &   -0.008067236    \\
+    \hhline{|:b=:b:=:b:=:b:=:b|}
+    \end{tabular}
+    \caption{Values of the $a_{d,\alpha}$ and $a_{\ell,\alpha}$ for the PHGO pears with $k=3$, 4 and 5}
+    \label{tble:GBP_dili}
+\end{table}
+%=======================================================================================================
+%
+The accuracy of the fits can be checked by comparing the contact distances
+calculated using the coefficients of Table~\ref{tble:GBP_dili} and the actual B\'ezier shape
+(Figure~\ref{fig:GBP_2dFit}).
+The comparison reveals a very good correspondence between the two sets. The critical region 
+being for $\dotProdP{\rij}{\ui} \sim 0$. The level of correspondence between the numerical and
+analytical result to be achieved in this region dictates the number of coefficients to be used.
+While using $n=m=1$ allows a good fit for the head and tail regions of the particles
+up to $n=10$ coefficients in $a_{d,\alpha}$ were required to achieve the quality of fits shown on
+Figure~\ref{fig:GBP_2dFit}.
+%
+%===========================
+\picW=8.0cm
+\begin{figure}
+	\centering
+	\subfigure[$k=3$]{\picL{GBP_profile_k3.ps}}
+	\subfigure[$k=4$]{\picL{GBP_profile_k4.ps}}
+	\subfigure[$k=5$]{\picL{GBP_profile_k5.ps}}
+	\caption{Comparison between the numerical and geometrical contact distance for the PHGO
+	particle-point potential.}
+	\label{fig:GBP_2dFit}
+\end{figure}
+%===========================
+%
+
+The quality of these fits does not, however, guarantee an appropriate particle-particle
+interaction and the validity of the latter is assessed by computing the contact surfaces
+equivalent to those considered for
+the HP model (\eg Figures~\ref{fig:HP_k3_contactSurf} and~\ref{fig:HP_k5_contactSurf} ). 
+Again three contact surfaces were computed corresponding
+to parallel, anti-parallel and T-geometry interactions. The results for $k=3$ and $k=5$ are
+shown on Figures~\ref{fig:GBP_contactSurfaces_k3} and~\ref{fig:GBP_contactSurfaces_k5}.
+
+%===========================
+\picW = 7.0cm
+\begin{figure}
+	\centering
+	\subfigure[parallel]{\pic{GBP_k3_ppShape_0PI.ps}}
+	\subfigure[anti-parallel]{\pic{GBP_k3_ppShape_PI.ps}}
+	\subfigure[T-geometry, x-z view]{\pic{GBP_k3_ppShape_0.5PI.ps}}
+	\subfigure[T-geometry, y-z view]{\pic{GBP_k3_ppShape_0.5PI_2.ps}}
+	\caption{Contact surfaces for the PHGO model and $k=3$.}
+	\label{fig:GBP_contactSurfaces_k3}
+\end{figure}
+%===========================
+
+%===========================
+\picW = 7.0cm
+\begin{figure}
+	\centering
+	\subfigure[parallel]{\pic{GBP_k5_ppShape_0PI.ps}}
+	\subfigure[anti-parallel]{\pic{GBP_k5_ppShape_PI.ps}}
+	\subfigure[T-geometry, x-z view]{\pic{GBP_k5_ppShape_0.5PI.ps}}
+	\subfigure[T-geometry, y-z view]{\pic{GBP_k5_ppShape_0.5PI_2.ps}}
+	\caption{Contact surfaces for the PHGO model and $k=5$.}
+	\label{fig:GBP_contactSurfaces_k5}
+\end{figure}
+%===========================
+
+
+These surfaces show the required shapes, that is approximately ellipsoidal shapes
+for the parallel interactions and pear shapes for the anti-parallel
+interactions. Although there is not really a required shape for the T-geometry, the latter do
+not show any discontinuities that would indicate potential problems.
+They are also reasonably consistent with those obtained for the corresponding HP contact surfaces.\\
+
+The difference between the contact surfaces for this model and the HP model are readily
+understandable. For the PHGO model, ridges in the contact surfaces have disappeared save for small
+oscillations which are a direct consequence of the degree of truncation of the fits shown on
+Figure~\ref{fig:GBP_2dFit}. However the low amplitude of these oscillation suggests that the PHGO
+model should be free of the interlocking phenomena shown by the HP model.
+
+
+
+

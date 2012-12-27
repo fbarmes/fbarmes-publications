@@ -1,0 +1,171 @@
+\section{Theoretical approach to liquid crystals.}
+
+
+As interest in liquid crystal grows, the number of theories used to describe their
+complicated phase behaviour increases similarly. Here the focus is brought on to bear on to molecular
+theories that, using statistical mechanics, take the intermolecular potential as a starting point 
+from which to deduce the macroscopic phase behaviour.\\
+%
+Theoretical studies of simple atomic fluids~\cite{theorySimpleLiquids} show that the liquid 
+phase can be described effectively using intermolecular potentials of the Lennard-Jones form,
+\ie containing both long range attractive and short range repulsive component. Mesogens 
+can be represented with a similar class of potentials, though account has to be taken of the
+inherent in their elongated shape. One significant question considered by these theories is
+which of the repulsive and attractive components of the interaction are of greater importance in
+mesophase formation. As a result, theories have been developed which consider both of these
+contributions to the anisotropic potentials and thus quantify their respective influences. The two main
+and complementary approaches are described in the following Sections, namely Onsager and Maier-Saupe
+theories.
+
+
+%===============================================================================================
+%===============================================================================================
+\subsection{Density functional theory}
+
+The phase structure of simple atomistic fluids can be described successfully using hard spheres as
+models, that is considering only the repulsive part of their pair
+potential~\cite{BarkerHenderson76}. The extension of this principle to the mesoscale was
+first achieved by Lars Onsager in 1949~\cite{Onsager49} in a study of colloidal particles
+(tobacco virus). The main idea underlying this seminal work is that the mechanism for spontaneous 
+ordering in a system of hard molecules is based on competition between the orientational entropy that
+destroys nematic order and the positional entropy that favors it~\cite{deGennes}.\\
+
+Onsager theory is derived from the cluster approach~\cite{greenBook} and is a density functional theory 
+in which the free energy $\mathcal{F}$ is expressed as a density virial expansion~\cite{PadillaVelasco97}.
+\begin{eqnarray}
+	\mathcal{F} &=& \mathcal{F}^{id} + \mathcal{F}^{ex}	\\
+	\mathcal{F}^{id} &=& N(\log\rho - 1) + N \int f(\vecth{u})\log\lp 4\pi f(\vecth{u}) \rp d\vecth{u} \\
+	\mathcal{F}^{ex} &=& \rho\mathcal{B}_2 \lp f(\vecth{u}) \rp
+			+ \frac{1}{2}\rho^{2}\mathcal{B}_3 \lp f(\vecth{u}) \rp
+			+ \frac{1}{3}\rho^{3}\mathcal{B}_4 \lp f(\vecth{u}) \rp
+			+ \ldots	\label{exess_F}
+\end{eqnarray}
+%
+Where $\mathcal{F}^{id} $ and $\mathcal{F}^{ex} $ are the ideal and excess parts of $\mathcal{F}$ and
+$f(\vecth{u}) $ is the orientational distribution function that depends on the particle orientation
+vector $\vecth{u}$. Each $\mathcal{B}_i$ represents the excluded volume in a cluster of $i$ 
+particles.
+
+Onsager made the following assumptions~:
+\begin{itemize}
+	\item The molecules (spherocylinders of length $L$ and diameter $D$) interact only through steric
+	repulsion (no interpenetration).
+	%
+	\item The volume fraction is much smaller than $1$.
+	%
+	\item The rods are very long ($L \gg D$).
+\end{itemize}
+
+Within these assumptions, Onsager showed that the virial expansion can be truncated after the second
+coefficient; he showed that the third one vanishes and assumed the same for the the following
+coefficients. This makes his approach the simplest form of density functional theory.
+
+The implication of his results is that, in the limits considered, the N-I transition 
+can be explained exclusively using short range repulsive forces. However, the approximations made
+in this theory worsen
+considerably as the particle elongation is reduced because the density of the transition is not
+vanishing. Therefore this theory can not be applied to mesogens with a standard elongation of 3 to
+5. Early computer simulations of hard prolate particles by Vieillard-Baron~\cite{VieillardBaron72} and 
+later Frenkel \etal~\cite{FrenkelMulder81,FrenkelMulder85} showed qualitative but not 
+quantitative agreement with Onsager's theory\\
+This does not imply that density functional theory can not be applied to liquid crystalline
+behaviours, only that, for the accurate description of mesogens, more virial coefficients are
+needed. The most obvious approach, then is to calculate higher order coefficients, as
+been done in~\cite{Vega97,VelascoPadila94}, but the difficulty of the task increases
+significantly with the order of the coefficients. A better approach is the use of resummation
+techniques such as the y-expansion~\cite{MulderFrenkel85,TjiptoMargoEvans90} that allow the indirect 
+inclusion of high order coefficients. Some other resummation methods have been
+used successfully on single component~\cite{Parsons79,Williamson95} and 
+mixture systems~\cite{StroobantsLekkerkerker84,CampAllen96} leading, recently, to considerable
+improvements in the description of anisotropic fluids~\cite{CinacchiSchmid02}.
+
+
+
+%===============================================================================================
+%===============================================================================================
+\subsection{Maier Saupe theory.}
+
+
+In the early $20^\mathrm{th}$ Century, Born showed that the anisotropic component of the pair potential
+was responsible for the order-disorder transitions in nematic phases~\cite{greenBook}.
+This was later expanded by Maier and Saupe to give rise to the so called Maier Saupe (MS)
+theory~\cite{MaierSaupe58,MaierSaupe59,MaierSaupe60}.\\
+The configurational partition function of a fluid is expressed as~:
+\begin{equation}
+	Q_N = \frac{1}{N!}\int e^{-\beta U(\vect{X}^N) }d\vect{X}^N
+\end{equation}
+where $\vect{X}^N$ represents the full set of positional and orientational coordinates for the $N$
+particles of the fluid. In the case of a perfect gas, as every particle's behaviour  can be
+taken to be independent of all others~\cite{structMatter}, the partition function can be 
+transformed into the
+product of $N$ single particle partition functions, each of which is easily solvable. However,
+in the case
+of a fluid phase, and even more so a mesophase, the relatively high density implies that each 
+particle's energy is dependent on several other particles' coordinates so that the previous 
+simplification is no longer valid.\\
+MS theory aims to resolve this difficulty using the so called molecular field
+approximation. This approximation removes the need for the consideration of each individual 
+pair potential; rather each particle is taken to reside in a field which mimics the presence of
+all the other particles. Effectively each particle is assumed to be was moving in an 
+energy continuum. As a result $U(\vect{X}^N)$ can be written as the sum of $N$ energies, each of 
+which is a function of the coordinates of a single particle~:
+\begin{equation}
+	U(\vect{X}^N) = \sum_{i=1}^N U(\vect{X}_i)
+\end{equation}
+
+The problem, then, is to find an expression for the mean-potential experienced by the particles. 
+Several approaches have been used for this. The most intuitive approach is to average the anisotropic 
+pair potential over the coordinates of one  particle~\cite{HumphriesJames71} while one of the most
+simple and rigorous is to start from the singlet distribution function and solve the
+Bogoliubov-Born-Green-Kirkwood-Yvon hierarchy of equations as described in~\cite{greenBook}. 
+In a translationally invariant situation, the general form of the final mean potential depends only
+on $\beta$, the angle between the particle under consideration and the director $\vecth{n}$, so:
+\begin{equation}
+	U(\beta) = -\epsilon \overline{P_2} P_2(cos^2\beta)
+\end{equation}
+where $\overline{P_2}$ is the nematic order parameter, $P_2(x)$ is the second order Legendre
+polynomial of $x$ and $\epsilon$ is a scaling constant which is given by~:
+\begin{equation}
+	\epsilon = -V\lp\frac{\partial \epsilon}{\partial V}\rp_T
+\end{equation}
+Another form for $\epsilon$ is given in~\cite{Intro_LC} by the identification~:
+\begin{equation}
+	\epsilon = \frac{A}{V^2}
+\end{equation}
+where the value of $A$ is determined by the interaction properties of the molecules.
+In any case the general approach for the implementation of Maier Saupe theory is as follows~:
+\begin{itemize}
+	\item Choose the anisotropic term of the pair potential
+	\item Implement the mean field approximation
+	\item Determine the mean potential
+	\item Deduce the singlet distribution function
+	\item Use this function to calculate the entropy, Helmholtz free energy and order parameters.
+\end{itemize}
+The two major elements of the theory that influence its accuracy are the mean field 
+approximation and the form of the mean potential.\\
+
+Maier Saupe theory can be tested using both computer simulation and real experiment, though
+ the former has an advantage since it can test the validity of the mean field approximation 
+as the mean-potential can be specified in the `computer experiment'. The theory is reasonably
+successful in describing, qualitatively, the behaviour of mesogens, showing a first order IN
+transition. The temperature dependence of the order 
+parameters is also well described qualitatively. The limits of the Maier Saupe theory become 
+apparent in the quantitative predictions, errors being attributed, in part, to the use of 
+the mean field approximation (although some improvement can be made by improving the form of the 
+potential.) A more fundamental weakness of the mean field approximation is that it neglects
+spacial and orientational correlations between molecules.\\
+
+The main conclusion that can be drawn from this is that while MS theory is most effective at 
+long range it can successfully describe liquid crystalline behaviour. This implies that short-range 
+repulsive forces have little role to play, whereas short range potentials have been shown to
+be responsible for both the ordering of nematics and the structure of normal liquids. This apparent
+discrepancy can be resolved by appreciating that the long range attractive 
+part of the potential used in MS theory  can be regarded  as describing the interactions 
+between clusters of highly ordered particles. 
+
+
+
+
+
+
+

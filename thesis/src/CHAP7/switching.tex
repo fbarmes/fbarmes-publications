@@ -1,0 +1,361 @@
+
+
+\section{Flexoelectric switching}
+
+Here the possibility of two-way switching between the HAN and vertical states using the
+flexoelectric properties of the model and the bistable nature
+of the bottom surface is investigated. This is performed in three steps. First, the
+stability of the HAN and vertical states are assessed by performing the easy switching
+between the two states, and considering only the dielectric term in the electric energy 
+(\ie $\mu=0$). Then, the possibility of hard switching is investigated by including a
+dipolar term in the electric energy. This requires finding an
+appropriate combination of values for the electric field magnitude, dielectric anisotropy and the 
+dipole moment. Finally, keeping the same parameterisation as that used to achieve hard switching, 
+the possibility of easy switching is investigated again so as to check that the newly introduced 
+dipolar contribution does not hinder the reverse switching.\\
+In order to use the most favorable conditions for achieving switching and obtaining a smooth
+structural transition from homeotropic to planar in an HAN cell, all simulations used the Monte
+Carlo method in the canonical ensemble and 
+used systems of $N=2000$  particles in a cell of width $8\so$. Hybrid anchoring with the
+parameterisation  corresponding to the maximum hysteresis obtained in the previous section, 
+that is $k^\prime_{St} = 0.6$ and $k^\prime_{Sb} = 0.7$, was employed.
+
+%=================================================================================================
+%=================================================================================================
+\subsection{Easy switching}
+\label{ss:easySwitch}
+
+The aim of the simulations performed here is mainly to test for the stability of the HAN and
+vertical states found in the previous Section. Therefore, easy switching has been attempted
+between those two states by considering only the dielectric term in the particle-field interaction
+(\ie $\delta\epsilon \neq 0, \mu = 0$).\\
+Two series of simulations have been performed using an hybrid anchored slab with the surface
+parameterisation given at the beginning of this Section. Starting with an HAN configuration, the
+first simulation attempted to switch to the vertical state by application and subsequent removal
+of an electric field
+and considering the particles to have a positive dielectric anisotropy. Then, taking the particles to
+have a negative dielectric anisotropy, a second series of simulations was used to switch back to
+the HAN state starting from the vertical state obtained from the first series.\\
+Each series consisted of a first run of $2.0.10^6$ sweeps, performed to equilibrate the
+starting configuration with the field off. This was followed by a simulation of
+$0.5.10^6$ sweeps with the field on, which primed the switching. The resulting system
+was equilibrated in the new state for another $2.10^6$ sweeps with the electric field removed.
+The electric parameterisation used here was $E=1.0$, $\delta\epsilon = \pm 1.0$ and $\mu = 0$.
+
+
+
+\picW = 10cm
+\begin{figure}
+	\centering
+	\subfigure[]{\picL{QzzWa_easyHANtoV.ps}}
+	\subfigure[]{\picL{QzzWa_easyVtoHAN.ps}}
+	\caption[Evolution of $\overline{Q}^{Sb}_{zz}$ with sweep number in the
+	simulations of the HAN to vertical(a) and vertical to HAN (b) `easy switching'
+	of the hybrid anchored slab described at the beginning of this Section.]
+	{Evolution of $\overline{Q}^{Sb}_{zz}$ with sweep number in the
+	simulations of the HAN to vertical(a) and vertical to HAN (b) `easy switching'
+	of the hybrid anchored slab described at the beginning of this Section. 
+	Here only dielectric interactions between the particles and the field are 
+	considered. The data for the last and first field off series of (a) and (b) respectively
+	have been
+	obtained from the same simulation.}
+	\label{fig:easySwitch_QzzWa}
+\end{figure}
+
+
+\picW = 4cm
+\begin{figure}
+	\centering
+	\subfigure[field off]{\pic{GBP_box_01.ps}}
+	\subfigure[field on]{\pic{GBP_box_02.ps}}
+	\subfigure[field off]{\pic{GBP_box_03.ps}}
+	\caption{Configuration snapshots corresponding to three phases (a) to (c) 
+	of the HAN to vertical `easy switching' of the hybrid anchored slab.}
+	\label{fig:easySwitch_HANtoVsnaps}
+\end{figure}
+
+\picW = 4cm
+\begin{figure}
+	\centering
+	\subfigure[field off]{\pic{GBP_box_03.ps}}
+	\subfigure[field on]{\pic{GBP_box_04.ps}}
+	\subfigure[field off]{\pic{GBP_box_05.ps}}
+	\caption{Configuration snapshots corresponding to three phases (a) to (c) 
+	of the vertical to HAN `easy switching' of the hybrid anchored slab.}
+	\label{fig:easySwitch_VtoHANsnaps}
+\end{figure}
+
+The evolution of $\overline{Q}_{zz}$ at the bottom surface as a function of the number of sweeps is
+shown on Figure~\ref{fig:easySwitch_QzzWa}. The snapshots corresponding to the final
+configurations from phase of the simulation sequence are shown on 
+Figures~\ref{fig:easySwitch_HANtoVsnaps} and~\ref{fig:easySwitch_VtoHANsnaps}.\\
+These results, along with the corresponding profile data (not shown) confirm both the stability
+of the HAN and vertical states for this system and the ability of the easy switching mechanism
+to switch between them.
+
+
+%=================================================================================================
+%=================================================================================================
+%\clearpage
+\subsection{Hard switching}
+\label{ss:hardSwitch}
+
+We now turn to the possibility of achieving hard switching between the HAN and vertical states of 
+the slab, following the theoretical treatment of~\cite{DavidsonMottram02}. Here both the
+dielectric and dipolar terms in the particle-field interaction are required (\ie
+$\delta\epsilon \neq 0$ and $\mu \neq 0$). Only the case of particles with a negative dielectric
+susceptibility is considered. 
+The aim here is to find an appropriate parameterisation which allows for switching from the HAN to
+the vertical states after application of an electric field along $\vecth{z}$. 
+Reference~\cite{DavidsonMottram02} shows that such switching can be achieved using 
+$E < 0$.
+
+\subsubsection{Choice of $\vect{E}$}
+
+The first step is to find an appropriate value for the electric field. This needs to be strong
+enough to allow the dipolar contribution to distort the director profile and bring the system to
+an intermediate state that will relax into the vertical state after removal of the field. 
+If the field is too strong, however, the dielectric effect (which scales as $E^2$) will
+dominate, causing the HAN state to be
+stabilised and thus, rendering the switch to the vertical state impossible.\\
+In order to find an appropriate value for $E$, a slab in a HAN state has been simulated using
+$\delta\epsilon = -1.0$, $\mu = 1.0$ and different values for the electric field in the range
+[-0.02:-6.0]. For each value
+of $E$, the system was subject to an equilibration run of $0.25.10^6$ sweeps followed by a
+production run of the same length. Figure~\ref{fig:hardSwitch_QzzEinfl} shows the $Q_{zz}$
+profiles obtained from the production runs for a selection of these field strengths.
+
+%-----------------------------------------------------
+\picW = 12cm
+\begin{figure}
+	\centering
+	\picL{hardSwitch_QzzProf_Einfl.ps}
+	\caption{$Q_{zz}(z)$ profiles for an HAN slab subject to an applied electric field along 
+	$\vecth{z}$ and different values of $E$.}
+	\label{fig:hardSwitch_QzzEinfl}
+\end{figure}
+%-----------------------------------------------------
+
+These results show that, given the chosen parameterisation adopted for $\delta\epsilon$ and $\mu$,
+values less negative than $E = -0.2$ do not induce any significant distortions near the bistable
+surface and that, despite the
+applied electric field, the system always remains in the HAN state. For fields of strength more
+negative than
+$-0.4$, in contrast, the dielectric contribution dominates and stabilises the HAN state. 
+For the highest absolute
+values of $E$, all particles are forced to be parallel to the surfaces, even those subject to the
+homeotropic anchoring of the top surface. Figure~\ref{fig:hardSwitch_QzzEinfl} however,
+indicates
+promising behaviour for $E=-0.2$, for which the dipolar coupling seems to be strong enough 
+to induce a slight distortion of the profile without there being too strong a dielectric effect. 
+This raises the prospect that by increasing the
+value of $\mu$ and keeping all other parameters constant, this distortion can
+be increased to the extend that switching to the vertical state can be
+achieved.
+
+
+\subsubsection{Choice of $\mu$}
+
+Here, an attempt is made to identify an appropriate value of $\mu$ so that, upon application of the
+electric field with $E=-0.2$, the dipolar effect induces enough of a distortion to cause a 
+HAN configuration system to equilibrate into a vertical state upon removal of the field.
+
+
+%-----------------------------------------------------
+\picW = 14cm
+\begin{figure}
+	\centering
+	\pic{hSwitch_muInfl_Qzz01.ps}
+	\caption{$Q_{zz}$ profiles for an HAN slab subject to an applied electric field with
+	$E=-0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and different values of the 
+	dipolar moment $\mu \in [1.0:2.0]$.}
+	\label{fig:hardSwitch_QzzmuInfl01}
+\end{figure}
+%-----------------------------------------------------
+
+%-----------------------------------------------------
+\picW = 14cm
+\begin{figure}
+	\centering
+	\pic{hSwitch_muInfl_Qzz02.ps}
+	\caption{$Q_{zz}$ profiles for a slab in the HAN configuration and 
+	subject to an applied electric field with
+	$E=-0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and different values of the 
+	dipolar moment $\mu \in [2.5:3.5]$.}
+	\label{fig:hardSwitch_QzzmuInfl02}
+\end{figure}
+%-----------------------------------------------------
+
+\picW = 4cm
+\begin{figure}
+	\centering
+	\subfigure[start]{\pic{GBP_hardSwitch_start.ps}}
+	\subfigure[field on]{\pic{GBP_box_Em0.2_mu2.5on.ps}}
+	\subfigure[field off]{\pic{GBP_box_Em0.2_mu2.5off.ps}}
+	\caption{Configuration snapshots corresponding to the hard switching of a slab in an
+	initial HAN state with $E=-0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and $\mu = 2.5$.}
+	\label{fig:hardSwitch_snaps2.5}
+\end{figure}
+
+\begin{figure}	
+	\centering
+	\subfigure[start]{\pic{GBP_hardSwitch_start.ps}}
+	\subfigure[field on]{\pic{GBP_box_Em0.2_mu3.0on.ps}}
+	\subfigure[field off]{\pic{GBP_box_Em0.2_mu3.0off.ps}}
+	\caption{Configuration snapshots corresponding to the hard switching of a slab in an
+	initial HAN state with $E=-0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and $\mu = 3.0$.}
+	\label{fig:hardSwitch_snaps3.0}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\subfigure[start]{\pic{GBP_hardSwitch_start.ps}}		
+	\subfigure[field on]{\pic{GBP_box_Em0.2_mu3.5on.ps}}
+	\subfigure[field off]{\pic{GBP_box_Em0.2_mu3.5off.ps}}
+	\caption{Configuration snapshots corresponding to the hard switching of a slab in an
+	initial HAN state with $E=-0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and $\mu = 3.5$.}
+	\label{fig:hardSwitch_snaps3.5}
+\end{figure}
+
+%-----------------------------------------------------
+
+In order to achieve this, simulations of the slab have been carried out taking the HAN 
+configuration as an initial state. For each $\mu$ value the simulation sequence performed
+consisted of two runs (one for equilibration and
+one for production) with an applied electric field followed by two runs (equilibration and
+production) where the field was removed. Each run comprised $0.25.10^6$ sweeps and the 
+parameterisation $E=-0.2$ and $\delta\epsilon = -1.0$ was
+used. The first two runs were used to establish the `field-on' intermediate state while the last
+to generated the state to which the system subsequently relaxed. 
+The series of simulations described above was performed with six values of $\mu$ in the range
+$[1.0:3.5]$. 
+
+
+The $Q_{zz}(z)$ profiles corresponding to the obtained  field `on' and `off' 
+configurations are shown on Figure~\ref{fig:hardSwitch_QzzmuInfl01}
+and~\ref{fig:hardSwitch_QzzmuInfl02} along with the profiles corresponding to the HAN and
+vertical states which are shown for comparison. Configuration snapshots of the field -on and
+field-off  structures for $\mu = 2.5$, $3.0$ and $3.5$ are shown, respectively, in 
+Figures~\ref{fig:hardSwitch_snaps2.5}, \ref{fig:hardSwitch_snaps3.0} 
+and~\ref{fig:hardSwitch_snaps3.5}\\
+
+From the $Q_{zz}(z)$ data, it appears that the switching from the HAN state to the vertical
+state is possible using values of $\mu \geq 2.5$. As $\mu$ is increased, so does the 
+distortion  induced by the dipolar term in $U_e$; more specifically, the profile at the bottom
+surface is changed, so inducing the bulk part of the cell to modify its orientation
+co-operatively.
+Upon removal of the field, for $\mu$ values at which this distortion is sufficient, 
+the cell equilibrates into the
+vertical state, thus confirming the results of~\cite{DavidsonMottram02}.
+
+
+%=================================================================================================
+%=================================================================================================
+%\clearpage
+\subsection{Reverse switching}
+
+In Sections~\ref{ss:easySwitch} and~\ref{ss:hardSwitch}, respectively, it was shown that easy 
+switching between the HAN and vertical states
+can be achieved using only the dielectric effect and that,
+using an appropriate parameterisation  ($E=-0.2$, $\delta\epsilon = -1.0$ and $\mu \in
+[2.5:3.5]$), hard switching from the HAN to the vertical state can be achieved. However, 
+easy switching from vertical to HAN state is not necessarily possible using the same
+parameterisation as that used to achieve hard switching but with $E>0$ since the dipolar
+contribution
+might be too strong to permit the formation of the HAN state.\\
+
+
+%-----------------------------------------------------
+\picW = 14cm
+\begin{figure}
+	\centering
+	\pic{revSwitch_Qzz.ps}
+	\caption{$Q_{zz}$ profiles for a slab in the vertical configuration and 
+	subject to an applied electric field with
+	$E=0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and different values of the 
+	dipolar moment $\mu \in [2.5:3.5]$.}
+	\label{fig:revSwitch_QzzmuInfl}
+\end{figure}
+%-----------------------------------------------------
+
+\picW = 4cm
+\begin{figure}
+	\centering
+	\subfigure[start]{\pic{GBP_box_Em0.2_mu2.5off.ps}}
+	\subfigure[field on]{\pic{GBP_box_mu2.5on.ps}}
+	\subfigure[field of]{\pic{GBP_box_mu2.5off.ps}}
+	\caption{Configuration snapshots corresponding to the hard switching of a slab in an
+	initial vertical state with $E=0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and $\mu = 2.5$.}
+	\label{fig:revSwitch_snaps2.5}
+\end{figure}
+
+\picW = 4cm
+\begin{figure}
+	\centering
+	\subfigure[start]{\pic{GBP_box_Em0.2_mu3.0off.ps}}
+	\subfigure[field on]{\pic{GBP_box_mu3.0on.ps}}
+	\subfigure[field off]{\pic{GBP_box_mu3.0off.ps}}
+	\caption{Configuration snapshots corresponding to the hard switching of a slab in an
+	initial vertical state with $E=0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and $\mu = 3.0$.}
+	\label{fig:revSwitch_snaps3.0}
+\end{figure}
+
+\picW = 4cm
+\begin{figure}
+	\centering
+	\subfigure[start]{\pic{GBP_box_Em0.2_mu3.5off.ps}}
+	\subfigure[field on]{\pic{GBP_box_mu3.5on.ps}}
+	\subfigure[field off]{\pic{GBP_box_mu3.5off.ps}}
+	\caption{Configuration snapshots corresponding to the hard switching of a slab in an
+	initial vertical state with $E=0.2\vecth{z}$ and $\delta\epsilon = -1.0$ and $\mu = 3.5$.}
+	\label{fig:revSwitch_snaps3.5}
+\end{figure}
+
+
+
+This issue is addressed here by
+attempting to perform the easy switching again but this time with both the dielectric and dipolar 
+term included in the particle-field interaction. A similar parameterisation as that used in
+Section~\ref{ss:hardSwitch} is applied here, the difference being that the electric field
+director is taken to be positive. As a result the parameterisation $E=0.2$, $\delta\epsilon = -1.0$ and
+$\mu\in[2.5:3.5]$ is used. Several values of $\mu$ are considered so as to also investigate the
+effect of increasing $\mu$. These simulations were performed using a similar sequence as 
+that used in~\ref{ss:hardSwitch}, the main difference being that the initial configuration for each
+series with different $\mu$ was the final configuration obtained for the vertical state 
+from the  hard switching simulations with the appropriate $\mu$ value.\\
+The $Q_{zz}(z)$ profiles corresponding to the `field-on' and `field-off' states obtained for each value
+of $\mu$ are shown on Figure~\ref{fig:revSwitch_QzzmuInfl} and the corresponding 
+configuration snapshots for $\mu = 2.5$, $3.0$ and $3.5$ are shown, respectively, on
+Figures~\ref{fig:revSwitch_snaps2.5}, \ref{fig:revSwitch_snaps3.0}
+and~\ref{fig:revSwitch_snaps3.5}.\\
+
+The $Q_{zz}(z)$ data show that, upon application of the field, most of the vertical slab
+arrangement remains 
+undistorted, expect for a
+region near the bottom surface which adopts a planar arrangement. Upon removal of the field,
+this small interfacial distortion proves sufficient to seed this orientation into the bulk part of
+the cell. Because of the homeotropic top surface influence, the slab then recovers the HAN state.
+These results also show that the distance from the bottom surface over which the cell's vertical
+alignment is
+distorted in the field-on state decreases with increased $\mu$. For the run lengths used here,
+this has the effect of producing 
+HAN states of reducing quality as $\mu$ is increased. This trend suggests that with
+$\mu>3.5$, although the hard switching is possible, easy switching might be inhibited by
+high values of the dipolar coupling term. As a result it can be concluded that switching 
+between the HAN and vertical states of the hybrid anchored slab can be achieved if the dipolar
+term to the electric field is included, but that the 
+parameterisation should be compatible with a window of electric field and
+dipolar coupling strength and that if $\delta\epsilon =< 0.0$, $E \sim 0.2\delta\epsilon$ 
+and $\mu \sim -2.5\delta\epsilon$.
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,104 @@
+
+
+\section{Molecular models}
+\label{s:GBP_RSUP_model}
+
+To achieve a simulation of the switching in this
+display cell requires the modeling of pear shaped particles in a
+confined systems and the presence of bistability between the surface induced 
+homeotropic and planar arrangements.\\
+The modeling of the pear shaped particles is achieved using the PHGO model as described in
+Chapter~\ref{chap:six}. Particles with an elongation $k=5$ are to be used as 
+these particles were found to form a stable nematic phase.\\
+Particle surface interactions are to be based on the approach as developed in Chapters~\ref{chap:four}
+and~\ref{chap:five}; the particles will not interact directly with the substrate, rather an object 
+embedded into the molecules controls the surface interaction through an appropriate steric potential. 
+It has been shown in the preceeding
+Chapters that in the case of ellipsoidal particles, surface bistability between the homeotropic
+and planar arrangements can be achieved 
+using either the HNW or the RSUP potentials; since the bistability regions for the latter are
+wider and stronger, this happens to be the better candidate.\\
+
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{GBP_RSUPConfig.ps}
+	\caption{Representation of the configuration used for the surface interaction between a
+	pear shaped particle and the substrate. The interaction is performed by the ellipsoid
+	embedded into the pear~; the former is  shifted by an amount $s$ along the molecular
+	orientation.}
+	\label{fig:PSUConfig}
+\end{figure}
+
+
+However, $\mathcal{V}^{RSUP}$ represents the interaction between a Gaussian ellipsoid and a
+surface and its extension to the accurate description of the interaction between a pear 
+having the shape of the B\'ezier pear of Chapter~\ref{chap:six} and a surface is not
+straightforward.\\
+%
+Therefore, the RSUP potential was chosen to describe the surface interaction here. 
+In order to prevent the inner ellipsoid from overlapping the surface of 
+the pear shaped particle, and to add a more realistic behaviour to the model, the refinement 
+depicted in Figure~\ref{fig:PSUConfig} has been made. This involves shifting the position of the 
+inner ellipsoid along the molecular long axis towards the bulky end of the pear so that the ends of the 
+two objects are coincident. This mimics a situation where the particles can embed their tails but
+not their heads into a coated substrate.\\
+The pear-surface interaction is described by $\mathcal{V}^{PSU}$ as~:
+%
+\begin{equation}
+	\mathcal{V}^{PSU} = \left\{	%}
+	\begin{array}{ccc}
+		0	&\mathrm{if}	&|z_\mrm{obj} - z_0| \geq \sigma^{PSU}_w	\\
+		\infty	&\mathrm{if}	&|z_\mrm{obj} - z_0| < \sigma^{PSU}_w	
+	\end{array}
+	\right.
+\end{equation}
+%
+where $z_0$ is the position of the substrate and $z_\mrm{obj}$ is the height of the inner
+ellipsoid of elongation $k_S$~:
+\begin{equation}
+	z_\mrm{obj} = z_i - \frac{1}{2}\lp k - k_S\rp\cos\theta
+\end{equation}
+where $z_i$ the position of the particle. $\sigma^{PSU}_w$ gives the contact distance 
+between the inner ellipsoid and the surface, that is~:
+\begin{equation}
+	\sigma^{PSU}_w = \so\sqrt{\frac{1-\chi_S\sin^2\theta}{1-\chi_S}}
+\end{equation}
+and $\chi_S$ is the shape anisotropy of the inner ellipsoid~:
+\begin{equation}
+	\chi_S = \frac{k^2_S-1}{k^2_S+1}.
+\end{equation}
+
+\picW = 5cm
+\begin{figure}
+	\centering
+	\subfigure[$k^\prime_S = 0.4$]{\fbox{\pic{GBP_RSUPConfig_kS040.ps}}}
+	\subfigure[$k^\prime_S = 0.8$]{\fbox{\pic{GBP_RSUPConfig_kS080.ps}}}
+	\caption{Representation of the configuration of the PSU potential in the limiting cases
+	of $k^\prime_S = 0.4$(a) and $k^\prime_S = 0.8$(b). The black region shows the overlap
+	between the two objects.}
+	\label{fig:PSU_limitCase}
+\end{figure}
+
+The use of molecular visualisation tools shows that for particles with $k=5$, the surfaces of 
+the two objects do not overlap provided $k_S \in [2.00:3.92]$. As a result, all simulations of this 
+model have been performed with reduced ellipsoid elongation $k_S/k \in [0.4:0.8]$ (see
+Figure~\ref{fig:PSU_limitCase},) the upper limit inducing only a very small overlap 
+tangent to the surface of the pear.\\
+%
+With this model, a homeotropic arrangement is expected in the case of small $k_S$ due to the
+ability of the tails of the particles to be absorbed by the surface. A planar arrangement is 
+expected in the case of
+long $k_S$ because, although some volume could be absorbed at the tail of the particle with
+$\theta=0$, it was shown in Chapter~\ref{chap:five}  that the natural tendency of hard rods to adopt
+planar alignment becomes dominant as $k_S/k$ increases.\\
+%
+The lack of a parametric expression for the B\'ezier pear shape and, therefore, the lack of an
+analytical expression for the absorbed volume of a pear into the surface prevented the
+development of an analytical
+prediction for the stability of the different surface arrangements. Here, therefore information
+on the preferred anchoring arrangement can only be obtained using computer simulations.
+
+
+
+

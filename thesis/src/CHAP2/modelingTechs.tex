@@ -1,0 +1,457 @@
+
+
+\section{Molecular modeling techniques.}
+
+
+%===============================================================================================
+%===============================================================================================
+\subsection{The Monte Carlo Method}
+
+The Monte Carlo (MC) method is used to find the solution of mathematical problems 
+using a probabilistic approach and is currently applied to a wide variety of different problems.
+According to Hammersley and Handscomb, `` Monte Carlo methods comprise of that branch of
+experimental mathematics which is concerned with experiments on random numbers''~\cite{MCMethods}.
+In the molecular physics of liquid crystals, the term Monte Carlo usually refers to the 
+specific sampling method as proposed by Metropolis \etal\cite{MR2T2}.
+
+\subsubsection{The Metropolis solution.}
+
+Considering a system of $N$ particles in the canonical (constant \NVT) ensemble and assuming pairwise
+interactions between the particles~; the total potential $\mathcal{V}$ is given
+by~\cite{greenBook}~:
+\begin{equation}
+	\mathcal{V} = \sum_{i\neq j}^{N} U(\vect{X}(i), \vect{X}(j) ) \hspace*{5mm} i,j\in[1\ldots N]
+\end{equation}
+where $\vect{X}$ is the complete set of positions, orientations and momenta of the system.
+
+In this canonical ensemble, a time independent configurational property can be 
+obtained from~:
+\begin{equation}
+	\langle\mathcal{A}\rangle_{\mrm{real}} = \int \rho_{\mrm{NVT}}(\vect{X})\mathcal{A}(\vect{X})
+		d\vect{X}^N
+\end{equation}
+with~:
+\begin{eqnarray}
+	\rho_{\mrm{NVT}} &=& \frac{e^{-\beta \mathcal{V}}}{Q_\mrm{NVT}}
+\end{eqnarray}
+%
+$Q_\mrm{NVT}$, being the partition function for the canonical ensemble.
+If the system is ergotic, $\langle\mathcal{A}\rangle_\mrm{real}$ can be obtained by averaging its
+instantaneous values over a sufficient number of uncorrelated state points, 
+$\vect{\Gamma}_i$, provided that they appear with a probability proportional to the probability density 
+of the considered ensemble. Therefore~:
+\begin{equation}
+	<\mathcal{A}>_{\mrm{real}} = \frac{1}{M}\sum_{i=1}^{M} \mathcal{A}_i 
+\end{equation}
+
+Metropolis \etal designed a stochastic process for creating such a sequence of state points in
+the canonical ensemble where each configuration $\vect{\Gamma}_i$ appears with a probability
+$e^{-\beta\mathcal{V}}$. This sequence corresponds to a discrete Markov chain, that is a stochastic
+sequence of states within each step of which memory extends only to the preceeding state~\cite{AandT}.\\
+
+The theory of discrete Markov chains~\cite{theorySimpleLiquids} shows that the probability,
+$\rho_b$, that the system evolves from state $a$ to state $b$ is given by~:
+\begin{equation}
+	\rho_b = \rho_a \pi_{ab},
+\end{equation}
+where $\pi_{ab}$ is the transition matrix. Intuitively the properties of $\pi_{ab}$ read~:
+\begin{eqnarray}
+	\pi_{ab} &\geq& 0\\
+	\sum_{b}\pi_{ab} &=& 1.
+	\label{eqn:MCcdtion1}
+\end{eqnarray}
+%
+Also the condition of microscopic reversibility requires that the probability of going from state
+$b$ to $a$ is equal to that of the reverse transition and, therefore~:
+\begin{equation}
+	\rho_a\pi_{ab} = \rho_b\pi_{ba}.
+	\label{eqn:MCcdtion2}
+\end{equation}
+
+The transition matrix for the system under consideration is not directly available, however the 
+limiting distribution $\rho_\infty$ is known to be the probability density of the canonical ensemble
+($\rho_{\mrm{NVT}}$), that is~:
+\begin{eqnarray}
+	\rho_{\infty} &=& \rho_{\mrm{NVT}}(\vect{\Gamma}_\infty)\\
+		 &=& \frac{1}{Q_{\mrm{NVT}}}e^{-\beta\mathcal{V}(\vect{\Gamma})}.
+\end{eqnarray}
+
+The scheme introduced by Metropolis \etal allows the construction of an appropriate phase space
+trajectory which obeys Equations~\ref{eqn:MCcdtion1} and~\ref{eqn:MCcdtion2}.\\
+
+In its most basic form, the Metropolis method
+considers a two dimensional system of $N$ atoms (with
+straightforward extension to three dimensions.) Phase space is 
+sampled by choosing one particle $i$ at random and assigning it a new random position within a
+square of arbitrary size centered on the particle's old position. The move is accepted if it is
+downhill in energy $(\delta\mathcal{V}_{ab} = \mathcal{V}_b - \mathcal{V}_a \leq 0)$. If,
+however, the move is uphill in energy $(\delta\mathcal{V}_{ab} > 0)$, then the move is accepted 
+with a probability $e^{-\beta\delta\mathcal{V}_{ab}}$. This is performed by generating a
+random number $\xi \in [0:1]$. The move is accepted if $\xi \leq 
+e^{-\beta\delta\mathcal{V}_{ab}}$ and rejected otherwise. This sequence of particle
+choosing-moving is then repeated until a sufficient number of uncorrelated moves are achieved.\\
+
+The method can be extended to three dimensional systems of non spherical and even non rigid
+molecules where new states are created by changing the positions and the orientations of the
+molecules~\cite{AandT}. A summary of the Monte Carlo algorithm in the canonical ensemble is
+given on Figure~\ref{fig:MCalgo}.
+
+\begin{figure}
+\centering
+\Ovalbox{
+\begin{minipage}{10cm}
+	\vspace*{3mm}
+	\begin{enumerate}
+	\item Choose a particle $i$ at random
+	\item Assign a new random position and orientation 
+	\item \textbf{if} ($\delta\mathcal{V}_{ab} \leq 0$) \textbf{OR} ($\xi \leq e^{-\beta\delta\mathcal{V}_{ab}}$)\\
+		\hspace*{20mm} Accept move\\
+	\textbf{else}\\
+		\hspace*{20mm} Reject move
+	\item Store instantaneous observable.
+	\item Return to step 1 until $n_{\mrm{step}}$ performed.
+	\item Compute observable average .
+	\end{enumerate}
+	\vspace*{3mm}
+\end{minipage}}
+\caption{The Monte Carlo algorithm in the canonical ensemble}
+\label{fig:MCalgo}
+\end{figure}
+
+According to the nature of the system studied, other moves have been
+used such as reptation moves~\cite{WilliamsonJackson98} or flip moves~\cite{BerardiRicci01}.
+Similarly Monte Carlo simulation of flexible molecules can be achieved by moving sub-molecular
+segments independently. As a result for more advanced systems, one Monte Carlo move is composed
+of several different type of molecular moves (change in orientation, position, flip, reptation
+\etc). If at any Monte Carlo step, different combination of molecular moves are performed, the
+use of a given move type should be probabilistic so as to keep the Markov chain 
+stochastic~\cite{AandT}.\\
+
+
+\subsubsection{Extension to the isothermal-isobaric ensemble.}
+
+The Metropolis solution was first applied in the canonical ensemble, but it can
+readily be extended to other ensembles such as the isothermal-isobaric as proposed by
+Wood~\cite{Wood68}. The extension of the MC method into another ensemble requires knowledge of
+its probability density $\rho_{\mrm{ens}}$. For the isothermal-isobaric 
+ensemble, this is~:
+\begin{eqnarray}
+	\rho_{\mrm{NPT}} = \frac{1}{Q_{\mrm{NPT}}}e^{-\beta(\mathcal{V}(\Gamma) +PV )}
+\end{eqnarray}
+
+where $P$ represents the pressure and $V$ the volume.
+The implementation of the MC method in this alternative ensemble requires the generation of a Markov
+chain with a state probability proportional to $e^{-\beta(\mathcal{V}(\Gamma) +PV )}$.
+This is achieved using a similar algorithm to that for the canonical
+ensemble, the difference being that volume changes are performed in order to keep the pressure
+constant. Because of the computational
+overhead associated with volume changes, they are typically attempted with a frequency of 
+once every $n$ sweeps (\ie $n$ attempted move per particle) where $n$ is typically 
+$\in [1:10]$. Volume changes are assessed by testing the variation in enthalpy 
+$\delta H$~\cite{AandT} given by~:
+\begin{equation}
+	\delta H_{ab} = \delta\mathcal{V}_{ab} + P(V_b - V_a)-\frac{N}{\beta}\ln\lp\frac{V_b}{V_a}\rp.
+\end{equation}
+%
+A given volume change move is accepted if $\delta H_{ab} \leq 0$ or 
+$\xi \leq e^{-\beta \delta H_{ab}}$ and rejected otherwise.\\
+
+Several methods can be used to generate the volume changes. One of these involves generating a random
+change in volume ($\delta V$,) computing the corresponding changes in box lengths and
+rescaling the particle coordinates accordingly. However this imposes the constraint that
+the simulation box remain cubic and involves changing, simultaneously, the lengths of all three
+box sides. Another scheme is to change every box length independently
+by choosing a box dimension randomly and assigning it a new length using a random variation. 
+This method allows the box shape to change and, if necessary, adapt to the nature of the phase of 
+the system under study. 
+
+
+%===============================================================================================
+%===============================================================================================
+\subsection{Generating random orientations}
+
+
+The generation of new random orientations is not a trivial exercise as can be the generation of
+new random positions. Here two methods for the generation of random orientations are described,
+namely the Barker-Watts method and the so called Local Frame method.
+
+\subsubsection{The problem}
+
+The aim is to generate a new orientation $\un$ given an initial orientation
+$\uo$  so that the distribution of possible trial orientations is uniform in a 
+portion of the unit sphere delimited by a chosen boundary.\\
+The orientation vectors $\vecth{u}$ are defined according to $\theta$ and $\phi$,
+respectively, the zenithal and azimuthal Euler angles~:
+
+\begin{equation}
+	\vecth{u} =
+	\lp
+	\begin{array}{c}
+		u_x\\	u_y\\	u_z
+	\end{array}
+	\rp
+	=
+	\lp
+	\begin{array}{c}
+		\cos\phi\sin\theta	\\
+        	\sin\phi\sin\theta	\\
+		\cos\theta
+	\end{array}
+	\rp
+\end{equation}
+%
+with~:
+%
+\begin{eqnarray*}
+	\theta 	&\in& 	[0:\pi]	\\
+        \phi 	&\in&	[-\pi:\pi]
+\end{eqnarray*}
+
+The generation of $\un$ is performed so that~:
+\begin{eqnarray}
+	\theta_{n} 	&=& \theta_o + \delta\theta	\\
+        \phi_{n}	&=& \phi_o + \delta\phi
+\end{eqnarray}
+Where $\delta\theta$ and $\delta\phi$ are random angular displacement defined by the limiting 
+conditions~:
+\begin{eqnarray*}
+	\delta\theta 	&\in& 	[0:\theta_\mrm{max}]	\\
+        \delta\phi 		&\in&	[-\pi:\pi]
+\end{eqnarray*}
+
+It can be shown that the direct generation of $\delta\theta$ as~:
+\begin{equation*}
+	\theta_n = \theta_o + (2\xi_\theta -1)\delta\theta_\mrm{max}	
+\end{equation*}
+leads to non-uniform distribution of $\delta\theta$, in conflict with the
+MC move acceptance criterion~\cite{AandT}. Ra\-ther,
+random $\cos\theta$ should be generated as~:
+\begin{equation*}
+	\cos\theta_n = \cos\theta_o + (2\xi_\theta -1)\delta(\cos\theta_\mrm{max})
+\end{equation*}
+
+%==================================================================================================
+%==================================================================================================
+\subsubsection{The Barker Watts method}
+
+The so called Barker Watts method~\cite{BarkerWatts69} has been proposed as a fast method for
+generating random orientation. In Monte Carlo codes, orientation vectors are best represented
+by unit vectors rather than by explicitely stating the Euler angles. The Barker-Watts method 
+allows the generation of
+random orientations without the computational overhead associated with the use of 
+trigonometric functions. With this method a new orientation is generated as~:
+\begin{equation}
+	\un = \vect{A}_{\alpha}\uo
+\end{equation}
+where $\vect{A}_{\alpha}$ is one of the rotation matrices $\vect{A}_x,\vect{A}_y,\vect{A}_z$,
+chosen at random~:
+\begin{eqnarray}
+	\vect{A}_x &=& \lp
+	\begin{array}{ccc}
+	1		&0		&0		\\
+	0		&\cos\theta^R	&\sin\theta^R	\\
+	0		&-\sin\theta^R	&\cos\theta^R
+	\end{array}
+	\rp
+	\\
+%
+	\vect{A}_y &=& \lp
+	\begin{array}{ccc}
+	\cos\theta^R	&0		&-\sin\theta^R	\\
+	0		&1		&0		\\
+	\sin\theta^R	&0		&\cos\theta^R
+	\end{array}
+	\rp	
+	\\
+%
+	\vect{A}_z &=& \lp
+	\begin{array}{ccc}
+	\cos\theta^R	&\sin\theta^R	&0	\\
+	-\sin\theta^R	&\cos\theta^R	&0	\\
+	0		&0		&1
+	\end{array}
+	\rp
+\end{eqnarray}
+and $\theta^R$ is a random angle so that $\theta^R \in [0:\theta_\mrm{max}]$.
+
+This method has the advantage of being very fast, but also presents some possible
+drawbacks. If $\delta\theta_\mrm{max} = \pi$, the generation of $2.10^6$ $\un$ with
+$\uo=\vecth{z}$ shows that only a small portion of the unit sphere is available (see
+Figure~\ref{fig:BWdistro}(a).) This
+does not usually prevent good phase space sampling in the Monte Carlo sequence as the particles
+follow Brownian motion and, thus, $\uo$ is not constant. 
+Therefore if $\un$ at step $t+1$ is created using $\un$ from step $t$, the full unit 
+sphere is available (see Figure~\ref{fig:BWdistro}(b).) This behaviour can, however, raise some 
+problems in simulations with  very low acceptance rates or where the director is aligned to a
+fixed direction by, \eg, a surface interaction or applied field.
+
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[$\uo^{(t)} = (0,0,1)$]{\picL{distroBWNoCarry.ps}}
+	\subfigure[$\uo^{(t)} = \un^{(t-1)}$]{\picL{distroBWCarry.ps}}
+	\caption{Distribution of the Euler angles for generated random configuration using the
+	Barker-Watts method. The Figure on the left corresponds to a generation with constant 
+	$\uo$ and the Figure on the right to a distribution using changing input orientations.}
+	\label{fig:BWdistro}
+\end{figure}
+
+%==================================================================================================
+%==================================================================================================
+\subsubsection{The Local Frame method}
+
+The Local Frame method has been designed in order to provide a method which samples the full
+unit sphere at every step if $\delta\theta_{max} =\pi$. The principle here is to generate a random
+orientation $\unfp$ in the molecular frame $f^{\prime}$ which is transformed into $\unf$ in the
+laboratory frame $f$ using an appropriate rotation matrix.\\
+$\unfp$ is given by~:
+\begin{equation}
+	\unfp = \lp
+	\begin{array}{ccc}
+		\cos\phi_R\sin\theta_R	\\
+		\sin\phi_R\sin\theta_R	\\
+		\cos\theta_R
+	\end{array}\rp
+\end{equation}
+with~:
+\begin{eqnarray}
+	\cos\theta_R 	&=& 1-\xi_\theta( 1-(\cos\theta_\mrm{max} ))	\\
+	\phi_R		&=& (2\xi_\phi -1)\pi
+\end{eqnarray}
+%
+and where $\xi_\theta$ and $\xi_\phi$ are random numbers in $[0:1]$. The transformation of 
+$\unfp$ into $\unf$ is given by~:
+\begin{equation}
+	\unf = \vect{R}^{-1}_T\unfp
+\end{equation}
+%
+where $\vect{R}_T$ is the rotation matrix that transforms a vector $\vecth{u}$ from
+$\vect{u}=(\cos\phi\sin\theta,\- \sin\phi\sin\theta,\- \cos\theta)$ in $f$
+to $\vecth{u} = (0, 0, 1)$ in $f^\prime$. In a right handed coordinate system,
+this transformation is a 
+rotation of $\phi$ about $\vecth{z}$ followed by a rotation of $\theta$ about $\vecth{y}$ thus~:
+%
+\begin{gather}
+	\vect{R}_T = \vect{R_{\theta,y}}\vect{R_{\phi,z}}	\\
+	\vect{R}_T = \lp
+		\begin{array}{ccc}
+		\cos\theta	&0	&-\sin\theta	\\
+                0		&1	&0		\\
+                \sin\theta	&0	&\cos\theta
+		\end{array}\rp
+	.\lp
+		\begin{array}{ccc}
+		\cos\phi	&\sin\phi	&0	\\
+                -\sin\phi	&\cos\phi	&0	\\
+                0		&0		&1
+                \end{array}\rp	\\
+        %
+        \vect{R}_T = \lp
+		\begin{array}{ccc}
+			\cos\theta\cos\phi	&\cos\theta\sin\phi	&-\sin\theta	\\
+                        -\sin\phi		&\cos\phi		&0		\\
+                        \sin\theta\cos\phi	&\sin\theta\sin\phi	&\cos\theta
+                \end{array}
+        \rp
+\end{gather}
+
+and therefore~:
+\begin{equation}
+\vect{R}^{-1}_T = \lp
+\begin{array}{ccc}
+\cos\phi\cos\theta	&-\sin\phi	&\cos\phi\sin\theta	\\
+\sin\phi\cos\theta	&\cos\phi	&\sin\phi\sin\theta		\\
+-\sin\theta		&0		&\cos\theta
+\end{array}
+\rp
+\end{equation}
+
+\begin{figure}
+	\centering
+	\subfigure[$\uo^{(t)} = (0,0,1)$]{\picL{distroLFNoCarry.ps}}
+	\subfigure[$\uo^{(t)} = \un^{(t-1)}$]{\picL{distroLFCarry.ps}}
+	\caption{Distribution of the Euler angles for generated random configuration using the
+	Local-Frame method. The Figure on the left corresponds to a generation with constant 
+	$\uo$ and the Figure on the right to a distribution using changing input orientations.}
+	\label{fig:LFdistro}
+\end{figure}
+
+
+If $\theta_\mrm{max} =\pi$, this method allows one to sample from the full unit sphere at every random
+generation (see Figure~\ref{fig:LFdistro})~; however it presents the drawback of being slower
+than the Barker-Watts method. As a
+result the latter is still preferentially used for Monte Carlo simulations with s sufficiently
+high acceptance rate. The Local Frame method, on the other hand, shows its strength 
+in the generation of random initial configurations or for simulations where acceptable phase 
+space sampling requires the use of simulation parameters inducing a low acceptance rate.
+
+
+%===============================================================================================
+%===============================================================================================
+\subsection{Molecular Dynamics}
+
+The Molecular Dynamics (MD) method was introduced by Alder and Wainwright in
+1959~\cite{AlderWainwright59} in an attempt to describe the time evolution of fluids at a
+molecular level~; at the time only the Monte Carlo method was
+available for the task. The technique involves solving the simultaneous Newtonian
+(spherical molecules) or the combined Newtonian-Euler (non-spherical molecules) equations of
+motion for all particles in the system over a finite (and usually short) time. The method is
+based on the statistical mechanics result that an ensemble average of a given property
+$\mathcal{A}_\mathrm{real}$ of an ergotic system can be obtained from the time average of 
+its instantaneous values as~:
+%
+\begin{eqnarray}
+        \mathcal{A}_\mathrm{real} &=& \left<  \mathcal{A}\lp\vect{X}(t)\rp \right>_\mrm{time} \nonumber \\
+                                &=& \frac{1}{t_{obs}}\int^{t_{obs}}_{0}
+\mathcal{A}\lp\vect{X}(t)\rp dt \end{eqnarray}
+
+where $\vect{X}(t)$ describes the set of positional and orientational coordinates of the $N$
+particles system at a time $t$. The general algorithm of the Molecular Dynamics method is 
+described on Figure~\ref{fig:MDalgo}.\\
+%
+
+\begin{figure}
+\centering
+\Ovalbox{
+\begin{minipage}{10cm}
+	\vspace*{3mm}
+	\begin{enumerate}
+	\item Create an initial configuration.
+	\item Calculate the forces on each particle.
+	\item Update the particles positions and velocities to the current time step.
+	\item Calculate the instantaneous properties.
+	\item Return to step 2 until $n$ time steps performed.
+	\item Compute the time average properties.
+	\end{enumerate}
+	\vspace*{3mm}
+\end{minipage}}
+\caption{The Molecular Dynamics algorithm.}
+\label{fig:MDalgo}
+\end{figure}
+
+With this process, the method used to calculate the force field is of critical importance as it
+governs the equilibrium behaviour of the model. Solving the equations of motion is also the
+most time consuming part of the whole algorithm. Several algorithms have been developed for the
+optimization of this task, the most common of which are the original Verlet 
+algorithm~\cite{verletForce}, the so called `leap-frog' algorithm~\cite{leapFrog} and the 
+velocity-Verlet algorithm~\cite{velocityVerlet}. The success of these lies in their time 
+efficiency and ease of implementation.\\
+The advantage of the MD technique is that it allows the study of transport properties of particles
+and, therefore, renders possible the study of relaxation phenomena, which cannot be addressed
+using the Monte Carlo method.\\
+One difficulty that arises with Molecular Dynamics is that when faced with systems having both short 
+and long time scale oscillations, the time step employed must be small enough 
+to capture the high frequency behaviour~; nevertheless, the total run length is required to be
+sufficient to allow the system to exhibit long time
+scales phenomena. This problem is very common in the study of polymers, and biological systems.\\
+Also it should be noted that Molecular Dynamics requires the use of a differentiable model, as
+the forces and torques are derived from gradient of the intermolecular
+potential~\cite{AandT}. This said, discontinuous potentials, such as 
+the square well potential~\cite{AlderWainwright59,AlderWainwright60} have been used in MD
+simulations. In these case, the
+whole algorithm needs to be re-cast so as to consider binary collisions rather than fixed
+time steps. With more complicated non-differentiable models, however, the MD method cannot 
+be used.
+
+
+

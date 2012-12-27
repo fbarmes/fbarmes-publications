@@ -1,0 +1,402 @@
+\section{Symmetric anchored systems}
+\label{s:simRes}
+
+Here we present simulation results from a study of surface induced structural changes.
+Ellipsoidal shaped particles interacting through the hard Gaussian overlap model were 
+considered while the HNW model was used for particle-substrate interactions.
+Monte Carlo simulations in the canonical ensemble of systems of $N=1000$ particles 
+confined in a slab geometry of height $L_z=4\sel$ were performed with
+the substrate being located on the top and bottom of the box ($z=-L_z/2$ and $z=L_z/2$); 
+the system was periodic in the two other dimensions.
+The same anchoring conditions were applied on both substrates (symmetric anchoring).
+Using this combination of particle and surface potentials, the aims of this study were 
+to model the main influences of confinement in liquid crystalline systems, namely surface 
+induced layering and ordering, and to identify the influences of density and needle length 
+on the preferred  surface arrangements.
+In order to do so, a systematic approach has been undertaken; Figure~\ref{fig:simsDia_HNW}(a) 
+and (b) shows the state points at which the simulations have been performed 
+as well as the direction of the simulation series. 
+For each state points two simulations have been performed, first an equilibration simulation 
+of $0.5.10^6$ sweeps has followed by a production run of another $0.5.10^6$ sweeps.
+
+\picW = 10cm
+\begin{figure}
+	\centering
+	\subfigure[$k=3$]{\picL{sims_k3Points.ps}}
+	\subfigure[$k=5$]{\picL{sims_k5Points.ps}}
+	\caption{Representation of the state points considered for the production of the data
+	analysed in this Chapter.}
+	\label{fig:simsDia_HNW}
+\end{figure}
+
+%==============================================================================================
+%==============================================================================================
+\subsection{Typical profiles}
+\label{ss:typicalProfiles}
+
+The first step is to understand surface induced structural changes for a set of needle
+lengths and densities. References~\cite{Chrzanowska_Teixera_01,Cleaver_Teixeira_01} 
+provide some information through profiles from systems of particles with $k=5$ and 
+$k_S=5$~\cite{Chrzanowska_Teixera_01} and $k_S = 2.75,3.0$~\cite{Cleaver_Teixeira_01}. Here a
+more exhaustive set of results are shown.\\
+
+The study of the surface induced structural changes was performed through the computation of 
+the $z$-profiles of three different observable.
+The density profile $\rho_\ell(z)$ provides information about the layering in the cell 
+through the location number and height of its peaks. $Q_{zz}(z)$, provides information 
+on the surface induced ordering with respect to the substrate normal. These two profiles can be 
+used to characterize the type of surface anchoring adopted. $P_2(z)$ measures the degree 
+of orientational order and, hence, the nature of the phase as a function of location in the slab.\\
+%
+In what follows typical profiles are presented for several needle lengths and system densities. 
+These profiles were obtained from several series of simulations each performed with constant density 
+and $k_S$ either decreasing and increasing between the limits $[0:k]$.
+Typical profiles are shown for densities corresponding to bulk isotropic  and nematic phases. 
+Needle lengths are chosen so as to correspond to homeotropic 
+($k_S<k^T_S$), competing ($k_S\sim k^T_S$), and planar arrangements ($k_S>k^T_S$).
+
+
+\subsubsection{Homeotropic anchoring}
+
+An homeotropic arrangement is observed when the orientation of the surface
+particles is such that $<\theta>\sim 0$, which for the HNW model occurs for short needle
+lengths ($\kSp \leq 0.25$). Typical profiles for this arrangement are showed on
+Figures~\ref{fig:typicalProfile_k3_homeo} and~\ref{fig:typicalProfile_k5_homeo} for,
+respectively, $k=3$ and $k=5$ using a reduced needle length $\kSp = 0.2$.\\
+%
+%-----------------------------------------
+\picW = 14cm
+\begin{figure}
+        \centering
+        \pic{typeProf_k3_homeo.ps}
+	\caption{Typical profiles corresponding to an homeotropic anchoring for $k=3$ 
+	and $\kSp = 0.20$.}
+	\label{fig:typicalProfile_k3_homeo}
+\end{figure}
+%-----------------------------------------
+%
+%-----------------------------------------
+\picW = 14cm
+\begin{figure}
+        \centering
+        \pic{typeProf_k5_homeo.ps}
+	\caption{Typical profiles corresponding to an homeotropic anchoring for $k=5$ 
+	and $\kSp = 0.20$}
+	\label{fig:typicalProfile_k5_homeo}
+\end{figure}
+%-----------------------------------------
+
+From these Figures, the surface induced structural changes associated with the homeotropic 
+arrangement can be
+observed. $\rho^{*}_\ell(z)$ is an oscillatory function that displays its main peaks at
+$|z-z_0|\sim \frac{L_n}{2}$ which corresponds to the first layer of particles. Also, it should
+be noted that the periodicity of the peaks is very large (of the order of $\sel$), 
+and no more than a total of five to six layers can be observed. 
+This is compatible with the height of the simulation slabs of $L_z=4\sel$. The number of peaks in 
+$\rho^{*}_\ell(z)$ clearly corresponds to a layered system with end to end alignment.\\
+
+From the $Q_{zz}(z)$ profiles, the homeotropic arrangement can be determined from the regions 
+of positive values.
+These correspond to regions of high $\rho^{*}_\ell(z)$, that is the interfacial
+regions for all densities and also the bulk region of the cell if the global number density
+is sufficient to support nematic order. $Q_{zz}(z)$ is also an oscillatory function 
+whose maxima match those in
+$\rho^{*}_\ell(z)$; the higher the local density, the higher the order and, therefore,
+the better the ordering with respect to the wall.\\
+%
+It should be noted however, that regardless of the number density, $Q_{zz}(z)$ displays negative
+values very close to the surface ($|z-z_0|\leq \frac{L_n}{2}$)~; this is  because there are
+always a few particles lying parallel to the walls in these regions. However, these planar
+particles correspond to regions of very low density, $\rho^{*}_\ell$, and, therefore, their
+effect on the overall behaviour of the system is insignificant~; besides the higher the density,
+the less noticeable this effect.\\
+
+$P_2(z)$ shows the orientational order as a function of position, a result that is not
+easily obtained experimentally. $P_2(z)$ also follows the oscillations of
+$\rho^{*}_\ell$, for the same reasons as $Q_{zz}(z)$; regions of high local density 
+induce regions of high local in-plane order.\\
+
+
+\subsubsection{Planar anchoring}
+
+A planar arrangement is observed when the average orientation in the interfacial region is 
+parallel to the substrate, that is $<\theta> \sim \frac{\pi}{2}$. In the case of the HNW
+model, such an arrangement can be observed using long needle lengths 
+($\kSp \geq 0.75$). Typical profiles measuring the surface induced structural changes 
+for this arrangement  are shown on Figures~\ref{fig:typicalProfile_k3_planar} 
+and~\ref{fig:typicalProfile_k5_planar}, respectively, for $k=3$ and $k=5$.
+%
+%-----------------------------------------
+\picW = 14cm
+\begin{figure}
+        \centering
+        \pic{typeProf_k3_planar.ps}
+	\caption{Typical profiles corresponding to a planar arrangement with $k=3$ and $\kSp =
+	0.80$.}
+	\label{fig:typicalProfile_k3_planar}
+\end{figure}
+%-----------------------------------------
+
+%-----------------------------------------
+\picW = 14cm
+\begin{figure}
+        \centering
+        \pic{typeProf_k5_planar.ps}
+	\caption{Typical profiles corresponding to a planar arrangement and $k=5$ and $\kSp =
+	0.80$.}
+	\label{fig:typicalProfile_k5_planar}
+\end{figure}
+%-----------------------------------------
+
+The first difference to be noted when comparing these results with those obtained in the case
+of an homeotropic arrangement, is the difference in stratification.
+%
+Because at the surface,
+$<\theta>\sim\frac{\pi}{2}$, the particles lie closer to the walls and as 
+a result, the main peaks in $\rho^{*}_\ell$ are located at $|z-z_0|\sim 0$. The peak-peak
+separation of these
+functions are also much smaller than they were in the homeotropic case ($\sim\so$). 
+The particles are, thus, now arranged in layers with a side by side alignment between one layer 
+and the next.\\
+
+$Q_{zz}(z)$ follows the same behaviour as $\rho^{*}_\ell(z)$ but adopts negative values in regions 
+of high $\rho^{*}_\ell$. Therefore  maxima in $\rho^{*}_\ell$, induce minima in $Q_{zz}(z)$
+because high planar order is measured by negative values of $Q_{zz}(z)$.
+%
+Comparison of the absolute value of $Q_{zz}(z)$ in the homeotropic and planar
+arrangements, suggests that for a given number density homeotropic ordering with respect 
+to the surface is `better' than the corresponding planar ordering. However 
+since $Q_{zz} \in[-0.5:1]$, and an isotropic distribution of $\theta$ in a layer induces $Q_{zz}=0$, a
+positive value of $Q_{zz}$ should be compared to the double of a negative value. As a result a
+planar ordering with $Q_{zz}= -0.5$ is a `good' as an homeotropic ordering with $Q_{zz} = 1$.\\
+
+The form taken by $P_2(z)$ is very similar for homeotropic and planar arrangement as both follow
+the behaviour of the corresponding $\rho^{*}_\ell(z)$. The difference between the two
+arrangements lies in the peaks separation of $P_2(z)$.
+
+
+\subsubsection{Competing anchoring}
+
+The term competing anchoring refers to a situation where both planar and homeotropic
+arrangements  are of comparable strength. In the case of the HNW model, this corresponds to a 
+situation where $\kSp \sim k_S^{T\prime}$. Typical profiles corresponding to competing anchoring are
+shown on Figures~\ref{fig:typicalProfile_k3_bist} and~\ref{fig:typicalProfile_k5_bist}
+respectively for $k=3$ and $k=5$.\\
+These results have been obtained for needle lengths very close but not equal to $k_S^{T\prime}$ as the
+values obtained by Equation~\ref{eqn:LnTfinalPoly} correspond to a very idealized case.
+%
+%
+%-----------------------------------------
+\picW = 14cm
+\begin{figure}[!]
+        \centering
+        \pic{typeProf_k3_bist.ps}
+	\caption{Typical profiles for $k=3$ and $L^{'}_n = 0.48$}
+	\label{fig:typicalProfile_k3_bist}
+\end{figure}
+%-----------------------------------------
+%
+%-----------------------------------------
+\picW = 14cm
+\begin{figure}[!]
+        \centering
+        \pic{typeProf_k5_bist.ps}
+	\caption{Typical profiles for $k=5$ and $L^{'}_n = 0.54$}
+	\label{fig:typicalProfile_k5_bist}
+\end{figure}
+%-----------------------------------------
+
+It should be noted here that at high number densities, different profiles suggesting different
+surface arrangements were obtained depending on the history of the simulation sequence.
+Moreover, as in each case the profiles were obtained from fully equilibrated configurations, the
+presence of bistability is suggested here. Both sets of coexisting profiles are shown on the Figures.\\
+
+In the case of \textbf{isotropic densities}, the surface induced layering shows features
+reminiscent with
+both planar and homeotropic influences. The interfacial region is characterized by two peaks 
+of comparable height corresponding to particles with $\theta = 0$ and $\theta = \frac{\pi}{2}$. 
+Since the
+particles in the interfacial region were equally distributed between those two regions, the
+heights of
+the two peaks are much smaller than those seen in the cases of strong planar or homeotropic anchoring. 
+%
+This double behaviour can also be observed on $Q_{zz}(z)$, as, in the interfacial region, 
+both negative and positive values corresponding to high local densities can be observed.
+%
+The $P_2(z)$ profile does not bring much more information as its behaviour follows that of
+$\rho^{*}_\ell(z)$.\\
+
+
+In the case of \textbf{nematic densities}, the behaviour of the system is very different. Here,
+the increase in density had induced the particle to align and, therefore, choose one of 
+the two possible
+surface arrangements. This prevented the system from simultaneously exhibiting both planar 
+and homeotropic features. The profiles indicate that in the case of runs with decreasing $k_S$ 
+(\ie coming from the planar side), the cell displayed a planar arrangement whereas in the case of
+increasing needle lengths an homeotropic arrangement was found. This suggest that in the case of
+competing anchoring and high density, the surface arrangement was chosen according to the history
+of the system.
+
+
+
+%==============================================================================================
+%==============================================================================================
+\subsection{Influence of density}
+\label{ss:rhoInfl}
+
+Observation of the profiles reveals that the density has a strong influence on the
+intensity of the surface induced effects; as stated earlier, 
+the higher the number density the more intense the surface induced effects. 
+In order to further study the influence of density on surface induced structural changes,
+Further simulations were carried out
+in series with constant $\kSp$ and increasing and decreasing densities. 
+From these, the $\rho^{*}_\ell(z,\rho^{*})$, $Q_{zz}(z,\rho^{*})$, and $P_2(z,\rho^{*})$
+surfaces have been computed. 
+Results for the cases $\kSp = 0.0$ and $\kSp = 1.0$ are shown on Figures~\ref{fig:rhoInfl_k3_L000} 
+and~\ref{fig:rhoInfl_k3_L100} for $k=3$. The corresponding results for $k=5$ 
+are very similar  and are, therfore, not shown here. Also, because hardly any hysteresis has been found 
+between series with increasing and decreasing densities, only the results or series with increasing 
+densities are shown.
+
+%-----------------------------------------
+\picW = 7cm
+\begin{figure}
+        \centering
+        \subfigure[]{\pic{rho-z-Ln_NVT_Sconf_k3_N1000_fd_L000_LnD.ps}}
+	\subfigure[]{\pic{Qzz-z-Ln_NVT_Sconf_k3_N1000_fd_L000_LnD.ps}}
+	\subfigure[]{\pic{P2-z-Ln_NVT_Sconf_k3_N1000_fd_L000_LnD.ps}}
+	\caption{Influence of $\rho^{*}$ on the z-profiles from series of simulation with
+	increasing density of particles with $k=3$ and $\kSp = 0.0$ (homeotropic anchoring).}
+	\label{fig:rhoInfl_k3_L000}
+\end{figure}
+%-----------------------------------------
+%-----------------------------------------
+\picW = 7cm
+\begin{figure}
+        \centering
+        \subfigure[]{\pic{rho-z-Ln_NVT_Sconf_k3_N1000_fd_L100_LnD.ps}}
+	\subfigure[]{\pic{Qzz-z-Ln_NVT_Sconf_k3_N1000_fd_L100_LnD.ps}}
+	\subfigure[]{\pic{P2-z-Ln_NVT_Sconf_k3_N1000_fd_L100_LnD.ps}}
+	\caption{Influence of $\rho^{*}$ on the z-profiles from series of simulation with
+	increasing density of particles with $k=3$ and $\kSp = 0.1$ (planar anchoring).}
+	\label{fig:rhoInfl_k3_L100}
+\end{figure}
+%-----------------------------------------
+
+Those measurements confirm the first observation using a smaller sample of densities 
+(Section~\ref{ss:typicalProfiles}). At low densities, the surface induced effects are 
+limited to the interfacial regions and the central region of the cell remains unaffected. 
+On the $z-$profiles, this is characterized by short ranged surface features.\\
+As the density is increased however, the surface influence extends further into the cell up to a
+density for which the full slab is uniformally aligned.  The number of peaks on $\rho^{*}_\ell(z)$ 
+increases steadily due to layering of the particles. As a result, the absolute values of the ordering 
+observables increase as does the distance from the surface at which those functions 
+start to decay. This translates to greater orientational ordering that extends further into the cell.
+
+It is interesting to note that in the case of extreme homeotropic anchoring ($\kSp = 0.0$),
+regardless the density, the cell never displays uniform alignment since the bulk part of the
+cell never orders. This seems to contradict previous observations of systems of particles with
+elongation $k=3$ under homeotropic anchoring
+(see Figure~\ref{fig:typicalProfile_k3_homeo}). However, due to the reduced needle lengths used
+here, the particle volume absorbed by the substrate leads to a lowering of the density in the
+bulk regions. This has the effect of shifting the I-N transition to densities out of the range
+considered here. This does not, however, question the existence of uniform alignment in the case
+$\kSp = 0.0$ as this has been observed with k=5.\\
+
+Another effect that can be observed on Figures~\ref{fig:rhoInfl_k3_L000} and~\ref{fig:rhoInfl_k3_L100}
+is that the z gradients in $|Q_{zz}(z)|$ and $\rho^{*}_\ell(z)$ in the interfacial region increase 
+when  the bulk part of the cell becomes nematic.  As a result of the bulk orientational order, 
+interfacial 
+regions come under the ordering influence of both the surfaces, through anchoring effects, and the 
+bulk part of the cell, through elastic forces. This improves the quality of the layering and 
+ordering in the interfacial regions.
+
+
+%==============================================================================================
+%==============================================================================================
+\subsection{Influence of $k^{\prime}_S$}
+\label{ss:LnInfluence}
+
+The influence of $\kSp$ on the cell's behaviour is considerable, as this variable
+controls the type and strength of the surface anchoring.
+%
+As the needle lengths is increased
+between from zero, the system undergoes a transition from homeotropic 
+to planar anchoring. Section~\ref{ss:PHstability} gave the critical $\kSp$ values
+for the this transition in the limit of close packing.
+%
+In the simulations however, the local density at the interfaces is far from being 
+that of close packing and is moreover a function of the global density. Therefore some 
+shifts in $k_S^{T\prime}$ from the theoretical values are to be expected.\\
+%
+The purpose of this Section is to study,  in greater detail, the effect of $k^\prime_S$
+on the profiles and show the existence and nature of the homeotropic to planar anchoring
+transition.
+This has been achieved
+using simulations performed at constant densities  in series of increasing and decreasing 
+needle lengths. 
+Two densities known to bulk isotropic and nematic phases have been considered.
+Results from the series with $k^\prime_S$ densities and $k=3$ are shown in 
+Figure~\ref{fig:LnInfl_k3_d0.28} (isotropic density) and~\ref{fig:LnInfl_k3_d0.34} (nematic
+density). The differences between the series with increasing and decreasing $\kSp$ are discussed
+in the next Section.\\
+
+%-----------------------------------------
+\picW = 7cm
+\begin{figure}
+        \centering
+        \subfigure[]{\pic{rho-z-Ln_NVT_Sconf_k3_N1000_fL_d0.2800_LnD.ps}}
+	\subfigure[]{\pic{Qzz-z-Ln_NVT_Sconf_k3_N1000_fL_d0.2800_LnD.ps}}
+	\subfigure[]{\pic{P2-z-Ln_NVT_Sconf_k3_N1000_fL_d0.2800_LnD.ps}}
+	\caption{influence of $\kSp$ on the z-profiles for $k=3$ and $\rho^{*} = 0.28$.}
+	\label{fig:LnInfl_k3_d0.28}
+\end{figure}
+%-----------------------------------------
+
+
+%-----------------------------------------
+\picW = 7.0cm
+\begin{figure}
+        \centering
+        \subfigure[]{\pic{rho-z-Ln_NVT_Sconf_k3_N1000_fL_d0.3400_LnD.ps}}
+	\subfigure[]{\pic{Qzz-z-Ln_NVT_Sconf_k3_N1000_fL_d0.3400_LnD.ps}}
+	\subfigure[]{\pic{P2-z-Ln_NVT_Sconf_k3_N1000_fL_d0.3400_LnD.ps}}
+	\caption{influence of $\kSp$ on the z-profiles for $k=3$ and $\rho^{*} = 0.34$.}
+	\label{fig:LnInfl_k3_d0.34}
+\end{figure}
+%-----------------------------------------
+
+From Figures~\ref{fig:LnInfl_k3_d0.28} and~\ref{fig:LnInfl_k3_d0.34}, typical features 
+discussed previously corresponding to homeotropic and planar anchoring arrangements can be
+found by looking at curves corresponding to low and high values of $\kSp$, respectively.
+Here, rather,
+ focus is brought to bear on the regions corresponding to competing anchoring, as these reveal
+the changes that take place during the anchoring transition.\\
+%
+As the transition region is approached (\eg from the planar side), the height of the peaks in 
+$\rho^{*}_\ell$ decrease rapidly, and at the transition, hardly any oscillations can be observed. 
+This can be understood easily as at the transition, under equal influence from both type of
+anchoring, the particles diffuse almost homogeneously in bimodal surface layers which have
+features corresponding to both
+anchoring states; as a result, the density profile becomes relatively uniform. As the 
+homeotropic anchoring becomes stronger,
+the system layers accordingly and a new oscillating pattern corresponding to homeotropic
+anchoring can be observed. It is interesting to note that the location 
+maxima in $\rho^{*}_\ell(z)$ in the latter case coincide with those of the minima of the former.\\
+%
+As well as the changes in density, the centre of the slab undergoes an orientational 
+disorder-order transition with $\kSp$ as can be
+observed on $P_2(z,\kSp)$. The z-dependent oscillation pattern of this function also changes
+according to the state of the surface alignment.\\
+
+$Q_{zz}(z,\kSp)$ shows the orientational reorganization that occurs during the transition.
+Upon approaching the transition region, this profile changes rapidly between the planar and
+homeotropic characteristics. The gradient of this change increases with the density but also
+with $k$; the transition is much sharper for $k=5$ than for $k=3$.
+Considering the needle length at which the change in the sign of $Q_{zz}$ is observed, the
+theoretical predictions made in section~\ref{ss:PHstability} seem to be confirmed, particularly
+as the density is increased. A more detailed study of the homeotropic to planar transition
+region is presented in Section~\ref{s:surfInfphaseTrans}.
+
+
+

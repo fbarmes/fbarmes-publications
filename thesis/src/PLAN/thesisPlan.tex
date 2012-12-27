@@ -1,0 +1,253 @@
+
+
+\documentclass[a4paper]{article}
+
+%===============================================================================================
+%===============================================================================================
+\voffset=-1in
+\hoffset=-0.5in
+\textwidth 450pt
+\textheight 650pt
+\headheight 6pt
+\footskip 12pt
+\oddsidemargin 6pt
+\marginparsep 1pt
+\parindent 0pt
+\parskip 6pt 
+
+\marginparwidth 0pt
+\addtolength{\textwidth}{+0.5in}
+\addtolength{\textwidth}{10mm}
+\addtolength{\textheight}{+1in}
+
+%===============================================================================================
+%===============================================================================================
+\parindent = 0pt
+\renewcommand{\bf}[1]{\textbf{#1}}
+\newcommand{\mkChap}[1]
+	{
+	\large\textbf{#1}
+	\vspace{2mm}\\
+	}
+
+\newcommand{\mkChapBig}[1]
+	{
+	\newpage
+	\hrule
+	\begin{center}
+	\LARGE\textbf{#1}
+	\end{center}
+	\hrule
+	\vspace{5mm}
+	}
+
+
+\newcommand{\mkSectionBig}[1]
+	{
+	\Large\textbf{#1}\\
+	}
+
+\newcommand{\mkSubSectionBig}[1]
+	{
+	\hspace*{10mm}\large\textbf{#1}\\
+	}
+
+\newcommand{\mkSection}[1]
+	{
+	\hspace*{25mm}#1\\
+	}
+
+
+%===============================================================================================
+%===============================================================================================
+
+\begin{document}
+
+\begin{center}
+	\LARGE \textbf{Fred's thesis contents} \\
+\end{center}
+\vspace{1cm}
+
+
+%======================================================================================================
+%
+%			General Contents
+%
+%======================================================================================================
+\mkChap{Chapter 1 : The liquid crytalline phase (Review)}
+	\mkSection{ 1 :  Statistical mechanics}
+	\mkSection{ 2 :  The LC phases and applications}
+	\mkSection{ 3 :  Experiments with LC's (phase characterisation)}
+	\mkSection{ 4 :  Surface effects in LC systems (anchoring, bistability) }
+	\mkSection{ 5 :  Flexoelectric behaviour (molecules, measurement)}
+	\mkSection{ 6 :  Theories of LC phase transitions}\\
+
+%======================================================================================================
+%======================================================================================================
+\mkChap{Chapter 2 : Computer simulation of liquid crystals (Review)}
+	\mkSection{ 1 :  Hard models (model/phase behaviour relationship)}
+	\mkSection{ 2 :  Soft models (model/phase behaviour relationship)}
+	\mkSection{ 3 :  Confined systems}
+	\mkSection{ 4 :  Flexoelectric/Ferroelectric particles}\\
+
+%======================================================================================================
+%======================================================================================================
+\mkChap{Chapter 3 : Computer simulations of hard particles (Review/Results)} 
+	\mkSection{ 1 :  modeling techniques (MC, MD, Lattices?)}
+	\mkSection{ 2 :  Computation of the observables}
+	\mkSection{ 3 :  Bulk ellipoids (HGO, k=3,5)}
+	\mkSection{ 4 :  Bulk Plates (HGO, k=1/3, 1/5)}\\
+	
+
+%======================================================================================================
+%======================================================================================================
+\mkChap{Chapter 4 : Surface influence on liquid crystalline systems (Results)} 
+	\mkSection{ 1 :  Symmetric confined HNW potential}
+	\mkSection{ 2 :  Hybrid confined HNW potential}
+	\mkSection{ 4 :  Changes with RS potential}
+	\mkSection{ 5 :  Changes with RSU potential}\\
+
+
+%======================================================================================================
+%======================================================================================================
+\mkChap{Chapter 5 : Bulk simulations of pear shaped particles (Results)} 
+	\mkSection{ 1 :  Bulk Italian Pears (phase dia, surf potentials)}
+	\mkSection{ 2 :  Bulk Sheffield Pears (method, acuracy, bulk results)}
+	\mkSection{ 3 :  GBP, phase characterisation (???)}
+	\mkSection{ 4 :  Computation of elastic and flexoelectric constants (???)}
+
+
+%======================================================================================================
+%======================================================================================================
+\mkChap{Chapter 6 : Confined simulations of pear shaped particles (Results)} 
+	\mkSection{ 1 :  Confined Sheffield Pears, HNW potential }
+	\mkSection{ 2 :  Confined Sheffield Pears, Realistics potential (???)}
+	\mkSection{ 3 :  Field effect (???)}\\
+
+%======================================================================================================
+%======================================================================================================
+\mkChapBig{Chapter 1 : Chapter 1 : The liquid crytalline phase (Review)}
+
+
+%======================================================================================================
+%======================================================================================================
+\mkChapBig{Chapter 2 : Computer simulation of liquid crystals (Review)}
+
+
+%======================================================================================================
+%======================================================================================================
+\mkChapBig{Chapter 3 : Computer simulations of hard particles (Review/Results)}
+
+\mkSectionBig{1. Modeling techniques~:}
+Lattice techniques ?
+MonteCarlo
+Molecular Dynamics
+
+\mkSectionBig{2. Observable computation~:}
+g(r)
+order parameters
+\begin{itemize}
+       \item P1($\cos\theta$)
+       \item P2($\cos\theta$)
+\end{itemize}
+QzzWa
+SWa
+
+\mkSectionBig{Bulk behaviour of prolate HGO~:}
+k=3, phase dia, snaps
+k=5, phase dia, snaps
+
+\mkSectionBig{Bulk behaviour of oblate HGO~:}
+k=1/3, phase dia, snaps
+k=1/5, phase dia, snaps
+
+%======================================================================================================
+%======================================================================================================
+\mkChapBig{Chapter 4 : Surface influence on liquid crystalline systems (Results)}
+
+\mkSectionBig{Aims :}
+
+\large
+\begin{itemize}
+	\item Study surface induced structural changes on Liquid Crystalline systems
+		\begin{itemize}
+		\item Layering
+		\item Ordering
+		\end{itemize}
+	\item Try to recreate these effects with a simple model.
+	\item Identify main variables responsible for effect.
+	\item Characterise the P-H anchrong transition.
+	\item See effects on hybridly anchored systems.
+	\item Make the surface potential more realistic while keeping the physics.
+\end{itemize}
+\hrule
+\vspace{5mm}
+
+%-----------------------------------------------------------------------------------------------
+\mkSectionBig{1. Surface induced stuctural changes.}
+
+\mkSubSectionBig{1. The surface potential.}
+Description of the potential.\\
+Expected anchoring orientations.\\
+Theoretical treatment for the reltive stability of H and P.\\
+Optimum Ln for bistability as a function of k.\\
+
+\mkSubSectionBig{1. Simulation results.}
+Descrition of simulation setup.\\
+Results : typical profiles, snapshots.\\
+Need to illustrate the two anchorings and the variable responsible for it.\\
+
+%-----------------------------------------------------------------------------------------------
+\mkSectionBig{2. The anchoring transition.}
+
+\mkSubSectionBig{1. The method}
+Method of obtaining QzzWa, SWa.\\
+Explain Simulation series.\\
+Phase diagrams, up, down Bist for k=3,5\\
+
+%-----------------------------------------------------------------------------------------------
+\newpage
+\mkSectionBig{3. Hybridly anchored systems.}
+Setup\\
+Phase diagrams\\
+Snapshots\\
+
+%-----------------------------------------------------------------------------------------------
+\mkSectionBig{4. The rod sphere potential.}
+
+\mkSubSectionBig{1. The potential}
+Description of the potential.\\
+History of the potential.\\
+
+\mkSubSectionBig{1. Phase behaviour}
+phase diagrams, down\\
+snapshots\\
+
+%-----------------------------------------------------------------------------------------------
+\mkSectionBig{5. The rod surface potential.}
+
+\mkSubSectionBig{1. The potential}
+Description of the potential, derivation of it.\\
+
+\mkSubSectionBig{1. Phase behaviour}
+phase diagrams up, down, diff\\
+snapshots\\
+
+%-----------------------------------------------------------------------------------------------
+\mkSectionBig{6. Conclusions.}
+
+
+%======================================================================================================
+%======================================================================================================
+\mkChapBig{Chapter 5 : Bulk simulations of pear shaped particles (Results)} 
+
+
+%======================================================================================================
+%======================================================================================================
+\mkChapBig{Chapter 6 : Confined simulations of pear shaped particles (Results)} 
+
+
+%======================================================================================================
+%======================================================================================================
+
+\end{document}

@@ -1,0 +1,271 @@
+
+\section{Simulation results using the HP model.}
+\label{s:HPresults}
+
+\subsection{Particles with $k=3$.}
+
+The phase behaviour of the HP model was computed using Monte Carlo simulations of bulk systems 
+of $N=1250$ particles in the isothermal-isobaric ensemble. For better sampling of phase space 
+and to ease the formation of possible polar phases, `flip moves' were included using a probabilistic
+scheme. These moves involved the inversion of the molecular orientation vector $\ui$ and 
+accounted for 20\% of each particle's attempted moves. Compression moves which changed every
+box length independently were also carried out using a  probabilistic scheme, on average once 
+every two MC sweeps (\ie moves per particle). 
+Run lengths were of the order of $1.10^6$ sweeps for equilibration and production, but for 
+some of the highest densities up to $5.10^6$ sweeps were necessary to achieve
+equilibration.\\
+
+The first series of runs used a compression sequence; the pressure range considered was chosen so that 
+it would induce densities of the same order of magnitude as those found for the
+isotropic-nematic transition of the hard Gaussian overlap model (see Chapter~\ref{chap:three}.)
+The pressure and order parameter results obtained are shown in 
+Figure~\ref{fig:HP_k3_phaseDia} under the `compression' label.
+
+%=================================
+\picW = 7cm
+\begin{figure}
+	\subfigure[$P(\rho^{*})$]{\picL{HP_P-rho_k3.ps}}
+	\subfigure[$\langle P_2\rangle(\rho^{*})$]{\picL{HP_P2-rho_k3.ps}}
+	\caption{Results from constant NPT Monte Carlo simulations in compression and melting
+	sequences of the HP model with $k=3$.}
+	\label{fig:HP_k3_phaseDia}
+\end{figure}
+%=================================
+
+These reveal that during the compression sequence, no spontaneous ordering was observed.
+Thus, in order to test for the stability of the nematic phase, another series of simulations was
+performed in a melting sequence of decreasing pressures. The starting configuration for this series 
+was a high density configuration obtained from the compression series, the particles being field
+aligned along $\vecth{z}$ so as to obtain a nematic phase with an order parameter 
+$P_2\sim 0.8$. The results for this sequence are shown on  Figure~\ref{fig:HP_k3_phaseDia} 
+under the `melting' label. Surprisingly, these results suggest a
+stable nematic phase for densities $\rho^{*} > 0.3$ and $P^{*}>8.0$. This situation seems to
+be very similar to that found by Williamson and Jackson~\cite{WilliamsonJackson98} 
+where a stable nematic phase was present although the model failed to order spontaneously.
+A further test of the systems behaviour was provided through monitoring the mobility of the molecules
+(Figure~\ref{fig:HP_k3_dc}). This was measured using~:
+\begin{equation}
+	\langle\delta r^2(n)\rangle  = \langle({\bf r}_n - {\bf r}_0)^2\rangle 
+\end{equation}
+%
+%===========================
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[compression sequence]{\picL{HP_k3_cpress_dc.ps}}
+	\subfigure[melting sequence]{\picL{HP_k3_melt_dc.ps}}
+	\caption[Evolution of $\langle\delta r^2(n)\rangle$ as a function of $n$ the number of
+	Monte Carlo sweeps for the HP model and k=3.]
+	{Evolution of $\langle\delta r^2(n)\rangle$ as a function of $n$ the number of
+	Monte Carlo sweeps for the HP model and k=3. The data
+	on the left are for a constant $NVT$ compression sequence with $N=1000$ and the data on
+	the right for a constant NPT melting sequence with $N=1250$.}
+	\label{fig:HP_k3_dc}
+\end{figure}
+%===========================
+%
+where ${\bf r}_n - {\bf r}_0$ is the displacement vector moved by a given particle in $n$ 
+consecutive MC
+sweeps and the angled brackets indicate an average over all particles and the run length. In MC 
+simulations with fixed maximum particle displacement (as was the case here), Brownian diffusion 
+dictates that  $\langle\delta r^2(n)\rangle$ should increase linearly with $n$ in a fluid phase.
+The greater the gradient of $\langle\delta r^2(n)\rangle$, the more fluid the studied phase.\\
+
+These measurements show that for both the compression and melting series, the
+diffusion of the particles decreased monotonically with increased density or pressure. If the
+results are fitted to equations of the form $y=a +bx$, $b$ decreases of about two orders of magnitude
+between the lowest and highest densities shown. The conclusion from this is that the highest density 
+configurations did not correspond to fluid, but to glassy phases which inhibited the ordering of the
+system. In the melting series, in contrast, the lack of fluidity at the highest densities 
+may have prevented the corresponding systems from disordering into the equilibrium structure. 
+This argument is supported by the order of magnitude of the diffusion which is
+about half the value obtained from the compression series, thus illustrating the frustrated
+nature of the ordered phases obtained. The reduction of move acceptance rate from 40\% down to 10\%
+between simulations at the lowest and highest density  further illustrates this glassiness.\\
+
+
+%============================
+\picW = 5.5cm
+\begin{figure}
+	\centering
+	\subfigure[$\rho^{*}=0.28$]{\pic{HP_box_NVT_k3_b_N1000_d0.2800_0.50M.ps}}
+	\hspace*{2cm}
+	\subfigure[$\rho^{*}=0.32$]{\pic{HP_box_NVT_k3_b_N1000_d0.3200_0.50M.ps}}
+	\caption{Configuration snapshots of the HP model and $k=3$ at $\rho^{*}=0.28$ and
+	$\rho^{*}=0.32$.}
+	\label{HP_k3_snaps}
+\end{figure}
+%============================
+
+%============================
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[$g_\parallel(r_\parallel)$]{\picL{HP_k3_grParallel.iso.ps}}
+	\subfigure[$g_\perp(r_\perp)$]{\picL{HP_k3_grPerpLayer.iso.ps}}
+	
+	\subfigure[$g^\mrm{mol}_\parallel(r_\parallel)$]{\picL{HP_k3_grParallel.fun.ps}}
+	\subfigure[$g^\mrm{mol}_\perp(r_\perp)$]{\picL{HP_k3_grPerpLayer.fun.ps}}
+	\caption{Pair correlation functions for the HP model with $k=3$ computed with respect to
+	$\vecth{n}$(top) and $\ui$ (bottom).}
+	\label{HP_k3_grs}
+\end{figure}
+%============================
+
+
+More insight into the phases produced by those two series of simulations can be obtained by
+studying simulation snapshots (\eg Figure~\ref{HP_k3_snaps}) and computation of the pair
+correlation functions.
+Both the standard $g_\parallel(r_\parallel)$, $g_\perp(r_\perp)$ and 
+$g^\mrm{mol}_\parallel(r_\parallel)$, $g^\mrm{mol}_\perp(r_\perp)$ were computed (see
+Chapter~\ref{chap:three} for a definition). These functions are shown on 
+Figure~\ref{HP_k3_grs}.\\
+Little difference can be observed between the two sets of functions; 
+$g_\parallel(r_\parallel)$ and $g^\mrm{mol}_\parallel(r_\parallel)$  indicate that as 
+the density is increased, some 
+short range features appear, corresponding to distances less than the molecular elongation.
+Comparing this with the configuration snapshots suggests that those short range features
+reflect the tendency of particles to align anti-parallel with their closest neighbors.
+$g_\perp(r_\perp)$ and $g^\mrm{mol}_\perp(r_\perp)$ also fail to show signs of ordering, 
+and little variation can be
+observed throughout the density range considered. However, some signs of the preferred pairwise 
+anti-parallel ordering are visible for the highest density in the form of a peak at $r\sim 0.9$.\\ 
+
+The main conclusion to be drawn from these series of simulations is that the HP model with
+$k=3$ shows rather surprising phase behaviour. With increased density, the particles exhibit short
+ranged anti-parallel ordering. The rapid decrease in particle mobility, however leads to the 
+formation of glassy phases and prevents the formation of nematic phases. Instead, at high
+density the particles form a glassy phase made of small domains with local anti-parallel 
+alignment.
+
+
+%=================================================================================================
+%=================================================================================================
+\subsection{Particles with $k=5$.}
+
+Due to the lack of ordering shown by particles with $k=3$ and following the idea that
+increasing the molecular elongation stabilizes the nematic phase, a second study of the HP model
+was made using particles with $k=5$. 
+Systems of $N=1000$ particles were simulated using the Monte Carlo method 
+in both the canonical and isothermal-isobaric ensembles and with inclusion of the `flip' moves.
+Similar volume change algorithms and run lengths were used as for runs with $k=3$.
+However, only a compression series was performed. The results obtained from this
+(shown on Figure~\ref{fig:HP_k5_phaseDia}) indicate a somewhat
+different phase behaviour for this
+longer elongation.  
+$P(\rho^{*})$ shows an inflexion point at $\rho^{*}\sim 0.12$, suggesting a transition to a more
+ordered phase. This corresponds to a rapid increase in $\langle P_2\rangle$, having the common `S' shape of a
+first order transition, which is consistent with ordering to a nematic phase. However the values of 
+$\langle P_2\rangle$ are still short of that usually associated with nematic order. For this system, 
+the computation of 
+$\langle\delta r^2(n)\rangle$ (Figure~\ref{fig:HP_k5_dc}) shows that all 
+configurations remained fluid throughout the pressure/density range considered.\\
+
+%=====================
+\picW = 7.0cm
+\begin{figure}
+	\centering
+	\subfigure{\picL{HP_P-rho_k5.ps}}
+	\subfigure{\picL{HP_P2-rho_k5.ps}}
+	\caption{Results from the bulk compression simulation series with the HP model and
+	$k=5$.}
+	\label{fig:HP_k5_phaseDia}
+\end{figure}
+%=====================
+%
+%=====================
+\picW = 12cm
+\begin{figure}
+	\centering
+	\picL{HP_k5_cpress_dc.ps}
+	\caption{Results for the diffusion of the HP model with $k=5$ for simulation in the
+	isothermal-isobaric ensemble in a compression series. }
+	\label{fig:HP_k5_dc}
+\end{figure}
+%=====================
+
+The nature of the phases formed by this model was investigated by observing configuration
+snapshots (\eg Figure~\ref{fig:HP_k5_d0.14_snaps}) and computing  pair correlation
+functions (Figure~\ref{HP_k5_grs}). Again both the standard $g_\parallel(r_\parallel)$, 
+$g_\perp(r_\perp)$ and  molecule based $g^\mrm{mol}_\parallel(r_\parallel)$, 
+$g^\mrm{mol}_\perp(r_\perp)$ were computed.\\
+%
+As the density increased, the particles were found to order but also form layers with different 
+orientations.  As a result, although the intralayer ordering was very high, this was not 
+reflected by the value  of the overall nematic order parameter as the directions of the layers 
+were very different, almost perpendicular in places. This is illustrated by the configuration shown on  
+Figure~\ref{fig:HP_k5_d0.14_snaps}(b), obtained from a simulation performed in the canonical 
+ensemble at
+$\rho^{*}=0.14$. A side view of the same configuration (Figure~\ref{fig:HP_k5_d0.14_snaps}(c)), 
+would however, suggest phase with a unique alignment direction and smectic-like ordering,
+with the exception of those particles with different orientations which are sandwiched 
+between the `layers'. 
+This discrepancy shows the full extent of the non homogenous character of the high density
+structures obtained here and explains the moderate values of $\langle P_2 \rangle$.\\
+The likelihood of this type of configuration transforming into a smectic phase at higher
+densities appears low as the particle mobilities at these high densities are rather low. 
+This question has, however, been investigated by performing simulations in the 
+isothermal-isobaric ensemble  where the three box lengths were allowed to vary independently.
+This approach is known to facilitate the 
+possible formation of smectic phases as the box accommodates the system's natural layer spacing. 
+These simulations however lead to the same structures as were seen 
+in the canonical ensemble.  Therefore, this multi-domain layered configuration seems to be the 
+most stable state for this model at high pressures/densities.
+
+%=====================
+\picW = 5.5cm
+\begin{figure}
+	\centering
+	\subfigure[$\rho^{*}=0.10$]{\pic{HP_box_NVT_k5_b_N1000_d0.1000_0.50M.ps}}
+	
+	\subfigure[$\rho^{*}=0.14$, bottom view]{\pic{HP_box_NVT_k5_b_N1000_d0.1400_0.50M_01.ps}}
+	\hspace{2cm}
+	\subfigure[$\rho^{*}=0.14$, side view]{\pic{HP_box_NVT_k5_b_N1000_d0.1400_0.50M_02.ps}}
+	\caption{Configuration snapshots for the HP model with $k=5$ at $\rho^{*}=0.14$. Two
+	views are presented the bottom of the simulation box (left) and a side view looking down
+	along $\vecth{y}$ and $\vecth{z}$ pointing upward.}
+	\label{fig:HP_k5_d0.14_snaps}
+\end{figure}
+%=====================
+
+
+%============================
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[$g_\parallel(r_\parallel)$]{\picL{HP_k5_grParallel.iso.ps}}
+	\subfigure[$g_\perp(r_\perp)$]{\picL{HP_k5_grPerpLayer.iso.ps}}
+	
+	\subfigure[$g_\parallel(r_\parallel)$]{\picL{HP_k5_grParallel.fun.ps}}
+	\subfigure[$g_\perp(r_\perp)$]{\picL{HP_k5_grPerpLayer.fun.ps}}
+	\caption{Pair correlation functions for the HP model with $k=5$ computed with respect to
+	$\vecth{n}$(top) and $\ui$ (bottom).}
+	\label{HP_k5_grs}
+\end{figure}
+%============================
+
+
+A quantitative insight into those phases is provided by the pair correlation functions as shown on
+Figure~\ref{HP_k5_grs}. Again the functions computed with respect to $\vecth{n}$ and $\ui$ show
+little qualitative differences. As the density is increased, $g_\parallel(r_\parallel)$ and 
+$g^\mrm{mol}_\parallel(r_\parallel)$ display
+a series of peaks accounting for the domain ordering. The distance between two successive peaks of about
+$6\sigma_0$ corresponds to the distance between two layers separated by a small number of
+interstitial particles with perpendicular orientation.
+The lack of periodicity in these functions reveals 
+that this phase is not smectic, however. The intra-layer, in contrast, is rather 
+close to that of a smectic phase as $g^\mrm{mol}_\perp(r_\perp)$ shows up to four peaks with an average 
+separation $\sim\so$  accounting for the successive parallel and antiparallel neighbours.\\
+
+Thus, for the elongation of $k=5$, the HP model shows a rather surprising phase behaviour which is
+subtly different from that observed for $k=3$. For the longer elongation, the model proved to
+remain fluid over the pressure range considered. With increased pressure, a transition to an
+ordered phase was observed. At high pressure, the particles formed layered domains with different
+orientations and high, smectic-like, intra-layer order.
+The HP model does not, however, fulfill the requirement of having the stable nematic phase 
+needed to simulate the
+confined flexoelectric particle systems mentioned at the beginning of this
+Chapter. The modeling of pear-shaped particles which form nematic phases can, however, be achieved 
+using a totally different route to the expression for the contact distance.
+This new approach is described in the following Sections.
+

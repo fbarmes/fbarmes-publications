@@ -1,0 +1,265 @@
+\section{Molecular models of Liquid Crystals}
+
+At a molecular scale, a first approximation of the shape of liquid crystals molecules 
+would be a rod or a disc for, respectively, calamitic and discotic mesogens. 
+Using such objects, interacting through appropriate intermolecular
+potentials, provides an excellent testbed for theories on the origins of liquid crystals
+phases. Two types of particles are commonly used. Hard particles models have their basis in 
+Onsager theory, which shows that short range repulsive interactions alone can lead to the formation
+of liquid crystal phases such as the nematic phase. A refinement of these models is to
+incorporate the attractive forces which are responsible for the more sophisticated mesophases.
+Section~\ref{ss:HP} discuss the first type of models while the effects of attractive forces
+for the most popular soft model, namely the Gay-Berne model, are presented in Section~\ref{ss:GB}.
+
+%==================================================================================================
+%==================================================================================================
+\subsection{Hard particle models.}
+\label{ss:HP}
+
+%=============================
+%=============================
+\subsubsection{Hard ellipsoids of revolution}
+
+The structure of simple atomic fluids can be described efficiently and surprisingly accurately 
+using hard sphere models. 
+The most obvious extension of this result that incorporate the anisotropy of mesogens is to
+represent the particles by hard ellipsoids of revolution (HER) with semi axes $a=b\neq c$. For
+this model, the length to width ratio $k$ is defined by $k=\frac{a}{c}$. Also both discotic
+and calamitic particles can be modeled according to the value of $k$.
+Although spherocylinders were used in Onsager's treatment, the HER can be expected to follow the
+Onsager solution as it can be shown that for both shapes, the expression for the excluded volume 
+of a pair of particles as a function of their relative orientation $\alpha$ takes the form
+$V_\mrm{excl}\sim\sin\alpha$ $\alpha$~\cite{FrenkelMulder85}.\\
+%
+The main drawback of the HER model is that the contact distance between two ellipsoids can not be
+expressed in a closed form. 
+The first Monte Carlo simulation of this model was performed on a two dimensional system by 
+Vieillard-Baron in the early 1970's~\cite{VieillardBaron72}. This work gave the first algorithm for the
+contact distance between two ellipses and showed that excluded volume effects
+play an important role in mesophase formation. However, limitations in computer power
+prevented Vieillard-Baron from establishing the behaviour of three dimensional systems. The contact 
+distance computation algorithm was later refined by Perram~\etal\cite{PerramWertheim84,PerramWertheim85} 
+and a tentative phase diagram for three
+dimensional systems was proposed by Frenkel~\etal\cite{FrenkelMulder81}. This showed
+the existence of four different phases namely isotropic, nematic, plastic crystal and ordered
+crystal. A more thorough investigation by Frenkel and Mulder~\cite{FrenkelMulder85} established the
+range of stability of those phases; more specifically nematic phases were found for $k \geq
+2.75$, the transition density reducing with increased molecular elongation.
+Comparison of those results with the y-expansion
+density functional theory where the free energy expansion was cut at the third 
+term~\cite{MulderFrenkel85} showed good agreement for $\frac{1}{3} \leq k \leq 3$; a worsening 
+of the theoretical predictions was found with more extreme $k$ values, however.\\
+Despite the argument from Zarragoicoecha~\etal\cite{Zarragoicoecha92} that the stability of 
+the nematic phase for $k=3$ is an artifact of the limited system size employed by Frenkel \etal
+simulations, subsequent work
+by Allen and Mason~\cite{AllenMason86} for several system sizes confirmed the validity
+of the phase diagram proposed by Frenkel~\etal
+An extension of this phase diagram was later proposed by Camp~\etal\cite{CampMason96} who
+computed of the exact location of the isotropic-nematic phase transition using Gibbs-Duhem
+integration techniques.\\
+
+Studies by Allen~\etal~\cite{Allen90,CampAllen97} of a biaxial version of the hard ellipsoid
+model ($a \neq b \neq c$) for $\frac{c}{a} = 10$ and $1 \leq \frac{b}{a} \leq 10$ showed the
+existence of isotropic, nematic, discotic nematic and biaxial phases. Again, the exact location of the
+isotropic-nematic and isotropic-discotic nematic phase transitions were computed using
+Gibbs-Duhem integration methods.
+
+The extensive studies performed on this model have established a comprehensive and very precise 
+phase diagram as a function of molecular elongation. The range of stability of the different
+phases can be summarized as~:
+%
+\begin{itemize}
+	\item plastic solid~: $k \in [\frac{1}{1.25}:1.25]$
+	\item ordered solid~: $k \in [\frac{1}{2}:2]$
+	\item discotic nematic~: $k \leq \frac{1}{2.75}$
+	\item nematic~: $k \geq \frac{1}{2.75}$
+\end{itemize}
+
+The major conclusion that can be drawn from these results is that Onsager's solution applied
+at the intermediate values $k\sim 3-5$ corresponding to the elongation of common mesogens. 
+
+%=============================
+%=============================
+\subsubsection{Hard spherocylinders.}
+
+Another very popular model for calamitic liquid crystals is the hard spherocylinder (HSC). This is the
+model used by Onsager, that is a cylinder of length $L$ and diameter $D$ terminated by two 
+hemispherical caps of diameter $D$. The elongation $k$ of such an object is therefore
+$k=\frac{L+D}{D}$. The reasons for the use of this model are threefold. First it is the shape
+used in Onsager's theory and therefore the most obvious choice to make when testing this theory 
+using computer simulations. Also for computational purposes, the model presents the advantage of 
+having a tractable expression 
+for the contact distance. Finally the spherocylinder shape resembles closely that of the 
+liquid-crystal-phase-forming tobacco virus~\cite{ZazadzinskiMeyer86,DogicFraden97}. There is,
+however, no obvious extension of this model to discotic particles~; equivalence could be
+considered using cut spheres~\cite{VeermanFrenkel92} or sort cylindrical 
+segments~\cite{BatesFrenkel98}\\
+
+The first computer simulation on hard spherocylinders was performed by 
+Vieillard-Baron~\cite{VieillardBaron74} using elongations $k=2$ and $3$, but this study did not find
+any stable nematic phases. Limitations in computer power prevented the author from fully
+investigating a system with $k=6$. In 1987, Frenkel~\cite{Frenkel87,Frenkel87a} performed the
+first simulations of three dimensional systems of hard spherocylinders with
+elongation $k \in [0:5]$ and free translation and rotation; the authors found the model to 
+exhibit three phases, namely~: isotropic liquid, nematic and
+\smA. With the shorter elongation $k=3$, Veerman and Frenkel~\cite{VeermanFrenkel96} 
+found the nematic and smectic phases to become respectively unstable and metastable. A more
+complete phase diagram was later proposed by Mc Grother~\etal\cite{McGrotherWilliamson96} for
+different values of $k$ in the range $[3:5]$ and confirmed the results from Frenkel~\etal 
+The authors also showed that as $k$ was increased, the \smA~ phase was stable for
+$\frac{L}{D}\geq 3.2$ whereas the nematic phase required $\frac{L}{D}\sim 4$. 
+Bolhuis and Frenkel~\cite{BolhuisFrenkel97}
+later refined and completed this phase diagram into the Onsager limit.\\
+From these studies the phase diagram of the HSC can be summarized as~:
+\begin{itemize}
+	\item Nematic~: $\frac{L}{D} \geq 3.7$.
+	\item \SmA~: $\frac{L}{D} \geq 3.1$.
+\end{itemize}
+
+%=============================
+%=============================
+%\subsubsection{Other models.}
+
+%==================================================================================================
+%==================================================================================================
+\subsection{The Gay-Berne model.}
+\label{ss:GB}
+
+
+Despite their simplicity and their success in modeling liquid crystalline phases, the steric
+models discussed above have limitations in that they can not be used to model
+every liquid crystalline phase (\eg \smB) and the effect of attractive interactions can
+not be studied.\\
+The first mathematically tractable model for soft particles was developed in 1972 by Berne and 
+Pechukas~\cite{BernePechukas72}. This model describes the interaction between soft ellipsoidal
+particles through a potential $\mathcal{V}^{BP}$ which is alternately repulsive and
+attractive at short and long ranges. This potential however presented  unrealistic
+features such as having equal well depths for end to end and side by side parallel molecular
+arrangements.
+These deficiencies were resolved by Gay and Berne~\cite{GayBerne81} who modified the functional
+form of the Berne-Pechukas potential so that it could give a reasonable fit to a 
+linear arrangement of four 
+Lennard-Jones  sites. This resulted in the now widely used Gay-Berne model 
+$\mathcal{V}^{GB}$ expressed as~:
+\begin{eqnarray}
+	\mathcal{V}^{GB} &=& 4\epsilon(\ui,\uj,\rij)\left\{ R^{12} - R^{6} \right\} \\
+	\mrm{with\ }R &=&  \frac{\so}{r - \sijr +\so} \nonumber.
+\end{eqnarray}
+
+Where $\sijr$ is the shape function for two Gaussian ellipsoids, as determined
+originally by Berne and Pechukas~\cite{BernePechukas72},
+%
+\begin{equation}
+	\sijr = \so\left\{
+	1 - \frac{1}{2}\chi\left[ 
+	\frac{ \lp\dotProd{\rij}{\ui} + \dotProd{\rij}{\uj}\rp^2 }{1 + \chi(\dotProd{\ui}{\uj})}
+      + \frac{ \lp\dotProd{\rij}{\ui} - \dotProd{\rij}{\uj}\rp^2 }{1 - \chi(\dotProd{\ui}{\uj})}
+	\right] \right\}^{-\frac{1}{2}}
+\end{equation}
+
+$\so$ defines the unit of distance and $\chi$ is the shape anisotropy parameter defined using $k$ the
+length to breadth ratio as~:
+\begin{equation}
+	\chi = \frac{k^2-1}{k^2+1}.
+\end{equation}
+
+The energy strength parameter is defined as~:
+\begin{equation}
+	\eijr = \eo\eOne^{\nu}(\ui,\uj)\eTwo^{\mu}(\uj,\uj,\rij)
+\end{equation}
+
+with~:
+\begin{equation}
+	\eOne(\ui,\uj) = \left[1 - \chi^2(\dotProd{\ui}{\uj})^2\right]^{-\frac{1}{2}}
+\end{equation}
+
+and
+\begin{equation}
+	\eTwo(\ui,\uj,\rij) = 
+	1 - \frac{1}{2}\chi^\prime \left[ 
+	\frac{ \lp\dotProd{\rij}{\ui} + \dotProd{\rij}{\uj}\rp^2 }{1 + \chi^\prime(\dotProd{\ui}{\uj})}
+      + \frac{ \lp\dotProd{\rij}{\ui} - \dotProd{\rij}{\uj}\rp^2 }{1 - \chi^\prime(\dotProd{\ui}{\uj})}
+	\right].
+\end{equation}
+
+Here $\chi^\prime$ is the energy anisotropy parameter defined using $k^\prime$ the ratio of end to
+end and side by side well depth ($\epsilon_{ee}$ and $\epsilon_{ss}$ respectively)~:
+\begin{eqnarray}
+	\chi^{\prime} &=& \frac{k^{\prime \mu^{-1}} - 1}{k^{\prime \mu^{-1}} + 1}	\\
+	k^\prime &=& \frac{\epsilon_{ee}}{\epsilon_{ss}}	\nonumber
+\end{eqnarray}
+
+The Gay-Berne model behaviour can be easily tuned through modification of the four parameters
+$k,k^\prime,\mu$ and $\nu$.\\
+Preliminary simulation results by Adam~\etal\cite{AdamLuckhurst87}, using the parameterisation 
+$GB(k,k^\prime,\nu,\mu) = GB(3,5,1,2)$, showed the Gay-Berne model
+to be suitable for liquid crystal modeling as both isotropic and nematic phases were observed.
+Subsequent work by Luckhurst and Stephens~\cite{LuckhurstStephens90} using the slightly
+different parameterisation $GB(3,5,2,1)$ found a much richer phase diagram containing isotropic,
+nematic, \smA, \smB and crystal phases. Thanks to a very thorough study by the 
+Seville group~\cite{ChalamGubbins91,deMiguelRull91,deMiguelRull91a},
+the full liquid crystalline phase diagram of the model was then determined for
+$GB(3,5,1,2)$.\\
+%
+The parameterisation $GB(3,5,3,1)$ was used by other groups~\cite{BerardiEmerson93,
+AllenWarren96}; while this gives the same isotropic, nematic and smectic phases as the
+previous parameterisation, the increased value of $\mu$ allows for a wider nematic region.\\
+%
+The substantially different parameterisation $GB(4.4, 39.6^{-1}, 0.74, 0.8)$ was used by Luckhurst
+and Simmonds~\cite{LuckhurstSimmonds93} in an attempt to use a model better fitted to
+representing
+real mesogens. This parameterisation was obtained from fitting the Gay-Berne potential to a uniaxial
+version of a realistic potential of the p-terphenyl molecule. The authors found a phase behaviour
+compatible with their aim; the model displayed isotropic, nematic and smectic phases.
+Subsequently, Bates and Luckhurst~\cite{BatesLuckhurst99} performed a thorough study using 
+the parameterisation  $GB(4.4,20^{-1},1,1)$ and found the model to exhibit isotropic, nematic, \smA
+and \smB phases in good agreement with the behaviour of the real mesogens this parameterisation was
+modeling.
+%
+An investigation into the generic effects of the attractive part of the 
+potential~\cite{deMiguelDelRio96} showed that
+smectic order is favoured as $k^\prime$ is increased, thus showing the importance of attractive
+forces for the formation of smectic phases by ellipsoidal particles. A similar study into the
+effects of molecular elongation on the Gay-Berne phase diagram~\cite{BrownAllen98} showed significant
+changes notably in the location of the isotropic-nematic phase transition.\\
+
+More recently, various extensions of the Gay-Berne model have been performed. 
+Cleaver \etal\cite{CleaverCare96} generalised the potential to give an interaction for particles 
+with different elongations thus opening up the possibility of modeling LC mixtures.
+Zewdie~\cite{Zewdie98a,Zewdie98b} developed a Corner-like potential where the range and
+energy strength parameters are expanded in terms of a complete orthogonal basis set, namely
+Stone~\cite{Stone} functions. The advantage of this method is that each term in the energy
+strength parameter can be associated with a given type of interaction thus allowing fine tuning
+of the model. Application of this approach to the modeling of discotic particles~\cite{Zewdie98a} 
+lead to the
+formation of isotropic, discotic-nematic, columnar and crystal phases while the modeling of
+calamitic particles (using an equivalent of $GB(3,5,1,2)$) showed isotropic, nematic, \smA, \smB and
+crystal phases in agreement with~\cite{AdamLuckhurst87}.\\
+%
+Biaxial particles have been studied by the Bologna 
+group~\cite{BerardiZannoni00,Zannoni02} using a generalization of the Gay-Berne
+potential to the interaction between two arbitrary ellipsoidal particles presented
+in~\cite{BerardiFava98}. These studies have indicated that the answer to the much argued about 
+question
+of the existence of biaxial phases is that, such phases can exist since both biaxial nematic and
+smectic phases have been observed.\\
+%
+The inclusion of dipole electrostatic moments into Gay-Berne particles has been studied by
+Houssa~\etal~\cite{HoussaRull98, HoussaMcGrother99} and revealed that although the location of
+the phase transitions of the model are insensitive to the strength of the dipoles, the
+electrostatic forces were found to have a considerable effect on the nature of the observed
+phases.
+multipole electrostatic moments has also been considered. Specifically, 
+Berardi \etal~\cite{BerardiOrlandi03} included two outboard permanent dipoles at various angles
+from the axis and observed tilted smectic phases whose intra-layer arrangement was compatible
+with \smJ and tetragonal \smT. The inclusion of quadrupole moments into a $GB(4,5,2,1)$
+system~\cite{Withers} proved to have strong effects upon the smectic regions of the phase
+diagrams such as the replacement of a \smB by a \smJ phase.
+%
+These developments, along with the
+extended possibility of parameterisation, makes, the Gay-Berne model a very versatile one which can
+be applied to a wide number of different types of interactions. 
+%A number of different applications is reviewed in~\cite{Zannoni02}.
+
+
+

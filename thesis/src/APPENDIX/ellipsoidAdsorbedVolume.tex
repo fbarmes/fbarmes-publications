@@ -1,0 +1,165 @@
+
+
+\chapter{Absorbed volume of an HGO into a substrate.}
+\label{chap:A}
+
+%===============================================================================================
+%===============================================================================================
+\section{Introduction}
+
+
+The situation considered here is that of an Hard Gaussian Overlap particle close to a 
+substrate and interacting
+with it via a given particle-surface potential so that the particle is allowed to partially
+absorb the surface. The problem is to find an expression for $V_e$ the volume absorbed into the
+surface. Let us consider the setup shown in Fig~\ref{fig:scalingVe-Vs}
+\picW = 10cm
+\begin{figure}[h]
+	\centering
+	\pic{APPENDIX/scalingVe-Vs.ps}
+	\caption{Schematic representation of the geometrical configuration considered to
+	calculate the absorbed volume of the ellipsoid into the substrate.}
+	\label{fig:scalingVe-Vs}
+\end{figure}
+
+The approximation made here is to solve the problem with an ellipsoid of revolution, instead of
+a Gaussian Overlap since the much simpler expression for the equation of an ellipsoid makes the
+problem easier.\\
+The idea here is that the problem is easily solved in the case of a unit sphere. 
+This, in turn, can be transformed into the same problem for an ellipsoid of elongation k by scaling the 
+space along one  of the axis by a factor $k$. The volume $V_e$ in that case is equal to:
+%
+\begin{equation}
+	V_e = kV_s
+\end{equation}
+where $V_s$ is the volume of the sphere absorbed into the substrate.
+
+
+%===============================================================================================
+%===============================================================================================
+\section{Case of a sphere.}
+
+$V_s$ is given by computing the volume of the sphere of radius $a$ between the $z$ coordinates
+ $z_0=d_1$ to $z_1= a$.\\
+The equation of an ellipsoid of semi axis $a,b,c$ along $\vecth{x},\vecth{y}$ and $\vecth{z}$
+is given by~:
+\begin{equation}
+	\frac{x^2}{a^2} + \frac{y^2}{b^2} + \frac{z^2}{c^2} = 1
+\end{equation}
+$V_s$ is then given by~:
+\begin{equation}
+	V_s = \int^{z_1}_{z_0}\int^{y_1}_{y_0}\int^{x_1}_{x_0} dxdydz
+\end{equation}
+with~:
+\begin{eqnarray*}
+	x_1 &=& a\sqrt{1-\frac{z^2}{c^2} - \frac{y^2}{b^2} }	\\
+	y_1 &=& b\sqrt{1-\frac{z^2}{c^2}}	\\
+	x_0 &=& -x_1	\\
+	y_0 &=& -y_1
+\end{eqnarray*}
+
+Since a sphere is considered here, $a=b=c$ and $V_s$ reads~:
+\begin{eqnarray}
+	V_s &=& \frac{ab\pi}{c^2}\int^{z_1}_{z_0} \left\{  c^2 - z^2  \right\}dz \nonumber \\
+	V_s &=& \frac{\pi}{3}(a-d_1)^2(2a+d_1)
+\end{eqnarray}
+
+The distance $d_1$ can be obtained by considering the triangle $O A_1 B_1$ in the
+$\vecth{x}-\vecth{z}$ plane. The coordinates of
+$A_1$ and $B_1$ are equal, respectively, to those of $A$ and $B$ rescaled by $\frac{1}{k}$ along
+$z$. Hence
+\begin{eqnarray*}
+	A_1 &=& \lp x_A, \frac{z_A}{k} \rp	\\
+	B_1 &=& \lp x_B, \frac{z_B}{k} \rp
+\end{eqnarray*}
+
+and therefore
+\begin{equation}
+	A_1B_1 = \sqrt{ (x_B-x_A)^2 + \frac{(z_B-z_A)^2}{k^2} }
+\end{equation}
+
+since
+\begin{eqnarray}
+	O_1B_1 &=& a	\\
+	D_1B_1 &=& \frac{A_1B_1}{2}
+\end{eqnarray}
+
+we get $d_1$ as~:
+\begin{eqnarray}
+	d_1 &=& \sqrt{ O_1B_1^2 - D_1B_1^2 }	\nonumber	\\
+	d_1 &=& \sqrt{a^2 - \frac{1}{4}\lp   (x_A-x_B)^2 + \frac{1}{k^2}(z_A-z_B)^2 \rp  }
+	\label{eqn:d1Initial}
+\end{eqnarray}
+
+
+%===============================================================================================
+%===============================================================================================
+\section{Coordinates of $A$ and $B$}
+
+
+$A$ and $B$ are defined as being the coordinates of the contact points between the ellipse and
+the plane. Since, these points satisfy both the equation of the ellipse and the plane, they
+can be found by solving~:
+%
+\begin{equation}
+	\left\{	%}
+	\begin{array}{cccc}
+		\frac{x^2+z^2}{a^2} &= 	&1					&(1)\\
+		x		    &=	&\frac{z\cos\theta - d}{\sin\theta}	&(2)\\
+	\end{array}
+	\right.
+\end{equation}
+
+Inserting (2) into (1) gives
+\begin{equation}
+	z^2\lp k^2\cos^2\theta + \sin^2\theta \rp - 2zk^2d\cos\theta + d^2k^2 -
+	a^2k^2\sin^2\theta.
+\end{equation}
+
+the real roots of which are~:
+\begin{equation}
+	z_{A,B} = \frac{dk^2\cos\theta \pm \sqrt{k^2\sin^2\theta 
+	\left[ -d^2 + a^2(k^2\cos^2\theta + \sin^2\theta)\right]}}
+	{k^2\cos^2\theta + \sin^2\theta}
+\end{equation}
+
+
+%===============================================================================================
+%===============================================================================================
+\section{Expression for $d_1$}
+
+Equation~\ref{eqn:d1Initial} can now be rewritten using~:
+
+\begin{eqnarray*}
+	(x_B-x_A)^2 &=& \frac{\cos^2\theta}{\sin^2\theta}\lp z_B-z_A \rp^2	\\
+	(z_B - z_A)^2 &=& 4k^2\sin^2\theta
+	\left[ -d^2 + a^2\lp k^2\cos^2\theta + \sin^2\theta  \rp^2  \right]
+\end{eqnarray*}
+
+which after full simplification gives~:
+
+\begin{equation}
+	d_1 = \frac{d}{\sqrt{k^2\cos^2\theta + \sin^2\theta} }
+\end{equation}
+
+
+%===============================================================================================
+%===============================================================================================
+\section{Expression for $V_e$}
+
+The absorbed volume of the sphere can now be written as~:
+
+\begin{equation}
+	V_s = \frac{\pi}{3}
+	\lp  a - \sqrt{\frac{d^2}{k^2\cos^2\theta + \sin^2\theta} } \rp^2
+	\lp 2a + \sqrt{\frac{d^2}{k^2\cos^2\theta + \sin^2\theta} } \rp
+\end{equation}
+
+
+which gives the final result for the absorbed volume of the ellipsoid~:
+
+\begin{equation}
+	V_e = \frac{k\pi}{3}
+	\lp  a - \sqrt{\frac{d^2}{k^2\cos^2\theta + \sin^2\theta} } \rp^2
+	\lp 2a + \sqrt{\frac{d^2}{k^2\cos^2\theta + \sin^2\theta} } \rp
+\end{equation}

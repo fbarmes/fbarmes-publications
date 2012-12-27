@@ -1,0 +1,198 @@
+
+
+\chapter{Particle-field electrostatic interactions}
+\label{chap:B}
+
+Here, an expression is derived for the interaction between a particle and uniform electric field.
+Two types of interaction are considered here, namely the dielectric and dipolar interactions.
+The former describes the interaction between the polarisability of a liquid crystal molecule 
+and an applied electric
+field, while the latter is the interaction between a permanent dipolar moment and the
+applied field.\\
+
+The setup considered is that of a particle $i$ with orientation 
+$\ui = (\cos\phi\sin\theta, \- \sin\phi\sin\theta, \cos\theta)$ subject to a constant
+electric field $\vect{E}$ as shown in Figure~\ref{fig:partFieldSetup}. Although in principle, the
+particle should be considered to be subject to a constant electric displacement $\vect{D}$ 
+rather than a constant field, the approximation of constant $\vect{E}$ is made so as to avoid
+the complication of including the Maxwell relations.
+
+
+\picW = 6cm
+\begin{figure}
+	\centering
+	\pic{APPENDIX/partFieldSetup.ps}
+	\caption{Schematic representation of the geometry considered to calculate $U_{pf}$}
+	\label{fig:partFieldSetup}
+\end{figure}
+
+
+
+%================================================================================================
+%================================================================================================
+\section{Dielectric interaction}
+
+The field induced polarisation on the dielectric is given by~:
+\begin{equation}
+	\vect{P} = \epsilon_0.\gvect{\chi_e}.\vect{E}
+\end{equation}
+%
+where $\vect{P}$ is the polarisation induced by the electric field $\vect{E}$,
+$\epsilon_0$ is the dielectric permittivity and $\gvect{\chi_e}$ is the 
+dielectric susceptibility tensor~:
+%
+\begin{equation}
+	\gvect{\chi_e} = \left(
+	\begin{array}{ccc}
+		\chi_{e\perp}	&0			&0	\\
+		0			&\chi_{e\perp}	&0	\\
+		0			&0			&\chi_{e\parallel}
+	\end{array}
+	\right).
+\end{equation}
+
+The dielectric energy of the particle is then given by~:
+\begin{equation}
+	U_{die} = -\frac{1}{2}\dotProd{\vect{D}}{\vect{E}}
+\end{equation}
+%
+with $\vect{D}$ the electric displacement
+\begin{equation}
+	\vect{D} = \epsilon_0\vect{E} + \vect{P}.
+\end{equation}
+
+Therefore, the electric energy can be expressed as~:
+\begin{equation}
+	U_{die} = -\frac{1}{2} \dotProd{\lp \epsilon_0\vect{E} + \vect{P} \rp}{\vect{E}}
+\end{equation}
+
+and, since $\mrm{d}\vect{E} = 0$, $\mrm{d}U_{die}$ can be expressed as~:
+\begin{equation}
+	\mrm{d}U_{die} = -\frac{1}{2}\vect{E}\mrm{d}\vect{P}
+	\label{eqn:dUe}
+\end{equation}
+
+The expression for $\mrm{d}\vect{P}$ can be obtained by using
+$\vect{E}$ and $\vect{P}$ expressed in the molecular frame in term of $\vect{E_\parallel}$,
+$\vect{P_\parallel}$ and $\vect{E_\perp}$, $\vect{P_\perp}$ the components of $\vect{E}$ 
+and $\vect{P}$ respectively parallel and perpendicular to $\ui$. Thus~:
+%
+\begin{eqnarray}
+	\vect{E} &=& \vect{E_\parallel} + \vect{E_\perp}	\\
+	\vect{E_\parallel} &=& \dotProdP{\vect{E}}{\ui}\ui	\\
+	\vect{E_\perp} &=& \vect{E} - \dotProdP{\vect{E}}{\ui}\ui
+\end{eqnarray}
+
+similarly~:
+%
+\begin{eqnarray}
+	\vect{P} &=& \vect{P_\parallel} + \vect{P_\perp}	\\
+	\vect{P_\parallel} &=& \epsilon_0 \chi_{e\parallel}\vect{E_\parallel}	\\
+	\vect{P_\perp} &=& \epsilon_0 \chi_{e\perp}\vect{E_\perp}
+\end{eqnarray}
+
+which leads to~:
+\begin{eqnarray}
+	\vect{P} &=& \epsilon_0
+		\lp \chi_{e\parallel} \vect{E_\parallel}
+		 + \chi_{e\perp}\vect{E_\perp} \rp \\
+	%
+	\vect{P} &=& \epsilon_0 \left[
+		\chi_{e\parallel}  \dotProdP{\vect{E}}{\ui}\ui
+		+ \chi_{e\perp} \lp \vect{E} - \dotProdP{\vect{E}}{\ui}\ui \rp
+		\right]	 
+\end{eqnarray}
+
+and with~:
+\begin{equation}
+	\delta\epsilon =
+		\chi_{e\parallel} - \chi_{e\perp} 
+\end{equation}
+
+\begin{equation}
+	\vect{P} = \epsilon_0\lp \chi_{e\perp}\vect{E} +
+	\delta\epsilon\dotProdP{\vect{E}}{\ui}\ui  \rp	
+\end{equation}
+
+and therefore~:
+\begin{equation}
+	\mrm{d}\vect{P} = \epsilon_0\delta\epsilon\left[
+	\dotProdP{\vect{E}}{\mrm{d}\ui}\ui + \dotProdP{\vect{E}}{\ui}\mrm{d}\ui
+	\right]
+\end{equation}
+
+Equation~\ref{eqn:dUe} then becomes~:
+\begin{eqnarray}
+	\mrm{d}U_{die} &=& -\frac{1}{2}\epsilon_0\delta\epsilon \vect{E}\cdot
+		\left[
+		\dotProdP{\vect{E}}{\mrm{d}\ui}\ui + \dotProdP{\vect{E}}{\ui}\mrm{d}\ui
+		\right]	 \\
+	%
+	\mrm{d}U_{die} &=& -\epsilon_0\delta\epsilon
+	\dotProdP{\vect{E}}{\mrm{d}\ui}\dotProdP{\vect{E}}{\ui}
+\end{eqnarray}
+
+Taking the electric field to be $\vect{E} = E\vecth{E}=E\vecth{z}$, an expression for 
+$\mrm{d}U_e$ in terms of $\theta$ can be obtained as~:
+%
+\begin{eqnarray}
+	\mrm{d}U_{die} &=& -\epsilon_0\delta\epsilon\lp -E \sin\theta\mrm{d}\theta\rp
+		\lp E \cos\theta\rp	\\
+	\mrm{d}U_{die} &=& \epsilon_0\delta\epsilon E^2 \sin\theta\cos\theta\mrm{d}\theta
+\end{eqnarray}
+
+Thus for every $\theta_0$ the electric energy corresponding to the dielectric interaction is
+given by~:
+\begin{gather}
+	U_{die} = \epsilon_0\delta\epsilon E^2 \int^{\theta_0}_{0} 
+		\sin\theta\cos\theta\mrm{d}\theta  \\
+	%
+	U_{die} = \epsilon_0\delta\epsilon E^2 \lp -\frac{1}{2}\cos^2\theta\rp \\
+	\fbox{$U_{die} = -\frac{1}{2}\epsilon_0\delta\epsilon\dotProdP{\vect{E}}{\ui}^2$}
+\end{gather}
+
+
+%================================================================================================
+%================================================================================================
+\section{Dipolar interaction}
+
+The case of the dipolar interaction is much simpler than the previous one. The field interacts
+with a dipolar moment with energy:
+
+\begin{equation}
+	U_{dip} = -\dotProdP{\gvect{\mu}}{\vect{E}}
+\end{equation}
+
+For $\gvect{\mu}$, the dipolar moment, given by~:
+\begin{equation}
+	\gvect{\mu} = \mu\ui,
+\end{equation}
+
+the energy corresponding to the dipolar interaction is given by~:
+\begin{equation}
+	\fbox{$U_{dip} = -\mu\dotProdP{E}{\ui}$}
+\end{equation}
+
+%================================================================================================
+%================================================================================================
+\section{Particle-field interaction}
+
+
+The energy $U_{pf,i}$ of the particle-field interaction on one particle $i$ is the sum of 
+the dielectric and dipolar contribution and hence~:
+\begin{eqnarray}
+	U_{pf,i} &=& U_{die} + U_{dip}	 \\
+	U_{pf,i} &=& -\frac{1}{2}\epsilon_0\delta\epsilon\dotProdP{\vect{E}}{\ui}^2
+		-\mu\dotProdP{E}{\ui}.
+\end{eqnarray}
+
+As a result, the total energy per particle corresponding to the particle-field interaction 
+is simply~:
+\begin{equation}
+	\fbox{$U_{pf} = \frac{1}{N}\sum^{N}_{i=1} -\frac{1}{2}\epsilon_0\delta\epsilon\dotProdP{\vect{E}}{\ui}^2
+		-\mu\dotProdP{E}{\ui}$}
+\end{equation}
+
+
+
+

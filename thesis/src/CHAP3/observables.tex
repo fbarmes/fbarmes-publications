@@ -1,0 +1,349 @@
+
+
+\section{Observables computation.}
+
+
+In this Section, the computational details are given for the calculation of the most important
+observables considered in this thesis. First, the observables used for the measurement of positional 
+order are considered, followed by those related to orientational order. This section closes on the
+computation of observables profiles for the study of confined systems.
+
+%==================================================================================
+%==================================================================================
+\subsection{Positional order}
+
+
+%-------------------------------------------
+%-------------------------------------------
+\subsubsection{The radial pair distribution function~: $g(r)$}
+
+
+The pair distribution function $g(r)$ is of great importance in the molecular simulations of
+fluids as it provides detailed insight into the structure of the
+studied phase. $g(r)$ represents the probability of finding a pair of particles $i$ and $j$ with
+an intermolecular separation $r_{ij}$.  As a result, quantitative insight into the the nature 
+of the studied phase (gas-liquid-solid) and the  positional correlations of the particles
+can be obtained using $g(r)$. This function can be expressed as~\cite{AandT}~:
+\begin{equation}
+        g(r) = \frac{V}{N^2} \left< \sum_{i}\sum_{j\neq i} \delta(r - r_{ij}) \right>
+\end{equation}
+%
+Where $\delta(r-r_{ij})$ is a function which is non zero over a given interval, $V$ is the volume and 
+$N$ the number of particles.\\
+
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{grSphericalShells.ps}
+	\caption{Representation of the volume corresponding to a spherical shell between the
+	distances $r$ and $r+\delta r$ as used for the computation of $g(r)$. For clarity
+	purposes, part of the volume has been excised.}
+	\label{fig:g(r)SphericalShells}
+\end{figure}
+
+Within the course of a simulation, $g(r)$ is constructed by computing an histogram of all pair
+separations $r_{ij}\in[r: r+\delta r]$ where $r \in [0:\frac{L_\mrm{min}}{2}]$ and 
+$L_\mrm{min}$ is the shortest simulation box length. The histogram bin heights represent 
+the average particle occupancies in concentric spherical shells around any particle taken as 
+the reference (see Figure~\ref{fig:g(r)SphericalShells}). In order to obtain $g(r)$, the 
+histogram must be normalized  by the average expected occupancy of an ideal gas at 
+the same density. This implies that the histogram bin corresponding to a distance $r$, must 
+be normalized by $\rho^{*}V_\mrm{shell}(r)$  where $\rho^{*}$ is the number density of 
+the fluid and $V_\mrm{shell}(r)$ is the volume between two spheres of radius $r$ and $r+\delta
+r$. The volume $V_\mrm{shell}(r)$ is shown on Figure~\ref{fig:g(r)SphericalShells} 
+and is given by~:
+%
+\begin{eqnarray}
+	V_\mrm{shell} &=& \frac{4}{3}\pi\left[ (r+\delta r)^3 - r^3 \right]	\nonumber \\
+	V_\mrm{shell} &=& \frac{4}{3}\pi\left[ (\delta r)^3 + 3r^2\delta r + 3r(\delta r)^2\right]
+\end{eqnarray}
+
+To obtain of smooth functions requires the computation of an average $g(r)$ from several
+uncorrelated configurations. This in turns, implies that the histogram must also be normalized by
+$N_\mrm{call}$, the number of configurations used. Also the histogram must be normalized by $N$,
+the number of particles used so as to make it system-size independent. As a result the 
+total normalization coefficient is given by~:
+\begin{eqnarray}
+	f_\mrm{norm} &=& \lp N N_\mrm{call}\rho^{*} V_\mrm{shell} \rp^{-1}	\nonumber \\
+	f_\mrm{norm} &=& (3V)
+	\left\{ 4N^2N_\mrm{call}\pi\left[ (\delta r)^3 + 3r^2\delta r + 3r(\delta
+	r)^2\right] \right\}^{-1}
+\end{eqnarray}
+
+
+%-------------------------------------------
+%-------------------------------------------
+\subsubsection{Projections of $g(r)$~: $g_\parallel(r_\parallel)$ and $g_\perp(r_\perp)$}
+
+In the case of liquid crystalline phases, the anisotropic nature of the fluid can make it
+necessary to consider 
+different distribution functions in different directions of space. For instance, the 
+distributions functions resolved parallel and perpendicular to the director, namely 
+$g_\parallel(r_\parallel)$ and $g_\perp(r_\perp)$, are of great utility in the study of 
+smectic phases. The former measures the degree of layering in the sample while the latter
+measures the intra-layer positional order.\\
+
+\picW = 7.2cm
+\begin{figure}
+	\centering
+	\subfigure[$g_\parallel(r_\parallel)$]{\pic{grParallelShells.ps}}
+	\subfigure[$g_\perp(r_\perp)$]{\pic{grPerpShells.ps}}
+	\caption{Representation of the volumes corresponding to a cylindrical shell between the
+	distances $r$ and $r+\delta r$ as used for the computation of 
+	$g_\parallel(r_\parallel)$(a) and $g_\perp(r_\perp)$(b). For clarity
+	purposes, part of the volume has been excised.}
+	\label{fig:gp(r)CylinderShells}
+\end{figure}
+
+The approach used in the computation of $g_\parallel(r_\parallel)$ and $g_\perp(r_\perp)$ is 
+very similar to that used for
+$g(r)$. Here histograms of the projection of $\vect{r_{ij}}$
+parallel ($r_\parallel = \dotProd{\vecth{n}}{\vect{r_{ij}}}$) and perpendicular 
+($r_\perp = \sqrt{r_{ij}^2 - r_\parallel^2 }$) to the director $\vecth{n}$ are considered. In
+order to simplify the normalization process, the histograms are computed within a cylindrical
+geometry as shown on Figure~\ref{fig:gp(r)CylinderShells}. Again, the histograms are normalized
+by $\rho^{*}V_\mrm{shell}$, the expected average occupancy of a shell of an ideal gas, 
+$N_\mrm{call}$ and $N$. However, because a cylinder is considered, the expression for
+$V_\mrm{shell}$ is different. This is given for each of the functions as~:
+%
+\begin{equation}
+V_\mrm{shell} = \left\{ %}
+\begin{array}{ccc}
+	\pi r^2 \delta r	 &\mrm{\ for\ } &g_\parallel(r_\parallel)	\\
+	h_\mrm{cyl} \pi \left[ (\delta r)^2 + 2r\delta r  \right] &\mrm{\ for\ } &g_\perp(r_\perp)	
+\end{array}
+\right.
+\end{equation}
+
+%------------------------------
+\picW = 7cm
+\begin{figure}
+	\subfigure[]{\pic{grCylConfig.ps}}
+	\subfigure[]{\pic{grCylConfig2.ps}}
+	\caption{Representation of the geometry used for the calculation of the size of the
+	cylinder used for the computation of $g_\parallel(r_\parallel)$ and $g_\perp(r_\perp)$. 
+	(a) shows a three dimensional view and (b) is the projection  of (a) in the plane 
+	P taking $h_\mrm{cyl}=L_\mrm{min}$.}
+	\label{fig:cylGeometry}
+\end{figure}
+%------------------------------
+
+where $h_\mrm{cyl}$ represents the height of the cylinder in which the computation is performed.
+The size of the cylinder must be chosen so as to be smaller than the simulation box but large
+enough to consider as wide a region as possible. The chosen method sets the cylinder height
+to $h_\mrm{cyl} = 0.8L_\mrm{min}$. The cylinder radius $r_\mrm{cyl}$ is then chosen so that 
+the cylinder would just fit in a cubic box of size $L_\mrm{min}$ if $h_\mrm{cyl} = L_\mrm{min}$
+(See Figure~\ref{fig:cylGeometry}). Therefore the size of the cylinder is~:
+\begin{eqnarray}
+	h_\mrm{cyl} &=& 0.8 L_\mrm{min}	\\
+	r_\mrm{cyl} &=& b\tan\alpha	
+\end{eqnarray}
+
+where $b$ and $\alpha$ are shown on Figure~\ref{fig:cylGeometry} and are given by~:
+\begin{eqnarray*}
+	b &=& \frac{L_\mrm{min} \lp \sqrt{3}-1 \rp}{2}	\\
+	\alpha &=& \arccos\sqrt{\frac{2}{3}}
+\end{eqnarray*}
+
+
+%-------------------------------------------
+%-------------------------------------------
+\subsubsection{Molecule-based projections of $g(r)$~: 
+$g^\mrm{mol}_\parallel(r_\parallel)$ and $g^\mrm{mol}_\perp(r_\perp)$}
+
+In ordered systems where the particles form layers which are not parallel with one another, taking
+the director $\vecth{n}$ as the reference for the computation of the pair correlation functions
+becomes irrelevant. Rather an alternative scheme which allows to `follow' the layers is needed.
+This is obtained by the use of $g^\mrm{mol}_\parallel(r_\parallel)$ and
+$g^\mrm{mol}_\perp(r_\perp)$ which give the pair correlation functions parallel and
+perpendicular to the molecular orientation rather than $\vecth{n}$. In practice, these histograms 
+are computed for every pair of particles $i$ and $j$ taking $\ui$ as the reference. 
+$r_\parallel$ and $r_\perp$ are then defined as~:
+%
+\begin{eqnarray}
+	r_\parallel &=& \dotProd{\ui}{\vect{r_{ij}}}	\\
+	r_\perp &=& \sqrt{r_{ij}^2 - r_\parallel^2 }
+\end{eqnarray}
+%
+The same cylinder geometry is used as for the computation of $g^\mrm{mol}_\parallel(r_\parallel)$ and
+$g^\mrm{mol}_\perp(r_\perp)$, the difference being that its orientation changes according to which
+particle $i$ is being considered.
+
+
+
+
+
+%==================================================================================
+%==================================================================================
+\subsection{Orientational order}
+\label{ss:P2}
+
+%------------------------------------------------------
+%------------------------------------------------------
+\subsubsection{Nematic order parameter.}
+
+The liquid crystalline phase can be characterized partly through the long range orientational
+order of the molecules; this triggers the need for an appropriate order parameter so as to
+quantify the degree of order in a given phase. Ideally this order parameter should have a value
+of zero for a phase with an isotropic distribution of molecular orientations and a value of 
+one for a phase with perfect alignment.\\
+
+Experimentally, an appropriate definition for this is the so called nematic order parameter
+$P_2$~\cite{Intro_LC} which is the average over all particles of the second order Legendre polynomial 
+in $\cos\alpha$, where $\alpha$ is the angle between every molecule and the 
+director $\vecth{n}$~\cite{Intro_LC}.
+\begin{eqnarray}
+	P_2 &=& \left< P_2(\cos\alpha)  \right>_\mrm{particles}	\\
+	P_2 &=& \left< \frac{3}{2}\cos^2\alpha - \frac{1}{2} \right>_\mrm{particles}
+\end{eqnarray}
+Also, the nature of $P_2(\cos\alpha)$ involving $\cos^2\alpha$ implies that the nematic order
+parameter does not differentiate particles with orientations $\ui$ and $-\ui$.\\
+
+Within the scope of computer simulations, the computation of $P_2$ and, thus, its run average
+\Ptwo is not trivial. However it can be shown~\cite{EppengaFrenkel84,AdvCpuSimsLiqCryst2}
+that the problem can be reduced to the diagonalisation of the ordering matrix 
+$Q_{\alpha\beta}$, a traceless second order tensor defined as~:
+%
+\begin{equation}
+	Q_{\alpha\beta} = \frac{1}{2N}\sum_{i=1}^{N} \left\{ 
+		3u_{i,\alpha}u_{i,\beta} - \delta_{\alpha\beta} \right\}
+\end{equation}
+%
+where $\delta_{\alpha\beta}$ is the Kroeneker function. The order parameter $P_2$ is defined 
+by $\lambda_+$, the maximum Eigen value of $Q_{\alpha\beta}$~\cite{EppengaFrenkel84}. 
+The director is, then, the Eigen vector associated with $\lambda_+$.\\
+%
+In a simulation, the nematic order parameter \Ptwo is obtained by averaging the values of 
+$P_2$ obtained from a significant number of uncorrelated configurations.\\
+
+\picW = 10cm
+\begin{figure}
+	\centering
+	\picL{P2recal_n.ps}
+	\caption{Variation of the value of $\lambda_+(n)$ computed using the $\vect{Q}$ matrix method 
+	for a system of $n$ particles with an isotropic distribution of orientations.}
+	\label{fig:P2(n)}
+\end{figure}
+
+
+Eppenga and Frenkel~\cite{EppengaFrenkel84} showed that, while this method is very accurate 
+for the description  of well ordered phases, the case of the less ordered phases is 
+more problematic, especially for small systems. Indeed, in the case of a phase with an isotropic 
+distribution of orientations, $P_2$ should be zero whereas the value of the computed 
+$\lambda_+$ decays to zero  as the number of particles increases (Figure~\ref{fig:P2(n)}). 
+The difference between  the computed and expected values become negligible for a particle 
+numbers $N\geq\mathcal{O}(10^3)$.
+%
+
+%------------------------------------------------------
+%------------------------------------------------------
+\subsubsection{Polar order parameter.}
+
+In the case of molecules with permanent dipole moments, both the order in the system, and the
+direction of $\vecth{n}$ become important. The task of differentiating $\ui$ and $-\ui$ is
+achieved using the first order Legendre polynomial $P_1(\cos\alpha)=\cos\alpha$. The polar
+order parameter is therefore referred to as \Pone.\\
+The computation of \Pone requires the knowledge of the polar director $\vecth{n}_{P1} =
+\frac{\vect{n}_{P_1}}{|\vect{n}_{P_1}|}$ with~:
+\begin{equation}
+	\vect{n}_{P1} = \frac{1}{N}\sum_{i=1}^N \ui.
+\end{equation}
+%
+and the instantaneous value of $P_1$ is given by~:
+\begin{equation}
+	P_1 = |\vect{n}_{P_1}|
+\end{equation}
+
+The simulation averaged polar order parameter \Pone is obtained by taking the
+average of the instantaneous $P_1$ values from a high enough number of uncorrelated
+configurations.\\
+A low polar order parameter does not necessarily indicate a disordered phase as non-polar
+nematic phases usually have an equal proportion of particles with $\ui \sim \vecth{n}$ and
+$\ui \sim -\vecth{n}$~; however a high value of $P_1$ does imply a high value of $P_2$.
+
+
+
+%==================================================================================
+%==================================================================================
+\subsection{Observables profiles}
+
+In confined systems, the presence of interfaces introduces structural changes
+which, for a given set of thermodynamic and surface parameters, are functions of the distance 
+from the substrate. As a result, a great deal of insight into surface induced effects can be
+obtained through computation of observables profiles. Since it is common to consider the case of 
+a slab geometry in the $\vecth{z}$ direction (such as that used in Chapter~\ref{chap:four}),
+such profiles are referred to as the $z$-profiles.\\
+
+The computation of most profiles is very straightforward; the simulation box is
+divided into $N_\mrm{slice}$ virtual slices, of width $w_\mrm{slice}$ parallel to the
+substrates, in which the  observables are computed independently.
+The computation of the profile $\mathcal{A}(z)$ of a property $\mathcal{A}$ 
+requires the computation of $\mathcal{A}$ in each slice. $\mathcal{A}(z_0)$ is obtained by
+computing $\mathcal{A}$ considering only those particles whose $z$ coordinates $z_i$ are such that 
+$z_i \in [z_0 - \frac{w_\mrm{slice}}{2} : z_0 + \frac{w_\mrm{slice}}{2}]$.
+In the course of a simulation, smooth profiles are obtained through averaging a significant
+number of instantaneous profiles (typically $500$) obtained from uncorrelated configurations.\\
+
+The most commonly computed profiles are $\rho^{*}_\ell(z)$ and $Q_{zz}(z)$. The former
+measures the variation of density across the simulation box. Its computation requires simple
+division of the number of particles in a given slice by the volume of that slice.\\
+%
+$Q_{zz}(z)$ represents the variation of the $zz$ element of $Q_{\alpha\beta}$ across the slab.
+$Q_{zz}$ measures the degree of order with respect to $\vecth{z}$, the surface normal. 
+$Q_{zz} = -0.5$ for perfect
+order perpendicular to $\vecth{z}$ (planar arrangement) and $Q_{zz} = 1.0$ for perfect 
+order parallel to $\vecth{z}$ (homeotropic arrangement.) Again the computation of $Q_{zz}(z)$ 
+is straightforward as it can be performed by considering only those particles whose centres of 
+mass are located within the slice of interest.\\
+
+In some cases however, the computation of the profiles is not straightforward. A good example
+is the computation of $P_2(z)$. Here, the reduced number of particles in each slice
+introduces a lack of accuracy of the computed profiles because of the $n$ dependence of
+$\lambda_+$ 
+as presented in Section~\ref{ss:P2}. As a result, the value of $P_2$ in a given slice at position $z_0$ 
+can not be computed simply by applying the $\vect{Q}$ matrix method to those particles 
+whose centres of mass lie within the slice. Rather, $P_2(z_0)$ is computed using the approach
+proposed by Wall and Cleaver~\cite{WallCleaver97} and based on the original expression 
+for $\lambda_+$ from~\cite{EppengaFrenkel84}~:
+%
+\begin{equation}
+	\lambda_+ - \frac{3\lambda_+}{4n}\left[ 1 + P_2^2(n-1) \right] - \frac{P_2^3}{4}
+	- \frac{3}{4n}\lp P_2^2 - P_2^3\rp - \frac{1-3P_2^2+2P_2^3}{4n^2}
+\end{equation}
+%
+where $\lambda_+$ is the maximum Eigen value of $Q_{\alpha\beta}$ and $P_2$ denotes the true order
+parameter in the slice. This can be rearranged so as to give a polynomial in $P_2$ as~:
+%
+\begin{equation}
+	aP_2^3 + bP_2^2 + c P_2 + d = 0
+	\label{eqn:P2ProfPoly}
+\end{equation}
+%
+with~:
+\begin{eqnarray*}
+	a &=& -n^2 + 3n + 2			\\
+	b &=& -3\lambda_+ n (n-1) - 3(n-1)	\\
+	c &=& 0					\\
+	d &=& 4n^2\lambda_+^3 - 3n\lambda_+ - 1
+\end{eqnarray*}
+
+$P_2(z_0)$ is then obtained by solving Equation~\ref{eqn:P2ProfPoly} taking into account the $n$
+particles which belong to the slice centred at $z=z_0$. It should be noted that some special
+cases must be considered. The computation is skipped if $n=0$ or $1$ as this would lead,
+respectively, to a trivial solution or an incorrect value of $P_2=1$. In the case $n=2$,
+Equation~\ref{eqn:P2ProfPoly} reduces to a second order polynomial with roots 
+$P_2 = \pm\sqrt{-\frac{d}{b}}$.\\
+%
+If the roots of Equation~\ref{eqn:P2ProfPoly} are complex then an alternative scheme is 
+used where $P_2 = P_2^\mrm{recal}$ with $P_2^\mrm{recal} = \lambda_+ - 
+\left< \lambda^\mrm{rd}(n)\right>$. Here $\left<\lambda^\mrm{rd}(n)\right>$ is the average
+$\lambda_+$ obtained from applying the $\vect{Q}$ matrix method to a high number (\eg $10^5$) of
+configuration of $n$ particles with an isotropic distribution of orientations. If
+$P_2^\mrm{recal} < 0$ then the computation of $P_2$ for this slice is skipped.
+
+
+
+
+
+
+

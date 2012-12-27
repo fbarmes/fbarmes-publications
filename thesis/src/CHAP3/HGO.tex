@@ -1,0 +1,103 @@
+
+\section{The Hard Gaussian Overlap Model.}
+
+The HGO model is a steric model in which the contact distance is the shape parameter determined 
+by Berne and Pechukas~\cite{BernePechukas72}. The HGO model can be seen as an
+equivalent of the Gay-Berne model stripped of its attractive interactions.\\
+The hard Gaussian overlap potential $\mathcal{V}^\mrm{HGO}$ between two particles $i$ and $j$
+with respective orientations $\ui$ and $uj$ and intermolecular vector $\vect{r}_{ij} = r_{ij}\rij$ is
+defined as~:
+%
+\begin{equation}
+	\mathcal{V}^\mrm{HGO} = \left\{  %}
+	\begin{array}{ccc}
+	0	&\mrm{if}	&r_{ij} \geq \sijr	\\
+	\infty	&\mrm{if}	&r_{ij}	< \sijr
+	\end{array}
+	\right.
+\end{equation}
+
+where $\sijr$ is the contact distance~:
+\begin{equation}
+	\sijr = \so\left\{
+	1 - \frac{1}{2}\chi\left[ 
+	\frac{ \lp\dotProd{\rij}{\ui} + \dotProd{\rij}{\uj}\rp^2 }{1 + \chi(\dotProd{\ui}{\uj})}
+      + \frac{ \lp\dotProd{\rij}{\ui} - \dotProd{\rij}{\uj}\rp^2 }{1 - \chi(\dotProd{\ui}{\uj})}
+	\right] \right\}^{-\frac{1}{2}}.
+\end{equation}
+
+Here $\so$ is the unit of distance and $\chi$ is the shape anisotropy parameter defined using $k$ the
+length to breadth ratio as~:
+\begin{equation}
+	\chi = \frac{k^2-1}{k^2+1}
+\end{equation}
+
+Although this model was originally derived using geometrical considerations, the hard
+Gaussian overlap molecule can not be represented by a solid shape~\cite{Rigby89}, rather it 
+is a mathematical abstraction of an interaction surface between two non-spherical objects. 
+The shape of an HGO molecule can,
+however, be taken to be very close to that of an ellipsoid of revolution. For example one can
+assume  the contact distance of the interactions between two ellipsoids and two HGOs in the
+arrangements shown in Figure~\ref{fig:HGO_CD}. The two models agree for end to end and 
+side by side configurations. However, in the case of a T-geometry, 
+the HGO contact distance is $\sigma=\frac{\so}{(1-\chi)^{\frac{1}{2}}}$ rather than
+$\frac{\sigma}{2} = \so(1+k)$ for the hard ellipsoid of revolution (HER) model. 
+Due to this similarity, the volume of an HGO molecule is often taken to be that of 
+the equivalent ellipsoid~\cite{Rigby89,DeMiguelDelRio01}, that is~:
+\begin{equation}
+	V_\mrm{HGO} = \frac{\pi}{6}k\so^3.
+\end{equation}
+
+\picW = 4cm
+\begin{figure}
+	\centering
+	\subfigure[$\sigma_\mrm{HGO}=\sigma_\mrm{HER}=\so$]{\fbox{\pic{HGOConfig.ss.ps}}}
+	\subfigure[$\sigma_\mrm{HGO}=\sigma_\mrm{HER} = \so k$]{\fbox{\pic{HGOConfig.ee.ps}}}
+	\subfigure
+	[\mbox{$\sigma_\mrm{HGO} = \frac{\so}{(1-\chi)^{\frac{1}{2}}}$} $\sigma_\mrm{HER}=
+	\frac{\so}{2}(1+k)$]
+	{\fbox{\pic{HGOConfig.T.ps}}}
+	\caption{Comparison between the contact distances for the HGO and HER models.}
+	\label{fig:HGO_CD}
+\end{figure}
+
+A more comprehensive comparison between the HGO and HER models has been performed by
+Bhethanabotla and Steele~\cite{BhethanabotlaSteele87} who computed the virial coefficients $B_2$
+to $B_5$ for both models with $k\in[1.5:3.0]$. They found that the differences between
+equivalent coefficients of the two models are insignificant for this range of elongation. 
+Since the HGO model is computationally cheaper than the HER would, and, due to the similarities
+just outlined, a similar phase diagram is to be expected for both models. This explains for
+the HGO model being increasingly used.\\
+
+An extensive amount of theoretical work has been performed on the HGO
+fluid through which the model's virial  coefficients~\cite{Rigby70,BhethanabotlaSteele87,Rigby89} 
+and equation of  state~\cite{BoublikPena90,MaesoSolana93} have been obtained. 
+The first molecular simulation of the HGO
+fluid were performed by Padilla and Velasco~\cite{PadillaVelasco97} on systems of $N=256$
+and $512$ particles with elongation $k=3$ and $5$ using the Monte Carlo method in the
+isothermal-isobaric ensemble. Here the authors found both isotropic and nematic phases, the
+transition densities and pressures $(\rho^*, P^*)$ being approximately  $(0.295, 4.5)$ for $k=3$
+and $(0.116,0.88)$ for $k=5$. This work was later refined by de Miguel and Mart\'{\i}n
+del R\'{\i}o~\cite{DeMiguelDelRio01} who accurately located the isotropic-nematic transition
+regions for systems of $N=500$ molecules with $k \in [3:10]$. Comparison of these results with
+the transition properties of the HER showed quantitative differences which have been explained
+to be a consequence of the larger excluded volume of a pair of HGO.\\ 
+The latest study on the HGO fluid was performed by de Miguel and Mart\'{\i}n 
+del R\'{\i}o~\cite{DeMiguelDelRio03}
+where the equation  of state of the model was computed and compared to several theoretical 
+approaches~; the best  agreement being found with the Parsons-Lee density functional theory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,52 @@
+de Miguel E; del Rio EM
+Equation of state for hard Gaussian overlap fluids
+JOURNAL OF CHEMICAL PHYSICS 2003, Vol 118, Iss 4, pp 1852-1858
+
+The thermodynamic properties of hard Gaussian overlap fluids have been studied by computer
+simulation using constant-pressure Monte Carlo techniques for various molecular elongations
+kappa in the range 3less than or equal tokappaless than or equal to15. The work reported here
+concentrates on the equation of state and the Helmholtz free energy for the isotropic and
+nematic phases. Several theoretical approaches, based on the decoupling approximation, are
+considered and their predictions are compared with the simulation results. According to our
+results, none of these approximations yields a fully satisfactory description of the isotropic
+phase. In the nematic phase, the simple Parsons-Lee approximation is the only approach that
+yields results in quantitative agreement with simulation data for all elongations.
+
+#===========================================================================================
+
+Huang SL; Bhethanabotla VR
+Virial coefficients for the Hard Gaussian Overlap model
+INTERNATIONAL JOURNAL OF MODERN PHYSICS C 1999, Vol 10, Iss 2-3, pp 361-374
+
+Monte Carlo estimates of virial coefficients up to the sixth for the Hard Gaussian Overlap
+(HGO) model are presented for values of the aspect ratio parameter kappa of the model ranging
+from 0.05 to 10. The sixth coefficients are new and the lower coefficients are improvements on
+previous numerical estimates. The second virials are found to be in excellent agreement with an
+analytical integration reported in the literature. Pade (3, 3) approximations to the pressure
+and residual Helmholtz energy were constructed. Attempts to represent coefficients in these
+approximations by analytical functions of kappa were not successful due to singularities in
+these functions. In the approximate range of 4.5 less than or equal to kappa less than or equal
+to 5.5, the (3, 3) Pade approximations were found to be no better than lower ones. Comparisons
+with available Monte Carlo simulated pressures for moderately aspherical fluids were found to be
+good.
+
+#===========================================================================================
+Velasco E; Padilla P
+Nematic virial coefficients of very long hard molecules and Onsager theory
+MOLECULAR PHYSICS 1998, Vol 94, Iss 2, pp 335-339
+
+The virial coefficients B-2-B-5 of a fluid of hard molecules interacting via a hard Gaussian
+overlap potential have been obtained by Monte Carlo integration. Molecular elongations re
+ranging from 1 to 10(5) are considered. Virial coefficients are computed as a function of the
+nematic order parameter S, using a simple representation for the orientational distribution
+function. The calculations cover the entire order parameter range and include the limiting cases
+S = 0 (randomly oriented molecules) and S = 1 (completely parallel molecular arrangements). In
+analogy with results from previous studies for spherocylinders, the virial coefficients in the
+case S = 0 are seen to vanish in the limit of infinitely long molecules (k --> infinity), though
+the asymptotic regime sets in rather slowly. Similar asymptotic behaviour is observed even for
+relatively high values of S, which implies that, for the Values where the transition to the
+nematic is expected to occur and well within the nematic range, the covergence properties of the
+virial expansion must be rather insensitive to the nematic order parameter. This result may
+indicate that Onsager theory for the isotropic-nematic transition, a virial expansion truncated
+at second order, is exact in the limit k --> infinity.
+

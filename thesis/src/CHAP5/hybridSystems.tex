@@ -1,0 +1,381 @@
+
+
+\section{Hybrid anchored systems.}
+\label{s:hybridSystems}
+
+
+In this Section the study of hybrid anchored confined systems is addressed using particles
+confined in a slab geometry but with different anchoring conditions at each of the two surfaces.
+This study is performed using Monte Carlo simulations of hard Gaussian overlap particles
+confined in a slab geometry and interacting with the surfaces through the hard needle wall
+potential. The aim here is to achieve switching between the Hybrid Aligned Nematic (HAN) and
+Vertical (V) states using an electrical field as described in~\cite{DavidsonMottram02}. The
+difference between the switching investigated here and that in
+Reference~\cite{DavidsonMottram02} is that due the absence of flexoelectricity
+in the HGO model, two-way switching is attempted by changing the sign of the particles'
+dielectric anisotropy (as was done in Chapter~\ref{chap:four}) rather than the sign of the
+applied field.
+
+%===================================================================
+%===================================================================
+\subsection{Effect of hybrid anchoring.}
+\label{ss:hybridEffect}
+
+Here the effects of hybrid anchoring on a confined system are studied~; more
+specifically the case of different arrangements (\ie planar and homeotropic at two substrates)
+is of interest.
+
+Cleaver and Teixeira~\cite{Cleaver_Teixeira_01} have already studied the structural transition
+between the arrangements seeded at the surfaces of an hybrid anchored cell of hard Gaussian
+overlap particles with $k=5$. They showed that the cell can exhibit either a continuous or
+discontinuous transition between the homeotropic and planar arrangements according to the values
+of the surface parameters. This implies that the observation of an HAN state requires an
+appropriate choice of surface anchoring strengths so as to avoid any director discontinuities.
+Also, achieving electric-field induced switching requires that the substrate parameters used
+are compatible with those corresponding to a bistable surface.\\
+%
+Here, the case of hybrid anchored slabs has been investigated using Monte Carlo simulations
+of systems of $N=1000$ hard Gaussian overlap particles of elongation $k=3$ and $5$
+confined in a slab geometry and interacting with  the surfaces  using the hard needle
+wall potential. The anchoring at the top was kept constant at $k^\prime_S=0.0$ so as to
+induce strong homeotropic anchoring. The anchoring at the bottom surface was allowed to
+vary using sequences of simulations with increasing and decreasing $k^\prime_S$ in the range
+$[0:1]$.\\
+
+
+%===========================================
+%	TYPICAL PROFILES FIGS
+%===========================================
+\picW = 14cm
+\begin{figure}
+	\centering
+	\pic{HGO_HNW_Hconf_typeProf_k3_homeo.ps}
+	\caption{Typical profiles for a hybrid anchored slab of $N=1000$ HGO particles using the
+	HNW surface potential with an homeotropic top surface
+	($k^\prime_{St}=0.0$) and an homeotropic bottom surface ($k^\prime_{St}=0.2$).}
+	\label{fig:HGO_Hconf_typeProfHomeo}
+\end{figure}
+
+
+\picW = 14cm
+\begin{figure}
+	\centering
+	\pic{HGO_HNW_Hconf_typeProf_k3_bist.ps}
+	\caption{Typical profiles for a hybrid anchored slab of $N=1000$ HGO particles using the
+	HNW surface potential with an homeotropic top surface ($k^\prime_{St}=0.0$)
+	and competing anchoring at the bottom surface ($k^\prime_{St}=0.5$).}
+	\label{fig:HGO_Hconf_typeProfBist}
+\end{figure}
+
+
+\picW = 14cm
+\begin{figure}
+	\centering
+	\pic{HGO_HNW_Hconf_typeProf_k3_planar.ps}
+	\caption{Typical profiles for a hybrid anchored slab of $N=1000$ HGO particles using the
+	HNW surface potential with an homeotropic top surface ($k^\prime_{St}=0.0$) and a
+	planar bottom surface ($k^\prime_{St}=0.8$).}
+	\label{fig:HGO_Hconf_typeProfPlanar}
+\end{figure}
+%===========================================
+
+Typical profiles for systems with parameterisations at the bottom surface
+corresponding, respectively, to homeotropic ($k^\prime_{Sb} = 0.2$), competing ($k^\prime_{Sb} =
+0.5$) and planar anchoring ($k^\prime_{Sb} = 0.8$) are shown on
+Figures~\ref{fig:HGO_Hconf_typeProfHomeo} to~\ref{fig:HGO_Hconf_typeProfPlanar}. These profiles
+were obtained from the simulation sequences performed with decreasing $k^\prime_{Sb}$. Only
+these results are shown because even in the case of the competing anchoring parameterisation,
+both series gave very similar results. Also, the profiles or configuration snapshots obtained
+from simulations with particles of elongation $k=5$ are not shown as they are very similar to
+those obtained with $k=3$.\\
+For all profiles, the top interfacial regions exhibit the features
+typical of strong homeotropic anchoring as $k_{St}$ was kept constant at $0.0$. The bottom
+surface profiles exhibit features corresponding to the values of the needle lengths used~; they
+have the same characteristics as were observed in the equivalent cases with symmetric
+surfaces.\\
+
+The structural transition between the two surface arrangements, that is the change in molecular
+orientation from one surface to the other can also be observed on the profiles.
+At isotropic densities, the surface effects do not extend into the bulk part of the
+slab and, therefore, this region remains disordered. As a result, both interfacial regions are
+free of any influence from each other. As the number density is increased to values
+corresponding to a bulk nematic phase, the surface induced structural changes extend much
+further into the cell. As a result, the bulk region comes under the competing influences of both
+surfaces. In all three cases considered here, the profiles seem to indicate a smooth transition
+between the two surface arrangements, as indicated by the almost linear changes in
+$\rho^{*}_\ell(z)$ and $Q_{zz}(z)$ between the surface features.\\
+
+%The results obtained with a planar bottom surface are in agreement with the observation
+%of a continuous transition in~\cite{Cleaver_Teixeira_01} for a similarly anchored slab. However
+%the authors have noticed a discontinuous transition from planar to homeotropic for a situation
+%which, in the light of the results obtained in Chapter~\ref{chap:four} corresponds
+%to a slab with planar anchoring on one side and competing anchoring on the other. There, the
+%discontinuous transition was indicated by the fluctuations in $Q_{zz}$ between positive and
+%negative values. However those fluctuations at the surface with competing anchoring have not
+%been observed here.\\
+
+
+
+
+%===========================================
+%	TYPICAL SNAPS FIGS
+%===========================================
+\picW = 6cm
+\begin{figure}
+	\centering
+	\subfigure[$k^\prime_{Sb}=0.2$, $\rho^{*}=0.28$]{\pic{HGO_box_k3_Hconf_homeo_iso.ps}}
+	\subfigure[$k^\prime_{Sb}=0.2$, $\rho^{*}=0.34$]{\pic{HGO_box_k3_Hconf_homeo_nem.ps}}
+
+	\subfigure[$k^\prime_{Sb}=0.5$, $\rho^{*}=0.28$]{\pic{HGO_box_k3_Hconf_bist_iso.ps}}
+	\subfigure[$k^\prime_{Sb}=0.5$, $\rho^{*}=0.34$]{\pic{HGO_box_k3_Hconf_bist_nem.ps}}
+
+	\subfigure[$k^\prime_{Sb}=0.8$, $\rho^{*}=0.28$]{\pic{HGO_box_k3_Hconf_planar_iso.ps}}
+	\subfigure[$k^\prime_{Sb}=0.8$, $\rho^{*}=0.34$]{\pic{HGO_box_k3_Hconf_planar_nem.ps}}
+	\caption{Configuration snapshots for hybrid anchored slabs with a strong
+	homeotropic anchoring at the top surface ($k^\prime_{St}=0.0$) and different values for
+	$k^\prime_{Sb}$. Snapshots for two densities corresponding to isotropic (left) and
+	nematic (right) are shown.}
+	\label{fig:typeSnap_HGO_Hconf_k3}
+\end{figure}
+
+The structural transition between the surface arrangements can also be observed using
+configuration snapshots (\eg Figure~\ref{fig:typeSnap_HGO_Hconf_k3}). Specifically the case of a
+slab with planar and homeotropic anchoring is of interest as this corresponds to the geometry
+where the electric switching is to be performed. For this situation, the snapshots suggest that a
+slight discontinuity in the planar to homeotropic structural transition can be observed~; the
+molecular orientation changes rapidly from that corresponding to homeotropic anchoring to that
+of planar anchoring. This is confirmed by the $<P_2>$ profile
+(Figure~\ref{fig:HGO_Hconf_typeProfPlanar}) which shows a low value in the bulk part of the cell
+whereas the snapshots clearly indicate good order throughout the cell. These low values can be
+understood by the presence of particles with very different orientations in the same slice which
+in turn lowers the value of $<P_2>$. This behaviour is not apparent on $Q_{zz}(z)$ as similar
+values could be obtained from a slice of $n$ particles with $\theta\sim\pi/4$ and a slice of
+equal number of particles with $\theta\sim 0$ and $\theta\sim\pi/2$.\\
+In the case of a bottom surface with homeotropic or competing anchoring, the profiles and
+snapshots agree in indicating a continuous structural transition between the two surface induced
+arrangements. These observation are consistent with the simulation of Cleaver and
+Teixeira~\cite{Cleaver_Teixeira_01} who found a discontinuous structural transition between the
+two surface arrangement provided the anchoring conditions of the two surfaces are made
+sufficiently different.\\
+
+%===========================================
+%	ANCHORING PHASE DIA
+%===========================================
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[simulations with decreasing $k^\prime_{Sb}$]{\pic{QzzWa_HGO_HNW_Hconf_k3_Sb_S1.0.ps}}
+	\subfigure[simulations with increasing $k^\prime_{Sb}$]{\pic{QzzWa_HGO_HNW_Hconf_k3_Sb_S3.0.ps}}
+	\caption{Anchoring phase diagram  showing the evolution of~$\overline{Q}^{Sb}_{zz}$
+	of a hybrid anchored slab with $k^\prime_{St}=0.0$ as a function
+	of number density  $\rho^{*}$ and $k^\prime_{Sb}$. Systems of $N=1000$ HGO particles
+	of elongation $k=3$
+	and the HNW surface potential have been used. }
+	\label{fig:anchPhaseDia_HGO_Hconf_k3}
+\end{figure}
+
+
+%\picW = 7cm
+%\begin{figure}
+%	\centering
+%	\subfigure[simulations with decreasing $k^\prime_{Sb}$]
+%	        {\pic{QzzWa_HGO_k5_HNW_Hconf_Sb_S1.0.ps}}
+%	\subfigure[simulations with increasing $k^\prime_{Sb}$]
+%	        {\pic{QzzWa_HGO_k5_HNW_Hconf_Sb_S3.0.ps}}
+%	\caption{Anchoring phase diagram  showing the evolution of~$\overline{Q}_{zz}^{Sb}$
+%	of a hybrid anchored slab
+%	with $k^\prime_{St}=0.0$ as a function of number density
+%	$\rho^{*}$ and $k^\prime_{Sb}$. Systems of $N=1000$ HGO particles of elongation $k=5$
+%	and the HNW surface potential have been used. }
+%	\label{fig:anchPhaseDia_HGO_Hconf_k5}
+%\end{figure}
+%===========================================
+
+The combined effects of density and needle length are shown on the anchoring phase diagrams
+computed for the bottom surfaces ($\overline{Q}^{Sb}_{zz}$). These were computed using the
+approach adopted with symmetric systems and are shown in
+Figure~\ref{fig:anchPhaseDia_HGO_Hconf_k3}.\\
+%
+The behaviour of $\overline{Q}_{zz}^{Sb}$ for these systems is very similar to that of
+$\overline{Q}_{zz}^{Su}$ for the symmetric systems and the same remarks apply. However, one
+striking difference is that, in the case of hybrid systems, the diagrams from series with
+increasing and decreasing $k^\prime_{Sb}$ are very similar. This means that the hysteresis
+used to establish bistable regions is not seen in those systems.\\
+This change can be ascribed to the combined effects of the presence of the top surface with
+strong homeotropic anchoring and the small height of the slab. As a result of these, the elastic
+forces imposed on the particles at the bottom surface by those on the top surface prevent the
+former from adopting a planar orientation for parameterisations corresponding to weak
+competing anchoring. The consequence of this is that a planar orientation is only observed at
+the bottom surface if the corresponding anchoring is strong. But this removes the
+possibility of bistability.\\
+
+In order to recover the bistable regions, it is necessary to reduce the elastic forces imposed
+at the bottom surface by the homeotropic anchoring at the top surface. There are two approaches
+by which to achieve this: to use a weaker homeotropic anchoring at the top surface; or to
+increase the height of the slab, (and, therefore, the number of particles in the simulation
+box). In the next section, the second solution is used in an attempt to regain surface
+bistability.
+
+
+%===================================================================
+%===================================================================
+\subsection{System size effect.}
+\label{ss:sizeEffect}
+
+Here the influence of the height of the slab on the surface bistability in hybrid system is
+investigated. This has been performed by considering three slabs of hard Gaussian overlap
+particles with respective height $L_z=4k\so$, $L_z=6k\so$ and $L_z=8k\so$ respectively . In
+order to keep the width of the slabs big enough so as to avoid interactions between
+particles and their own images, increase in the slab height was accompanied with an
+increase in the system sizes, and the height $L_z=4k\so$, $L_z=6k\so$ and $L_z=8k\so$
+correspond respectively $N=1000$, $N=1250$ and $N=2000$. Although the
+cross section surface of the slabs was not equal for the three systems, the short positional
+correlation of the systems used should imply that the slabs were wide enough so that only the
+slab height has an effect on the observed planar to homeotropic surface transition.\\
+These systems were studied using Monte Carlo simulations in the canonical ensemble and
+using the hard needle wall potential for surface interactions. Extreme hybrid anchoring
+conditions were considered using $k^\prime_{Sb}=1.0$ and $k^\prime_{St}=0.0$. Typical
+profiles at $\rho^{*}=0.35$ are shown on Figure~\ref{fig:HGO_Hconf_typeProfile_Size}. Here, for
+comparison purposes, the $z$ coordinates have been renormalized by $L_z$.\\
+
+
+%=============================================
+\picW = 14cm
+\begin{figure}
+	\centering
+	\pic{systSizeEffectsProfiles.ps}
+	\caption{Profiles corresponding to hybrid anchored systems of hard Gaussian overlap
+	particles with $k=3$ at $\rho^{*}=0.35$ and different slab heigh and system sizes. 
+	The surface potential is the HNW with parameterisation $k^\prime_{St}=0.0$ and 
+	$k^\prime_{Sb}=1.0$.}
+	\label{fig:HGO_Hconf_typeProfile_Size}
+\end{figure}
+%=============================================
+
+\begin{figure}
+	\centering
+	\picW = 6cm
+	\subfigure[$N=1000$, $L_z=4k\so$]{\pic{HGO_box_k3_Hconf_Size_N1000.ps}}
+	\picW = 7cm
+	\subfigure[$N=1250$, $L_z=6k\so$]{\pic{HGO_box_k3_Hconf_Size_N1250.ps}}
+
+	\picW = 9cm
+	\subfigure[$N=2000$, $L_z=8k\so$]{\pic{HGO_box_k3_Hconf_Size_N2000.ps}}
+	\caption{Typical snapshots for hybrid anchored systems of $N=1000$(a), $1250$(b) and
+	$2000$(c) hard Gaussian overlap particles with $k=3$ using the HNW surface potential
+	with $k^\prime_{St}=0.0$ and $k^\prime_{Sb}=1.0$.}
+	\label{fig:HGO_Hconf_snapsSize}
+\end{figure}
+%==============================================
+
+
+On those profiles, similar interfacial behaviour can be observed for all three systems, the
+profiles displaying features typical of homeotropic anchoring on the top surface and of planar
+anchoring on the bottom surface.\\
+%
+The $\rho^{*}_\ell(z/L_z)$ and $Q_{zz}(z/L_z)$ profiles also show similar behaviour for all
+three systems in the bulk region. All three show a linear increase in $Q_{zz}$ from
+the bottom to the top surface. The main difference between these is that the regions of linear
+behaviour extend over larger portions of the cell with increase in $L_z$, thus
+indicating bigger `buffer regions' between the two surfaces.\\
+
+More important differences can, however, be observed on the $P_2(z/L_z)$ profiles. For the
+smallest system ($N=1000$), the $P_2(z/L_z)$ profiles show low values in the bulk regions
+identified previously. Again, this effect is ascribed to the presence of particles with
+significantly different orientations in the same analysis slice (Section~\ref{ss:hybridEffect}.)
+On the other hand, the two bigger systems show very different behaviour, the corresponding
+$P_2(L_z)$ profiles maintaining high values throughout the cell.\\
+%
+Further insight into this can be obtained from the corresponding configuration snapshots (\eg
+Figure~\ref{fig:HGO_Hconf_snapsSize}). From these, the smallest system clearly shows a
+discontinuity in the structural transition from planar to homeotropic as can be observed by the
+rapid change from parallel to perpendicular orientations. The two bigger systems show a
+different behaviour, however, the transition between the two arrangements being continuous and
+smooth.\\
+The modest differences between the structures and profiles for the bigger systems with
+$L_z=6k\so$ and $L_z=8k\so$ suggest that there is a critical height at which the transition
+between the two arrangements becomes continuous. The amount of data obtained here only allows to
+conclude that this %[
+critical slab height is in $]4k\so : 6k\so[$.\\ %]
+
+The results found in this section proved to be fully compatible with the theoretical results of
+\v{S}arlah and \v{Z}ummer~\cite{SarlahZummer99} who found that hybrid anchored films with a
+thickness of only a few molecular lengths do not show a continuous bent-director structure.
+Also, the experimental observation of Vanderbrouck~\etal\cite{VandenbrouckValignat99} confirm
+the observation made in this Section as they observed that a thin film of 5CB molecules spun cast
+onto silicon wafer, and thus having planar hybrid anchoring condition at respectively the solid
+and free surfaces, are stable only if their thickness is greater than 20nm.
+
+%===================================================================
+%===================================================================
+%\clearpage
+\subsection{HAN to V states switching.}
+
+The anchoring phase diagrams presented in Section~\ref{ss:hybridEffect} have shown no
+bistability, possibly  due to the combination of too strong a homeotropic anchoring at
+the top surface and the small height used. The smooth structural transitions obtained using
+larger slab height in Section~\ref{ss:sizeEffect} suggest, however, that bistable behaviour may
+be achievable.\\ %
+As a result switching between the HAN and V states has been attempted. In order to recover the
+bistability at the bottom surface, a slab of height $L_z=8k\so$ and a system size of $N=2000$
+particles have been used and the bottom surface needle length has been set to $k_{Sb}/k=0.5$
+which correspond to a good bistability in an equivalent symmetric anchored system. The first
+simulations performed used a top surface needle length $k_{St}/k = 0.0$, but that proved to
+induce too strong an homeotropic anchoring and no bistability at the bottom surface could be
+observed. By gradually reducing the top surface anchoring strength, the bistability at the
+bottom surface could be regained using $k^\prime_{St}=0.4$.
+Using this latter value of $k_{St}$, the switching between the HAN and vertical states has been
+performed using a similar sequence of simulations to that employed in Chapter~\ref{chap:four}.
+The evolution of $\overline{Q}_{zz}^{St}$ and $\overline{Q}_{zz}^{Sb}$ as a function of the
+number of sweeps are shown, respectively, on Figure~\ref{fig:QzzWaEvol_HGOHconfSwitch}(a) and
+(b). Configuration snapshots corresponding to the last configuration of each phase
+are shown on Figure~\ref{fig:snaps_HGOHconfSwitch}.\\
+
+\picW = 10cm
+\begin{figure}
+	\centering
+	\subfigure[$\overline{Q}_{zz}^{St}(n)$]{\picL{HGO_Hconf_N2000_Eswitch_QzzWaSt.ps}}
+	\subfigure[$\overline{Q}_{zz}^{Sb}(n)$]{\picL{HGO_Hconf_N2000_Eswitch_QzzWaSb.ps}}
+	\caption{Evolution of $\overline{Q}_{zz}(n)$ as a function of the number of sweeps $n$ for the
+	top(a) and bottom(b) surface regions while switching a hybrid anchored system of
+	$N=2000$ HGO particles with $k=3$ between the HAN and V states.}
+	\label{fig:QzzWaEvol_HGOHconfSwitch}
+\end{figure}
+
+\picW = 4.7cm
+\begin{figure}
+	\centering
+	\subfigure[$0.50.10^6$ sweeps]{\pic{HGO_box_k3_Hconf_N2000_Eswitch_01.ps}}
+	\subfigure[$0.75.10^6$ sweeps]{\pic{HGO_box_k3_Hconf_N2000_Eswitch_02.ps}}
+	\subfigure[$2.25.10^6$ sweeps]{\pic{HGO_box_k3_Hconf_N2000_Eswitch_03.ps}}
+	\subfigure[$2.50.10^6$ sweeps]{\pic{HGO_box_k3_Hconf_N2000_Eswitch_04.ps}}
+	\subfigure[$4.50.10^6$ sweeps]{\pic{HGO_box_k3_Hconf_N2000_Eswitch_05.ps}}
+	\caption{Configuration snapshots of a system of $N=2000$ HGO particles with $k=3$ at
+	different stages of switching between the HAN and V states.}
+	\label{fig:snaps_HGOHconfSwitch}
+\end{figure}
+
+The sequence was started using previously equilibrated configuration with a HAN alignment. After
+$0.5.10^6$ sweeps, an electric field $\vect{E}=E\vecth{z}$ with $E=6.0$ was applied  during
+$0.25.10^6$ sweeps using $\delta\epsilon>0$ so as to align the particles along $\vecth{z}$. Upon
+removal of the field, equilibrium in the vertical state was well established after $1.5.10^6$
+sweeps. The field was then reapplied for $0.25.10^6$ sweeps using $\delta\epsilon<0$ so as to
+align the particles perpendicular to $\vecth{z}$. Upon removal of the field, equilibrium in the
+HAN state was achieved after $2.0.10^6$ sweeps.\\
+
+This sequence shows successful switching between the HAN and vertical states of an hybrid
+aligned cell corresponding to that considered in~\cite{DavidsonMottram02}. The model used here
+did not include flexoelectricity and, therefore, only the easy switching namely, HAN to V if
+$\delta\epsilon>0$ and V to HAN if $\delta\epsilon<0$ could be modeled. This is however very
+encouraging as achievement of the easy switching implies that the reverse (`hard') switching
+could, in principle, be achieved easily with an appropriate electrical parameterisation of the
+model.
+
+
+
+
+
+
+
+
+

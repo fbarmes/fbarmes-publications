@@ -1,0 +1,258 @@
+
+\section{Realistic surface potentials~: the RSUP.}
+\label{s:realisticPotentials_RSUP}
+
+
+
+%===============================================================================================
+%===============================================================================================
+\subsection{The rod-surface potential.}
+
+The rod-surface potential (RSUP) represents an alternative interaction between a Gaussian 
+ellipsoid and a plane and is given by~:
+\begin{equation}
+	\mathcal{V}^{RSUP} = \left\{	%}
+	\begin{array}{ccc}
+		0	&\mathrm{if}	&|z_i - z_0| \geq \sigma^{RSUP}_w	\\
+		\infty	&\mathrm{if}	&|z_i - z_0| < \sigma^{RSUP}_w	
+	\end{array}
+	\right.
+\end{equation}
+This time, the contact distance for this is obtained by integration of the rod-sphere potential 
+(without the $\frac{\so}{2}$ shift) over the x-y plane leading to~\cite{rwThesis}~:
+%
+\begin{equation}
+	\sigma^{RSUP}_w = \sigma_0\sqrt{\frac{1-\chi_S\sin^2\theta}{1-\chi_S}}
+\end{equation}
+%
+with the same definition for $\chi_S$ as with the RSP potential. This potential can be thought 
+of as being equivalent to the RSP but with the important difference that each particle
+effectively interacts  with an infinity 
+of spheres as opposed to just one. Again a shift is introduced so as to remove the virtual
+spheres from the simulation box. The contact distance used in the simulation is therefore given by~:
+\begin{equation}
+	\sigma^{RSUP}_w = \sigma_0\lp \sqrt{\frac{1-\chi_S\sin^2\theta}{1-\chi_S}} -
+	\frac{1}{2}\rp.
+\end{equation}
+
+
+%------------------------------------------
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{RSUPConfig.ps}
+	\caption[Representation of the geometry used for the interaction between the inner HGO
+	particle and the surface in the RSUP potential.]
+	{Representation of the geometry used for the interaction between the inner HGO
+	particle and the surface in the RSUP potential. The three spheres represent the
+	substrate which is really made of an infinity of such spheres located between the horizontal lines 
+	which effectively mark the substrate location.}
+	\label{fig:RSUPConfig}
+\end{figure}
+
+%------------------------------------------
+
+
+%------------------------------------------
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{sigmaRSUP.ps}
+	\caption{Representation of $\sigma^{RSUP}(k_S,\theta)$ for $k=3$ using the RSUP
+	potential.}
+	\label{fig:sigma_RSUP}
+\end{figure}
+
+
+%------------------------------------------
+
+A representation of $\sigma^{RSUP}_w(k_S,\theta)$ is given in Figure~\ref{fig:sigma_RSUP} for
+$k=3$. Again, the expression for the absorbed volume into the surface can be used to predict the
+surface behaviour of this model. In the case of the RSUP potential, this volume reads~:
+%
+\begin{equation}
+	V_e^{RSUP}=\frac{1}{3}\pi\lp \frac{1}{2}-
+	\sqrt{\frac{\sigma^{RSUP}_w}{k^2\cos^2\theta+\sin^2\theta}}\rp^2 
+	\lp 1 + \sqrt{\frac{\sigma^{RSUP}_w}{k^2\cos^2\theta+\sin^2\theta}} \rp
+	\label{eqn:Ve_RSUP}
+\end{equation}
+%
+A graphical representation of this volume is shown on Figure~\ref{fig:Ve_RSUP_fks}. 
+In the limit $k_S = 0$, $Ve^{RSUP}(k_S,\theta)$ has its maximum at $\theta = 0$ thus indicating 
+an homeotropic arrangement.\\
+%
+In the limit $k_S = k$, $V_e^{RSUP}$ is close to zero for all $\theta$ and has a small maximum at 
+$\theta = 0$. However, by design, $\sigma_w^{RSUP}$ forbids any particle adsorption into the
+substrate if $k_S=k$; this is even further illustrated by the value of
+$\sigma_w^{RSUP}(k_S=k,\theta=0)$ which is equal to the contact distance between a HGO particle
+with $\theta=0$ and a sphere. As a result, this small maximum in $V_e^{RSUP}$ can be explained
+to be a result of the approximation of using ellipsoidal shaped particles 
+in Appendix~\ref{chap:A} when deriving
+the expression for $V_e^{RSUP}$ and, therefore, $V_e^{RSUP}(k_S=k),\theta$ should, in fact,
+be zero for all
+values of $\theta$. A consequence of this, the $\theta=0$ peak in Figure~\ref{eqn:Ve_RSUP} 
+does not represent a 
+stable surface arrangement of the RSUP model in the case $k_S=k$, as this is not 
+absorption driven. Rather, it can be safely assumed that the stable arrangement for this system 
+is planar, in common with the findings of previous 
+theoretical and simulation work on rod-shaped objects absorbed at planar 
+surfaces~\cite{HolystPoniewierski88,Chrzanowska_Teixera_01,VanRoijDijkstra00,DijkstraVanRoij01}.
+
+
+%------------------------------------------
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{Ve_RSUP_fkS.ps}
+	\caption{Representation of $Ve(k_s,\theta)$ for the RSUP potential and $k=3$.}
+	\label{fig:Ve_RSUP_fks}
+\end{figure}
+%------------------------------------------
+
+The mechanism expected to drive an anchoring transition with the RSUP potential is slightly
+different from that seen with the HNW potential. With the latter, the surface rearrangement 
+is mainly driven
+by the molecular volume that can be absorbed into the surface, and the transition
+from homeotropic to planar arrangements occurs when the volume absorbed by the
+latter is greater than with the former arrangement. In the case of the RSUP potential, however, 
+there is
+no absorption in the case of the planar arrangement. However, this is the base state of
+any rod-shaped object in contact with a surface. Thus, as $k_S$ is decreased from  $k_S=k$ to $k_S=0$, 
+the volume that can be absorbed in a homeotropic arrangement gradually increases. In this case,
+therefore, an anchoring transition from planar to homeotropic arrangement 
+is expected when the volume that can be absorbed by an homeotropic surface induces a total free energy
+lower than in that of the planar base state.
+
+
+%===============================================================================================
+%===============================================================================================
+\subsection{Simulation results obtained using the rod-surface potential.}
+
+The surface induced structural changes obtained from the rod-surface potential have been studied using
+Monte Carlo simulations in the canonical ensemble on systems of $N=1000$ HGO particles with 
+elongation $k=3$. The simulation slab was the same as that used previously, with the walls situated 
+on the top and bottom of the cell with constant height $L_z = 4k\sigma_0$ and symmetric 
+anchoring conditions. Two series of simulations at each chosen density were performed 
+with,respectively, increasing and decreasing $k_S$.
+Typical $z$-profiles for this model are shown on Figures~\ref{fig:RSUP_typeProf_k3_homeo} 
+and~\ref{fig:RSUP_typeProf_k3_planar} respectively for $k_S=0.0$ and $k_S = k$.\\
+
+%------------------------------
+\picW = 12cm
+\begin{figure}
+	\centering
+	\pic{RSUP_typeProf_k3_homeo.ps}
+	\caption{Typical $z$-profiles for confined systems of $N=1000$ HGO particles with 
+	$k=3.0$ and $k^{'}_S = 0.0$ using the RSUP potential.}
+	\label{fig:RSUP_typeProf_k3_homeo}
+\end{figure}
+%------------------------------
+
+
+%------------------------------
+\picW = 12cm
+\begin{figure}
+	\centering
+	\pic{RSUP_typeProf_k3_planar.ps}
+	\caption{Typical $z$-profiles for confined systems of $N=1000$ HGO particles with 
+	$k=3.0$ and $k^{'}_S = 1.0$ using the RSUP potential.}
+	\label{fig:RSUP_typeProf_k3_planar}
+\end{figure}
+%------------------------------
+
+%===================================================
+\picW = 6cm
+\begin{figure}
+	\centering
+	\subfigure[Simulations with decreasing $k_S$]{\pic{QzzWa_HGO_RSU_k3_fkS_S1_Su.ps}\pic{QzzWa_HGO_RSU_k3_fkS_S1_Bu.ps}}
+	\subfigure[Simulations with increasing $k_S$]{\pic{QzzWa_HGO_RSU_k3_fkS_S3_Su.ps}\pic{QzzWa_HGO_RSU_k3_fkS_S3_Bu.ps}}
+	\subfigure[Bistability diagrams]{\pic{QzzWa_HGO_RSU_k3_fkS_SuBist.ps}\pic{QzzWa_HGO_RSU_k3_fkS_BuBist.ps}}
+	\caption{Anchoring phase diagrams obtained from series of simulations of $N=1000$
+	confined HGO particles with $k=3$ at constant density and decreasing $k_S$ 
+	using the RSUP surface potential. Diagrams on the l.h.s are relative to the interfacial
+	region and those on the r.h.s are relative to the bulk region.}
+	\label{fig:QzzWaPhaseDia_k3_RSUP}
+\end{figure}
+%===================================================
+
+
+
+%===================================================
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[Simulations with decreasing $k_S$]{\pic{SWa_HGO_RSU_k3_fkS_S1_Su.ps}\pic{SWa_HGO_RSU_k3_fkS_S1_Bu.ps}}
+	\subfigure[Simulations with increasing $k_S$]{\pic{SWa_HGO_RSU_k3_fkS_S3_Su.ps}\pic{SWa_HGO_RSU_k3_fkS_S3_Bu.ps}}
+	\caption{Order phase diagrams obtained from series of simulations of $N=1000$
+	confined HGO particles with $k=3$ at constant density and decreasing $k_S$ 
+	using the RSUP surface potential. Diagrams on the l.h.s are relative to the interfacial
+	region and those on the r.h.s are relative to the bulk region. The bistability is
+	negligible.}
+	\label{fig:SWaPhaseDia_k3_RSUP}
+\end{figure}
+%===================================================
+
+
+
+In the limit of $k_S=0$, the surface induced structural changes for this model are very
+similar to their counterparts with the RSP model (Figures~\ref{fig:RSP_typeProf_k3_homeo} 
+and~\ref{fig:RSP_typeProf_k3_planar}); the two sets of profiles
+are virtually indistinguishable. The surface arrangement is homeotropic which explains the
+very strong similarities between the two sets; with $\theta\sim0$, 
+both models induce the same geometry between the particles and the substrate.\\
+%
+In the limit $k_S=k$, the surface induced effects for $\mathcal{V}^{RSP}$ and $\mathcal{V}^{RSUP}$
+are very different.
+The short peak separation in $\rho^{*}_\ell(z)$ and the negative values in $Q_{zz}(z)$, coupled with 
+the high values of $P_2(z)$, indicate an induced planar surface arrangement very much in
+agreement with the predictions made earlier. This is further confirmed by the
+similarity of the planar arrangement profile features for the HNW and RSUP models. The main difference
+between the two arises because with the RSUP model, planar particles are not allowed to 
+absorb at the surface. 
+This leads to the regions of zero $\rho^{*}_\ell(z)$ with a width of $0.5\sigma_0$ close to 
+each substrate.\\
+
+The full surface induced behaviour of this system has been computed as a function of $k_S$ and 
+$\theta$ using the anchoring and order phase diagrams shown in 
+Figures~\ref{fig:QzzWaPhaseDia_k3_RSUP} and~\ref{fig:SWaPhaseDia_k3_RSUP}. 
+The convention adopted to distinguish the interfacial 
+from the bulk region was the same as that used with the RSP model.
+%
+The anchoring phase diagrams are given in Figure~\ref{fig:QzzWaPhaseDia_k3_RSUP}(a) 
+and (b) for, respectively, decreasing and increasing $k_S$. From those
+a strong difference between the two sets can be observed. The corresponding bistability 
+phase diagrams (Figure~\ref{fig:QzzWaPhaseDia_k3_RSUP}c)  reports a very wide and strong 
+bistability behaviour for this surface potential.  The region of bistability is much greater
+here than that obtained using the HNW potential, extending over a wider range of density 
+and $k_S$. Also for a given state point, this potential induces larger bistability values. 
+This makes the RSUP model a very good candidate for the modeling of switching between the 
+two arrangements on a bistable surface.\\
+%
+The improved bistability of the RSUP model when compared with the HNW
+model lies in the difference between the mechanisms driving the surface-induced anchoring. For the
+HNW, the competition between the planar and homeotropic alignment is driven by the
+amount of volume that can be absorbed into the surface for each alignment. 
+This is slightly different from the RSUP case where the planar alignment is the natural 
+state of the system and does not rely on the particles absorbing the surface; homeotropic 
+alignment is introduced as an alternative to this natural states by increasing the possibility 
+of absorption when reducing $k_S$. 
+As a result the free energy minima corresponding to the two alignments for the two potentials 
+are subtly different. Although free energy data were not determined in this study, 
+the stronger bistability obtained for the RSUP model suggest it has a higher 
+and wider energy barrier between the two locally stable  
+alignment states.\\
+
+
+The order phase diagrams for the RSUP model (Fig~\ref{fig:SWaPhaseDia_k3_RSUP}) show the 
+same general features as
+the corresponding diagrams calculated for the HNW model. In the bulk region, the two data
+sets are very similar. However, the diagrams for the interfacial region present some differences
+in that the high symmetry around the transition line and the strong disordering of
+the particles at the transition are diminished somewhat. This can be attributed to the
+difference in the $\rho^{*}_\ell$ profiles for the two potentials, the profiles for the 
+RSUP potential lacking the disorder-related
+double peak behaviour. As a result, in the case of competing alignment, the local surface
+order was not reduced due to particles diffusing between the two regions corresponding to the two
+density peaks.\\
+
+

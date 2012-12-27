@@ -1,0 +1,140 @@
+
+
+\section{Flexoelectric liquid crystals.}
+
+
+%======================================================================================================
+%======================================================================================================
+\subsection{The flexoelectric effect.}
+
+
+When a liquid crystal is subjected to a splay or bend strain, a net electrical polarization can
+be created. This effect was first explained in 1969 by R.B. Meyer~\cite{Meyer69}. Reciprocally,
+flexoelectric mesogens will splay or bend upon application of an electric field according to the
+reverse flexoelectric effect.\\
+Originally the flexoelectric effect was explained to arise for particles with a strong shape
+anisotropy (\ie pear or banana shaped particles) and a strong permanent dipole~\cite{Meyer69}. 
+According to Meyer, a splay distortion 
+would arise for wedge  or pear shaped particles while a bend distortion is associated with banana shaped
+particles. The relation between the electrical polarization $\vect{P}$ and the flexoelectric splay 
+and bend coefficients $e_{1z}$ and $e_{3x}$ is given by~\cite{deGennes}:
+\begin{equation}
+	\vect{P} = e_{1z}\lp \vecth{n}(\nabla\centerdot\vecth{n}) \rp 
+	+ e_{3x}\lp\nabla\times\vecth{n}\rp\times\vecth{n}
+\end{equation}
+
+\picW = 5cm
+\begin{figure}
+	\centering
+	\subfigure[no applied field]{\fbox{\pic{pearNematic.ps}}}
+	\hspace*{10mm}
+	\subfigure[field applied]{\fbox{\pic{pearSplay.ps}}}
+	
+	\subfigure[no applied field]{\fbox{\pic{bananaNematic.ps}}}
+	\hspace*{10mm}
+	\subfigure[field applied]{\fbox{\pic{bananaBend.ps}}}
+	\caption[Representation of the polarisation induced distortions in flexoelectric systems.]
+	{Representation of the polarisation induced distortions in flexoelectric systems. 
+	Pear shaped particles (top) have a splay distortion while banana shaped particles
+	(bottom) display a bend distortion. The distorted phases correspond to a situation with
+	an electric field $\vect{E}$ applied vertically and pointing towards to the top of the page.}
+\end{figure}
+
+Means for the calculation of the flexoelectric coefficients were later devised by Derzhanski and
+Petrov~\cite{DerzhanskiPetrov71a,DerzhanskiPetrov71a} and Helfrich~\cite{Helfrich71}. The latter
+author also extended Meyer's theory to polarizable molecules~\cite{Helfrich74}\\
+%
+Eight years after Meyer's original theory, another mechanism for flexoelectricity in liquid
+crystals was proposed by Prost and Marcerou~\cite{ProstMarcerou77}. In this work, 
+the electrostatics of uniaxial phases were examined to recognize the link between polarization and 
+strain. A two term expression for the  flexoelectric tensor was derived (see Equation 2.9
+of~\cite{ProstMarcerou77}) where 
+the first term corresponds to a dipolar effect equivalent to that proposed by Meyer, while the second 
+relates to a non zero quadrupole moment that pertains even with non pear or banana shaped molecule 
+(\ie ellipsoids).  The authors also showed that both mechanisms contributed to the total flexoelectric 
+coefficient  $f = e_{1z} + e_{3x}$ with similar orders of magnitude.\\
+%
+The implication of this result is that flexoelectricity is an intrinsic property of liquid
+crystals as most mesogens have non zero quadrupole moments. Also, this effect should be
+observable not only in the nematic phase as proposed by Meyer, but also in the isotropic
+phase (see~\cite{ProstMarcerou78b} for the first experimental verification of this) as well 
+as the smectic phase~\cite{ProstPershan76}.
+
+%======================================================================================================
+%======================================================================================================
+\subsection{The flexoelectric coefficients.}
+
+Due to the comparability of the contributions from the dipolar and quadrupolar mechanisms to the
+flexoelectric coefficients, identification of which contribution is the largest
+is not a trivial exercise. Resolving this question requires a means of separating the two effects.
+One such method is the study of the thermal  dependence of the flexoelectric coefficient $f$.  
+From the study of Prost and  Marcerou~\cite{ProstMarcerou77, ProstMarcerou78a} 
+the expression for $f$ is~:
+%
+\begin{eqnarray}
+	f &=& e_{1z} + e_{3x} \hspace*{1cm} \mrm{(in\ Meyer's\ notation)}	\\
+	f &=& f^M + f^Q	\\
+	f &=& 	K_{11}\frac{\epsilon^0_\parallel - \epsilon^1_\parallel}{4\pi\mu_\parallel}
+		+ K_{33}\frac{\epsilon^0_\perp - \epsilon^1_\perp}{4\pi\mu_\perp}
+		-\frac{2}{3}N\theta_a S
+		\label{eqn:flexoCoeff}
+\end{eqnarray}
+
+In the first two terms representing $f^M$, $K_{11}$ and $K_{33}$ are respectively the splay 
+and bend Frank Oseen elastic constant~\cite{deGennes}, $\epsilon^0_\parallel$ and 
+$\epsilon^0_\perp$ are the dielectric constant taken respectively parallel and perpendicular to 
+the director $\vecth{n}$ and $\mu^{-1}$ measures the degree of asymmetry of the compound under 
+interest. In the last term representing $f^Q$, $N$ is the number of particles per unit volume,
+$\theta_a$ is the quadrupole tensor as defined in~\cite{ProstMarcerou77} and $S$ is the order
+parameter as defined in~\cite{deGennes}.\\
+
+From Equation~\ref{eqn:flexoCoeff}, it is readily observable that $f$ depends linearly 
+on $K_{11}$ and $K_{33}$ that is
+linearly with $S^2$ if Meyer's contribution is of more significance. If the quadrupolar
+contribution is the larger, then $f$ is a linear function of $S$.\\
+
+Although several methods are available for the measurement of the flexoelectric
+coefficients~\cite{deGennes,LiquidCrystals,MazzullaGiuchi00,JewellSambles02}, the best seems to be 
+the ``interdigital electrodes technique" (see~\cite{ProstPershan76} and~\cite{MarcerouProst80} 
+for a detailed description) as used by Marcerou and Prost. This setup involves the use of
+a spatially periodic electric field (created by the interdigitated electrodes) which induces a 
+periodic distortion of the liquid crystal.  This distortion corresponds to a grating which scatters 
+light.  Measurements of the flexoelectric coefficients are thus performed through the measurement 
+of the scattered light intensity.\\
+
+Measurements of the thermal dependence of $f$ has been performed by Marcerou and 
+Prost~\cite{MarcerouProst80} for four different mesogens ranging from symmetric to strongly dipolar. 
+Although the expectation from this study was that the quadrupolar contribution would prove stronger for 
+the most symmetrical mesogens, with Meyer's contribution being stronger for the dipolar
+particles, the results 
+showed that the quadrupole contribution was actually stronger for virtually all compounds. The only case
+where  Meyer's contribution was more significant was that of a molecule with strong steric constraints as
+already suggested a previous study~\cite{ProstMarcerou78a}. This last  finding was later confirmed 
+in~\cite{DozovMartinotLagarde83} in a study of cyanobiphenyl components using a different
+measurement technique. In parallel with this, using the Onsager-like theory of Straley~\cite{Straley76}, 
+Osipov~\cite{Osipov83} showed that the dipole flexoelectricity is significant only for molecules 
+with large transverse dipoles; this condition is met by the mesogens mentioned above which showed 
+Meyer's flexoelectricity.\\
+Some subsequent theoretical work from the same author~\cite{Osipov84}, using a Landau-de Gennes 
+formalism contradicted the  general results from this series of experiments, as it predicted a 
+$S^2$-like  variation.  This discrepancy is likely  explained by the lack of conformational 
+freedom in the theoretical treatment, however.\\
+Using density functional theory, Singh and Singh~\cite{SinghSingh89} showed that, given increased 
+knowledge of the molecular parameters of a system, the flexoelectric coefficients 
+(taking into account both mechanisms) can be  accurately calculated. The main drawback of this
+treatment is its restriction to rigid particles. This restriction was subsequently lifted by 
+Ferrarini~\cite{Ferarrini01} who applied mean-field treatment to MBBA which took into account 
+the structure of the molecule's transformers.
+
+Model for flexoelectric pear-shaped molecules have been designed for use in computer 
+simulations~\cite{StelzerBerardi99,BilleterPelcovits00}. These have found non zero splay and near to
+zero bend flexoelectric coefficients in accordance with Meyer's theory. These models were
+subsequently refined so as to become monosite as opposed to multisite~\cite{BerardiRicci01},
+leading to phases with net polar order. More details on these studies 
+are given in Chapter~\ref{chap:two}.\\
+
+The interest in flexoelectric particles is not only of academic interest as the phenomenon finds
+some very important applications in bistable liquid crystal display
+devices~\cite{DavidsonMottram02,DennistonYeomans} which could lead to the development of the
+next generation of displays.
+

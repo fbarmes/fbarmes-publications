@@ -1,0 +1,135 @@
+
+\section{Liquid crystals in confined geometries}
+
+
+The behaviour of nematic liquid crystals close to a confining substrate is of fundamental 
+importance for liquid crystal display design~\cite{Shanks82}. This has lead to many
+experimentalist studies into the interfacial properties of confined liquid 
+crystals~\cite{Jerome93,ZhuangMarucci94}. These types of systems have also been well studied
+theoretically using a wealth of different techniques such as van der Waals 
+theory~\cite{DelRioTeloDaGamma95}, density functional theory~\cite{Teixeira97,OsipovHess93} and 
+mean field approximation~\cite{TjiptoMargoSullivan88}. Comparatively, the number 
+of molecular computer simulations of confined liquid crystal systems is rather small.\\
+
+From the wealth of experimental data available, it is clear that the confinement of liquid
+crystals breaks the symmetry of the confined fluid by inducing two main effects~\cite{Jerome91} 
+namely positional layering and orientational ordering through a mechanism called \emph{anchoring}.\\
+The first effect is a universal consequence of confinement and has been observed by
+Schoen~\cite{Schoen96,Schoen96a} through computer simulations of atomic (\ie Lennard-Jones)
+fluids. On the other, hand surface-induced orientational order is specific to molecules with 
+shape anisotropy such as mesogens. For these particles, several surface arrangements can be
+observed according to the particles' orientations with respect to the substrate as shown on
+Figure~\ref{fig:SurfArrangements}. These arrangement
+are homeotropic, planar and tilted  with respectively $\theta = 0$, $\frac{\pi}{2}$ and $\in
+]0:\frac{\pi}{2}[$, where $\theta$ is the angle between the surface normal and the mean particle
+orientation. Further details regarding variations on these three basic types of surface ordering 
+(\ie monostable, multistable and degenerate) are given in~\cite{Jerome91}.
+The surface energy, or anchoring energy $f_S$ is commonly taken to be related to $\theta_S$, the
+angle between the surface director and the natural anchoring angle, by
+$f_s=\frac{1}{2}W_0\sin^2(\theta_S)$~\cite{Jerome91,Allen99}
+where $W_0$ is the anchoring strength and measures the ease with which the director
+can deviate from the imposed anchoring direction.\\
+
+
+\picW=4.5cm
+\begin{figure}
+	\centering
+	\subfigure[Planar]{\pic{typePlanar.ps}}
+	\subfigure[Homeotropic]{\pic{typeHomeo.ps}}
+	\subfigure[Tilted]{\pic{typeTilt.ps}}
+	\caption[The main surface arrangements]{Illustration of the three main surface arrangements.
+	The substrates are represented by the gray semi-transparent thick lines.}
+	\label{fig:SurfArrangements}
+\end{figure}
+
+Early computer simulation studies of confined liquid crystalline systems used the
+Lebwohl-Lasher lattice based models~\cite{TeloDaGammaTarazona90,CleaverAllen93} and were successful in
+describing the enhanced order found in interfacial regions and shifts in the location of the 
+isotropic-nematic transition due to the confinement. However the very nature of such a lattice
+model introduces limitations, particularly its neglect of surface induced layering.\\
+
+Subsequently, 
+Chalam \etal\cite{ChalamGubbins91} used the Monte Carlo technique on a system of confined 
+Gay-Berne particles using a separable form for the particle-surface potential. This
+study confirmed the behaviour seen in lattice simulations, showing a shift of the 
+isotropic-nematic transition to
+higher temperatures due to the stabilization of the liquid crystalline phases by the
+substrate. However the use of a surface potential which was separable into spacial and 
+angular parts meant that the shape of the particles was not properly taken into account. This
+was remedied by Zhang \etal\cite{ZhangChakrabarti96} who used the same molecular model with 
+a separable substrate potential and observed tilted layers at the surface. Wall and
+Cleaver~\cite{WallCleaver97}, using a modified surface potential, extended this study so as to
+include the effect of changing temperature and phase. 
+Another modification of this surface potential, involving azimuthal coupling, was used by Latham and 
+Cleaver~\cite{LathamCleaver00} in systems of confined
+mixtures of Gay-Berne particles. In these studies the alterations to the surface potential were
+restricted to the well-depth anisotropy term, whereas the shape function of the potential was
+always that for the interaction between a Gaussian ellipsoid and a sphere.\\
+
+Although it has been shown that, in a confined system, the bulk orientation is often determined by the
+orientational distribution of the surface particles~\cite{ZhangChakrabarti96}, some
+authors have found rather different behaviour. Gruhn and
+Schoen~\cite{GruhnSchoen97,GruhnSchoen98,GruhnSchoen98a} studied very thin films of Gay-Berne 
+particles in a slab geometry confined between surfaces of rigidly fixed atoms; 
+upon changing the thickness of the film, the orientation of bulk 
+region particles was found to change regularly from planar to homeotropic. Another example 
+of this kind of behaviour is 
+provided by the work of Palermo \etal\cite{PalermoBiscarini98} who observed abrupt changes 
+in particle orientation when moving from the surface to the bulk regions in systems of Gay-Berne 
+particles absorbed at graphite surfaces.\\
+
+Simulations of confined hard particles have also been performed. Allen~\cite{Allen99} used a system of 
+hard ellipsoid with elongation $k=15$ confined so that their centres of mass interacted 
+sterically with smooth substrates. A homeotropic substrate arrangement was observed.
+Subsequently van Roij~\etal\cite{VanRoijDijkstra00, VanRoijDijkstra00a, DijkstraVanRoij01} used hard
+spherocylinders confined between a hard smooth wall and an isotropic liquid crystal and observed
+surface induced wetting and planar ordering. These studies also showed that the planar
+arrangement is the natural state of hard-rod nematic phase in contact with a flat surface and 
+when surface absorption is not made possible.\\
+Chrzanowska~\etal and Cleaver~\etal\cite{Chrzanowska_Teixera_01, Cleaver_Teixeira_01} used the
+Hard Gaussian Overlap (HGO) model (\ie a hard version of the Gay-Berne model) in symmetric and hybrid
+anchored films using the Hard Needle Wall (HNW) potential as a surface model. 
+Simulations of symmetrically anchored systems showed that appropriate tuning of the 
+HNW potential lead the preferred surface arrangement to switch between planar and homeotropic. 
+Hybrid anchored systems exhibited  a discontinuous transition from bent-director (or HAN) to
+uniform director arrangements as the
+anchoring coefficients of the surfaces were made sufficiently different. This result was
+consistent with 
+experimental observations~\cite{VandenbrouckValignat99} of 5CB molecules spun cast onto 
+silicon wafers which were subject to
+planar anchoring at the solid substrate and homeotropic anchoring at the free surface. Upon
+increasing the film thickness from a few molecular lengths to more than 20 nm, the molecules
+which first formed small islands proved able to form a stable film at increased thicknesses 
+since they were then able to adopt a bent-director. 
+A similar result was shown theoretically by \v{S}arlah and \v{Z}umer~\cite{SarlahZummer99} 
+that is, very thin films with hybrid anchoring do not show a bent-director structure.\\
+
+Realistic simulations of confined molecules have also been performed. Cleaver and
+Tildesley~\cite{CleaverTildesley94} have performed energy minimisations on systems of 8CB
+molecules, represented by an assembly of 22 spherical sites, absorbed on either a smooth or graphite 
+planar substrates. They found that strips of $50$ molecules formed structures almost fully
+compatible with scanning tunneling microscopy (STM) observations. Later, Yoneya and 
+Iwakabe~\cite{YoneyaIwakabe95} performed molecular dynamics simulations on systems of 8
+molecules of 8CB anchored on graphite and initially arranged in the structures shown by the 
+STM experiment. However, due to the small system size used and the lack of periodic boundary 
+conditions, these arrangements proved to be unstable. These limitations were later 
+removed by Cleaver~\etal\cite{CleaverCallaway95} who studied periodic systems of monolayers of
+8CB and 10CB molecules anchored on graphite using energy minimisation and molecular dynamics
+techniques. The findings of this study showed structures fully consistent with the STM
+observations.\\
+A more systematic series of simulations was conducted by Binger and
+Hanna~\cite{BingerHanna99,BingerHanna00,BingerHanna01} who performed realistic molecular
+dynamics and molecular mechanics simulations of various liquid crystals molecules (\eg 5CB, 8CB,
+MBF). Systems ranging from single molecules up to two monolayers anchored on different polymeric 
+substrates (\eg PE, PVA, Nylon 6) were investigated. The authors found that for most substrates, 
+the molecules adopt planar arrangements with specific favoured conformations. 
+In the most recent of these studies~\cite{BingerHanna01}
+the atoms of the substrate were replaced by a pseudo potential which had the combined
+effects of saving computer power and making the substrate model more generic. The results from
+this last set of simulations proved to be very encouraging as they were fully consistent 
+with previous results despite the increased simulation speed.
+
+
+
+
+

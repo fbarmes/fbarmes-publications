@@ -1,0 +1,350 @@
+
+\section{Realistic surface potentials : the RSP.}
+\label{s:realisticPotentials_RSP}
+
+
+%===============================================================================================
+%===============================================================================================
+\subsection{The rod-sphere potential.}
+\label{ss:RSP_potential}
+
+The rod-sphere surface potential (RSP) describes the interaction between a Gaussian ellipsoid and a
+sphere located in the surface plane and with the same $x$ and $y$ coordinates as the ellipsoid. 
+Again, the particles (HGO) do not interact directly with the substrate, rather another
+HGO ellipsoid is inserted in each particle (\eg Figure~\ref{fig:RSPConfig}). 
+This inner ellipsoid interacts with the surface through $\mathcal{V}^{RSP}$ as~:
+%
+\begin{equation}
+	\mathcal{V}^{RSP} = \left\{	%}
+	\begin{array}{ccc}
+		0	&\mathrm{if}	&|z_i - z_0| \geq \sigma^{RSP}_w	\\
+		\infty	&\mathrm{if}	&|z_i - z_0| < \sigma^{RSP}_w	
+	\end{array}
+	\right.
+\end{equation}
+%
+where $\sigma^{RSP}_w$ is the contact distance for the interaction between a hard Gaussian 
+overlap particle  with length $\sigma_\parallel$ and breadth $\sigma_\perp$ and a sphere of diameter 
+$\sigma_j$. The contact distance for such an interaction is given by Equation 
+(4) of~\cite{BernePechukas72}~:
+%
+\begin{equation}
+	\sigma^{RSP}_w = \sqrt{
+	\frac{\sigma^2_\perp + \sigma^2_j}
+	{1 - \chi(\dotproduct{u_i}{r_{ij}})^2 }
+	}
+	\label{eqn:sw_RSP_BP}
+\end{equation}
+
+For the implementation into a simulation code, Equation~\ref{eqn:sw_RSP_BP} is best written
+in terms of $\theta$ and $\sigma_0$~; recalling that the unit of distance 
+$\so = \sigma_\perp\sqrt{2}$ and for convenience, imposing $\so = \sigma_j\sqrt{2}$. 
+Also to enable
+comparison with the hard needle wall potential, the sphere is taken to be tangent with the
+substrate so as to keep it out of the simulation box. This leads to the final expression for
+$\sigma^{RSP}_w$ as used in the simulations~:
+%
+\begin{equation}
+	\sigma^{RSP}_w = \sigma_0\lp \frac{1}{\sqrt{1 - \chi_S\cos^2\theta}} - \frac{1}{2} \rp
+	\label{eqn:sigma_w_RSP}
+\end{equation}
+%
+with~:
+%
+\begin{equation}
+	\chi_S = \frac{k^2_S - 1}{k^2_S + 1}
+\end{equation}
+%
+$k_S$ being the length to breadth ratio of the inner ellipsoid. A graphical representation of
+this contact distance  as a function of $k_S$ and $\theta$ is shown on
+Figure~\ref{fig:sw_RSP}.\\
+
+%------------------------------------------
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{RSPConfig.ps}
+	\caption{Representation of the geometry used for the interaction between the inner HGO
+	particle and the sphere representing the substrate in the RSP surface potential.}
+	\label{fig:RSPConfig}
+\end{figure}
+
+%------------------------------------------
+
+%------------------------------------------
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{sw_RSP.ps}
+	\caption{Representation of $\sigma_w(k_S, \cos\theta)$ for the RSP surface potential.}
+	\label{fig:sw_RSP}
+\end{figure}
+%------------------------------------------
+
+The rod-sphere model has already been used as the contact distance for a soft surface potential in 
+studies of confined Gay-Berne particles in single component
+systems~\cite{WallCleaver97}~\remark{[Zhang \etal, PRE, 1996]}, 
+binary mixtures~\cite{LathamCleaver00} and switching situations~\cite{rwThesis}. 
+In all of these, full particles (\ie $k_S = k$) were used and tilted layers were observed in the
+interfacial regions.
+In~\cite{WallCleaver97} the tilt was explained to be a consequence of the competition 
+between packing constraints and the form of the surface potential. In other words, the attractive 
+part of the potential was thought to be responsible for the tilt, the authors noticing that increasing 
+the  particle-surface coupling $\alpha$ (see equation (9) of~\cite{WallCleaver97}) induced a tighter 
+distribution of the particles orientation about the optimal tilt angle.
+Ascribing the tilt to the attractive part of the potential was also consistent with the many
+theoretical treatements of confined hard particle systems~: none of these predict tilted surface
+alignment~\remark{[refs for this]}.\\
+
+
+Here, the origins of this tilting behaviour are revisited by studying the surface induced 
+changes as  a function of $k_S$. In Appendix~\remark{A}, it is shown that a particle with 
+elongation $k$ whose inner 
+ellipsoid is in contact with the substrate surface, the volume $Ve(k_S,\theta)$ absorbed into 
+the surface is given by~:
+%
+\begin{equation}
+	Ve=\frac{1}{3}\pi\lp \frac{1}{2}-\sqrt{\frac{\sigma^{RSP}_w}{k^2\cos^2\theta+\sin^2\theta}}\rp^2 
+	\lp 1 + \sqrt{\frac{\sigma^{RSP}_w}{k^2\cos^2\theta+\sin^2\theta}} \rp
+	\label{eqn:Ve_RSP}
+\end{equation}
+%
+A graphical representation of this absorbed volume is given in Figure~\ref{fig:Ve_RSP_fkS} 
+for a particle of
+elongation $k=3$.  The prefered surface induced arrangements can be associated with the 
+maxima in $Ve(k_S,\theta)$. For short $k_S$, $Ve(k_S,\theta)$ is maximal at $\theta = 0$ 
+and, therefore, the most stable arrangement is homeotropic. In the limit of $k_S=k$, however
+$Ve(k_S,\theta)$ is maximal  for intermediate $\theta$, which suggests that a tilted 
+arrangement may be most stable.\\
+%
+
+More insight into the origins of this result can be found in the expression of the surface potential
+(Equation~\ref{eqn:sigma_w_RSP}). In the case $k_S=k$, $\sigma^{HNW}_w$ 
+represents the distance from the substrate to the particle's centre of mass when one of its
+needle's ends
+is in contact with the surface.  $\sigma^{RSP}_w$, in contrast, 
+indicates whether or not the HGO particle overlaps the sphere embedded whithin the substrate.\\
+The comparison between the two potentials (Figure~\ref{fig:cmpHNW_RSP})
+shows that there are some tilt angle for which $\sigma^{RSP}_w$ is smaller than $\sigma^{HNW}_w$, 
+that is the particle ends are able to overlap the surface. This region of reduced 
+$\sigma^{RSP}_w$  coincides with the maximum in $Ve(k_s,\theta)$ and, therefore, can be related
+to any tilt behaviour.\\
+
+%=================================
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{Ve_RSP_fkS.ps}
+	\caption{Representation of $Ve(kS,\theta)$ for the RSP potential and $k=3$.}
+	\label{fig:Ve_RSP_fkS}
+\end{figure}
+%=================================
+
+%=================================
+\begin{figure}
+	\centering
+	\picL{cmpHNW_RSP.ps}
+	\caption{Comparison between $\sigma^{HNW}_w$ (solid line) and $\sigma^{RSP}_w$ (dashed
+	line). The dotted line represents the difference between the two 
+	($\sigma^{HNW}_w-\sigma^{RSP}_w$.)}
+	\label{fig:cmpHNW_RSP}
+\end{figure}
+%=================================
+
+
+%=================================
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{Ve_RSP_fk.ps}
+	\caption{Representation of $Ve(k_S,\theta)$ for the RSP potential and $k_S=k$.}
+	\label{fig:Ve_RSP_fk}
+\end{figure}
+%=================================
+
+The optimum tilt angle $\theta_{tilt}$ for which the adsorbed volume of one particle is maximal can be
+calculated for different values of k.  By considering the absorbed volume given by 
+Equation~\ref{eqn:Ve_RSP} and setting $k_S=k$, an expression
+for $Ve(k,\theta)$ (Figure~\ref{fig:Ve_RSP_fk}) can be obtained.
+$\theta_{tilt}$, the angle which maximizes $Ve(k,\theta)$, is the angle that
+solves~:
+\begin{equation}
+	\frac{d}{d\theta}Ve(k,\theta) = 0
+	\label{eqn:dVeEq}
+\end{equation}
+%
+where $\frac{d}{d\theta}Ve(k,\theta)$ is given by~:
+%
+\begin{equation}
+	\frac{d}{d\theta}Ve(k,\theta) = k\pi \lp\frac{A_0\lp B_0 + C_0 \rp}{D_0} 
+	-\frac{A_0 F_0 \lp B_0 + C_0 \rp}{I_0} 
+	\rp
+\end{equation}
+%
+there~:
+%
+\begin{eqnarray*}
+	A_0 &=& \lp \frac{1}{2} - \sqrt{\frac{A^2}{B}} \rp^2	\\
+	B_0 &=& -\frac{A^2\lp2\cos\theta\sin\theta - 2k^2\cos\theta\sin\theta\rp}{B^2}	\\
+	C_0 &=& -\frac{2A(k^2-1)\cos\theta \sin\theta}{(k^2+1)BC^\frac{3}{2}}	\\
+	D_0 &=& 6\sqrt{\frac{A^2}{B}}	\\
+	F_0 &=& 1+\sqrt{\frac{A^2}{B}}	\\
+	I_0 &=& 3\sqrt{\frac{A^2}{B}}
+\end{eqnarray*}
+%
+and~:
+%
+\begin{eqnarray*}
+	A &=& \frac{1}{\sqrt{C}} - \frac{1}{2}	\\
+	B &=& k^2\cos\theta + \sin^2\theta	\\
+	C &=& 1 - \frac{(k^2-1)\cos^2\theta}{1+k^2}\\
+\end{eqnarray*}
+
+%=================================
+\picW = 10cm
+\begin{figure}
+	\centering
+	\pic{dVeContour_RSP_fk.ps}
+	\caption{Representation of $\theta_{tilt}(k)$ using the RSP potential and $k_S=k$.}
+	\label{fig:dVeContour_RSP_fk}
+\end{figure}
+%=================================
+
+
+Equation~\ref{eqn:dVeEq} has been solved numerically by computing the contour of 
+$\frac{d}{d\theta}Ve(k,\theta)$ at level $0$ as shown on Figure~\ref{fig:dVeContour_RSP_fk}. 
+This shows that $\theta_{tilt}$ is fairly constant at about 0.9 radians, 
+that is about $50$ degrees.
+As a result, configurations with a tilt angle of about $50$ degrees are expected to be favored
+from simulations
+of HGO with the RSP potential and full particles. However, as many body effects have not been
+considered here, the existence of such a tilt in a bulk system cannot be assumed.
+
+%===============================================================================================
+%===============================================================================================
+\subsection{Simulation results using the RSP.}
+
+Surface induced structural changes obtained using the RSP surface potential have been investigated using
+Monte Carlo computer simulations in the canonical ensemble. Systems of $N=1000$ hard Gaussian overlap
+particles with elongation $k=3$ confined in an infinitely wide slab geometry of fixed height 
+$L_z=4k\sigma_0$ were considered, the walls being situated at $z_0 = \pm\frac{L_z}{2}$ and
+symmetric anchoring conditions applied. The simulations were performed in a sequence of decreasing 
+$k_S$ and the surface induced structural changes were studied using the observable 
+profiles ($\rho^{*}_\ell(z)$, $Q_{zz}(z)$ and $P_2(z)$) introduced in the previous Chapter. 
+From these profiles, the
+anchoring and order phase diagrams were computed in the interfacial and bulk regions.\\
+
+
+%---------------------------------------------------------------------------
+\picW = 12cm
+\begin{figure}
+	\centering
+	\pic{RSP_typeProf_k3_homeo.ps}
+	\caption{Typical $z$-profiles for confined systems of HGO particles with 
+	$k=3.0$ and $k^{'}_S = 0.0$ using the RSP potential.}
+	\label{fig:RSP_typeProf_k3_homeo}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\pic{RSP_typeProf_k3_planar.ps}
+	\caption{Typical $z$-profiles for confined systems of HGO particles with 
+	$k=3.0$ and $k^{'}_S = 1.0$ using the RSP potential.}
+	\label{fig:RSP_typeProf_k3_planar}
+\end{figure}
+
+%-----------------------------------
+
+%---------------------------------------------------------------------------
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[$k^{'}_S = 0.0$]
+	{\pic{HGO_box_NVT_RSconf_k3_N1000_kS000_d0.3500_0.50M.ps}}
+	%
+	\subfigure[$k^{'}_S = 1.0$]
+	{\pic{HGO_box_NVT_RSconf_k3_N1000_kS100_d0.3500_0.50M.ps}}
+	\caption{Typical configuration snapshots showing the surface induced homeotropic (a) and 
+	tilted (b)  surface induced arrangements for confined systems of $N=1000$ HGO particles 
+	using $\mathcal{V}^{RSP}$ for surface interactions and $\rho^{*} = 0.35$.}
+	\label{fig:RSP_snaps}
+\end{figure}
+%---------------------------------------------------------------------------
+
+
+Typical profiles obtained using this alternative surface potential are shown on 
+Figures~\ref{fig:RSP_typeProf_k3_planar} and~\ref{fig:RSP_typeProf_k3_homeo}.
+These profiles, share some of the features of the equivalent profiles obtained with the HNW
+potential. The case $k^\prime_S = 0.0$ clearly induces a homeotropic arrangement as can be observed
+from the positive values of $Q_{zz}(z)$ and the wavelength of the oscillations of $\rho^{*}_\ell(z)$ 
+of about $\sel$.
+Also the quality of in-plane ordering is similar to that observed previously.\\
+%
+For $k^\prime_S = 1.0$, however, the situation is very different, and there is little similarity 
+with the $\kSp = 1$ HNW profiles.
+The layering shown in Figure~\ref{fig:RSP_typeProf_k3_planar} is not as well defined and only two peaks 
+in $\rho^{*}_\ell(z)$ can  be clearly observed. Moreover the peak separation is much larger than
+$\so$. 
+Also $Q_{zz}(z)$ fails to display the negative values that would suggest planar ordering, 
+even at high densities. Since the corresponding $P_2(z)$ profiles indicates an ordered
+phase, it can be concluded that, in this case, a tilted arrangement is adopted as suggested by
+the analysis made in Section~\ref{ss:RSP_potential}~\remark{change this}. This Conclusion is
+confirmed by the configuration snapshots shown in Figure~\ref{fig:RSP_snaps}\\
+%
+The tilt angle is not readily available from these profiles, however at the
+location where $\rho^{*}_\ell(z)$ is maximal, $Q_{zz} = 0.209$. From the definition
+of $Q_{\alpha\beta}$, this corresponds to an average tilt angle of $46.6^\circ$, that is $0.812$
+radian which is slightly lower than the predicted tilt angle~\remark{How did you do this}. 
+The configuration snapshot for 
+$k^{'}_S = 1.0$ and $\rho^{*} = 0.35$ (Figure~\ref{fig:RSP_snaps}(b) )shows a tilt 
+angle compatible with the above statements.
+%
+The difference between the observed and predicted tilt angles (of $9.7\%$) can be understood from the 
+packing constraints. The packing improves with lower tilt angles which can in turn can
+increases the adsorbed volume. However the adsorbed volume of one particle decreases as the
+difference between its optimal and actual tilt angles increases. This creates a competition 
+between the amount of adsorbed volume that can be obtained with a better packing fraction 
+but lower average tilt angle and that obtained with an average tilt angle closer to the 
+optimal angle but lower packing fraction.\\
+%
+These simulations have shown that by considering only the adsorbed volume, that is entropy, 
+a tilted phase can be predicted and obtained with steric model. This denies the explanation made
+in~\cite{WallCleaver97}.\\
+
+Because the periodicity in $\rho^{*}_\ell(z)$ has changed with this model, another convention for
+the location of the boundary between the surface and bulk regions of the cell needs to be
+adopted. As the primary peaks in $\rho^{*}_\ell(z)$ are always situated at $|z-z_i|> 0.0$, 
+the surface region has been defined to extend from the substrate to the location of the second 
+maximum  in $\rho^{*}_\ell(z)$ regardless of the surface arrangement. This method is consistent
+with the fact that no true planar arrangement has been observed and that the periodicity of 
+$\rho^{*}_\ell(z)$ for the homeotropic and tilted arrangements are fairly close to one another.\\
+%
+This convention has been used for the computation of the anchoring and order phase diagrams as
+shown on Figures~\ref{fig:RSP_QzzWa} and~\ref{fig:RSP_QzzWa}.
+Since the bistability in the anchoring transition between the two observed phases is not of 
+interest here, only series with decreasing $k^\prime_S$ have been performed. 
+
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[Interfacial region.]{\pic{QzzWaBu_RSPphaseDia_k3_kSD.ps}}
+	\subfigure[Bulk region.]{\pic{QzzWaSu_RSPphaseDia_k3_kSD.ps}}
+	\caption{Anchoring phase diagrams obtained from series of simulations of $N=1000$
+	confined HGO particles with $k=3$ at constant density and decreasing $k_S$ 
+	and using the RSP surface potential.}
+	\label{fig:RSP_QzzWa}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\subfigure[Interfacial region.]{\pic{P2WaBu_RSPphaseDia_k3_kSD.ps}}
+	\subfigure[Bulk region.]{\pic{P2WaSu_RSPphaseDia_k3_kSD.ps}}
+	\caption{Order phase diagrams obtained from series of simulations of $N=1000$
+	confined HGO particles with $k=3$ at constant density and decreasing $k_S$ 
+	and using the RSP surface potential.}
+	\label{fig:RSP_P2Wa}
+\end{figure}
+
+
+
+

@@ -1,0 +1,259 @@
+
+
+
+\section{Phase behaviour of the PHGO model.}
+
+
+In order to test the PHGO model applied to the B\'ezier pear shape, bulk constant $NPT$ MC simulations
+were performed on systems of $N=1000$ particles with elongations $k=3,4$ and $5$. 
+As with the HP model simulations, orientation inversion moves were also included in the MC scheme. 
+These accounted for $20\%$ of the total number of attempted moves. The volume change scheme was 
+performed on average, once two sweeps and allowed each box side to change its length independently. 
+Typical runs comprised of $0.5.10^6$ sweeps for equilibration and production. Close to phase
+transitions, 
+additional runs were performed on a case by case basis  to ensure that equilibration was
+achieved.  All simulations were performed in a compression sequence.
+
+
+%===============================================================================================
+\subsection{Particles with $k=3$ and 4.}
+
+
+%==================================================
+\picW = 7cm
+\begin{figure}
+	\subfigure[$k=3$]{\picL{GBP_P-rho_k3.ps}\picL{GBP_P2-rho_k3.ps}}
+	\subfigure[$k=4$]{\picL{GBP_P-rho_k4.ps}\picL{GBP_P2-rho_k4.ps}}
+	\caption{Phase diagram for the PHGO pears with $k=3$ and 4.}
+	\label{fig:PHGO_phaseDia_k3k4}
+\end{figure}
+%==================================================
+
+The equation of state and order parameter behaviour obtained from simulations with $k=3$ 
+and $4$ are shown in 
+Figure~\ref{fig:PHGO_phaseDia_k3k4}. The phase behaviour for these two elongations is fairly
+similar; both $P(\rho^{*})$ curves show an inflexion point, respectively at $\rho^{*}\sim 0.30$ and
+$\sim 0.20$, which corresponds to an increase of $P_2(\rho^{*})$ to values of the order
+of $0.15$ immediately followed by a rather steep decrease.\\ 
+The `plateau' in $P(\rho^{*})$ indicates some sort of phase transition to a more ordered phase
+but, as this is only hardly reported on $P_2$, this phase change does not corresponds to 
+an isotropic-nematic phase transition.
+Some more insight into the phase behaviour can be obtained by observation of configuration
+snapshots (\eg Figure~\ref{fig:GBP_snaps_k3k4}).
+
+%==================================================
+\picW = 5.5cm
+\begin{figure}
+	\subfigure[$k=3$ isotropic]{\pic{GBP_box_NPT_k3-2_N1000_P3.0000_0.50M_S1.1.ps}}
+	\hspace{2cm}
+	\subfigure[$k=3$ domain ordered]{\pic{GBP_box_NPT_k3-2_N1000_P7.0000_0.50M_S1.1.ps}}
+	
+	\subfigure[$k=4$ isotropic]{\pic{GBP_box_NPT_k4_N1000_P1.8000_0.50M.ps}}
+	\hspace{2cm}
+	\subfigure[$k=4$ domain ordered]{\pic{GBP_box_NPT_k4_N1000_P5.0000_0.50M.ps}}
+	\caption{Configuration snapshots for the pear PHGO model and $k=3$ and 4.}
+	\label{fig:GBP_snaps_k3k4}
+\end{figure}
+%==================================================
+
+These show that upon increasing the pressure, both systems underwent a phase transition from
+isotropic to the what we term as a domain ordered BILAYER phase where, the particles form 
+domains in which 
+the local order is very high but where the orientation changes from one domain to the other. 
+Unlike with the HP model, this seems to have been a transition between two genuinely
+liquid states as the systems maintained high mobility throughout the density ranges considered here
+(see Figure~\ref{fig:PHGO_dc_k3k4}). Also, the configuration snapshots suggest continuous
+orientation changes in moving from one domain to another (\eg Figure~\ref{fig:GBP_snaps_k3k4}b
+and d,) unlike the very sharp domain
+boundaries seen in the HP systems (\eg Figure~\ref{fig:HP_k5_d0.14_snaps}b and c.)\\
+
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[$k=3$]{\picL{GBP_k3-2_cpress_dc.ps}}
+	\subfigure[$k=4$]{\picL{GBP_k4_cpress_dc.ps}}
+	\caption{Evolution of $\langle\delta r^2(n)\rangle$ for the pear PHGO model and $k=3$
+	and 4.}
+	\label{fig:PHGO_dc_k3k4}
+\end{figure}
+
+More quantitative insight into those domain ordered phases have been obtained through
+computation of the pair correlation functions. Both $g_\parallel(r_\parallel)$,
+$g^\mrm{mol}_\parallel(r_\parallel)$ (Figure~\ref{fig:gr_PHGO_k4}(a)) and $g_\perp(r_\perp)$,
+$g^\mrm{mol}_\perp(r_\perp)$ (Figure~\ref{fig:gr_PHGO_k4}(b)) have been computed  for $k=4$ as
+the domains are best observed for this elongation.\\
+%
+$g_\parallel(r_\parallel)$ and $g_\perp(r_\perp)$ show some short ranged structure with 
+increasing density but do not give much information about the structures observed 
+on the snapshots because the choice of reference ($\vecth{n}$) for the computation of these 
+curves does not allow one to `follow' the orientation of the particles in the domains.\\
+A better reference is the molecular orientation as used when calculating 
+$g^\mrm{mol}_\parallel(r_\parallel)$
+and $g^\mrm{mol}_\perp(r_\perp)$ (Figure~\ref{fig:gr_PHGO_k4}(c) and (d)).
+In this case, the appearance of almost periodic  behaviour in $g^\mrm{mol}_\parallel(r_\parallel)$ 
+shows some smectic-like ordering with increased density. $g^\mrm{mol}_\perp(r_\perp)$, however,
+shows that those domain are fairly short ranged as only three peaks can be observed, the first one 
+accounting for the direct antiparallel neighbors and the subsequent maxima correspond to further
+shells of parallel and anti-parallel particles.\\
+
+
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[$g_\parallel(r_\parallel)$]{\picL{GBP_k4_grParallel.iso.ps}}
+	\subfigure[$g_\perp(r_\perp)$]{\picL{GBP_k4_grPerpLayer.iso.ps}}
+
+	\subfigure[$g_\parallel(r_\parallel)$]{\picL{GBP_k4_grParallel.fun.ps}}
+	\subfigure[$g_\perp(r_\perp)$]{\picL{GBP_k4_grPerpLayer.fun.ps}}
+	\caption{Pair correlation functions for the pear PHGO model of $k=4$ computed with respect to 
+	$\vecth{n}$ (top) and to $\ui$ (bottom).}
+	\label{fig:gr_PHGO_k4}
+\end{figure}
+
+Thus the PHGO model applied to the B\'ezier pears with elongation $k=3$ and $4$ has shown some very 
+interesting phase behaviour. Despite the improved contact surfaces, that prevented the formation 
+of glassy phases, still no nematic phases could be observed. Rather, upon increasing the
+density, the systems underwent a transition from isotropic to a domain ordered phase.
+
+%===============================================================================================
+\subsection{Particles with $k=5$.}
+
+The phase behaviour for particles with $k=5$ proved to be qualitatively different from the shorter
+elongations and resembled that of other common LC models, such as the HGO fluid.
+
+$P^{*}(\rho^{*})$ shows a plateau at $P^{*}\sim 1.2$ which corresponds to an `S' shaped increase in 
+$P_2(\rho^{*})$ to values typical of a nematic
+phase. This phase lacked polar order throughout the density range
+considered as shown by the low values  of $P_1(\rho^{*})$. Configuration snapshots illustrating 
+these isotropic and nematic phases are shown on Figure~\ref{fig:GBP_k5_snaps}(a) and (b).
+%
+%
+%==================================================
+\picW = 7cm
+\begin{figure}
+	\picL{GBP_P-rho_k5.ps}
+	\picL{GBP_P2-rho_k5.ps}
+	\caption{Phase diagram for the PHGO pears with $k=5$.}
+	\label{fig:PHGO_phaseDia_k5}
+\end{figure}
+%==================================================
+%
+%
+Surprisingly a second feature can be observed on the phase diagram in the form of a second inflexion
+point in $P^{*}(\rho^{*})$ at higher pressure. This corresponds to a second, smaller `S' shaped
+increased in $P_2(\rho^{*})$ marking a second phase transition, this time to a smectic phase.
+As the PHGO model is simply a generalization of the Hard Gaussian Overlap model to 
+non-centrosymmetric shapes, this second phase transition was not expected. Observation of the 
+configuration snapshots at the highest densities confirmed the existence of the smectic phase 
+(\eg Figure~\ref{fig:GBP_k5_snaps}(c) .)
+All the phases found can be shown to be fluid as the gradient in $\left< \delta r^2(n) \right>$
+stayed rather high throughout the density range considered here (Figure~\ref{fig:GBP_k5_dc}).\\
+
+%==================================================
+\picW = 12cm
+\begin{figure}
+	\centering
+	\picL{GBP_k5_cpress_dc.ps}
+	\caption{Evolution of $\left< \delta r^2(n) \right>$ as a function of pressure for the
+	pear PHGO model with $k=5$.}
+	\label{fig:GBP_k5_dc}
+\end{figure}
+%==================================================
+
+
+%==================================================
+
+\begin{figure}
+	\centering
+	\picW = 5cm
+	\subfigure[isotropic]{\pic{GBP_box_k5_P1.0000.ps}}
+	\hspace{2cm}
+	\picW = 5.5cm
+	\subfigure[nematic]{\pic{GBP_box_k5_P1.5000.ps}}
+	\picW = 5.5cm
+	\subfigure[smectic]{\pic{GBP_box_k5_P2.8000.ps}}
+	\caption{Configuration snapshots for the PHGO pears with $k=5$.}
+	\label{fig:GBP_k5_snaps}
+\end{figure}
+%==================================================
+
+
+%==================================================
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[$g_\parallel(r_\parallel)$]{\picL{GBP_k5_grParallel.ps}}
+	\subfigure[$g_\perp(r_\perp)$]{\picL{GBP_k5_grPerpLayer.ps}}
+	\caption{Pair correlation functions for the pear PHGO model of $k=5$ computed with respect to 
+	$\vecth{n}$.}
+	\label{fig:GBP_k5_gr}
+\end{figure}
+%==================================================
+
+
+In order to gain more insight into the phases found here but also to characterize the
+smectic phase more precisely, the pair correlation functions have been computed parallel and 
+perpendicular with respect to the nematic director $\vecth{n}$. Only this reference frame has
+been taken here as, in the absence of domain ordered phases, 
+computation of $g^\mrm{mol}_\parallel(r_\parallel)$ and $g^\mrm{mol}_\perp(r_\perp)$ was not
+required.\\
+%
+As shown in Figure~\ref{fig:GBP_k5_gr}, increase in pressure leads to the development of
+periodic oscillations in $g_\parallel(r_\parallel)$; the amplitudes of these fluctuations 
+were found to grow with increased pressure. In the smectic phase, $g_\parallel(r_\parallel)$ 
+became fully periodic, the repeating pattern being composed of one main 
+peak between two smaller ones.\\
+At $P^{*}=2.8$, the distance between the two main peaks was about  
+$7.389\sigma_0 \approx 1.5k\sigma_0$. This corresponds to  the separation of layers with 
+the same polar orientation. The two smaller peaks account for the two spacing of antiparallel 
+layer arrangement.  The presence of two peaks (rather than one) can be explained by 
+the difference between the preferred tail-tail and  head-head contact distances. The area under 
+these peaks is about half that under the main peaks as each accounts for one type of 
+relative alignment (head-head \textbf{or} tail-tail) whereas the main peak account for two 
+types of interaction (head-tail pointing up \textbf{and} head-tail pointing down). At the same
+pressure of $P^{*} = 2.8$, the peak separation of about $\so$ shows the smectic to be a \smA
+phase. Moreover, the interdigitation between the layers as revealed by the configuration
+snapshots (\eg Figure~\ref{fig:GBP_k5_snaps}(c)) further identifies this smectic phase as a
+bilayered smectic $\mrm{A_2}$.\\
+
+Comparison of $g_\parallel(r_\parallel)$ for different values of $P^{*}$ in the smectic phase
+shows an interesting compressibility behaviour and also allows to identify the different 
+peaks with their associated particles interaction geometry. Upon increasing the pressure, 
+the system density rises  and the intra-layer separation decreases whereas the bilayer 
+separation increases  (Figure~\ref{fig:GBP_k5_gr}(a) and (b)). 
+From the measured $g_\parallel(r_\parallel)$ data in the pressure range $[2.4:3.8]$,
+it is found that the distance between the 
+main peaks, which corresponds to the separation of the bilayers, increases from $7.38$ 
+to $7.66$. The distance from the main peak to the first minor peak, which corresponds to 
+the strongly interdigitating `tail-tail' configuration increases from $2.49$ to $2.76$, 
+whereas that to the second minor peak, corresponding to the weakly interdigitating `head-head' 
+alignment remains effectively constant at $4.85$. Thus, the in-plane compression induced by 
+this increase in pressure leads to a 10\% increase in the separation within the interdigitated 
+bilayers that comprise the smectic ${\rm A_2}$ phase.\\
+Figure~\ref{fig:GBP_k5_grDetails} shows the period of $g_\parallel(r_\parallel)$ at
+$P^{*}=2.8$~; the distance $C-H_1$ corresponds to the bilayer separation, that is the separation
+between particles with the same polar orientation ($\lhd\lhd$ and $\rhd\rhd$). The $C-L_1$
+distance corresponds to the separation between the strongly interdigitated particles in a 
+tail-tail ($\rhd\lhd$) configuration and the $C-L_2$ distance corresponds to the separation
+between particles in a head-head ($\lhd\rhd$) configuration.\\
+
+\picW = 10cm
+\begin{figure}
+	\centering
+	\picL{GBP_k5_grParallelDetails.ps}
+	\caption{Details of $g_\parallel(r_\parallel)$ for a system of PHGO particles with $k=5$
+	and $P^{*}=2.8$, which corresponds to a smectic phase.}
+	\label{fig:GBP_k5_grDetails}
+\end{figure}
+
+
+The results from the simulation of the pear PHGO model with $k=5$ thus shows an interesting
+phase behaviour that includes stable nematic and interdigitated \smA phases. As a result 
+the prerequisite 
+condition for the creation of the model for surface induced switching is fulfilled and pear 
+PHGO particles can be used in confined geometries in an attempt to achieve the main goal of this
+thesis. Results  of the work performed to this end are presented in Chapter~\ref{chap:seven}.
+
+
+
+

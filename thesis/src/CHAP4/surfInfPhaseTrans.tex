@@ -1,0 +1,435 @@
+
+
+\section{Surface influence on phase transitions.}
+\label{s:surfInfphaseTrans}
+
+
+
+%===============================================================================================
+\subsection{ The $\overline{Q}_{zz}$ and $\overline{P}_2$ observables.}
+
+
+To determine the location of the planar to homeotropic anchoring transition more precisely 
+requires the ability to
+characterize quantitatively the nature of the arrangement displayed by a confined system. 
+Section~\ref{ss:typicalProfiles} has shown that simple observation of the profiles is not
+sufficient to determine the arrangement type as information from both $Q_{zz}(z)$ and 
+$\rho^{*}_\ell(z)$ is required. Besides, quantitative information on the anchoring behaviour is
+hard to obtain solely by observation of profiles.\\
+As the transition point is a function of both the global number density and needle
+length, a useful observable for characterising the surface arrangement would be a scalar
+able to distinguish 
+both the type and strength of the anchoring for a given $(\rho^{*}, \kSp)$ state point.\\
+This need is fulfilled by the use of the novel observables $\overline{Q}_{zz}$ and 
+$\overline{P}_2$. These are density-profile-weighted averages of,
+respectively, $Q_{zz}(z)$ and $P_2(z)$, taken over a given
+region of interest. In general $\overline{Q}_{zz}$  and $\overline{P}_2$ are defined as~:
+%
+\begin{eqnarray}
+	\overline{Q}_{zz} &=& \frac{\sum_{z_i} Q^{n}_{zz}(z_i) \rho^{*}_\ell(z_i)}
+			{\sum_{z_i} \rho^{*}_\ell(z_i)}		\\
+	%
+	\nonumber \\ 
+	%
+	\overline{P}_2 &=& \frac{\sum_{z_i} P_2(z_i) \rho^{*}_\ell(z_i)}
+			{\sum_{z_i} \rho^{*}_\ell(z_i)}	
+\end{eqnarray}
+%
+where the $z_i$ considered are restricted on the region of interest.
+Here $Q^{n}_{zz}(z)$ is a rescaled version of $Q_{zz}$ such that $Q^{n}_{zz}\in[-1:1]$. Hence the
+definition of $Q^{n}_{zz}(z)$~:
+%
+\begin{equation}
+	Q^{n}_{zz} = \left\{	%}
+	\begin{array}{ccc}
+		Q_{zz}		&\text{if}	&Q_{zz} \geq 0	\\
+		2.Q_{zz}	&\text{if}	&Q_{zz} < 0\\
+	\end{array}
+	\right.
+\end{equation}
+
+
+The computation of the $\overline{Q}_{zz}$ and $\overline{P}_2$ observables has been 
+performed on regions of the cell corresponding to the interfacial and bulks domains. 
+This has enabled the behaviour of the system to be studied in each region separately. 
+The naming convention adopted for the observables
+corresponding to each region is described in Table~\ref{tble:SuBuNamingCvention}.\\
+
+\begin{table}[h]
+\centering
+\begin{tabular}{||c||c||c||}
+\hhline{|t:=:t:=:t:=:t|}
+key	&Description			&Associated observables		\\
+\hhline{|:=::=::=:|}
+Sb	&Bottom interfacial region	&$\overline{Q}^{Sb}_{zz}$, $\overline{P}^{Sb}_2$\\
+Bu	&Bulk region			&$\overline{Q}^{Bu}_{zz}$, $\overline{P}^{Bu}_2$\\
+St	&Top interfacial region		&$\overline{Q}^{St}_{zz}$, $\overline{P}^{St}_2$\\
+Su	&Both interfacial region	&$\overline{Q}^{Su}_{zz}$, $\overline{P}^{Su}_2$\\
+\hhline{|b:=:b:=:b:=:b|}
+\end{tabular}
+\caption{Naming convention for the simulation slab regions and associated observable.}
+\label{tble:SuBuNamingCvention}
+\end{table}
+
+It is now necessary to define an 
+appropriate boundary between the interfacial and bulk regions. 
+This boundary needs to be located at a point where the surface has no direct influence on
+the molecules; as a result the boundary $z_i$ could be chosen such that $|z_i-z_0| = \frac{L_n}{2}$
+since at $z=z_i$, the particles can rotate  freely without direct interaction  with the surface. 
+This approach fails, however, in the limit of zero needle length, as
+it implies $|z_i-z_0| \sim 0$ whereas the $z$-profiles clearly show a non-zero interfacial
+regions for all needle lengths.\\
+A different approach was taken, therefore, in defining this boundary; the interfacial region
+width was made a function of the needle length and density by making the boundary $z_i$ 
+dependent on features of the density profiles.
+The scheme used is illustrated on Figure~\ref{fig:SuBuDefs}. If the anchoring was found
+to be planar (first local maximum of $\rho^{*}_\ell(z)$ at $|z_i-z_0|\sim 0$), 
+the interfacial region  was taken to extend from  the surface to the distance corresponding 
+to the second maximum in  $\rho^{*}_\ell(z)$. If however, the anchoring was homeotropic 
+(first local maximum of $\rho^{*}_\ell(z)$ at $|z_i-z_0|\sim \frac{L_n}{2}$) then the 
+interfacial region was taken to extend from
+the surface to the first local minimum in $\rho^{*}_\ell(z)$. In those cases with ambiguous 
+double peaked density profiles, the first scheme was adopted.
+
+\picW = 7cm
+\begin{figure}[h]
+	\centering
+	\subfigure[planar case]{\picL{planarSuBu.ps}}
+	\subfigure[homeotropic case]{\picL{homeoSuBu.ps}}
+	\caption{Definition of the slab interfacial and bulk regions.}
+	\label{fig:SuBuDefs}
+\end{figure}
+
+%===============================================================================================
+%===============================================================================================
+\subsection{Anchoring transitions.}
+
+Here, the planar to homeotropic anchoring transition is located from measurement of 
+$\overline{Q}_{zz}$ as a function of $\rho^{*}$ and $\kSp$ which can be used to construct an 
+anchoring phase diagram. Such diagrams have been determined for systems with elongations 
+$k=3$ and $k=5$ using 
+simulations performed at constant densities and increasing and decreasing needle lengths. 
+Results for both series in the interfacial (Su) and bulk (Bu) regions are shown in 
+Figures~\ref{fig:QzzPhaseDia_k3} and~\ref{fig:QzzPhaseDia_k5} for $k=3$ and $k=5$ respectively.
+
+%---------------------------------------------------------
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[Series with increasing $\kSp$.]{
+	\pic{QzzWaSu_phaseDia_k3_LnU.ps}
+	\pic{QzzWaBu_phaseDia_k3_LnU.ps}}
+	
+	\subfigure[Series with decreasing $\kSp$.]{
+	\pic{QzzWaSu_phaseDia_k3_LnD.ps}
+	\pic{QzzWaBu_phaseDia_k3_LnD.ps}}
+	
+	\subfigure[Bistability phase diagram (\ie difference between (a) and (b)).]{
+	\pic{QzzWaSu_bistPhaseDia_k3.ps}
+	\pic{QzzWaBu_bistPhaseDia_k3.ps}}
+	\caption{Anchoring phase diagrams of $\overline{Q}_{zz}$ for $k=3$ for the surface 
+	(left) and bulk (right) regions of the cell. }
+	\label{fig:QzzPhaseDia_k3}
+\end{figure}
+
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[Series with increasing $\kSp$.]{
+	\pic{QzzWaSu_phaseDia_k5_LnU.ps}
+	\pic{QzzWaBu_phaseDia_k5_LnU.ps}}
+	
+	\subfigure[Series with decreasing $\kSp$.]{
+	\pic{QzzWaSu_phaseDia_k5_LnD.ps}
+	\pic{QzzWaBu_phaseDia_k5_LnD.ps}}
+	
+	\subfigure[Bistability phase diagram (\ie difference between (a) and (b)).]{
+	\pic{QzzWaSu_bistPhaseDia_k5.ps}
+	\pic{QzzWaBu_bistPhaseDia_k5.ps}}
+	\caption{Anchoring phase diagrams of $\overline{Q}_{zz}$ for $k=5$ for the surface 
+	(left) and bulk (right) regions of the cell. }
+	\label{fig:QzzPhaseDia_k5}
+\end{figure}
+%---------------------------------------------------------
+
+The results obtained for the two elongations are very similar. In the \textbf{interfacial
+region}, the anchoring transitions occur at $k_S/k$ values close to those predicted in 
+section~\ref{ss:PHstability}, as can be observed from the lines of constant $\overline{Q}^{Su}_{zz} =
+0$. For higher densities, the agreement between  the simulation and theoretical result can be
+seen to improve. 
+Also the region around $\kSp$ becomes sharper with increasing density indicating a 
+possible discontinuous transition between planar and homeotropic anchoring states.\\
+
+In the \textbf{bulk region}, little surface influence can be observed at low density, as
+the values of $\overline{Q}^{Bu}_{zz}$ remain close to zero due to the systems orientational
+isotropy. As the number density is increased,  the local density in the bulk 
+regions reaches values corresponding to bulk nematic densities. The surface influence then extends 
+further into the cell and sharp anchoring transitions become apparent at needle lengths similar to
+those suggested by the interfacial region anchoring diagram.
+This, however, occurs for global number densities significantly greater than the isotropic to nematic
+transition densities of the equivalent bulk system (see Section~\ref{HGO_cal_res}).
+This indicates that the I-N transitions in the bulk regions
+were shifted to higher number densities due to the presence of the surfaces. this is further
+discussed in Section~\ref{ss:surfInflINTans}.\\
+
+The anchoring phase diagrams are also found to be asymmetric in that bulk
+planar ordering develops at lower densities than its homeotropic counterpart. 
+As stated earlier, this is due, in part, to the increased absorbed volume in the case of
+homeotropic anchoring which is sufficient to prevent the observation of uniformly 
+ordered slabs of homeotropic arrangement in the limit $\kSp=0$ for the range of density 
+considered here. That said, interpolation of the result determined here to higher densities
+suggests that homeotropically ordered phases should exist for $\kSp < k^{T\prime}_{S}$.
+
+%==============================================================================================
+\subsection{Anchoring bistability}
+
+Another interesting feature of Figures~\ref{fig:QzzPhaseDia_k3} and~\ref{fig:QzzPhaseDia_k5}
+comes from the comparison of the diagrams for increasing and decreasing
+needle lengths (\ie diagrams (a) and (b)). As the density is increased, the hysteresis between 
+the two set of results also 
+increases. This confirms an earlier observation that in conditions corresponding to 
+competing  anchoring according the $z$-profiles observed can be dependent on 
+sample's history (recall 
+Figures~\ref{fig:typicalProfile_k3_bist} and~\ref{fig:typicalProfile_k5_bist}).\\
+%
+Since all of the data used to construct those diagrams were obtained from equilibrated systems,
+these discrepancies suggest possible bistable behaviour for state points close to the
+anchoring transition. This bistability has been measured more precisely by computing the
+absolute value of the difference between results obtained with series of increasing and
+decreasing needle lengths. This difference equals $0$ if the two diagram agree and $2$ for full
+bistability. The results for both elongations in the interfacial and bulk regions of the slab,
+shown on Figures~\ref{fig:QzzPhaseDia_k3}(c) and~\ref{fig:QzzPhaseDia_k5}(c)
+indicate for both $k=3$ and $k=5$ distinct bistable regions at high densities.\\
+
+In order to demonstrate the existence of this bistability, an attempt to
+switch the cell from planar to homeotropic and back has been carried out. For this, a previously
+equilibrated system of $N=1000$ particles with $k=3$, $\rho^{*}=0.34$ and $\kSp = 0.5$ was
+taken. This configuration was extracted from a series performed with decreasing densities which 
+showed planar anchoring at this state point. The switching was performed through the series of 
+simulations $R_1$ to $R_5$ listed in Table~\ref{tble:bistFieldConditions}, \ie by 
+applying and removing an electric field $\vect{E} = E\vecth{z}$ and
+taking the dielectric constant $\chi_e$ to be, alternately, positive and negative.
+The effect of the field is to align the  particles parallel or perpendicular with $\vect{E}$
+respectively for positive and negative values of $\chi_e$, respectively.\\
+While this setup is admittedly somewhat unrealistic, it can nevertheless be related to an
+experimental system in which the mesogens employed can display different dielectric constant 
+according to the frequency of an applied AC field.\\
+
+\begin{table}
+\centering
+\begin{tabular}{||c||c||c||c||c||}
+	\hhline{|t:=:t:=:t:=:t:=:t:=:t|}
+	Run		&	$\vecth{E}$	&$E$	& $\chi_e$	&run length\\
+	\hhline{|:=::=::=::=::=:|}
+	$R_1$	&	(0,0,0)		&0.0	&0.0	&$0.25.10^6$\\
+	$R_2$	&	(0,0,1)		&6.0	&0.5	&$0.25.10^6$\\
+	$R_3$	&	(0,0,0)		&0.0	&0.0	&$1.00.10^6$\\
+	$R_4$	&	(0,0,1)		&6.0	&-0.5	&$0.25.10^6$\\
+	$R_5$	&	(0,0,0)		&0.0	&0.0	&$0.50.10^6$\\
+	\hhline{|b:=:b:=:b:=:b:=:b:=:b|}
+\end{tabular}
+\caption{Electric parameterisation in the switching between the planar and
+homeotropic states of the bistable system.}
+\label{tble:bistFieldConditions}
+\end{table}
+
+If the considered state points correspond to a bistable region, both planar and homeotropic phases
+should be obtained in the field-off runs provided the sample is prealigned suitably for each
+arrangement. The purpose of applying the field with each value of $\chi_e$ is, thus, to perform 
+this pre-alignment operation.
+
+
+\picW = 6cm
+\begin{figure}
+	\centering
+	\subfigure[start $R_1$]{\pic{HGO_box_init.ps}}
+	\subfigure[end $R_1$]{\pic{HGO_box_Sconf_switch_01.ps}}
+	\subfigure[end $R_2$]{\pic{HGO_box_Sconf_switch_02.ps}}
+	\subfigure[end $R_3$]{\pic{HGO_box_Sconf_switch_03.ps}}
+	\subfigure[end $R_4$]{\pic{HGO_box_Sconf_switch_04.ps}}
+	\subfigure[end $R_5$]{\pic{HGO_box_Sconf_switch_05.ps}}
+	\caption{Configuration snapshots corresponding to the initial (start) and final
+	configurations of runs $R_1$ to $R_5$.}
+	\label{fig:HGOk3BistSnaps}
+\end{figure}
+
+
+\picW = 12cm
+\begin{figure}
+	\centering
+	\subfigure[$\overline{Q}_{zz}^{Su}(n)$]{\picL{QzzWaSu_k3_Bist.ps}}
+	\subfigure[$\overline{Q}_{zz}^{Bu}(n)$]{\picL{QzzWaBu_k3_Bist.ps}}
+	\caption{Evolution of $\overline{Q}_{zz}$ in the interfacial(a) and bulk(b) regions as a
+	function of $n$, the number of sweeps.}
+	\label{fig:QzzWak3Bist}
+\end{figure}
+
+The configuration snapshots corresponding to the initial and final states from each run are shown on 
+Figure~\ref{fig:HGOk3BistSnaps}(a) to (f). The corresponding behaviour of
+$\overline{Q}^{Su}_{zz}$ and $\overline{Q}^{Bu}_{zz}$, as a function of Monte Carlo sweeps, are
+shown in Figures~\ref{fig:QzzWak3Bist}(a) and~\ref{fig:QzzWak3Bist}(b). Also, for comparison,
+the values of $\overline{Q}_{zz}$ at this state point and corresponding to the two different surface
+arrangements as obtained from the runs with increasing and decreasing $\kSp$ are shown as
+horizontal lines.\\
+%
+The results confirm the existence of the bistable region. 
+Run $R_1$ shows that the system remains stable in its initial planar arrangement; after 
+reorientation of the particles along $\vecth{z}$ by the applied field (run $R_2$), 
+the  system equilibrates naturally to a  homeotropic arrangement (run $R_3$) although the
+final value of $\overline{Q}_{zz}$ is higher than that obtained from the previous runs performed
+in the computation of the anchoring phase diagrams. This discrepancy might be induced by the
+application of the strong value of the field which forced all interfacial particles 
+to take an almost perfect homeotropic alignment. Upon removal of the field, 
+the system equilibrated towards the stable homeotropic state, but due to packing constraints 
+fewer particles were allowed to take a planar orientation close to the surface as in the case 
+of previous simulations. This should not however question the equilibrium of the state obtained
+here.
+%
+Upon changing the molecular dielectric susceptibility to $\chi_e<0$, reapplication of the field 
+(run $R_4$) recreates a planar arrangement which relaxes to the original stable state 
+upon field removal (run $R_5$). In this case, the system equilibrated to the same value of
+$\overline{Q}_{zz}$ as that obtained previously as in the case of planar anchoring, there is no
+instance of homeotropic alignment in the interfacial region.\\
+%
+It should be noted also, that the `response times' of the systems were different in the bulk and
+interfacial region; however the Monte Carlo technique was used and this does not follow the time
+evolution of the systems. An appropriate study of the dynamic behaviour of the system would have
+required the use of the Molecular Dynamics techniques, but this was not of prime interest here.
+The purpose of these simulations was to prove the existence of the bistability behaviour of the
+model, and within the simulation run lengths available here, this has been fulfilled.
+
+
+%==============================================================================================
+\subsection{The I-N transition.}
+\label{ss:surfInflINTans}
+
+Here, the influence of confinement on the liquid crystalline phase behaviour of the model is
+studied, specifically, the influence of confinement upon the location of the I-N transition is of
+interest. To some extend, this issue has already been addressed for similar systems 
+studied very recently by Zhou~\etal\cite{ZhouChen03}. This work was based on simulations of 
+hard Gaussian overlap particles of elongation $k\in [2:3]$ confined between plane structureless
+walls represented by a surface potential describing the interaction between an ellipsoid and 
+a plane.
+The authors found that the effect of confinement was to shift the location of the I-N transition
+towards lower number densities. Another effect was enhancement of orientational order in that particles 
+whose shape anisotropy was not sufficient for the formation of liquid crystalline phases in the
+bulk (\ie 3d) displayed ordered phases with an order parameter consistent with a nematic 
+phase in confined systems.\\
+
+The effect of confinement upon the phase behaviour of the model studied here was assessed by
+computing the variation of $\overline{P}_2$ and the average local density
+$\overline{\rho^{*}_\ell}$ in bulk and surface regions as a function of the overall number density 
+$\rho^{*}$ and reduced needle length $k_S/k$.
+Here the  approach taken for the study of the anchoring transition was applied,
+using $P_2(z)$ as the main observable.\\
+The order phase diagrams of the system as a function of $\rho^{*}$ and $\kSp$ have been
+computed from simulations with constant $\rho^{*}$ performed in series of increasing and decreasing
+$\kSp$. The difference between this and the study of the anchoring transition is that now lines of
+constant $\kSp$ on the diagram are of interest;
+the results shown here have been computed using series of simulations with constant density 
+rather than constant needle lengths as more data were available for the former. 
+However comparison of data obtained from series with constant density and varying needle length 
+show that ultimately both series agree. For the sake of completeness, 
+Figure~\ref{fig:P2Wa-rho_fd} shows a sample of the results obtained for series of simulation 
+with constant needle length and increasing densities.
+The order phase diagrams (obtained from the series with constant number density) 
+for $k=3$ in the interfacial and bulk regions are shown on 
+Figure~\ref{fig:P2PhaseDia_k3}, and the evolution of $\overline{\rho^{*}_\ell}$ with 
+$\rho^{*}$ and $k_S/k$ is shown on Figure~\ref{fig:rhoLPhaseDia_k3}. 
+From these, the effects of confinement on the I-N transition can be assessed.\\
+
+%---------------------------------------------------------
+\picW = 10cm
+\begin{figure}
+	\centering
+	\subfigure[interfacial region]{\picL{P2WaSu-rho_k3.ps}}
+	\subfigure[bulk region]{\picL{P2WaBu-rho_k3.ps}}
+	\caption{Evolution of $\overline{P}_2$ in the interfacial(a) and bulk(b) regions as
+	obtained from simulations at constant $k_s/k$ and increasing densities.}
+	\label{fig:P2Wa-rho_fd}
+\end{figure}
+
+%---------------------------------------------------------
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[Series with increasing needle length]
+	{\pic{P2WaSu_phaseDia_k3_LnU.ps}\pic{P2WaBu_phaseDia_k3_LnU.ps}}
+	\subfigure[Series with decreasing needle length]
+	{\pic{P2WaSu_phaseDia_k3_LnD.ps}\pic{P2WaBu_phaseDia_k3_LnD.ps}}
+	\caption{Order phase diagrams for $k=3$ in the interfacial (left) and bulk (right) regions of the
+	slab obtained from series with increasing and decreasing density.}
+	\label{fig:P2PhaseDia_k3}
+\end{figure}
+
+%---------------------------------------------------------
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[Series with increasing needle length]
+	{\pic{rhoLSu_k3_S4.ps}\pic{rhoLBu_k3_S4.ps}}
+	\subfigure[Series with decreasing needle length]
+	{\pic{rhoLSu_k3_S2.ps}\pic{rhoLBu_k3_S2.ps}}
+	\caption{average local density $\overline{\rho^{*}_\ell}$ for $k=3$ 
+	in the interfacial (left) and bulk (right) regions of the
+	slab obtained from series with increasing and decreasing density.}
+	\label{fig:rhoLPhaseDia_k3}
+\end{figure}
+
+
+%---------------------------------------------------------
+%\picW = 7cm
+%\begin{figure}
+%	\centering
+%	\subfigure[Series with increasing needle lengths]
+%	{\pic{P2WaSu_phaseDia_k5_LnU.ps}\pic{P2WaBu_phaseDia_k5_LnU.ps}}
+%	
+%	\subfigure[Series with decreasing needle lengths]
+%	{\pic{P2WaSu_phaseDia_k5_LnD.ps}\pic{P2WaBu_phaseDia_k5_LnD.ps}}
+%	\caption{Order phase diagrams for $k=5$ in the interfacial (left) and bulk (right) 
+%	regions of the slab obtained from series with increasing and decreasing density.}
+%	\label{fig:P2PhaseDia_k5}
+%\end{figure}
+
+
+%---------------------------------------------------------
+
+Observation of these results reveals the main effects of confinement mentioned in
+Chapter~\ref{chap:two} and at the beginning of this Chapter.
+In the interfacial region, Figure~\ref{fig:rhoLPhaseDia_k3} shows an enhanced density
+which, in turn, results in higher order as shown on Figure~\ref{fig:P2PhaseDia_k3}. As a result
+of this, the average local density in the bulk region is reduced, and so is the degree of
+ordering. Generally, therefore, the effect of confinement on these systems is to shift the 
+isotropic-nematic transition to lower number densities in the interfacial region and to higher 
+number densities in the bulk region.\\ 
+
+Close observation of Figures~\ref{fig:P2PhaseDia_k3} and~\ref{fig:rhoLPhaseDia_k3}
+shows, however, that the anchoring conditions have a strong influence on the surface induced 
+shifts in the local
+density and order parameter values. 
+In particular and in the region corresponding to competing anchoring \ie $k_S \sim 0.5$,
+$\overline{\rho^{*}_\ell}$ shows a sudden decrease in value which is accompanied by a region
+of low orientational order. However, this effect seems to be much stronger on 
+$\overline{P}_2$ than is suggested by the behaviour of $\overline{\rho^{*}_\ell}$. This is
+because,
+in addition to the reduced average local density, the double peaked nature of the $z$-profiles
+indicates the particles to have competing preferred orientations, which reduces
+the value of the order parameter. This leads to a higher shift in the number density of the 
+I-N transition of competing anchoring cases than would be expected purely from local density
+effects.\\
+
+The results observed here are consistent with those obtained by Zhou~\etal\cite{ZhouChen03}. The
+shifts in $\overline{\rho^{*}_\ell}$ and $\overline{P}_2$ with number density confirms 
+that for non-competing anchoring conditions, 
+the principal  effect of confinement is to enhance order in the systems and shift the 
+location of the I-N transition towards lower number densities. 
+Calculating the observables independently in the interfacial and bulk regions
+shows that both regions exhibit a qualitatively but not quantitatively similar behaviour; this
+was not, however, observed in~\cite{ZhouChen03}, where all observables were averaged
+over the full samples, so that different shifts in the bulk and surface I-N 
+transition densities were not monitored. 
+Finally, we have shown that the  behaviour of the film is dependent on the type 
+of anchoring applied; this issue was not addressed in~\cite{ZhouChen03} where only the 
+case of strong planar anchoring was considered.
+
+

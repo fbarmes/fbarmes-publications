@@ -1,0 +1,184 @@
+
+
+\section{The HP model}
+\label{s:HP_model}
+
+In 2001, Berardi \etal developed the first soft, single site model for non-centro\-sym\-metric
+anisotropic particles
+hereafter referred to as the soft pear (SP) model. This model uses a contact distance describing a
+pear shape embedded within a Gay-Berne like potential. This model was taken as a base for the 
+HP model described here. The HP model defines a steric potential $\mathcal{V}^\mrm{HP}$ between 
+two pear-shaped objects whose contact distance is that of the SP model~\cite{BerardiRicci01}
+as~:
+%
+\begin{equation}
+	\mathcal{V}^{HP} = \left\{ 	%}
+	\begin{array}{ccc}
+		0	&\mathrm{if}	&r_{ij} \geq \sigma^{HP}(\ijr) \\
+		\infty	&\mathrm{if}	&r_{ij} < \sigma^{HP}(\ijr) 
+	\end{array}
+	\right.
+\end{equation}
+
+where $\sigma^{HP}(\ijr)$ is the contact distance between two particles $i$ and $j$
+with orientations $\ui$ and $\uj$ and and $\rij =\frac{\vect{r}_{ij}}{r_{ij}}$ 
+where $\vect{r}_{ij}$ is the intermolecular separation. 
+With this model, the contact distance is obtained using a numerical method 
+following the approach of Zewdie~\cite{Zewdie98a,Zewdie98b}. The prototype shape of the particles is
+defined using a set of two B\'ezier curves (Fig~\ref{fig:HP_bezier_k3}). The coordinates of the
+control points of these, $q_{1..6}$, are given in Table~\ref{tble:HP_ctrlPts_k3}.
+
+\picW = 12cm
+\begin{figure}
+	\centering
+	\hspace*{2.5cm}\picL{HP_BzPear.ps}
+	\caption{The B\'ezier curve used for the geometrical definition of the pear shaped of
+	the HP model.}
+	\label{fig:HP_bezier_k3}
+\end{figure}
+
+\begin{table}
+	\centering	
+	\begin{tabular}{||c||c||c||}
+	\hhline{|t:=:t:=:t:=:t|}
+	\hspace*{2mm} $q_i$ \hspace{2mm} &\hspace{2mm} x \hspace{2mm}	&\hspace{2mm} y \hspace{2mm}\\
+	\hhline{|:=::=::=:|}
+	$q_1$	&$-0.5$			&$0$		\\
+	$q_2$	&$-0.5+ h\tan\alpha$	&$h$		\\
+	$q_3$	&$0.5 - h\tan\alpha$	&$h$		\\
+	$q_4$	&$0.5$			&$0$		\\
+	$q_5$	&$-0.5 - h\tan\alpha$	&$-h$		\\
+	$q_6$	&$0.5 + h\tan\alpha$	&$-h$		\\
+	\hhline{|b:=:b:=:b:=:b|}
+	\end{tabular}
+	\caption{Coordinates of the B\'ezier control points for the HP model and $k=3$.}
+	\label{tble:HP_ctrlPts_k3}
+\end{table}
+
+
+Following this a numerical
+contact distance $\mathcal{L}(\ui,\uj,\rij )$ is computed for a given
+set of $\ui, \uj$. This numerical distance is then fitted to a truncated Stone expansion as~:
+\begin{eqnarray}
+	%
+	\sijr   &\simeq&  \mathcal{L}(\ui,\uj,\rij) \nonumber \\
+	        &=& \sum_{L_1,L_2,L_3}\sigma_{L_1, L_2, L_3}S^{*L_1, L_2, L_3}(\ui,\uj,\rij)
+	\label{eqn:Stone_sigma1}
+\end{eqnarray}
+
+where $S^{L_1, L_2, L_3}$ is a Stone function~\cite{Stone}, and the expansion coefficients 
+$\sigma_{L_1, L_2,L_3}$ are given by~:
+\begin{equation}
+	%
+	\sigma_{L_1, L_2, L_3} = \frac
+	{
+	\int \mathcal{L}(\ui,\uj,\rij)S^{L_1, L_2, L_3}
+	(\ui,\uj,\rij)d\ui d\uj d\rij
+	}
+	{
+	\int S^{*L_1, L_2, L_3}(\ui,\uj,\rij)S^{L_1, L_2, L_3}
+	(\ui,\uj,\rij)d\ui d\uj d\rij
+	}
+	\label{eqn:Stone_sigma2}
+\end{equation}
+
+The non-zero coefficients $\sigma_{L_1, L_2, L_3}$ for particles with elongation $k=3$ and \\
+$\{L_1, L_2, L_3\} \leq 6$ are given
+in~\cite{BerardiRicci01}~; the corresponding coefficients for $k=5$ are
+given in Table~\ref{tble:HP_sigma_k5}.\\
+
+\begin{table}
+    \centering
+    \begin{tabular}{||cc||cc||cc||}
+    \hhline{|t:==:t:==:t:==:t|}
+      $[000]$ & $    1.90456 $ & $[011]$ & $    0.51113 $ & $[101]$ & $    0.51113 $  \\
+      $[022]$ & $    2.01467 $ & $[202]$ & $    2.01467 $ & $[033]$ & $   -0.11376 $  \\
+      $[303]$ & $   -0.11376 $ & $[044]$ & $    0.91479 $ & $[404]$ & $    0.91479 $  \\
+      $[055]$ & $   -0.29937 $ & $[505]$ & $   -0.29937 $ & $[066]$ & $    0.41523 $  \\
+      $[606]$ & $    0.41523 $ & $[110]$ & $   -0.03942 $ & $[121]$ & $   -0.45400 $  \\
+      $[211]$ & $   -0.45400 $ & $[123]$ & $    0.59579 $ & $[213]$ & $    0.59579 $  \\
+      $[132]$ & $    0.17137 $ & $[312]$ & $    0.17137 $ & $[143]$ & $   -0.27083 $  \\
+      $[413]$ & $   -0.27083 $ & $[220]$ & $   -0.56137 $ & $[222]$ & $   -2.78379 $ \\
+      $[224]$ & $    2.41676 $ & $[231]$ & $    0.31104 $ & $[321]$ & $    0.31104 $  \\
+      $[233]$ & $    0.45382 $ & $[323]$ & $    0.45382 $ & $[242]$ & $    0.38115 $  \\
+      $[422]$ & $    0.38115 $ & $[244]$ & $   -1.69388 $ & $[424]$ & $   -1.69388 $  \\
+      $[246]$ & $    1.40664 $ & $[426]$ & $    1.40664 $ & $[330]$ & $   -0.07836 $  \\
+      $[440]$ & $   -0.17713 $ & $[442]$ & $   -0.52246 $ &    &   \\
+    \hhline{|b:==:b:==:b:==:b|}
+    \end{tabular}
+    \caption{The non zero $\sigma_{L_1, L_2, L_3}$ coefficients for $k=5$.}
+    \label{tble:HP_sigma_k5}
+\end{table}
+
+
+The original study of the SP model revealed stable nematic and smectic phases and, using an
+appropriate energy parameterisation, the same phases with net polar order were also obtained.
+A reasonable expectation, therefore, is that
+the steric version of this model should exhibit at least a stable nematic phase.
+Such a correlation is found virtually in all soft LC models and their hard-particle equivalent.
+The best example of this is seen on comparing the Gay-Berne~\cite{deMiguelRull91,deMiguelRull91a} 
+and hard Gaussian overlap phase behaviours~\cite{DeMiguelDelRio01}.
+As the former is reduced to its steric equivalent, the smectic phases disappear whereas the 
+nematic-isotropic phase transition not only persists, but remains at virtually the same density.\\
+
+As the HP model can not be reduced to the interaction between a particle and a point, the actual
+shape of the particle and, hence, the accuracy with which this model represents the geometrical
+B\'ezier curve is not available. However, for the two elongation considered in this study, 
+some insight into the potential possible behaviour can be obtained by computation 
+of the contact surfaces between two particles. 
+Such surfaces show the location of the contact point between a particle $i$ located at the origin
+with fixed orientation $\ui$ and a particle $j$ with fixed orientation $\uj$ whose position
+is uniformly distributed on the unit sphere. Example surfaces, for
+parallel particles ($\ui=\uj=\vecth{z}$), anti-parallel particles ($\ui=-\uj=\vecth{z}$) 
+and the T-geometry ($\ui=\vecth{z}$, $\uj=\vecth{x}$), are shown on 
+Figure~\ref{fig:HP_k3_contactSurf}.
+
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[parallel particles]{\pic{HP_3DProf_k3_0.ps}}
+	\subfigure[anti-parallel particles]{\pic{HP_3DProf_k3_PI.ps}}
+	\subfigure[T-geometry, x-z view]{\pic{HP_3DProf_k3_0.5PI.ps}}
+	\subfigure[T-geometry, y-z view]{\pic{HP_3DProf_k3_0.5PI_2.ps}}
+	\caption{Contact surfaces for HP particles with $k=3$.}
+	\label{fig:HP_k3_contactSurf}
+\end{figure}
+
+\picW = 7cm
+\begin{figure}
+	\centering
+	\subfigure[parallel particles]{\pic{HP_3DProf_k5_0.ps}}
+	\subfigure[anti-parallel particles]{\pic{HP_3DProf_k5_PI.ps}}
+	\subfigure[T-geometry, x-z view]{\pic{HP_3DProf_k5_0.5PI.ps}}
+	\subfigure[T-geometry, y-z view]{\pic{HP_3DProf_k5_0.5PI_2.ps}}
+	\caption{Contact surfaces for HP particles with $k=5$.}
+	\label{fig:HP_k5_contactSurf}
+\end{figure}
+
+Generally, these show the expected interaction, but it is evident that several non-convex
+fractures are present; this raises the prospect of possible
+enhanced stability for some
+configurations, specifically for those of interlocking side by side anti-parallel particles. 
+The consequence of  this would be to unduly stabilize 
+these configurations and as a result prevent particles from `sliding' along one another.
+Comparison of these contact surfaces for different elongations reveals different shape and
+convexity behaviours. Thus rather different phase behaviours are to be expected for systems of 
+particles with different elongations.\\
+%
+Problems related to non convexity of contact surfaces have previously been found by
+Williamson and Jackson~\cite{WilliamsonJackson98} in their study of systems of linear hard 
+sphere chains (LHSC). For that model, the authors noticed that the lack of convexity in the  
+the particle-particle interaction surfaces lead to the formation of glassy phases. For the LHSC
+model, this problem
+could be resolved by the inclusion of reptation moves in the Monte Carlo sequence. 
+This, however, is not possible with the single site HP model; the consequence of this is
+addressed in Section~\ref{s:HPresults}.\\
+%
+Also the lack of convexity of the contact surfaces for the HP model would suggest that the HP
+model might display a rather different phase behaviour than that obtained using
+the SP model. This is because the energy minima of the soft tapered model systematically 
+correspond to molecular separations greater than the contact distance and, therefore, the effects
+of non convexity might not have been accessible to the models considered by the Italian group.
+
+
+
