@@ -1,0 +1,523 @@
+\documentclass[aps,10pt,twocolumn]{revtex4}
+%%\documentclass{elsart}
+
+
+%============================================================================
+%       packages
+%============================================================================
+\usepackage[final]{graphics}    % for graphics
+\usepackage[final]{graphicx}    % for graphics
+\usepackage{subfigure}      % allow subfigure
+\usepackage{amssymb}        % font
+\usepackage{amstext}        % ams latex package
+\usepackage{amsmath}        % font
+\usepackage{amsfonts}       % font
+\usepackage{amsbsy}     % font
+\usepackage{hhline}     % nice lines is tables
+\usepackage{xspace}     % add space at the end of macros
+\usepackage{color}
+
+
+%============================================================================
+%       new commands
+%============================================================================
+\newcommand{\remark}[1]{\textbf{\textcolor{red}{#1}}}
+\newcommand{\remove}[1]{}
+\newcommand{\SmATwo}{smectic A\ensuremath{_2}\xspace}
+
+\newcommand{\linespacing}[1]{\renewcommand{\baselinestretch}{#1}\large\normalsize}
+\newcommand{\mrm}[1]{\ensuremath{\mathrm{#1}}}
+\newcommand{\vect}[1]{ \mathbf{#1} }
+\newcommand{\vecth}[1]{ \mathbf{\hat{#1} } }
+
+\newcommand{\gvect}[1]{\forcebold{#1}}
+\newcommand{\gvecth}[1]{\forcebold{\hat{#1}}}
+
+\newcommand{\dotproduct}[2]{\vect{#1} \cdot \vect{#2}   }
+
+
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+
+
+%============================================================================
+%       Contact distance related macros
+%============================================================================
+
+\newcommand{\so}{\sigma_0}
+\newcommand{\sel}{\sigma_\ell}
+
+\newcommand{\rij}{\vecth{r}_{ij}}
+\newcommand{\ui}{\vecth{u}_i}
+\newcommand{\uj}{\vecth{u}_j}
+\newcommand{\sijr}{\sigma(\ui,\uj,\rij)}
+\newcommand{\dotProdP}[2]{ \left( #1 \cdot #2 \right) }
+\newcommand{\dotProd}[2]{ #1 \cdot #2 }
+
+\newcommand{\sir}{\sigma(\ui,\vect{r}_{ij})}
+
+\newcommand{\ijr}{\ui,\uj,\rij}
+\newcommand{\kS}{k_S}
+\newcommand{\kSp}{k_S^{\prime}}
+
+%%\newcommand{\etal}{\emph{et al.}\@\xspace}
+\newcommand{\ie}{\emph{i.e.}\@\xspace}
+\newcommand{\eg}{\emph{e.g.}\@\xspace}
+\newcommand{\etc}{etc.\@\xspace}
+
+
+%============================================================================
+%       Macros - figures
+%============================================================================
+\pagebreak
+\newlength{\picH}   % picture height
+\newlength{\picW}   % picture width
+\newcommand{\picA}{270} % picture angle
+
+\picW = 10cm
+\newcommand{\picB}[1]{\fbox{\includegraphics[width=\picW]{#1}}}
+\newcommand{\picLB}[1]{\fbox{\includegraphics[height=\picW, angle=\picA]{#1}}}
+
+\newcommand{\pic}[1]{\includegraphics[width=\picW]{#1}}
+\newcommand{\picL}[1]{\includegraphics[height=\picW, angle=\picA]{#1}}
+
+
+%%==============================================================================================
+%%==============================================================================================
+%%==============================================================================================
+\begin{document}
+
+\graphicspath
+{
+{../imgs/}
+}
+
+\title{Computer simulation of bistable switching in a \\nematic
+device containing pear-shaped particles.}
+
+\author{F. Barmes}
+\affiliation{Centre Europ\'een de Calcul Atomique et Mol\'eculaire, 46, all\'ee d'Italie, 69007 Lyon, France.}
+
+
+\author{D.J. Cleaver}
+
+\affiliation{Materials and Engineering Research Institute, Sheffield Hallam
+University, Sheffield S1 1WB, United Kingdom.}
+
+
+
+\begin{abstract}
+We study the microscopic basis of bistable switching of a confined liquid crystal via Monte Carlo simulations of
+hard pear-shaped particles. Using both dielectric and dipolar field couplings to this intrinsically flexoelectric
+fluid, it is shown that pulsed fields of opposing polarity can be used to switch between the vertical and hybrid
+aligned states. Further, it is shown that the field-susceptibility of the surface polarisation, rather than the
+bulk flexoelectricity, is the main driver of this switching behaviour.
+\end{abstract}
+
+%%\begin{keyword}
+%% PACS codes here, in the form: \PACS code \sep code
+%%\PACS 61.30.-v \sep 64.70Md \sep 61.30.Cz \sep 68.08.-p
+%%\end{keyword}
+
+
+
+
+
+%%\date{\today}
+
+
+%%\pacs{\\
+%%61.30.-v : liquid crystals\\
+%%64.70Md : transitions in liquid crystals\\
+%%61.30.Cz : molecular and microscopic models and theories of liquid crystals\\
+%%68.08.-p : liquid-solid interfaces}
+
+
+
+
+%%====================================================
+%%  Abstract
+%%====================================================
+
+
+%%====================================================
+%%  Do the title
+%%====================================================
+\maketitle
+
+Flexoelectricity is an effect by which an applied bulk field can induce polar director field gradients in a
+mesophase such as a nematic liquid crystal (LC)~\cite{deGennes}. Essentially, it provides a mechanism by which to
+impose splay and bend distortions of a given polarity on a mesophase which is otherwise centrosymmetric.
+Microscopically, this phase polarisation arises due to a combination of the action of the field on molecular
+dipoles and some steric or electrostatic asymmetry in the molecule-molecule
+interactions~\cite{Meyer69,ProstMarcerou77,MarcerouProst80}. Interest in flexoelectricity, particularly its
+microscopic origins, has been reignited recently due to the development of liquid crystal displays (LCD's) which
+exploit bistable surface anchoring of the nematic phase~\cite{ZBD,PSBD}. Several switching mechanisms have been
+proposed for these devices such as the use of competing dielectric and flexoelectric couplings to the applied
+field~\cite{BarberiGiocondo92}, the inclusion of  electrochiral ions~\cite{BarberiDurand91} or self-assembled
+hydrogen-bonded fibers~\cite{MizoshitaSuzuki05} or, finally, the use of field-induced surface
+defects~\cite{BarberiGiocondo97} whose density can even be used to achieve a grey-scale device.
+
+Following the lead of Barberi and co-workers~\cite{BarberiGiocondo92,BarberiGiocondo97}, Davidson and Mottram
+recently showed that a flexoelectric nematic subject to directional field pulses can execute two-way switching in
+an LC cell with one monostable homeotropic substrate and one bistable planar/homeotropic
+substrate~\cite{DavidsonMottram02}. Specifically, by considering both dielectric and flexoelectric couplings to
+homogeneous applied fields, within an Ericksen-Leslie theory approximation, they identified a narrow parameter
+window for two-way switching between vertical (V) and hybrid aligned nematic (HAN) states.
+
+However, the model used in this study was somewhat simplified when one considers the full range of polar
+contributions present in real systems: the flexoelectric polarisation can itself be resolved into
+director-gradient and order parameter gradient terms (the latter being termed the `order electric' polarisation);
+ion migration effects are known to be significant for the LC mixtures and substrate materials used in prototype
+devices~\cite{Cliff}; and molecular polarisation (or ferroelectric order) in the substrate region is known to be
+present in many confined LC systems~\cite{Jerome:1991.391,Blinov:2001.183}. The simplification associated with
+Davidson and Mottram's approach is echoed in the recent debate on how best to partition between these different
+polar terms when using HAN cells to measure flexoelectric coefficients. For HAN cells subject to applied fields,
+measured director profile distortions are poorly described by director flexoelectricity
+alone~\cite{Mazzulla:2001:021708}; strong cases have been made to compensate for this with either surface
+polarisation~\cite{Mazzulla:2003:023702} or ion-distribution terms~\cite{Barbero:2003:023701}, whereas
+Lattice-Boltzmann simulations indicate significant near-surface order electricity~\cite{Tim}. In practice, then,
+there is evidence to suggest that a combination of all three of these effects commonly operates in concert with
+director flexoelectricity.
+
+Here, we consider the microscopic basis of directional-pulsed-field switching in such systems using Monte Carlo
+simulations of hard pear-shaped particles confined in slab geometry. This particle shape is used since, following
+the original arguments of Meyer~\cite{Meyer69}, its mesophases exhibit splay flexoelectricity. The interparticle
+interactions are implemented using the parametric hard gaussian overlap (PHGO) approach introduced
+in~\cite{BarmesRicci03}; we use the parameterisation with elongation $k=5$ shown, in Ref.~\cite{BarmesRicci03}, to
+possess both nematic and \SmATwo phases, the latter being a bilayer smectic phase with layers formed perpendicular
+to the director. Being based on a purely steric single-site interaction, this is a particularly efficient model
+for use here, though similar behaviour can be expected for any of the generic flexoelectric particle models
+introduced in recent years~\cite{Ricci,Pelcovits,Stelzer}. Investigation of two-way HAN-V switching also requires
+a bistable particle-substrate interaction potential and a particle-field coupling which induces competition
+between the dielectric and flexoelectric terms. The latter is achieved here by taking each pear to interact with
+an applied field through both dielectric and dipolar terms. Thus
+\begin{equation}
+    U_i^\mrm{field} =
+    -\frac{1}{2}\Delta\chi\lp \dotProd{\vect{E}}{\ui} \rp^2
+    - \mu \dotProdP{\vect{E}}{\ui}
+    \label{eqn:field}
+\end{equation}
+where $\Delta\chi$ is the anisotropy in the dielectric susceptibility, $\mu$ is the dipole moment, $\ui$ the
+particle orientation and $\vect{E} = E\vecth{z}$ the applied electric field. Note that electrostatic
+particle-particle interactions are neglected in this study on the basis that, as in Ref.~\cite{Ricci}, they play a
+minor role. Similarly, in all simulated systems, we follow Davidson and Mottram in adopting the common
+approximation that \textbf{E} is constant rather than imposing a fixed voltage drop and calculating $\bf{E}(z)$
+based on instantaneous dielectric profiles and an assumption of constant electric displacement.
+
+Following the approach taken in our previous studies of liquid crystal
+anchoring~\cite{BarmesCleaver04a,BarmesCleaver04b}, the pear-shaped particles do not interact directly with the
+constraining substrates. Instead, particle-substrate interactions are mediated through objects embedded within the
+mesogenic particles (see Fig.~\ref{fig:PSUConfig}). The benefit of this approach is that changing the shapes of
+such embedded objects provides a microscopic mechanism by which to control the orientation (i.e. homeotropic,
+tilted or planar) and nature (monostable or bistable; strong or weak) of the resultant anchoring. Here we use
+centrosymmetric (i.e. ellipsoid-like) HGO particles for the embedded objects, so as to take advantage of the
+strong homeotropic-planar bistability region previously determined for the HGO-planar substrate surface
+potential~\cite{BarmesCleaver04b}. To prevent the HGO particles from protruding outside their host particles, the
+former are shifted along the particle axes (towards the bulky end of each pear) so as to make the endpoints of the
+embedded and host particles coincide (see Fig.~\ref{fig:PSUConfig}). This results in a polar particle-substrate
+interaction, since the points of the pears are left free to penetrate the substrate plane; the extent of this
+allowed penetration and, hence, the relative stability of the homeotropic anchoring state are controlled by $k_S$,
+the length-to-breadth ratio of the embedded object. The particle-substrate interactions are, then, given by
+\begin{equation}
+\label{eqn:Pear-Surface}
+    \mathcal{V}_i^{\rm{Pear-Surface}} = \left\{ %}
+    \begin{array}{ccc}
+        0   &\mathrm{if}    &|z_{\mrm{obj},i} - z_0| \geq \sigma^{\rm{HGO-Surface}}_w    \\
+        \infty  &\mathrm{if}    &|z_{\mrm{obj},i} - z_0| < \sigma^{\rm{HGO-Surface}}_w
+    \end{array}
+    \right.
+\end{equation}
+where $z_0$ defines the substrate plane and $z_{\mrm{obj},i}$ is the $z$-coordinate of the object embedded in pear
+$i$:
+\begin{equation}
+    z_{\mrm{obj},i} = z_i - \frac{\sigma_0}{2}\lp k - k_S\rp\cos\theta_i .
+\end{equation}
+Here $z_i$ and $\theta_i$ are, respectively, the $z$-coordinate and zenithal angle of pear $i$ and $\sigma_0$ sets
+the particle width. $\sigma^{\rm{HGO-Surface}}_w=\so\left[ (1-\chi_S\sin^2\theta)/(1-\chi_S) \right]^{1/2}$ is the
+HGO-surface contact distance~\cite{BarmesCleaver04b} and $\chi_S=(k^2_S-1)/(k^2_S+1)$ is the shape anisotropy of
+the embedded HGO particles. The ratio $k_S/k$ is restricted to the range $[0.4:0.8]$.
+
+\picW = 8cm
+\begin{figure}
+    \centering
+    \pic{fig_01.ps}
+    \caption{Schematic representation of the interaction between a pear shaped particle of elongation $k$
+    and a planar substrate (shown as a horizontal bar). The interaction is mediated by an ellipsoidal HGO particle of elongation $k_S$ embedded
+    in the pear and shifted along the molecular axis to make the ends of the two objects
+    coincident.}
+    \label{fig:PSUConfig}
+\end{figure}
+
+Before HAN-V switching was investigated, the surface anchoring properties of the potential
+Eqn.(\ref{eqn:Pear-Surface}) were characterised by means of preliminary simulations using systems of $N=1000$
+particles confined symmetrically between identical substrates. A slab geometry of height $L_z=4k\sigma_0$ along
+$\vecth{z}$ was used, periodic boundary conditions being applied in the $\vecth{x}$ and $\vecth{y}$ directions.
+The surfaces located at $z=L_z$ and $z=-L_z$ will be subsequently referred to as the top and
+bottom surfaces respectively.\\
+The simulations were performed at constant nematic number density $\rho^{*}=0.15$ and in series of increasing and
+decreasing $k_S$. From these runs, a homeotropic to planar anchoring transition was identified from the behaviour
+of $\overline{Q^{Su}_{zz}}(\rho^{*},k_S/k)$ (see~\cite{BarmesCleaver04a} for a definition), the
+density-profile-weighted average of the order tensor element $Q_{zz}(z)$ in the interfacial regions. These data,
+shown in Fig.~\ref{fig:QzzWa_SH}, indicate a discontinuous transition between the homeotropic and planar states,
+corresponding, respectively, to positive and negative $\overline{Q^{Su}_{zz}}(\rho^{*},k_S/k)$, for $0.64\leq
+k_S/k \leq 0.74$. The hysteresis identified from series of simulations performed with, respectively, increasing
+and decreasing $k_S/k$ suggests a region of bistability which is maximal for $k_S/k=0.7$. Though not apparent from
+the data shown in Fig.~\ref{fig:QzzWa_SH}, the homeotropic state observed here exhibits considerable surface
+polarisation since the interaction potential (\ref{eqn:Pear-Surface}) only allows the points of the pears to
+penetrate the substrate plane.
+%%
+%%
+\picW = 8cm
+\begin{figure}
+    \centering
+    \picL{fig_02.ps}
+    \caption{Behaviour of $\overline{Q^{Su}_{zz}}$ as a function of the reduced embedded object
+    elongation $k_S/k$ for pear shaped PHGO particles in symmetric and hybrid confining
+    geometries. In the case of hybrid anchoring, only the particles near the bistable substrate are
+    considered. $\blacktriangle$ indicate simulations performed in series with increasing $k_S/k$ while
+    $\blacktriangledown$ indicate simulations performed in series with decreasing $k_S/k$.}
+    \label{fig:QzzWa_SH}
+\end{figure}
+%%
+%%
+
+When attempting to transfer this behaviour to a hybrid anchored system, it was found that imposing strong,
+monostable homeotropic anchoring (i.e. small $k_S$) at the top surface resulted in the loss of bistability at the
+bottom surface. This situation is known to prevail in very thin films when one anchoring coefficient is
+significantly larger than the other ~\cite{Cleaver:2001.1,Sarlah} since the dominant surface extrapolation length
+is then able to exceed the film thickness. To recover bistability at the bottom surface, therefore, the slab
+thickness was increased and the top surface anchoring strength reduced (by increasing the $k_S$ value used). As
+shown in Fig.~\ref{fig:QzzWa_SH}, an acceptable degree of bistability was obtained for a double-thickness slab
+(i.e. $L_z=8k\sigma_0$, $N=2000$) with $k_{S}/k=0.6$ and $\sim 0.7$ at the top and bottom surfaces, respectively.
+The use here of different values for $k_S/k$ at the top and bottom surfaces simply results in the particles
+interacting with each substrate in a different way, just as if each substrate had a different surface treatment.
+
+\picW = 6cm
+\begin{figure}
+    \centering
+    \subfigure[]{\picL{fig_03a.ps}}
+    \subfigure[]{\picL{fig_03b.ps}}
+
+    \subfigure[]{\picL{fig_03c.ps}}
+    \subfigure[]{\picL{fig_03d.ps}}
+    \caption{$Q_{zz}(z)$ profiles corresponding to each stage of the two way switching between
+    the HAN to V states using $\mu=2.5$ and $\vect{E}=\pm0.2\vecth{z}$.
+    Subfigures (a) and (b) show the results obtained using
+    $\Delta\chi=-1.0$ while subfigures (c) and (d) show those for $\Delta\chi=+1.0$.
+    The dotted lines show the starting configurations and the dashed lines
+    typical target HAN and V profiles.}
+    \label{fig:QzzSwitch}
+\end{figure}
+%%
+%%
+\picW = 12cm
+\begin{figure}
+    \centering
+    %
+    \pic{fig_04.ps}
+    %
+    \caption{Configuration snapshots illustrating reversible switching of a system with
+    $\vect{E}=\pm0.2\vecth{z}$, $\Delta\chi = -1.0$
+    and $\mu = 2.5$.}
+    \label{fig:fullSwitchSnaps}
+\end{figure}
+
+The two-way switching identified by Davidson and Mottram requires an appropriate balance of the dielectric and
+dipolar field-coupling terms. The dipolar term needs to be sufficiently strong to latch the lower region of the
+cell into a configuration that will equilibrate into the vertical state on removal of the field. However, the
+$E^2$ coupling of the dielectric term dictates that \emph{it} dominates (re-establishing the HAN state) at high
+field values. In initial assessment of HAN to V switching, runs performed with $k_BT=1.0$, $\Delta\chi=-1.0$ and
+$\mu=1.0$, and a range of $E$ values, fields more negative than $E=-0.4$ led to domination by the dielectric term.
+However, a field $E=-0.2$ was found to induce significant but unsaturated deviation of the director profile away
+from its initial state. None of these systems relaxed to the V state on removal of the field, so further runs were
+performed with $E=-0.2$ and gradually increased dipolar coupling strengths $\mu$ in the range [1.0-3.5]. For each
+of these cases, the slab was subjected to consecutive extended runs of $2.5\times 10^5$ sweeps (where one sweep is
+one attempted move per particle) with the field applied and, then, removed. The $Q_{zz}(z)$ profiles obtained
+indicate that the $\mu=2.0$ system exhibited substantial director deviation throughout the bulk region of the cell
+but no switching. For $\mu=2.5$, by contrast (Fig.~\ref{fig:QzzSwitch}(a)), the director deviation was
+concentrated in the lower half of the slab, a configuration which, on removal of the field, successfully switched
+into the vertical state. Configuration snapshots showing the HAN to V switching behaviour of this $\mu=2.5$ system
+are given in Figs.~\ref{fig:fullSwitchSnaps}(a)-(c).
+
+Taking the final configuration from this sequence and then performing a similar sequence with an equal but
+opposite applied field led to the $Q_{zz}(z)$ profiles shown in Fig.~\ref{fig:QzzSwitch}(b). Here, upon
+application of the field, most of the vertically-aligned slab remained undistorted but a narrow region near the
+bottom surface developed features compatible with planar anchoring. Upon removal of the field, this small region
+proved sufficient to seed its planar orientation into the bulk part of the cell, leading to recovery of the HAN
+state. Configuration snapshots illustrating this reverse (V to HAN) switching are given in
+Figs.~\ref{fig:fullSwitchSnaps}(c)-(e). Note that this reverse switching process became less accessible for higher
+dipole couplings due to the consequent reduction in the thickness of the planar surface region. In practice, no
+reverse switching was observed for $\mu > 3.5$.
+
+While our simulations have successfully reproduced the reversible pulse-field-induced switching predicted by
+Davidson and Mottram~\cite{DavidsonMottram02}, the $Q_{zz}(z)$ profiles shown in Fig.~\ref{fig:QzzSwitch} are
+significantly different from those obtained using the director-flexoelectricity-based approach. Specifically, the
+``E on" profile of Fig.~\ref{fig:QzzSwitch}(b) is homeotropically aligned for positive $z$ and has a bend from
+homeotropic-to-planar for negative $z$. In comparison, the corresponding profiles (marked with positive $E$
+values) in Davidson and Mottram's Fig. 5 are largely planar for low $z$ but bent in the high $z$ region. To assess
+this further, we have repeated our simulation procedure for the alternative parameterization $\Delta\chi=1.0$,
+$\mu=2.5$ and $E=\pm 0.2$, \ie the same numerical values but with the opposite sign for the dielectric anisotropy;
+see Figs.~\ref{fig:QzzSwitch}(c-d). Here, we have again observed reversible switching between the HAN and V
+states. However, the $Q_{zz}(z)$ profiles obtained from these positive $\Delta\chi$ switching runs are
+qualitatively identical to those given in Figs.~\ref{fig:QzzSwitch}(a-b), whereas Davidson and Mottram's
+calculations predict a marked dependence on the sign of the dielectric coupling term. These qualitative
+differences raise the possibility that competition between bulk dielectric and flexoelectric couplings is
+\emph{not} the main driver for the reversible switching observed in our simulations.
+
+In seeking to examine this suggestion, we note that the bulk flexoelectric coupling considered by Davidson and
+Mottram is, in their constant $E$ approximation of Ericksen-Leslie theory, equivalent to a \emph{centrosymmetric}
+effective surface term proportional to $\cos(2 \theta)$\cite{DavidsonMottram02}. Closer examination of our
+simulation results, conversely, indicates that the field dependence of the \emph{surface polarisation} plays the
+dominant role. Thus, for $\vect{E}=-0.2\vecth{z}$ (Figs.~\ref{fig:QzzSwitch}(a) and \ref{fig:fullSwitchSnaps}(b))
+the top surface polarisation (and, consequently, anchoring strength) is reduced by the applied field while that at
+the bottom surface shows an even stronger field-susceptibility: the negative applied field leads to a highly polar
+homeotropic surface layer, with the pear points embedded in the substrate. Equivalently, the positive applied
+field destabilises this polar homeotropic state at the bottom substrate, promoting, instead, planar surface
+alignment (Figs.~\ref{fig:QzzSwitch}(b) and \ref{fig:fullSwitchSnaps}(d)). As noted above, the effective surface
+term associated with bulk-region flexoelectricity has no polar component and so cannot have driven all of this
+behaviour. We conclude, therefore, that the switching observed in this system was induced by the combined action
+of the applied field and the particle-substrate interaction to produce a \emph{polar} surface-region anchoring
+field.
+
+Clear temperature susceptibility of the surface polarisation has been observed experimentally for 5CB at both
+planar and homeotropic substrates~\cite{Blinov:2001.183}. While no field-dependence was noted for the surface
+polarisations inferred from isothermal measurements on HAN cells~\cite{Mazzulla:2001:021708}, differences between
+the monostable substrates used in these cells and the weakly-anchored bistable substrate employed in our
+simulations is not unexpected. The dominance of surface polarisation over bulk flexoelectric effects in our
+simulated systems is likely related to the thinness of the film employed; the influence of flexoelectric
+distortions is effectively integrated across a LC film and, so, is inevitably reduced for the film thicknesses
+accessible to molecular simulation (the slab thickness employed here corresponds to approximately 50nm).
+Notwithstanding this proviso, our results demonstrate that surface polarisation and, in particular, its field
+susceptibility, can play a significant role in HAN-V switching through its influence on surface anchoring strength
+and stability. Consequently, such polarisation changes appear able to affect the orientational structure of the
+confined films, as well as providing a mechanism for generating voltage offsets.
+
+%%====================================================
+%%  Bibliography
+%%====================================================
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem{deGennes}
+{P.G. de Gennes}, The Physics of Liquid Crystals, 2nd ed., Clarendon press,
+  1993.
+
+\bibitem{Meyer69}
+{R.B. Meyer}, Piezoelectric effects in liquid crystals, Phys. Rev. Letts. 22
+  (1969) 918.
+
+\bibitem{ProstMarcerou77}
+{J. Prost and J.P. Marcerou}, On the microscopic interpretation of
+  flexoelectricity, J. de Phys. 38 (1977) 315.
+
+\bibitem{MarcerouProst80}
+{J.P. Mearcerou and J. Prost}, The different aspects of flexoelectricity in
+  nematics, Mol. Cryst. Liq. Cryst. 58 (1980) 259.
+
+\bibitem{ZBD}
+{G.P. Bryan-Brown, C.V. Brown, I.C. Sage and V.C. Hui}, {Voltage-dependent
+  anchoring of a nematic liquid crystal on a grating surface}, Nature 392
+  (1998) 365.
+
+\bibitem{PSBD}
+S.~Kitson, A.~Geisow, Controllable alignment of nematic liquid crystals around
+  microscopic posts: Stabilization of multiple states, App. Phys. Letts.
+  80~(19) (2002) 3635--3637.
+
+\bibitem{BarberiGiocondo92}
+R.~Barberi, M.~Giocondo, D.~Durand, Flexoelectrically controlled surface
+  bistable switching in nematic liquid crystals, App. Phys. Letts. 60 (1992)
+  1085.
+
+\bibitem{BarberiDurand91}
+R.~Barberi, D.~Durand, Electrochirally controlled bistable surface switching in
+  nematic liquid crystals, App. Phys. Letts. 58 (1991) 2907.
+
+\bibitem{MizoshitaSuzuki05}
+N.~Mizoshita, Y.~Suzuki, K.~Hanabusa, T.~Kato, Bistable nematic liquid crystals
+  with self-assembled fibers, Adv. Mat. 17 (2005) 692.
+
+\bibitem{BarberiGiocondo97}
+{R. Barberi, M. Giocondo, J. Li, R. Bartolino, I. Dozov and G. Durand}, {Fast
+  bistable nematic display with grey scale}, App. Phys. Letts. 71 (1997) 3495.
+
+\bibitem{DavidsonMottram02}
+{A.J Davidson and N.J. Mottram}, Flexoelectric switching in a bistable nematic
+  device, Phys. Rev. E 65 (2002) 051710.
+
+\bibitem{Cliff}
+J.~C. Jones, S.~Beldon, P.~Brett, M.~Francis, M.~Goulding, Low voltage zenithal
+  bistable devices with wide operating windows, SID 03 (2003) 26.3.
+
+\bibitem{Jerome:1991.391}
+B.~Jerome, Surface effects and anchoring in liquid-crystals, Rep. Prog. Phys.
+  54~(3) (1991) 391.
+
+\bibitem{Blinov:2001.183}
+L.~M. Blinov, M.~I. Barnik, H.~Ohaka, N.~M. Shtykov, K.~Yoshino, {Surface and
+  flexoelectric polarization in a nematic liquid crystal 5CB}, Eur. Phys. J. E
+  4 (2001) 183.
+
+\bibitem{Mazzulla:2001:021708}
+A.~Mazzulla, F.~Ciuchi, J.~R. Sambles, Optical determination of flexoelectric
+  coefficients and surface polarization in a hybrid aligned nematic cell, Phys.
+  Rev. E 64~(2) (2001) 021708.
+
+\bibitem{Mazzulla:2003:023702}
+A.~Mazzulla, F.~Ciuchi, J.~R. Sambles, Reply to "comment on 'optical
+  determination of flexoelectric coefficients and surface polarization in a
+  hybrid aligned nematic cell' ", Phys. Rev. E 68~(2) (2003) 023702.
+
+\bibitem{Barbero:2003:023701}
+G.~Barbero, L.~R. Evangelista, Comment on "optical determination of
+  flexoelectric coefficients and surface polarization in a hybrid aligned
+  nematic cell", Phys. Rev. E 68~(2) (2003) 023701.
+
+\bibitem{Tim}
+T.~J. Spencer, Lattice boltzmann method for q-tensor nemato-dynamics in liquid
+  crystal display devices, Ph.D. thesis, Sheffield Hallam University (April
+  2005).
+
+\bibitem{BarmesRicci03}
+{F. Barmes, M. Ricci, C. Zannoni and D.J. Cleaver }, Computer simulations of
+  pear shaped particles, Phys. Rev. E 68 (2003) 021708.
+
+\bibitem{Ricci}
+R.~Berardi, M.~Ricci, C.~Zannoni, Ferroelectric and structured phases from
+  polar tapered mesogens, Ferroelectrics 309 (2004) 3.
+
+\bibitem{Pelcovits}
+J.~L. Billeter, R.~A. Pelcovits, Molecular shape and flexoelectricity, Liq.
+  Cryst. 27~(9) (2000) 1151--1160.
+
+\bibitem{Stelzer}
+J.~Stelzer, R.~Berardi, C.~Zannoni, Flexoelectric coefficients for model pear
+  shaped molecules from monte carlo simulations, Mol. Cryst. Liq. Cryst. 352
+  (2000) 621--628.
+
+\bibitem{BarmesCleaver04a}
+{F. Barmes and D.J. Cleaver }, {Computer simulations of a liquid crystal
+  anchoring transition}, Phys. Rev. E 69 (2004) 061705.
+
+\bibitem{BarmesCleaver04b}
+{F. Barmes and D.J. Cleaver }, {Using particle shape to induce tilted and
+  bistable liquid crystal anchoring}, Phys. Rev. E 71 (2005) 021705.
+
+\bibitem{Cleaver:2001.1}
+D.~J. Cleaver, P.~I.~C. Teixeira, Discontinuous structural transition in a thin
+  hybrid liquid crystal film, Chem. Phys. Lett. 338 (2001) 1.
+
+\bibitem{Sarlah}
+A.~\v{S}arlah, S.~\v{Z}umer, Equilibrium structures and pretransitional
+  fluctuations in a very thin hybrid nematic film, Phys.\ Rev.\ E 60 (1999)
+  1821.
+
+\end{thebibliography}
+
+\end{document}
+%%==============================================================================================
+%%==============================================================================================
+%%==============================================================================================
