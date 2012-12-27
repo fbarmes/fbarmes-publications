@@ -12,14 +12,10 @@
             latex build
     </description>
 
-	<property name="exec.latex" value="latex">
-	</property>
-	<property name="exec.dvips" value="dvips">
-	</property>
-	<property name="exec.ps2pdf" value="ps2pdf">
-	</property>
-	<property name="exec.xhlatex" value="xhlatex">
-	</property>
+	<property name="exec.latex" value="latex"/>
+	<property name="exec.dvips" value="dvips"/>
+	<property name="exec.ps2pdf" value="ps2pdf"/>
+	<property name="exec.xhlatex" value="xhlatex"/>
 
 	<property name="dir.project.root" value="${basedir}" />
 	<property name="dir.project.src" value="${dir.project.root}/src/" />

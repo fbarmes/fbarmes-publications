@@ -8,32 +8,34 @@
 %===============================================================================================
 \usepackage[final]{graphics}	% for graphics
 \usepackage[final]{graphicx}	% for graphics
-\usepackage{calc}		% allow calculations
-\usepackage{subfigure}		% allow subfigure
-\usepackage{amssymb}		% font
-\usepackage{amstext}		% ams latex package
-\usepackage{amsmath}		% font
-\usepackage{amsfonts}		% font
-\usepackage{amsbsy}		% font
-\usepackage{float}		% figure HERE
-\usepackage{color}		% allow use of color
-\usepackage{fancybox}		% nice boxes
-\usepackage{ifthen}		% implementation of \ifthenelse{}{}
-\usepackage{graphpap}		% to use graphpaper in pictures
-\usepackage{hhline}		% nice lines is tables
-\usepackage{caption2}		% to change the caption font
-\usepackage{xspace}		% add space at the end of macros
+\usepackage{calc}				% allow calculations
+\usepackage{subfigure}			% allow subfigure
+\usepackage{amssymb}			% font
+\usepackage{amstext}			% ams latex package
+\usepackage{amsmath}			% font
+\usepackage{amsfonts}			% font
+\usepackage{amsbsy}				% font
+\usepackage{float}				% figure HERE
+\usepackage{color}				% allow use of color
+\usepackage{fancybox}			% nice boxes
+\usepackage{ifthen}				% implementation of \ifthenelse{}{}
+\usepackage{graphpap}			% to use graphpaper in pictures
+\usepackage{hhline}				% nice lines is tables
+\usepackage{caption2}			% to change the caption font
+\usepackage{xspace}				% add space at the end of macros
 
 %===============================================================================================
 %					MACROS
 %===============================================================================================
-\input{00_front/macro}
-\input{00_front/hyphens}
+\input{src/00-libs/macro}
+\input{src/00-libs/hyphens}
+
+
 %===============================================================================================
 %					FLAGS
 %===============================================================================================
 \renewcommand{\shuThesis}{TRUE}
-\ifthenelse{ \equal{\shuThesis}{TRUE} }{\input{00_front/shuReg}}{\input{00_front/shuReg}}
+\ifthenelse{ \equal{\shuThesis}{TRUE} }{\input{src/00-libs/shuReg}}{\input{src/00-libs/shuReg}}
 
 
 %===============================================================================================
@@ -45,9 +47,6 @@
 %===============================================================================================
 %	Change Caption font
 %===============================================================================================
-%\renewcommand{\captionfont}{\sffamily\mdseries\slshape}
-%\renewcommand{\captionlabelfont}{\sffamily\mdseries\slshape}
-%\renewcommand{\captionlabeldelim}{ :}
 \renewcommand{\captionfont}{\sffamily\slshape}
 \renewcommand{\captionlabelfont}{\sffamily\slshape}
 \renewcommand{\captionlabeldelim}{ :}
@@ -62,73 +61,63 @@
 
 \graphicspath
 {
-{../imgs/CHAP1/}
-{../imgs/CHAP2/}
-{../imgs/CHAP3/}
-{../imgs/CHAP3/HGO/}
-{../imgs/CHAP3/SNAPS/}
-{../imgs/CHAP4/}
-{../imgs/CHAP4/3DPROFS/}
-{../imgs/CHAP4/PHASEDIA/}
-{../imgs/CHAP4/SNAPS/}
-{../imgs/CHAP4/ANALYTIC/}
-{../imgs/CHAP5/}
-{../imgs/CHAP5/SNAPS/}
-{../imgs/CHAP5/ANALYTIC/}
-{../imgs/CHAP5/RSP_RESULTS/}
-{../imgs/CHAP5/RSUP_RESULTS/}
-{../imgs/CHAP5/HYBRID/}
-{../imgs/CHAP5/HYBRID/PROFILES/}
-{../imgs/CHAP5/HYBRID/PHASEDIA/}
-{../imgs/CHAP5/HYBRID/SWITCH/}
-{../imgs/CHAP6/}
-{../imgs/CHAP6/HP/}
-{../imgs/CHAP6/GBP/}
-{../imgs/CHAP7/}
-{../imgs/CHAP7/SYMMETRIC/}
-{../imgs/CHAP7/HYBRID/}
-{../imgs/CHAP7/EASY_SWITCH/}
-{../imgs/CHAP7/HARD_SWITCH/}
-{../imgs/CHAP7/REV_SWITCH/}
+{../imgs/chap1/}
+{../imgs/chap2/}
+{../imgs/chap3/}
+{../imgs/chap3/hgo/}
+{../imgs/chap3/snaps/}
+{../imgs/chap4/}
+{../imgs/chap4/3dprofs/}
+{../imgs/chap4/phasedia/}
+{../imgs/chap4/snaps/}
+{../imgs/chap4/analytic/}
+{../imgs/chap5/}
+{../imgs/chap5/snaps/}
+{../imgs/chap5/analytic/}
+{../imgs/chap5/rsp-results/}
+{../imgs/chap5/rsup-results/}
+{../imgs/chap5/hybrid/}
+{../imgs/chap5/hybrid/profiles/}
+{../imgs/chap5/hybrid/phasedia/}
+{../imgs/chap5/hybrid/switch/}
+{../imgs/chap6/}
+{../imgs/chap6/hp/}
+{../imgs/chap6/gbp/}
+{../imgs/chap7/}
+{../imgs/chap7/symmetric/}
+{../imgs/chap7/hybrid/}
+{../imgs/chap7/easy-switch/}
+{../imgs/chap7/hard-switch/}
+{../imgs/chap7/rev-switch/}
+{../imgs/appendix/}
 }
 \DeclareGraphicsExtensions{.ps}
 \linespacing{1.0}
-%---------------------------
-%	TITLE
-%---------------------------
-\pagestyle{empty}
-\input{00_front/title}
 
-%---------------------------
-%	ABSTRACT
-%---------------------------
+%--- Title
+\pagestyle{empty}
+\input{src/01-front/title}
+
+%--- Abstract
 \newpage
 \linespacing{1.3}
-\input{00_front/abstract}
+\input{src/01-front/abstract}
 \linespacing{1.0}
 
-%---------------------------
+%--- Set style
 \newpage
 \pagestyle{plain}
 \pagenumbering{roman}
 \setcounter{page}{1}
-\ifthenelse{ \equal{\shuThesis}{TRUE} }{\linespacing{1.5}}{}
+\ifthenelse{\equal{\shuThesis}{TRUE}}{\linespacing{1.5}}{}
 
-%---------------------------
-%	ACKNOWLEDGEMENTS
-%---------------------------
-\input{00_front/acks}
-
-%---------------------------
-%	DEDICATIONS
-%---------------------------
+%--- Front misc
+\input{src/01-front/acks}
 \newpage
-\input{00_front/dedication}
-\input{00_front/advStudies}
+\input{src/01-front/dedication}
+\input{src/01-front/advStudies}
 
-%---------------------------
-%	CONTENTS etc...
-%---------------------------
+%--- TOC etc...
 \newpage
 \setcounter{tocdepth}{2}
 \tableofcontents
@@ -138,80 +127,72 @@
 %===============================================================================================
 %					CORE
 %===============================================================================================
+
+%--- Setup
 \newpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-%----------------------------
-%	INTRO
-%----------------------------
+%--- Introduction
 \setcounter{secnumdepth}{-2}
-\input{01_intro/intro}
+\input{src/10-intro/intro}
 \setcounter{secnumdepth}{2}
-%----------------------------
-%	CHAPTER 1
-%----------------------------
+
+%--- Chapter 1
 \setcounter{chapter}{0}
-\input{CHAP1/chap1}
+\input{src/11-chap1/chap1}
 \newpage
-%----------------------------
-%	CHAPTER 2
-%----------------------------
+
+%--- Chapter 2
 \setcounter{chapter}{1}
-\input{CHAP2/chap2}
+\input{src/12-chap2/chap2}
 \newpage
-%----------------------------
-%	CHAPTER 3
-%----------------------------
+
+%--- Chapter 3
 \setcounter{chapter}{2}
-\input{CHAP3/chap3}
+\input{src/13-chap3/chap3}
 \newpage
-%----------------------------
-%	CHAPTER 4
-%----------------------------
+
+%--- Chapter 4
 \setcounter{chapter}{3}
-\input{CHAP4/chap4}
+\input{src/14-chap4/chap4}
 \newpage
-%----------------------------
-%	CHAPTER 5
-%----------------------------
+
+%--- Chapter 5
 \setcounter{chapter}{4}
-\input{CHAP5/chap5}
+\input{src/15-chap5/chap5}
 \newpage
-%----------------------------
-%	CHAPTER 6
-%----------------------------
+
+%--- Chapter 6
 \setcounter{chapter}{5}
-\input{CHAP6/chap6}
+\input{src/16-chap6/chap6}
 \newpage
-%----------------------------
-%	CHAPTER 7
-%----------------------------
+
+%--- Chapter 7
 \setcounter{chapter}{6}
-\input{CHAP7/chap7}
+\input{src/17-chap7/chap7}
 \newpage
-%----------------------------
-%	CONCLUSION
-%----------------------------
+
+%--- conclusion
 \setcounter{secnumdepth}{-2}
-\input{CCL/ccl}
+\input{src/18-ccl/ccl}
 \setcounter{secnumdepth}{2}
 
 %===============================================================================================
 %					APPENDIX
 %===============================================================================================
 \appendix
-\input{APPENDIX/listOfSymbols}
-\input{APPENDIX/typicalSnaps}
+\input{src/21-appendix/listOfSymbols}
+\input{src/21-appendix/typicalSnaps}
+\input{src/21-appendix/ellipsoidAdsorbedVolume}
+\input{src/21-appendix/elecInt}
 
-\input{APPENDIX/ellipsoidAdsorbedVolume}
-\input{APPENDIX/elecInt}
 %===============================================================================================
-%					END
+%					Bibliography
 %===============================================================================================
 \linespacing{1.0}
 \bibliographystyle{unsrt}
-\bibliography{REFS/thesisPapers,REFS/thesisBooks}
+\bibliography{src/31-references/thesisPapers,src/31-references/thesisBooks}
 
 
 
